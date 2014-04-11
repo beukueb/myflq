@@ -18,9 +18,13 @@ EOF
 python3 /myflq/MyFLdb.py --install admin -p 'passall'
 
 #Start wrapper py
-python3 /myflq/myflq_wrapper.py $@ #passes any arguments that come from run contqiner
+python3 /myflq/myflq_wrapper.py $@ #passes any arguments that come from run container
+exitValueMainProgram=$?
 
 #For debug
 #echo $1 > /tmp/testargs
 #echo $@
-bash
+#bash #Be sure to comment this out for published version
+
+#Has to remain last command
+exit $exitValueMainProgram
