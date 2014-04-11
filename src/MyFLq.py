@@ -14,7 +14,7 @@
 # 
 # Table: Relevant MyFLq functions. In order of appearance in the source file
 # --------------------------------------------------------------------------
-#                   Alignment | Performs a global alignment according to the Needleman-Wunsch algorithm [‘REF’], 
+#                   Alignment | Performs a global alignment according to the Needleman-Wunsch algorithm, 
 #                             | favoring stutter gaps of a certain repeat size for STR loci
 #                   makeEntry | Adds a sequence to the MySQL database with validation info, such as allele name or number.
 #            processLociNames | Processes the database table with validated allele sequences, determining primers 
@@ -527,7 +527,7 @@ def makeEntries(csvFilename):
     
     The allelesequence has to contain the primer sequences as known to the database (it can also be longer)
     ============format-csv=====================
-    Locus,AlleleValidation,AlleleSequence
+    #Locus,AlleleValidation,AlleleSequence
     FGA,13,GGCTGCAGGGCATAACATTA...
     Amelogenin,X,CCCTGGGCTCTGTAAAGAA...
     FGA,GGCTGCAGGGCATAACATTA...
@@ -535,7 +535,7 @@ def makeEntries(csvFilename):
     For a full working example, see the documentation file: alleles_example.csv
     """
     for line in open(csvFilename):
-        if line.startswith('Locus,'): continue
+        if line.strip.startswith('#'): continue
         try: locusName,validatedInfo,sequence = line.strip().split(',')
         except ValueError:
             locusName,sequence = line.strip().split(',')
@@ -1481,7 +1481,7 @@ class Locus:
         -------
         csv -> e.g. file.csv. LocusType => either int for STR number, or SNP if non-STR locus
         ===================================================
-        Locus,LocusType,ForwardPrimer,ReversePrimer
+        #Locus,LocusType,ForwardPrimer,ReversePrimer
         FGA,4,GGCTGCAGGGCATAACATTA,ATTCTATGACTTTGCGCTTCAGGA
         Amelogenin,SNP,CCCTGGGCTCTGTAAAGAA,ATCAGAGCTTAAACTGGGAAGCTG
         PentaD,5,GAAGGTCGAAGCTGAAGTG,ATTAGAATTCTTTAATCTGGACACAAG
@@ -1489,7 +1489,7 @@ class Locus:
         locusDict={}
         if inputType and inputType[0] == 'csv':
             for line in open(inputType[1]):
-                if line.startswith('Locus,ForwardPrimer,LocusType,ReversePrimer'): continue
+                if line.strip().startswith('#'): continue
                 line=line.strip()
                 locus,locusType,primerF,primerR=line.split(',')
                 try: locusType = int(locusType)

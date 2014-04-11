@@ -94,7 +94,7 @@ if python2:
     input = raw_input
 
 #Database functions
-def login(user="root",passwd="DI85UUR20",database='MyFLqADMIN', test=False): #Passwd and profiler depend on how you set up MySQL
+def login(user="root",passwd="passall",database='MyFLqADMIN', test=False): #Passwd and profiler depend on how you set up MySQL
     """
     Returns the formed connection with the db using variablenames: conn, sql
     If test: just tests the connection, and closes it again returning None. 
