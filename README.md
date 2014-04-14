@@ -12,7 +12,7 @@ When custom loci.csv and alleles.csv are required, one can submit them on [MyFLh
 
 If you do not want those files to be public, at this point, the only other option is, after installing [Docker](https://www.docker.io/), to pull and start the MyFLq container on your server with the following command:
 
-    sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint /myflq/webapp beukueb/myflq
+    sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
 
 If you want the webapp to run on another port than the standard webport 80, change that in the commandline.
 

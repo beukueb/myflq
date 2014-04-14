@@ -59,10 +59,16 @@ ADD src/ /myflq
 #ADD ./loci /myflq/loci/
 #ADD ./alleles /myflq/alleles/
 
+#Programs
+##Main entry for basebase
 ENTRYPOINT ["/myflq/basespace/myflq_wrapper.sh"]
 #Wih this entrypoint configuration, you can run the container as a program
 #All extra parameters to docker run will be passed as arguments to the entry
 #This does not work with: ENTRYPOINT /myflq/basespace/myflq_wrapper.sh
+
+##Easy links for other container contexts
+RUN ln -s /myflq/MyFLsite/startApp.sh /bin/webapp && \
+    ln -s /myflq/basespace/myflq_wrapper.sh /bin/basespace
 
 # USER myflquser #if program needs to run as specific user
 
