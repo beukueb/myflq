@@ -1,0 +1,98 @@
+/*General*/
+* {
+	display: block;
+	margin-left: 20px;
+}
+
+results {
+	padding-top: 20px;
+}
+
+results:before {
+	content: "Results (threshold: " attr(thresholdUsed) ")";
+	font-size: xx-large;
+}
+
+/*Locus*/
+locus {
+	padding-top: 10px;
+	color: blue;
+	font-weight: bold;
+}
+
+locus:before {
+	content: attr(name) ": total => reads = " attr(reads) ", uniques = " attr(uniqueReads) "; filtered => reads = " attr(readsFiltered) ", uniques = " attr(uniqueFiltered);
+} 
+
+results[no-cluster-info] locus:active  qualityFlanks {
+	color: transparent;
+}
+
+results[no-cluster-info] locus:active  alleleCandidate {
+	color: transparent;
+}
+
+results[no-cluster-info] locus:active  regionOfInterest {
+	color: red;
+}
+
+/*Allele*/
+alleleCandidate {
+	color: black;
+}
+
+alleleCandidate:before {
+	content: "Abundance: " attr(abundance) ", strand-distrib: " attr(direction-distrib) ", db-name: " attr(db-name) attr(db-subtype);
+}
+
+alleleCandidate[expected]:before {
+	content: "Abundance: " attr(abundance) ", theoretical abundance: " attr(expected) ", strand-distrib: " attr(direction-distrib) ", db-name: " attr(db-name) attr(db-subtype);
+}
+
+/*Region of interest*/
+regionOfInterest {
+	font-family: monospace;
+	font-weight: normal;
+}
+
+/*Quality of flanks*/
+qualityFlanks {
+	font-weight: normal;
+}
+
+qualityFlanks:before {
+	content: "#Flank scores: clean = " attr(clean) ", unclean = " attr(unclean) ", compressed-clean = " attr(clean_compressed);
+}
+
+/*Cluster-info*/
+cluster-info {
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+
+cluster-info:before {
+    content: "#Cluster-info: index = " attr(index) "; orders = " attr(orders) "; connections = " attr(connections);
+}
+
+cluster-info:active {
+    color: maroon;
+}
+
+cluster-info[remark]:before {
+    content: "#Cluster-info: no info (too many sequences)";
+}
+
+cluster-info:active differences:before {
+    display: inline;
+    content: "order " attr(amount) ": ";
+    font-weight:bold;
+}
+
+cluster-info:active rel:before {
+    display: inline;
+    content: " => " attr(index);
+}
+
+lociDatabaseState {
+    display: none;
+}

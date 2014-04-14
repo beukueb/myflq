@@ -1,0 +1,14 @@
+{% extends "base_con2col.html" %}
+
+{% block title %}Contact MyFLsite{% endblock %}
+
+{% block contentmain %}
+    <h1>Contact us</h1>
+    <form action="." method="POST">
+      {% csrf_token %}
+      <table>
+	{{ form.as_table }}
+      </table>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+{% endblock %}

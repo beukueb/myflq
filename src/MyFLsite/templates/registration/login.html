@@ -1,0 +1,18 @@
+<div id="logform">
+{% if form.errors %}
+<p class="error">Sorry, that's not a valid username or password</p>
+{% endif %}
+
+{# normally action should be '.' for security #}
+<form action='/accounts/login/' method='post'>
+  {% csrf_token %}
+  <label for="username">User name:</label>
+  <input type="text" name="username" value="" id="username" size="15">
+  <label for="password">Password:</label>
+  <input type="password" name="password" value="" id="password" size="15">
+
+  <input type="submit" value="login" /> (<a href="/register">register</a>)
+  <input type="hidden" name="next" value="{{ next|escape }}" />
+</form>
+
+</div>

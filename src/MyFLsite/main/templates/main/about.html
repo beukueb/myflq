@@ -1,0 +1,16 @@
+{% extends "base_con2col.html" %}
+
+{% block contentmain %}
+<h1>About</h1>
+<p>
+We present our bioinformatic application My-Forensic-Loci-queries (MyFLq)
+for analysis of MPS forensic data. For allele calling, the underlying framework uses a MySQL reference allele database with automatically determined regions of interest (ROIs) by a generic maximal flanking algorithm which makes it possible to use any STR or SNP forensic locus. Python scripts were designed to automatically make allele calls starting from raw MPS data.<br />
+We are also implementing a method to asses the usefulness and overall performance of a forensic locus with respect to MPS, as well as methods to estimate whether an unknown allele, which sequence is not present in the MySQL database, is in fact a new allele or a sequencing error.<br />
+</p>
+
+<h2>Funding</h2>
+<p>
+Funding was provided by the Ghent University Multidisciplinary Research Partnership ‘Bioinformatics: from nucleotides to networks’.
+</p>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base_con2col.html" %}
+{% load staticfiles %}
+
+{% block contentmain %}
+<h1> Welcome </h1>
+<p>Forensic scientists are currently investigating how to transition from <em>capillary electrophoresis</em> (CE) to <em>massive parallel sequencing</em> (MPS) for analysis of forensic DNA profiles. MPS offers several advantages over CE such as virtually unlimited multiplexy of loci, combining both <em>short tandem repeat</em> (STR) and <em>single nucleotide polymorphism</em> (SNP) loci, small amplicons without constraints of size separation, more discrimination power, deep mixture resolution and sample multiplexing.</p>
+<p><em>MyFLq</em> (pronounced: /maɪ ˌɛfɛlkjuːˈ/ or /mɪflˈkju/) aims to bridge the gap between both technologies. Current CE DNA databanks only register length of loci. MPS technologies and software need to be backwards compatible with these databanks. With MyFLq you can generate DNA profiles based on MPS FASTQ files, that result in profiles useful for searches in CE DNA databanks.
+</p>
+
+<p>To use the online MyFLq application, login (or register first <a href="/register">here</a>) and follow the instructions. </p>
+<p>You can also download the <a href="/source-files">source files</a>, and install it for local use.</p>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{# Extends base.html to provide a 2 column content block #}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div id="contentmain">
+{% block contentmain %}
+{# here comes the main content #}
+{% endblock %}
+</div>
+
+<div id="contentwidgets">
+  {% for widget in widgets %}
+   {% if widget.img %}
+    <img src="{% static widget.img %}" width="250" style="{{ widget.style }}">
+    {% if widget.caption %}
+     {{ widget.caption }}
+    {% endif %}
+   {% endif %}
+  {% endfor %}
+</div>
+
+{% endblock %}

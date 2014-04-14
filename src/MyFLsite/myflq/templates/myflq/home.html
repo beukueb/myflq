@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}MyFLq app{% endblock %}
+
+{% block content %}
+<h1> MyFLq </h1>
+<h2>Workflow</h2>
+<ol>
+  <li>
+    Configure general (loci/alleles) specifications in <a href="/myflq/setup">Setup</a>
+    <ul>
+      <li>Make a database if the analysis needs different loci settings from previous analyses</li>
+      <li>Add the primers either manually or by uploading a file in the correct format</li>
+      <li>Add the allele databank for the analysis by uploading a file in the correct format</li>
+      <li>Commit the settings for the database you want to use</li>
+    </ul>
+  </li>
+  <li>
+    Choose a file to analyze and appropriate parameters in <a href="/myflq/analysis">Analysis</a>
+    <ul>
+      <li>After submitting the analysis request, it will show its progress state</li>
+    </ul>
+  </li>
+  <li>
+    Retrieve the outcome in  <a href="/myflq/results">Results</a>
+    <ul>
+      <li>Select the analysis for which you want to visualize results</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>Help</h2>
+For extensive help and a step-by-step tutorial, follow the link <a href="/myflq/help/">here</a>.<br />
+The menu bar help, will pop up a new window.<br />
+Use it during your workflow to not interrupt it.
+{% endblock %}

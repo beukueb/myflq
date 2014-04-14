@@ -81,10 +81,11 @@ if str(inform['randomSubset']['Content']) == '100':
     command.pop(command.index('--randomSubset')+1)
     command.pop(command.index('--randomSubset'))
 print('Start processing with command: '+' '.join(command))
-try: subprocess.check_call(command)
-except subprocess.CalledProcessError: print('''Something went wrong with MyFLq.
-          Please send the above information bag to us,
-          or share this project with us, so we can debug it.''')
+#try: 
+subprocess.check_call(command)
+#except subprocess.CalledProcessError: print('''Something went wrong with MyFLq.
+#          Please send the above information bag to us,
+#          or share this project with us, so we can debug it.''')
 
 #Transform xml to html
 subprocess.check_call(' '.join(['saxonb-xslt',

@@ -1,0 +1,2 @@
+Put in this directory images referenced in the css.
+This allows using relative links in the css, 'images/...'

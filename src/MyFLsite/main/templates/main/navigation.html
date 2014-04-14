@@ -1,0 +1,18 @@
+{# default for block navigation #}
+
+<ul>
+    <li><a href="/">Home</a></li>
+    {% if not myflq %}
+    {% if user.is_authenticated %} <li><a href="/myflq">MyFLq</a></li> {% endif %}
+    <li><a href="/source-files">Sources</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/about">About</a></li>
+    {% else %}
+    <li><a href="/myflq">Start</a></li>
+    <li><a href="/myflq/setup">Setup</a></li>
+    <li><a href="/myflq/analysis">Analysis</a></li>
+    <li><a href="/myflq/results">Results</a></li>
+    <li><a href="/myflq/help" target="_blank">Help</a></li>
+    {% endif %}
+</ul>
+

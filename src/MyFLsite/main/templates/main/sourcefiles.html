@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h1>MyFLq source files</h1>
+<h2>Webapp and commandline program</h2>
+<p>
+  <a href={% static 'sources/MyFLqApp.tar.gz' %}>MyFLqApp.tar.gz</a>
+</p>
+<p>The archive contains all files to run this appication locally. In the top directory are the commandline programs that are also used by the web app. To run the web app, be sure to install the dependencies mentioned in the README.</p>
+
+<h2>Articles</h2>
+<p>
+<table>
+<tr><td>
+MyFLq paper: </td><td><a href="http://dx.doi.org/10.1016/j.fsigen.2013.10.012">http://dx.doi.org/10.1016/j.fsigen.2013.10.012</a></td></tr>
+<tr><td>
+Pre-MyFLq STR paper: </td><td><a href="http://dx.doi.org/10.1016/j.fsigen.2012.03.004">http://dx.doi.org/10.1016/j.fsigen.2012.03.004</a></td></tr>
+</table>
+</p>
+
+<h2>Example files</h2>
+<p>
+<table>
+<tr><td width="100">
+<a href="{% static 'sources/example_primers.csv' %}">Primers</a></td><td>
+This file contains the primers for 16 commonly used loci. If you require the same set you can use it without altering, otherwise it can serve as an example of how the file should look.</td></tr>
+<tr><td width="100">
+    <a href="{% static 'sources/example_alleles.csv' %}">Alleles</a></td><td>
+This file contains the alleles that were present in the individuals of the samples used for the MyFLq paper. It can serve as an example to build your own allele databank file for use with MyFLq.</tr></td>
+</table>
+</p>
+
+{% endblock %}

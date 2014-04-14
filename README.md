@@ -10,8 +10,11 @@ The datafile can be a single-individual-source or multiple-individual-source sam
 ##Custom loci.csv and alleles.csv
 When custom loci.csv and alleles.csv are required, one can submit them on [MyFLhub](https://github.com/beukueb/myflq) (MyFLq repo on Github) with a pull request (ask a bioinformatician to help if you don't know how). The program will then be rebuild, and your files will be available to select within 24 hours.
 
-If you do not want those files to be public, at this point, the only other option is to pull the MyFLq to your server with [Docker](https://www.docker.io/), afterwhich you can start it up, with the following command:
-    sudo docker run beukueb/myflq localWebApp.sh
+If you do not want those files to be public, at this point, the only other option is, after installing [Docker](https://www.docker.io/), to pull and start the MyFLq container on your server with the following command:
+
+    sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint /myflq/webapp beukueb/myflq
+
+If you want the webapp to run on another port than the standard webport 80, change that in the commandline.
 
 MyFLq will then run as a local web application on the indicated port. For more information on this see [MyFLhub](https://github.com/beukueb/myflq)
 

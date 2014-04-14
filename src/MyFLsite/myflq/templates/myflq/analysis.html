@@ -1,0 +1,111 @@
+{% extends "base_ajax.html" %}
+
+{% block extrahead %}
+{{  block.super }} {# block.super loads jquery #}
+<script>
+function refreshProgress(){
+    $.getJSON('.',function(data) {
+        var pks_present = [];
+        $.each(data, function(entryIndex,entry) {
+            //console.log(entry.pk+' '+entry.fields.progress);
+            pks_present.push(entry.pk)
+            if ($('td.progress#'+entry.pk).html() != entry.fields.progress)
+                $('td.progress#'+entry.pk).html(entry.fields.progress)
+        });
+        //console.log(pks_present)
+        $('td.progress').filter(function() {return (pks_present.indexOf(Number(this.id)) == -1)}).parent().hide()
+    })
+}
+$(document).ready(function() {setInterval("refreshProgress();", 30000)}) //checks every half minute
+</script>
+{% endblock %}
+
+{% block content %}
+<h1> Analysis </h1>
+
+<h2> Submit analysis request </h2>
+    <form action='.' enctype="multipart/form-data" method='post'>
+        {% csrf_token %}
+        {{ analysisform.management_form }}
+        {{ analysisform.errors }}
+        {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}        
+        
+        <table>
+        <tr><td><label for="{{ analysisform.dbname.id_for_label }}">{{ analysisform.dbname.label }}</label></td>
+        <td>{{ analysisform.dbname }}</td></tr>
+        
+        <tr><td><label class="helponhover" for="{{ analysisform.fastq.id_for_label }}">{{ analysisform.fastq.label }}</label>
+	    <span class="helptext">{{ analysisform.fastq.help_text }}</span>
+	  </td>
+        <td>{{ analysisform.fastq }}</td></tr>
+        <tr><td>Or previously uploaded file: </td>	
+<td>{{ analysisform.prevUploadedFiles }}</td></tr>
+        </table>
+        
+        <div style="float:left;">
+            <h3>General</h3>
+            <table>
+            <tr><td><label class="helponhover" for="{{ analysisform.negativeReadsFilter.id_for_label }}">{{ analysisform.negativeReadsFilter.label }}</label>
+ <span class="helptext">{{ analysisform.negativeReadsFilter.help_text }}</span>
+ </td>
+            <td>{{ analysisform.negativeReadsFilter }}</td></tr>
+            <tr><td><label class="helponhover" for="{{ analysisform.clusterInfo.id_for_label }}">{{ analysisform.clusterInfo.label }}</label>
+  <span class="helptext">{{ analysisform.clusterInfo.help_text }}</span></td>
+            <td>{{ analysisform.clusterInfo }}</td></tr>
+            <tr><td><label class="helponhover" for="{{ analysisform.threshold.id_for_label }}">{{ analysisform.threshold.label }}</label>
+ <span class="helptext">{{ analysisform.threshold.help_text }}</span></td>
+            <td>{{ analysisform.threshold }}</td></tr>
+            <tr><td><label class="helponhover" for="{{ analysisform.randomSubset.id_for_label }}">{{ analysisform.randomSubset.label }}</label>
+ <span class="helptext">{{ analysisform.randomSubset.help_text }}</span></td>
+            <td>{{ analysisform.randomSubset }}</td></tr>            
+            </table>
+        </div>
+        
+        <div style="float:left;margin-left:20px;">
+            <h3>Alignment</h3>
+            <table>
+            <tr><td><label class="helponhover" for="{{ analysisform.primerBuffer.id_for_label }}">{{ analysisform.primerBuffer.label }}</label>
+ <span class="helptext">{{ analysisform.primerBuffer.help_text }}</span></td>
+            <td>{{ analysisform.primerBuffer }}</td></tr>
+            <tr><td><label class="helponhover" for="{{ analysisform.stutterBuffer.id_for_label }}">{{ analysisform.stutterBuffer.label }}</label>
+ <span class="helptext">{{ analysisform.stutterBuffer.help_text }}</span></td>
+            <td>{{ analysisform.stutterBuffer }}</td></tr>
+            <tr><td><label class="helponhover" for="{{ analysisform.flankOut.id_for_label }}">{{ analysisform.flankOut.label }}</label>
+ <span class="helptext">{{ analysisform.flankOut.help_text }}</span></td>
+            <td>{{ analysisform.flankOut }}</td></tr>
+            <tr><td><label class="helponhover" for="{{ analysisform.useCompress.id_for_label }}">{{ analysisform.useCompress.label }}</label>
+ <span class="helptext">{{ analysisform.useCompress.help_text }}</span></td>
+            <td>{{ analysisform.useCompress }}</td></tr>            
+            <tr><td><label class="helponhover" for="{{ analysisform.withAlignment.id_for_label }}">{{ analysisform.withAlignment.label }}</label>
+ <span class="helptext">{{ analysisform.withAlignment.help_text }}</span></td>
+            <td>{{ analysisform.withAlignment }}</td></tr> 
+            </table>
+        </div>
+        
+        <div style="clear:both;">
+            <input type="hidden" name="submitaction" value="analysisform" />
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+
+<hr />
+
+<h2>Progress</h2>
+
+{% if processes %}
+<table border="1">
+<tr><td></td><td>Dbname</td><td>Filename</td><td>Status</td></tr>
+{% for process in processes %}
+<tr><td>{{ forloop.counter }}</td><td>{{ process.dbname }}</td><td>{{ process.originalFilename }}</td><td class='progress' id='{{  process.pk }}'>{{ process.get_progress_display }}</td></tr>
+{% endfor %}
+</table>
+
+{% else %}
+<p>Currently, no analysis running.
+{% endif %}
+
+{% endblock %}
+
+
+
+

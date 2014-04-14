@@ -1,0 +1,85 @@
+{% extends "base_ajax.html" %}
+
+{% block content %}
+<h1> Setup loci and alleles </h1>
+<h2> Database setup </h2>
+
+<p>Databases in use: </p>
+<table>
+    {% for database in userdbs %}
+    <tr>
+        <form action='.' method='post'>
+            {% csrf_token %}
+            <input type="hidden" name="submitaction" value="deletedb" />
+            <input type="hidden" name="dbname" value="{{ database.dbname }}" />
+            <td>{{ database.dbname }}</td>
+            <td><input type="submit" value="Delete" name="deletedb" /></td>
+        </form>
+    </td></tr>
+    {% endfor %}
+</table><br />
+
+<p>Create database:</p>
+    <form action='.' method='post'>
+        {% csrf_token %}
+        <label for="dbname">Database name:</label>
+        <input type="text" name="dbname" value="" id="dbname">
+        <input type="hidden" name="submitaction" value="createdb" />
+        <input type="submit" value="Create db" />
+    </form>
+
+<hr />
+
+<h2> Primers setup </h2>
+    <form action='.' enctype="multipart/form-data" method='post'>
+        {% csrf_token %}
+        {{ primerfileform }}
+        <input type="hidden" name="submitaction" value="addlocifile" />
+        <input type="submit" value="Upload" />
+    </form>
+    <br />
+    
+    <button type="button" id="primerbutton">Manual primer input</button>
+    <div id="primers" style="display:none;font-size:smaller;">
+    <form action='.' method='post'>
+        <style type="text/css" scoped> form li {display:inline;} </style>
+        {% csrf_token %}
+        {{ primerset.management_form }}
+        {% for pform in primerset %} {{ pform.as_ul }} <br /> {% endfor %}
+        
+        <input type="hidden" name="submitaction" value="addlocus" />
+        <input type="submit" value="Update loci" />
+    </form>
+    </div>
+    <script>
+      $("#primerbutton").click(function(){$("#primers").toggle()})
+    </script>
+
+<hr />
+
+<h2> Adding alleles </h2>
+    <form action='.' enctype="multipart/form-data" method='post'>
+        {% csrf_token %}
+        {{ allelefileform }}
+        <input type="hidden" name="submitaction" value="addallelesfile" />
+        <input type="submit" value="Upload" />
+    </form>
+
+<hr />
+
+<h2> Commit settings </h2>
+By selecting a database and pressing Commit, the above settings for that database are applied to the MyFLq application.
+After commiting settings to a database, that database can be used for analysis.
+    <form action='.' method='post'>
+        {% csrf_token %}
+        {{ databaseselectionform }}
+        <input type="hidden" name="submitaction" value="commitdb" />
+        <input type="submit" value="Commit" />
+    </form>
+{% endblock %}
+
+
+
+
+
+

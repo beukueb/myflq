@@ -535,7 +535,7 @@ def makeEntries(csvFilename):
     For a full working example, see the documentation file: alleles_example.csv
     """
     for line in open(csvFilename):
-        if line.strip.startswith('#'): continue
+        if line.strip().startswith('#'): continue
         try: locusName,validatedInfo,sequence = line.strip().split(',')
         except ValueError:
             locusName,sequence = line.strip().split(',')
@@ -2347,6 +2347,11 @@ if __name__ == '__main__':
         #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
         kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]}
         analysis = Analysis(kitName=args.kit,**kwargs)
+        if not sum({len(analysis.loci[locus].uniqueAbundances) for locus in analysis.loci}):
+            raise Exception('''There does't seem to be any valid reads in your fastq.
+                               Either your fastq sample is not a forensic sample, or you may need to
+                               choose a different loci.csv and alleles.csv file.
+                            ''')
         if args.report:
             if type(args.report) == bool: analysis.makeReport()
             else: analysis.makeReport(fileName=args.report, stylesheet=args.stylesheet)

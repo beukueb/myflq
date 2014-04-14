@@ -10,7 +10,7 @@ RUN apt-get update
 RUN apt-get install -y supervisor #managing container services
 RUN apt-get -y install mg
 RUN apt-get -y install python3 python3-setuptools
-RUN easy_install3 pip
+#RUN easy_install3 pip
 RUN apt-get install -y git libmysqlclient-dev python3-dev
 RUN apt-get install -y ipython3 python3-numpy
 RUN easy_install3 pymysql
@@ -29,11 +29,19 @@ RUN apt-get install -y mysql-server
 #RUN /usr/sbin/mysqld &
 EXPOSE 3306
 
+#MyFLsite dependencies
+RUN easy_install3 django celery Pillow
+RUN apt-get install -y rabbitmq-server
+RUN cd /tmp && git clone https://github.com/clelland/MySQL-for-Python-3.git && \
+    cd MySQL-for-Python-3/ && \
+    python3 setup.py build && \
+    python3 setup.py install
+
 #Supervisor config
 RUN mkdir -p /var/log/supervisor
 ADD ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-#Saxon
+#Saxon (after this section you cannot use apt-get install any more due to dependencies issues from dpkg strategy)
 RUN apt-get install -y libsaxonb-java
 RUN mkdir /tmp/saxon && cd /tmp/saxon && apt-get download openjdk-7-jre-headless openjdk-7-jre && dpkg --force-all -i /tmp/saxon/* && rm /tmp/saxon/* && rmdir /tmp/saxon
 
@@ -51,10 +59,12 @@ ADD src/ /myflq
 #ADD ./loci /myflq/loci/
 #ADD ./alleles /myflq/alleles/
 
-ENTRYPOINT ["/myflq/myflq_wrapper.sh"]
+ENTRYPOINT ["/myflq/basespace/myflq_wrapper.sh"]
 #Wih this entrypoint configuration, you can run the container as a program
 #All extra parameters to docker run will be passed as arguments to the entry
-#This does not work with: ENTRYPOINT /myflq/myflq_wrapper.sh
+#This does not work with: ENTRYPOINT /myflq/basespace/myflq_wrapper.sh
 
 # USER myflquser #if program needs to run as specific user
-# EXPOSE 11211 #expose this port to the container
+
+#Expose the standard django runserver port to the container
+EXPOSE 8000
