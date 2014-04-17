@@ -14,12 +14,25 @@ appsession = json.load(open('/data/input/AppSession.json'))
 inform = {item['Name'][6:]:item for item in appsession['Properties']['Items'] if not 'Output' in item['Name']}
 
 #Prepping MyFLdb #todo# => implement for files given by user
-if 'select-loci' in inform:
-    lociFile = '/myflq/loci/'+lociOptions[int(inform['select-loci']['Content'])]
-else: raise NotImplementedError
-if 'select-allele' in inform:
-    alleleFile = '/myflq/alleles/'+alleleOptions[int(inform['select-allele']['Content'])]
-else: raise NotImplementedError
+# if 'select-loci' in inform:
+#     lociFile = '/myflq/loci/'+lociOptions[int(inform['select-loci']['Content'])]
+# else: raise NotImplementedError
+# if 'select-allele' in inform:
+#     alleleFile = '/myflq/alleles/'+alleleOptions[int(inform['select-allele']['Content'])]
+# else: raise NotImplementedError
+if 'loci-textbox' in inform:
+    lociFile = '/tmp/loci.csv'
+    tmp = open(lociFile,'wt')
+    tmp.write('\n'.join([l for l in inform['loci-textbox']['Content'].split() if l.count(',') == 3]))
+    tmp.close()
+else: lociFile = '/myflq/loci/'+lociOptions[int(inform['select-loci']['Content'])]
+if 'alleles-textbox' in inform:
+    alleleFile = '/tmp/alleles.csv'
+    tmp = open(alleleFile,'wt')
+    tmp.write('\n'.join([l for l in inform['alleles-textbox']['Content'].split() if l.count(',') == 2]))
+    tmp.close()
+else: alleleFile = '/myflq/alleles/'+alleleOptions[int(inform['select-allele']['Content'])]
+
 #MyFLdb command
 command = ['python3',
            '/myflq/MyFLdb.py',
@@ -60,14 +73,14 @@ command = ['python3',
            '/myflq/MyFLq.py',
            '-p', 'passall',
            'analysis',
-           '--negativeReadsFilter', str('negativeReadsFilter' in inform),
+           #'--negativeReadsFilter', str('negativeReadsFilter' in inform), #For now disabled, no added value/buggy
            '--primerBuffer', str(inform['primerBuffer']['Content']),
            '--flankOut', str('flankOut' in inform),
            '--stutterBuffer', str(inform['stutterBuffer']['Content']),
            '--useCompress', str('useCompress' in inform),
            '--withAlignment', str('withAlignment' in inform),
            '--threshold', str(float(inform['threshold']['Content'])/100),
-           '--clusterInfo', str('clusterInfo' in inform),
+           #'--clusterInfo', str('clusterInfo' in inform), #Makes no sense not to see this info for forensic analyst
            '--randomSubset', str(float(inform['randomSubset']['Content'])/100),
            '-r', outDir+'resultMyFLq.xml',
            '-s', '/myflq/resultMyFLq.xsl', #Should be either on same domain as xml file, or local

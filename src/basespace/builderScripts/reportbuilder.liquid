@@ -1,0 +1,46 @@
+{% comment %}
+
+    Paste code below in BaseSpace->MyFLq->Reportbuilder->result
+
+{% endcomment %}
+<!doctype html>
+<html>
+<head>
+     <title>{{ result.name }}</title>
+     <!--<link rel="stylesheet" type="text/css"
+        href="https://da1s119xsxmu0.cloudfront.net/libraries/basestrap/1.0.0/css/master.min.css" />-->
+     <link rel="stylesheet" type="text/css"
+        href="https://www.dropbox.com/s/nyxh7fhm5rtyi2l/test.css" />
+</head>
+<body>
+    <div class="row-fluid">
+        <div class="col-xs-12">
+            <h3>MyFLq profile for sample {{ result.name }}</h3>
+            <b>MyFLq version 1.0</b>
+            <h4>Parameters</h4>
+            For parameters used see <a href="https://cloud-hoth.illumina.com/analyses/{{ result.session.id }}/inputs">Inputs</a>
+            {% for filename in result.files %}
+                    {% if filename contains 'MyFLq.png' %}
+                        <h4>Visual profile</h4>
+                        <a href="{{ result.files[filename].href }}">
+                            <img src="{{ result.files[filename].href }}" width="100%"> <!--height="100"-->
+                        </a><br /><br />
+                    {% endif %}
+            {% endfor %}
+            {% for filename in result.files %}
+                    {% if filename contains 'MyFLq.html' %}
+                        <h4>Detailed profile</h4>
+                        <div id="xmlprofile" height="800" width="600" style="overflow:scroll;">
+
+                            <!--General abundance threshold used: {{ result.files[filename].parse.results['@thresholdUsed'] }}-->
+                            <iframe src="{{ result.files[filename].href }}" height="600" width="100%">
+                            Your browser does not support iframes. Update your browser.
+                            </iframe>
+                        </div>
+                        <br /><a href="{{ result.files[filename].href }}">Open</a> in separate window.
+                    {% endif %}
+                {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
