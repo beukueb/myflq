@@ -52,7 +52,7 @@ while True:
             analysis.progress = 'FA'
             analysis.save()
         os.remove(tempxml.name), os.remove(tempfigure.name)
-    print('Waiting for new analysis requests')
+    #print('Waiting for new analysis requests')
     time.sleep(60)
     
 
