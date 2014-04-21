@@ -80,6 +80,7 @@ def setup(request):
 ##Further functions for processing setup view
 def process_primerfile(requestfile,dbname):
     for line in requestfile.readlines():
+        if line.decode().strip().startswith('#'): continue
         line = line.decode().strip().split(',')
         primer = Primer(dbname = dbname,
                         locusName = line[0],

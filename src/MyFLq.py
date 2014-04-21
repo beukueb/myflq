@@ -540,6 +540,7 @@ def makeEntries(csvFilename):
         except ValueError:
             locusName,sequence = line.strip().split(',')
             validatedInfo = None
+        sequence = sequence.upper()
         makeEntry(sequence,0,locusName,validatedInfo='a:'+validatedInfo if validatedInfo else 'a',
                   manualRevision=True)
     
@@ -1492,6 +1493,8 @@ class Locus:
                 if line.strip().startswith('#'): continue
                 line=line.strip()
                 locus,locusType,primerF,primerR=line.split(',')
+                primerF = primerF.upper()
+                primerR = primerR.upper()
                 try: locusType = int(locusType)
                 except ValueError: locusType = 0
                 locusDict[locus] = {'locusName':locus,'locusType':locusType,
