@@ -1352,7 +1352,6 @@ class Locus:
         
         if verbose: print('Analyze',self.name)
         
-        #if self.stutterBuffer: self.correctForstutterBuffer() #DEPRECATED Is handled more consistently at the analyis level, by making new allele databases accounting for stutterBuffer or no flankOut
         if badReadsFilter:
             self.filterBadReads()
         self.setUniqueReads()
@@ -1763,13 +1762,19 @@ class Analysis:
         import xml.etree.ElementTree as ET
         import time
         if stylesheet and (type(stylesheet) is bool): stylesheet = 'results.css'
+
+        #Set root with important analysis characteristics as attributes
         results = ET.Element('results')
         results.set('timestamp',format(time.time(),'.0f'))
         results.text = '\n'
         for locus in sorted(self.loci):
             results.append(self.loci[locus].xml)
+        results.set('sample',self.fqFilename)
         results.set('thresholdUsed',str(self.threshold))
-        if self.flankOut and self.stutterBuffer: results.set('stutterBuffer',str(self.stutterBuffer))
+        results.set('flankedOut',str(self.flankOut))
+        if self.flankOut:
+            results.set('homomerCorrection',str(self.useCompress))
+            if self.stutterBuffer: results.set('stutterBuffer',str(self.stutterBuffer))
         
         #Append locusDict
         if appendLocusDict:
