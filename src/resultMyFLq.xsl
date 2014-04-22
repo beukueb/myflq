@@ -33,7 +33,7 @@
       </head>
       <body>
 	<div class="resultMyFLq">
-	  <h1> Results for <xsl:value-of select="@sample"/> (threshold: <xsl:value-of select="format-number(number(@thresholdUsed),'0.00%')"/>) </h1>
+	  <h1> Results for <xsl:value-of select="substring-before(@sample,'.fast')"/> (threshold: <xsl:value-of select="format-number(number(@thresholdUsed),'0.00%')"/>) </h1>
 	  <p style="margin-top: -20px;"><span class="hideInProfile"><br />After reviewing all loci, press here to show only selected alleles. </span><button id="profileButton" onclick="processLoci()">Make profile</button><span class="hideInProfile"><br />If you need to make changes afterwards, refresh this page.<br />The results can be saved in the newly generated page.</span></p>
 	  <xsl:apply-templates select="locus"/>
 	</div>
@@ -44,7 +44,7 @@
   <xsl:template name="basespace">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <div class="resultMyFLq">
-      <h1> Results for <xsl:value-of select="@sample"/> (threshold: <xsl:value-of select="format-number(number(@thresholdUsed),'0.00%')"/>) </h1>
+      <h1> Results for <xsl:value-of select="substring-before(@sample,'.fast')"/> (threshold: <xsl:value-of select="format-number(number(@thresholdUsed),'0.00%')"/>) </h1>
       <p>After reviewing all loci, press here to show only selected alleles <button onclick="processLoci()">Make profile</button></p>
       <xsl:apply-templates select="locus"/>
     </div>
