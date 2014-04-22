@@ -128,12 +128,12 @@ def getSeq(seqID,sql=None):
     """
     Returns the actual sequence for a certain seqID
     """
-    if not sql: conn,sql = login()
-    else: conn=None
+    #if not sql: conn,sql = login()
+    #else: conn=None
     sql.execute("SELECT sequence FROM BASEseqs WHERE seqID = %s", (seqID))
     if sql.rowcount == 0: raise Exception("No such sequence in the database")
     seq = sql.fetchone()['sequence']
-    if conn: logout(conn,sql)
+    #if conn: logout(conn,sql)
     return seq
 
 #DNA functions
@@ -1168,7 +1168,8 @@ class Locus:
         self.reads = [r for r in self.reads if r.seq != '[-]']
     
     def correctForstutterBuffer(self):
-        """        
+        """
+        DEPRECATED
         If stutterBuffer is applied only to see the smallest stutters, read-ends can to be corrected before 
         setting uniqueReads, to regroup pairs of reads that have mismatches compared to the database in the flank
         ends that were not removed.
@@ -1265,23 +1266,23 @@ class Locus:
         """
         Looks up if a region of interest is present in the database.
         Stores results in self.knownAlleles
-        Accounts for stutter buffer (#todo# and/or flexible flanking)
         """
         self.knownAlleles = {}
-        if not sql: conn,sql = login()
-        else: conn = None
+        #if not sql: conn,sql = login()
+        #else: conn = None
         for uR in self.uniqueReads:
             if uR == '[RL]': uRsql = '' #Necessary as database does not contain '[RL]' but empty strings for RL-alleles
             else: uRsql = uR
-            if self.stutterBuffer:
-                if (len(uR) < len(self.info['removed_from_flank_forwardP']) + 
-                    len(self.info['removed_from_flank_reverseP'])): uRsql = '[-]'
+            #if self.stutterBuffer: #should no longer be necessary with Analysis stutter and flankOut temp db tables
+            #    if (len(uR) < len(self.info['removed_from_flank_forwardP']) + 
+            #        len(self.info['removed_from_flank_reverseP'])): uRsql = '[-]'
                 #CHECK# next lines need to change with new temporary LOCIalleles table implementation
                 #sql.execute('SELECT alleleNumber,alleleNomen FROM LOCIalleles WHERE locusName = %s \
                 #             AND CONCAT(%s,alleleSeq,%s) = %s', (self.name,self.info['removed_from_flank_forwardP'],
                 #            complement(self.info['removed_from_flank_reverseP']),uRsql))
             #else: 
-            sql.execute('SELECT alleleNumber,alleleNomen FROM LOCIalleles                                WHERE locusName = %s AND alleleSeq = %s', (self.name,uRsql))
+            sql.execute('SELECT alleleNumber,alleleNomen FROM LOCIalleles WHERE locusName = %s AND alleleSeq = %s',
+                        (self.name,uRsql))
             if sql.rowcount == 1:
                 annotation = sql.fetchone()
                 if annotation['alleleNumber']:
@@ -1291,7 +1292,7 @@ class Locus:
                 else: self.knownAlleles[uR]=str(annotation['alleleNomen'])
             elif sql.rowcount == 0: self.knownAlleles[uR]='NA'
             else: raise LocusConflictError('Too many alleles')
-        if conn: logout(conn,sql)
+        #if conn: logout(conn,sql)
     
     def getUniqueSorted(self):
         """
@@ -1376,7 +1377,7 @@ class Locus:
         
         if verbose: print('Analyze',self.name)
         
-        if self.stutterBuffer: self.correctForstutterBuffer()
+        #if self.stutterBuffer: self.correctForstutterBuffer() #DEPRECATED Is handled more consistently at the analyis level, by making new allele databases accounting for stutterBuffer or no flankOut
         if badReadsFilter:
             self.filterBadReads()
         self.setUniqueReads()
@@ -1449,8 +1450,8 @@ class Locus:
         """
         Reads the MySQL table with locus relevant information, and returns it as a dict accessible by locusName
         """
-        if not sql: conn,sql=login()
-        else: conn = None
+        #if not sql: conn,sql=login()
+        #else: conn = None
         if not kitName:
             sql.execute("SELECT * FROM LOCInames")
             locusDict={locus['locusName']:locus for locus in sql.fetchall()}
@@ -1460,7 +1461,7 @@ class Locus:
             for locus in sql.fetchall():
                 sql.execute("SELECT * FROM LOCInames WHERE locusName = %s",(locus['locusName']))
                 locusDict[locus['locusName']]=sql.fetchone()
-        if conn: logout(conn,sql)
+        #if conn: logout(conn,sql)
         if primerBuffer:
             for l in locusDict:
                 locusDict[l]['ref_forwardP']=locusDict[l]['ref_forwardP'][primerBuffer:]
@@ -1539,7 +1540,7 @@ class Analysis:
     #and if the default value (None/False) is different from expected type when used, the line should end with [type]
     #for automatic processing of commandline options
     def __init__(self,fqFilename,kitName='Illumina',maintainAllReads=True,negativeReadsFilter=True,kMerAssign=False,
-                    primerBuffer=0,flankOut=True,stutterBuffer=1,useCompress=True,withAlignment=False,threshold=0.005,
+                    primerBuffer=0,flankOut=False,stutterBuffer=1,useCompress=True,withAlignment=False,threshold=0.005,
                     clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=4,verbose=False):
         """
         Sets up an analysis of loci for a specific kit
@@ -1793,7 +1794,7 @@ class Analysis:
         for locus in sorted(self.loci):
             results.append(self.loci[locus].xml)
         results.set('thresholdUsed',str(self.threshold))
-        if self.stutterBuffer: results.set('stutterBuffer',str(self.stutterBuffer))
+        if self.flankOut and self.stutterBuffer: results.set('stutterBuffer',str(self.stutterBuffer))
         
         #Append locusDict
         if appendLocusDict:

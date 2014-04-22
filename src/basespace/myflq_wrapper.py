@@ -31,7 +31,19 @@ if 'alleles-textbox' in inform:
     tmp = open(alleleFile,'wt')
     tmp.write('\n'.join([l for l in inform['alleles-textbox']['Content'].split() if l.count(',') == 2]))
     tmp.close()
-else: alleleFile = '/myflq/alleles/'+alleleOptions[int(inform['select-allele']['Content'])]
+else:
+    if int(inform['select-allele']['Content']) == -1:
+        import sys
+        sys.path.append('/myflq')
+        from MyFLq import complement
+        alleleFile = '/tmp/alleles.csv'
+        tmp = open(alleleFile,'wt')
+        for line in open(lociFile):
+            if line.strip().startswith('#'): continue
+            line = line.strip().split(',')
+            tmp.write('{},{},{}{}\n'.format(line[0],'?' if line[1]=='SNP' else '0',line[2],complement(line[3])))
+        tmp.close()
+    else: alleleFile = '/myflq/alleles/'+alleleOptions[int(inform['select-allele']['Content'])]
 
 #MyFLdb command
 command = ['python3',
@@ -75,10 +87,10 @@ command = ['python3',
            'analysis',
            #'--negativeReadsFilter', str('negativeReadsFilter' in inform), #For now disabled, no added value/buggy
            '--primerBuffer', str(inform['primerBuffer']['Content']),
-           '--flankOut', str('flankOut' in inform),
+           '--flankOut', 'True' if 'flankOut' in inform else '', #should change the store_action for booleans #TODO#
            '--stutterBuffer', str(inform['stutterBuffer']['Content']),
-           '--useCompress', str('useCompress' in inform),
-           '--withAlignment', str('withAlignment' in inform),
+           '--useCompress', 'True' if 'useCompress' in inform else '',
+           '--withAlignment', 'True' if 'withAlignment' in inform else '',
            '--threshold', str(float(inform['threshold']['Content'])/100),
            #'--clusterInfo', str('clusterInfo' in inform), #Makes no sense not to see this info for forensic analyst
            '--randomSubset', str(float(inform['randomSubset']['Content'])/100),
