@@ -28,19 +28,7 @@
 #                             | Makes a list of the sequences between the primers of each locus.
 # 
 
-# ## Bookmarks
-# Use a bookmark by typing #'bookmark-name' after the url
-# * * *
-# + <a href="#entry">entry</a> => makeEntry function
-# + <a href="#dbproc">dbproc</a> => database processing
-# + <a href="#samples">samples</a> => process unknown samples
-# + <a href="#report">report</a> => make reports of the unknown samples
-# + <a href="#validate">validate</a> => valedatedLoci
-# + <a href="#cmdline">Commandline interface</a>
-
 ### General functions
-
-# In[1]:
 
 #Future imports for python2.6
 from __future__ import print_function
@@ -288,7 +276,7 @@ class Alignment:
             return differences
 
 
-# In[2]:
+# AlleleType => work in progress, not yet used
 
 class AlleleType:
     def __init__(self,alleleType,subType=None,locusType='STR'):
@@ -338,8 +326,6 @@ class AlleleType:
 #         pass
 
 # ## <a id="entry">Functions for making entries to the database</a>
-
-# In[3]:
 
 #Function for adding samples to the database
 def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technology='Illumina',filterLevel=None,
@@ -513,9 +499,6 @@ makeRandomPassphrase.exsymbols={'"',"'",'\\','/','{','}','(',')','&','`'}
 makeRandomPassphrase.symbols={chr(a+33) for a in range(94) if chr(a+33) not in makeRandomPassphrase.exsymbols}
 
 
-
-# In[4]:
-
 #Functions for external connectivity to the database
 def makeEntries(csvFilename):
     """
@@ -561,7 +544,6 @@ def makeEntries(csvFilename):
 
 # ## <a id="dbproc">Database processing: extracting references from base information</a>
 
-# In[5]:
 
 #Functions for extracting relevant info from base tables (BASE*) and storing in processed tables LOCI[name/alleles]
 
@@ -690,8 +672,6 @@ def getLocusFlanks(locAlleles,primerF,primerR):
     return (returnFlanks[0],returnFlanks[1])
 
 
-# In[6]:
-
 #Functions for filling population statistics tables: LOCIalleles and LOCIalleles_CE
 
 #LOCIalleles
@@ -795,7 +775,6 @@ def calculateAlleleNumber(regionOfInterest,locus):
 #Make an entry for all alleleNumbers/locus within LOCIalleles_CE
 #todo# need interface to another database with this information, or literature databank where to extract it
 
-
 # #Bootstrapping functions
 # #todo# functions that reavuluate flanking regions based on:
 # #    'which rare alleles could be exluded and the benefit this brings to avoiding errors in a locus profile'
@@ -806,8 +785,6 @@ def calculateAlleleNumber(regionOfInterest,locus):
 
 # #Most of the functions and methods in this section are intended to be run only once on a dataset of reads.
 # #If you want to reanalyze the same dataset differently, you have to restart from the beginning.
-
-# In[7]:
 
 #General Fastq reads
 class Read:
@@ -1130,8 +1107,6 @@ class ConsensusRead:
             except KeyError: readsDict[len(r.seq)]=[r]
         return readsDict
 
-
-# In[8]:
 
 #Loci
 class Locus:
@@ -1533,8 +1508,8 @@ class Locus:
             
 
 
-# In[9]:
-
+# Analysis
+#=========
 class Analysis:
     #All parameters in the docstring need to be followed by '=>' on a line of their own, 
     #and if the default value (None/False) is different from expected type when used, the line should end with [type]
@@ -2005,45 +1980,8 @@ class Analysis:
 #                          bottom=sp['rects_ue'][3],zs=z_i,color='r')
 # plt.show()
 
-# #Debugging
-# #!ipython nbconvert --to python MyFLq.ipynb => before activating block
-# 
-# reads = Read.getReads(
-#     '/home/christophe/Documents/STR/Illumina/STR_Mixtures/9947ADNAADNAB2800MK562_S3_L001_R1_001.fastq')
-# locusDict = Locus.getLocusDict()
-# 
-# ipcluster_process = ipcluster(numberOfEngines=4)
-# import time
-# time.sleep(15)
-# from IPython.parallel import Client, Reference
-# client = Client()
-# dview = client[:]
-# lview = client.load_balanced_view()
-# dview.execute('from MyFLq import complement,assignLocus_px')
-# dview.push({'locusDict':locusDict})
-# locusDict_ref = Reference('locusDict')
-# 
-# #readsProcessed = Read.selfAssignLocus(islice(reads,10),locusDict_ref)
-# dview.map_sync(lambda x,y,z: assignLocus_px(x,y,z), [read.seq for read in reads[:10]],repeat(locusDict_ref,10),repeat(None,10))
-# 
-# #ipcluster('stop',ipcluster_process)    
-
-# ### <a id="report">Report results of unknown samples</a>
-
-# #Generally
-# analysis=Analysis('/home/christophe/Documents/STR/Illumina/STR_Mixtures/9947ADNAADNAB2800MK562_S3_L001_R1_001.fastq',[kitName])
-# analysis.makeReport(...)
-
-# ### <a id="validate">Processing samples with validated alleles</a>
-
-# #For the article alleles were added to the database with the following commands:
-# analysis=ValidationAnalysis('/home/christophe/Documents/STR/Illumina/9947A_S1_L001_R1_001.fastq',parallelProcessing=False)
-# 
-# processLociNames()
-# processLociAlleles()
-
-# In[10]:
-
+# More elaborate analyses
+#========================
 class DoubleAnalysis:
     def __init__(self,*args,**kwargs):
         """
@@ -2099,7 +2037,7 @@ class DoubleAnalysis:
         plt.show()
 
 
-# In[11]:
+# Validation analysis
 
 class ValidationAnalysis(Analysis):
     def __init__(self,fqFilename,kitName='Illumina',maintainAllReads=True,kMerAssign=False,primerBuffer=False,
@@ -2262,10 +2200,8 @@ class ValidationAnalysis(Analysis):
         
 
 
-# ### <a id="cmdline">Commandline interface</a>
-
-# In[12]:
-
+# Commandline interface
+#======================
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(prog='MyFLq',
@@ -2364,14 +2300,6 @@ if __name__ == '__main__':
             else: analysis.makeVisualProfile(filename=args.visualProfile)
     if 'verbose' in args and args.verbose:
         print(str(args).replace('Namespace(','(Parametes analysis: ')) #debug
-
-
-# %%bash
-# #To save executable: first save notebook (Ctr-s), activate this cell (Ctr-m y), run (Ctr-Enter) and deactivate (Ctr-m t)
-# 
-# echo '#!/bin/env python' > MyFLq.py
-# ipython nbconvert --to python MyFLq.ipynb --stdout >> MyFLq.py
-# chmod +x MyFLq.py
 
 # #Examples for commandline use
 # ##Prepare database with MyFLdb.py
