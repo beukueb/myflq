@@ -70,11 +70,12 @@ subprocess.check_call([
 #if not fastqfiles: fastqfiles = glob('/data/input/samples/*/Data/Intensities/BaseCalls/*.fastq')
 #if not fastqfiles: raise Exception('No fastq or fqstq.gz present to work with')
 import os
+sampleName = '/tmp/' + inform['sample-id']['Content']['Name'].replace(' ','') + '.fastq'
 fastqfiles = []
 for path, dirs, files in os.walk('/data/input/samples'):
     for file in files:
         fastqfiles.append(os.path.join(path, file))
-subprocess.check_call('zcat -f ' + ' '.join(fastqfiles) + '> /tmp/sample.fastq', shell=True)
+subprocess.check_call('zcat -f ' + ' '.join(fastqfiles) + ' > ' + sampleName, shell=True)
 
 #Prepare output dir
 outDir = '/data/output/appresults/' + inform['project-id']['Content']['Id'] + '/' + inform['sample-id']['Content']['Name'].replace(' ','') + '/'
@@ -98,7 +99,7 @@ command = ['python3',
            '-s', '/myflq/resultMyFLq.xsl', #Should be either on same domain as xml file, or local
            '-v', outDir+'resultMyFLq.png',
            '--parallelProcessing', '0',
-           '/tmp/sample.fastq',
+           sampleName,
            'admin', 'onetimedbuse', 'default'
     ]
 

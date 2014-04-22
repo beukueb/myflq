@@ -1760,7 +1760,7 @@ class Analysis:
             can also be an url (relative or absolute)
         """
         import xml.etree.ElementTree as ET
-        import time
+        import time, os
         if stylesheet and (type(stylesheet) is bool): stylesheet = 'results.css'
 
         #Set root with important analysis characteristics as attributes
@@ -1769,7 +1769,7 @@ class Analysis:
         results.text = '\n'
         for locus in sorted(self.loci):
             results.append(self.loci[locus].xml)
-        results.set('sample',self.fqFilename)
+        results.set('sample',os.path.basename(self.fqFilename))
         results.set('thresholdUsed',str(self.threshold))
         results.set('flankedOut',str(self.flankOut))
         if self.flankOut:
