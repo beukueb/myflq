@@ -1269,14 +1269,15 @@ class Locus:
             else: raise LocusConflictError('Too many alleles')
         #if conn: logout(conn,sql)
     
-    def getUniqueSorted(self):
+    def getUniqueSorted(self,reverse=False):
         """
         Returns sorted list of uniqueReads above threshold
+        If reverse True, the sequences will be sorted from bigger to smaller
         """
         try: return self.uniqueSorted
         except AttributeError:
-            self.uniqueSorted = sorted(sorted(self.uniqueAbundances,key = lambda x: len(x), reverse=True),
-                                       key = lambda x: '[' in x)
+            self.uniqueSorted = sorted(sorted(self.uniqueAbundances,key = lambda x: len(x), reverse=reverse),
+                                       key = lambda x: '[' in x, reverse=(not reverse))
             return self.uniqueSorted
     
     def clusterUniqueReads(self,maxDifferences=2,maxCluster=20): #todo# trueReadsPresent=True,errorSQL=False
