@@ -6,10 +6,36 @@
   <script>
     function draw(data) {
       "use strict";
+      d3.select("#chart")
+        .selectAll("div")
+        .data(data.documentElement.getElementsByTagName("locus"))
+        .enter()
+        .append("div")
+          .attr("class","locus")
+          .style("float","left")
+          .style("height","50px")
+          .style("width",function(d) { return d.getElementsByTagName("alleleCandidate").length * 10 + "px"; })
+          .text(function(d) { return d.getAttribute('name'); })
+          .selectAll("div")
+          .data(function(d) { return d.getElementsByTagName("alleleCandidate"); })
+          .enter()
+          .append("div")
+            .attr("class","alleleCandidate")
+            .text(function(a) { return a.getAttribute('db-name'); })
+      //console.log(data);
     }
   </script>
+  <style>
+    div.chart{
+      font-family: sans-serif;
+    }
+    div.locus{
+      background-color: red;
+    }
+  </style>
 </head>
 <body>
+  <div id="chart"></div>
   <script>
     //d3.json("data/some_data.json",draw);
     d3.xml("testoutput.xml", "application/xml",draw);
