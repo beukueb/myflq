@@ -6,22 +6,50 @@
   <script>
     function draw(data) {
       "use strict";
-      d3.select("#chart")
-        .selectAll("div")
+
+      var margin = 50,
+          width = 700, //will be dynamically set, based on number of alleles
+          height = 300;
+
+      //Setting scales
+      //var x_extent = d3.extent(data.documentElement.getElementsByTagName("locus"),function(d){return Number(d.getAttribute("reads"))});
+      var x_extent = [0,data.documentElement.getElementsByTagName("locus").length+data.documentElement.getElementsByTagName("alleleCandidate").length]
+      var x_scale = d3.scale.linear().range([margin,width-margin])
+                      .domain(x_extent);
+      var x_axis = d3.svg.axis().scale(x_scale);
+      var y_scale = d3.scale.linear().range([height-margin,margin])
+                      .domain([0,100]);
+
+      //Constructing chart
+      var ch = d3.select("#chart")
+           //.selectAll("div")
+             .append("svg")
+               .attr("width",width)
+               .attr("height",height);
+
+      ch.append("g")
+          .attr("class","x axis")
+          .attr("transform","translate(0,"+(height-margin)+")")
+        .call(x_axis);
+        
+      ch.selectAll("g.locus")
         .data(data.documentElement.getElementsByTagName("locus"))
         .enter()
-        .append("div")
+        //.append("div")
+        .append("g")
           .attr("class","locus")
-          .style("float","left")
-          .style("height","50px")
-          .style("width",function(d) { return d.getElementsByTagName("alleleCandidate").length * 10 + "px"; })
-          .text(function(d) { return d.getAttribute('name'); })
-          .selectAll("div")
+          //.style("float","left")
+          //.style("height","50px")
+          //.style("width",function(d) { return d.getElementsByTagName("alleleCandidate").length * 10 + "px"; })
+          //.text(function(d) { return d.getAttribute('name'); })
+          //.selectAll("div")
+          .selectAll("rect")
           .data(function(d) { return d.getElementsByTagName("alleleCandidate"); })
           .enter()
-          .append("div")
+          //.append("div")
+          .append("rect")
             .attr("class","alleleCandidate")
-            .text(function(a) { return a.getAttribute('db-name'); })
+            //.text(function(a) { return a.getAttribute('db-name'); })
       //console.log(data);
     }
   </script>
