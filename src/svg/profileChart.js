@@ -2,8 +2,8 @@ function draw(data) {
     "use strict";
 
     //Prepare data
-    var lociNames = []
-    var lociStartPosition = [0] //First locus starts at 0
+    var lociNames = [];
+    var lociStartPosition = [0]; //First locus starts at 0
     //var lociInfo = {}
     var loci=data.documentElement.getElementsByTagName("locus");
     for (var i=0;i<loci.length;i++)
@@ -31,14 +31,51 @@ function draw(data) {
     //console.log(x_extent,barWidth);
 
     //Constructing chart
-    var ch = d3.select("#chart")
+    var svg = d3.select("#chart")
         .append("svg")
           .attr("width",width + margin.left + margin.right)
           .attr("height",height + margin.top + margin.bottom)
         .append("g")
           .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-    
-    ch.append("g")
+
+    var zoom = d3.behavior.zoom()
+        .x(x_scale)
+        .scaleExtent([1,10])
+        .on("zoom", zoomHandler);
+
+    var gradient = svg.append("defs").append("linearGradient")
+	.attr("id", "gradient")
+	.attr("x2", "0%")
+	.attr("y2", "100%");
+
+    gradient.append("stop")
+	.attr("offset", "0%")
+	.attr("stop-color", "#fff")
+	.attr("stop-opacity", .5);
+
+    gradient.append("stop")
+	.attr("offset", "100%")
+	.attr("stop-color", "#999")
+	.attr("stop-opacity", 1);
+
+    svg.append("clipPath")
+	 .attr("id", "clip")
+	.append("rect")
+	  .attr("x", x_scale(0))
+	  .attr("y", y_scale(1))
+	  .attr("width", x_scale(1) - x_scale(0))
+	  .attr("height", y_scale(0) - y_scale(1));
+
+    svg.append("path")
+	.attr("class", "area")
+	.attr("clip-path", "url(#clip)")
+	.style("fill", "url(#gradient)");
+
+    svg.append("path")
+	.attr("class", "line")
+	.attr("clip-path", "url(#clip)")
+
+    svg.append("g")
           .attr("class","x axis")
           .attr("transform","translate(0,"+height+")")
         .call(x_axis)
@@ -47,13 +84,13 @@ function draw(data) {
           .attr("dx", ".8em")
           .attr("dy", ".15em")
           .attr("transform", "rotate(45)");
-    d3.select(".x.axis")
-      /*.append("text")
+    /*d3.select(".x.axis")
+      .append("text")
         .text("Loci")
         .attr("x",(width/2)-margin.left)
         .attr("y",margin.bottom/1.5)*/;
 
-    ch.append("g")
+    svg.append("g")
           .attr("class","y axis")
           //.attr("transform","translate("+margin+",0)")
         .call(y_axis);
@@ -62,21 +99,20 @@ function draw(data) {
       .text("Abundance (%)")
       .attr("transform","rotate(-90,-43,0) translate(-200,"+(margin.left/2)+")");
 
-    ch.selectAll("g.locus")
+    svg.append("rect")
+	  .attr("class", "pane")
+	  .attr("width", width)
+	  .attr("height", height)
+	.call(zoom);
+
+    svg.selectAll("g.locus")
         .data(data.documentElement.getElementsByTagName("locus"))
         .enter()
-        //.append("div")
         .append("g")
           .attr("class","locus")
-        //.style("float","left")
-        //.style("height","50px")
-        //.style("width",function(d) { return d.getElementsByTagName("alleleCandidate").length * 10 + "px"; })
-        //.text(function(d) { return d.getAttribute('name'); })
-        //.selectAll("div")
         .selectAll("rect")
         .data(function(d) { return d.getElementsByTagName("alleleCandidate"); })
         .enter()
-        //.append("div")
         .append("rect")
           .attr("class","alleleCandidate")
           .attr("width",barWidth)
@@ -84,4 +120,16 @@ function draw(data) {
           .attr("transform",function(a,i) {  return "translate("+x_scale(lociStartPosition[lociNames.indexOf(a.parentElement.getAttribute("name"))]+i)+","+y_scale(parseFloat(a.getAttribute('abundance')))+")"})
           .style("fill",function(a) { return (a.getAttribute("db-name") == "NA") ? "red": "green";})
           //.text(function(a) { return a.getAttribute('db-name'); })
+
+    function zoomHandler() {
+	svg.select(".x.axis").call(x_axis)
+	      .selectAll("text")  
+              .style("text-anchor", "start")
+              .attr("dx", ".8em")
+              .attr("dy", ".15em");
+	//svg.select(".y.axis").call(y_axis);
+	svg.selectAll("g.locus")
+	    .selectAll("rect.alleleCandidate")
+	      .attr("transform", function(a,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( a.parentElement.getAttribute("name"))]+i) + "," + y_scale(parseFloat(a.getAttribute('abundance')))  + ") scale(" + d3.event.scale + ", 1)";});
+    }
 }
