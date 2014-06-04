@@ -29,10 +29,20 @@
       fill: none;
       pointer-events: all;
     }
+    rect.threshold {
+      cursor: n-resize;
+    }
+    label {
+      position: absolute;
+      top: 10px;
+      left: 700px;
+    }
   </style>
 </head>
 <body>
-  <div id="chart"></div>
+  <div id="chart">
+    <label><input type="checkbox" id="sortLength">Absolute length</label>
+  </div>
   <script>
     //d3.json("data/some_data.json",draw);
     d3.xml("testoutput.xml", "application/xml",draw);
