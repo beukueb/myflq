@@ -5,9 +5,35 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="profileChart.js"></script>
   <style>
-    div.chart {
+    #chart {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
       font-family: sans-serif;
+      /*overflow: hidden;*/
+      width: 1200px;
+      /*margin: auto;*/
     }
+    
+    #svgContainer {
+      position: absolute;
+      box-sizing: border-box;
+      margin: 0px;
+      left: 0px;
+      top: 0px;
+      width: 900px;
+      height: 400px;
+    }
+
+    #svgFunctions {
+      position: absolute;
+      box-sizing: border-box;
+      margin: 0px;
+      left: 900px;
+      top: 0px;
+      width: 100px;
+    }
+
     div.locus {
       background-color: red;
     }
@@ -32,16 +58,19 @@
     rect.threshold {
       cursor: n-resize;
     }
-    label {
-      position: absolute;
-      top: 10px;
-      left: 700px;
-    }
   </style>
 </head>
 <body>
   <div id="chart">
-    <label><input type="checkbox" id="sortLength">Absolute length</label>
+    <div id="svgContainer"></div>
+    <div id="svgFunctions">
+      <h3>Settings</h3>
+      <label><input type="checkbox" id="sortLength">Absolute length</label><br /><br />
+      Threshold (%):<input type="number" class="thresQuant" value="10" min="0" max="100" step="0.05"><br />
+      0<input type="range" class="thresQuant" value="10" min="0" max="100" step="0.05">100<br /><br />
+      <hr />
+      <button id="makeProfile">Make profile</button>
+    </div>
   </div>
   <script>
     //d3.json("data/some_data.json",draw);
