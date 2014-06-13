@@ -6,13 +6,15 @@
   <script src="profileChart.js"></script>
   <style>
     #chart {
-      position: relative;
+      position: relative; 
+        /*Needs to be either relative or absolute,
+          in order to be able to position child divs absolutely to this one*/
       display: block;
       box-sizing: border-box;
       font-family: sans-serif;
       /*overflow: hidden;*/
-      width: 1200px;
-      /*margin: auto;*/
+      width: 1100px;
+      margin: auto;
     }
     
     #svgContainer {
@@ -31,7 +33,16 @@
       margin: 0px;
       left: 900px;
       top: 0px;
-      width: 100px;
+      width: 200px;
+    }
+
+    #alleleInfo {
+      position: absolute;
+      box-sizing: border-box;
+      margin: 0px;
+      left: 0px;
+      top: 400px;
+      width: 900px;
     }
 
     div.locus {

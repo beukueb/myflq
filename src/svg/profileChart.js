@@ -164,12 +164,11 @@ function draw(data) {
     }
 
     //Bar mouseover functionality
-    d3.select("#chart")
-	.append("div")
-	  .attr("id","alleleInfo");
+    var relationDegrees = ["I'st","II'nd"];
     svg.selectAll(".alleleCandidate")
 	.on("mouseover.tooltip", function(d,i) {
 	    d3.select("#dbnameTip").remove();
+	    d3.select("#alleleInfo").remove();
 	    var x_pos = (stackedGraph) ? stackedAlleles[i][0] :
 		lociStartPosition[lociNames.indexOf(this.id.split('_')[0])] + Number(this.id.split('_')[1]);
 	    //var y_pos =
@@ -178,11 +177,87 @@ function draw(data) {
 		.attr("id","dbnameTip")
 	        .attr("x", x_scale(x_pos))
 		.style("text-anchor", "middle");
-	    //console.log(this);
+
+	    //Allele info div
+	    var aI = d3.select("#chart")
+		.append("div")
+		  .attr("id","alleleInfo");
+	    var locus = d.parentElement;
+	    aI.append("h2")
+		.text("Locus "+locus.getAttribute("name")+
+		      " → allele candidate: "+d.getAttribute("db-name")+
+		     ( (d.getAttribute("db-subtype")) ? d.getAttribute("db-subtype") : "" )  );
+	    var table = aI.append("table");
+	    var row = table.append("tr");
+	    row.append("td").text("Locus stats")
+		.attr("colspan",2)
+		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+	    row.append("td").text("Allele stats")
+		.attr("colspan",2)
+		.attr("style","border-width:1px; border-bottom-style: solid;");
+	    row = table.append("tr");
+	    row.append("td").text("Total reads");
+	    row.append("td").text(locus.getAttribute("reads")).attr("style","border-width:1px; border-right-style: solid;");
+	    row.append("td").text("Index");
+	    row.append("td").text(d.getElementsByTagName('cluster-info')[0].getAttribute("index"));
+	    row = table.append("tr");
+	    row.append("td").text("Filtered reads");
+	    row.append("td").text(locus.getAttribute("readsFiltered"))
+		.attr("style","border-width:1px; border-right-style: solid;");
+	    row.append("td").text("Abundance");
+	    row.append("td").text(d.getAttribute("abundance"));
+	    row = table.append("tr");
+	    row.append("td").text("Total unique");
+	    row.append("td").text(locus.getAttribute("uniqueReads"))
+		.attr("style","border-width:1px; border-right-style: solid;");
+	    row.append("td").text("Strand distribution");
+	    row.append("td").text(d.getAttribute("direction-distrib"));
+	    row = table.append("tr");
+	    row.append("td").text("Filtered unique");
+	    row.append("td").text(locus.getAttribute("uniqueFiltered"))
+		.attr("style","border-width:1px; border-right-style: solid;");
+	    row.append("td").text("Clean flanks");
+	    row.append("td").text(d.getElementsByTagName("qualityFlanks")[0].getAttribute("clean"));
+
+	    //Cluster-info
+	    aI.append("h3").text("Relations to other sequences within "+locus.getAttribute("name"));
+	    table = aI.append("div").attr("style","overflow-x: scroll;").append("table");
+	    row = table.append("tr");
+	    row.append("td").text("Allele index")
+		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+	    row.append("td").text("Relation degree")
+		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;")
+	    row.append("td").text("Sequence")
+		.attr("style","border-width:1px; border-bottom-style: solid;");
+	    var clusterInfo = d.getElementsByTagName('cluster-info')[0];
+	    row = table.append("tr");
+	    row.append("td").text(clusterInfo.getAttribute("index"))
+		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+	    row.append("td").text("-")
+		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+	    row.append("td").call(colorizeDNA, d.getElementsByTagName('regionOfInterest')[0].textContent)
+		.attr("style","border-width:1px; border-bottom-style: solid; font-family: monospace;");
+
+	    //Retrieving connection
+	    var differences = clusterInfo.getElementsByTagName("differences");
+	    for (var i=0; i < differences.length; i++) {
+		var relations = differences[i].getElementsByTagName("rel");
+		for (var j=0; j < relations.length; j++) {
+		    var relation = locus.getElementsByTagName("alleleCandidate")[Number(relations[j].getAttribute("index"))-1]
+		    row = table.append("tr");
+		    row.append("td").text(relations[j].getAttribute("index"))
+			.attr("style","border-width:1px; border-right-style: solid;");
+		    row.append("td").text(relationDegrees[Number(differences[i].getAttribute("amount")-1)])
+			.attr("style","border-width:1px; border-right-style: solid;");
+		    row.append("td").call(colorizeDNA, relation.getElementsByTagName('regionOfInterest')[0].textContent)
+			.attr("style","border-width:1px; font-family: monospace;");
+		}
+	    }
 	})
     svg.selectAll(".alleleCandidate")
 	.on("click", function(d,i) {
-	    console.log(d3.select(this));
+	    d.setAttribute('profile',(d.getAttribute('profile')=='no') ? 'yes' : 'no')
+	    console.log(d.getAttribute('profile'));
 	})
 
     //Threshold functionality
@@ -299,4 +374,27 @@ function draw(data) {
 	    }	
 	})
 
+    //Make profile
+    d3.select("#makeProfile")
+	.on("click", function() {
+	    //window.open("data:text/html;charset=utf-8,<html>"+"Hello profile"+"</html>");
+	    var profileWindow = window.open('');
+	    var profileRoot = d3.select(profileWindow.document.body);
+	    var table = profileRoot.append("table");
+	    d3.selectAll(".locus").each(function(d,i){
+		console.log(i);
+	    });
+	})
+
+}
+
+function colorizeDNA(selection,dna) {
+    var colors = { 'A': 'red',
+		   'C': 'green',
+		   'T': 'orange',
+		   'G': 'green'
+		 };
+    for (var i=0; i < dna.length; i++) {
+	selection.append("span").attr("style","color: "+colors[dna.charAt(i)]+";").text(dna.charAt(i));
+    }
 }
