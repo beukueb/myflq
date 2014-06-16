@@ -68,6 +68,13 @@ function draw(data) {
     //console.log(x_extent,barWidth);
 
     //Constructing chart
+    var sampleName = (data.documentElement.getAttribute("sample")) ? data.documentElement.getAttribute("sample") : "unknown";
+    var date = new Date(data.documentElement.getAttribute("timestamp")*1000);
+    d3.select("#sampleTitle").append("h1")
+	.text("Sample " +
+	      sampleName +
+	      ", processed " +
+	      date);
     var svg = d3.select("#svgContainer")
         .append("svg")
           .attr("width",width + margin.left + margin.right)
@@ -173,7 +180,8 @@ function draw(data) {
 		lociStartPosition[lociNames.indexOf(this.id.split('_')[0])] + Number(this.id.split('_')[1]);
 	    //var y_pos =
 	    svg.append("text")
-		.text(d.getAttribute("db-name"))
+		.text(d.getAttribute("db-name") +
+		      ( (d.getAttribute("db-subtype")) ? d.getAttribute("db-subtype") : "" )  )
 		.attr("id","dbnameTip")
 	        .attr("x", x_scale(x_pos))
 		.style("text-anchor", "middle");
@@ -377,13 +385,50 @@ function draw(data) {
     //Make profile
     d3.select("#makeProfile")
 	.on("click", function() {
-	    //window.open("data:text/html;charset=utf-8,<html>"+"Hello profile"+"</html>");
-	    var profileWindow = window.open('');
-	    var profileRoot = d3.select(profileWindow.document.body);
-	    var table = profileRoot.append("table");
+	    //First create profile in memory
+	    var multipleContributor = false;
+	    var profileHTML = document.createElement("html");
+	    var docRoot = d3.select(profileHTML).append("body").append("div");
+	    docRoot.append("h2").text( "Processed profile from " +
+				       sampleName +
+				       ", with threshold: " +
+				       threshold + "%"
+				     );
+	    var table = docRoot.append("table");
+	    var row = table.append("tr");
+	    row.append("td").text("Locus")
+		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+	    row.append("td").text("Alleles")
+		.attr("style","border-width:1px; border-bottom-style: solid;");
+
+	    //Add all loci
 	    d3.selectAll(".locus").each(function(d,i){
-		console.log(i);
+		row = table.append("tr");
+		row.append("td").text(d.getAttribute("name")).attr("style","border-width:1px; border-right-style: solid;");
+		//Retrieve alleles that passed the threshold
+		var alleles = []
+		for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
+		    var aC = d.getElementsByTagName('alleleCandidate')[j];
+		    if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
+			 aC.getAttribute('profile')!='no') {
+			alleles[alleles.length] = aC.getAttribute("db-name") +
+			    ( (aC.getAttribute("db-subtype")) ? aC.getAttribute("db-subtype") : "" );
+		    }
+		}
+		if (alleles.length > 2) {multipleContributor = true}
+		row.append("td").text(alleles.join());
+		//console.log(i);
 	    });
+
+	    if (multipleContributor) {
+		 d3.select(profileHTML).select("div").append("p")
+		    .text("Based on the threshold, this sample derives from multiple contributors.")
+		    .attr("style","color:red;");
+	    }
+
+	    var profileWindow = window.open("data:text/html;charset=utf-8,<html>"+d3.select(profileHTML).html()+"</html>");//,"Profile","location=no");
+	    //var profileWindow = window.open('');
+	    //var profileRoot = d3.select(profileWindow.document.body);
 	})
 
 }
