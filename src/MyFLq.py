@@ -846,7 +846,7 @@ class Read:
             kID = {self.seq[i:i+kmerSize] for i in range(len(self.seq)-kmerSize+1)}
             
             #Add loci primer kID's if necessary, including reverse strand orientation
-            if extraMethod[0]=='k-mer' and not 'primer-kIDs' in locusDict[locusDict.keys()[0]]:
+            if extraMethod[0]=='k-mer' and not 'primer-kIDs' in locusDict[list(locusDict.keys())[0]]:
                 for locus in locusDict.keys():
                     locusDict[locus]['primer-kIDs']={'forward':{locusDict[locus]['ref_forwardP'][i:i+kmerSize]
                                         for i in range(len(locusDict[locus]['ref_forwardP'])-kmerSize+1)},
@@ -856,7 +856,7 @@ class Read:
                                                                 for l in locusDict[locus]['primer-kIDs']['forward']}
                     locusDict[locus]['primer-kIDs']['reverse']={complement(l) 
                                                         for l in locusDict[locus]['primer-kIDs']['reverse_complement']}
-            elif extraMethod[0]=='refseq-k-mer' and not 'refseq-kIDs' in locusDict[locusDict.keys()[0]]:
+            elif extraMethod[0]=='refseq-k-mer' and not 'refseq-kIDs' in locusDict[list(locusDict.keys())[0]]:
                 for locus in locusDict.keys():
                     locusDict[locus]['refseq-kIDs']={'forward':{locusDict[locus]['refseq'][i:i+kmerSize] 
                                                         for i in range(len(locusDict[locus]['refseq'])-kmerSize+1)}}
@@ -1516,7 +1516,7 @@ class Analysis:
     #for automatic processing of commandline options
     def __init__(self,fqFilename,kitName='Illumina',maintainAllReads=True,negativeReadsFilter=True,kMerAssign=False,
                     primerBuffer=0,flankOut=False,stutterBuffer=1,useCompress=True,withAlignment=False,threshold=0.005,
-                    clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=4,verbose=False):
+                    clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=False,verbose=False):
         """
         Sets up an analysis of loci for a specific kit
             fqFilename => Fastq file on which to perform the analysis
@@ -1635,9 +1635,12 @@ class Analysis:
         else: #Single process
             reads = [read.assignLocus(self.locusDict,extraMethod=self.kMerAssign) for read in reads]
             for read in reads:
-                #if self.flankOut: #REMOVE#
-                read.flankOut(self.locusDict,useCompress=self.useCompress,withAlignment=self.withAlignment)
-                #else: read.primerOut(self.locusDict) #REMOVE#
+                #For small reads, were the primers are larger than the read it self an exception will be returned
+                #those reads should be marked as unsuitable
+                #TODO# Implement this also for parallel processing
+                try: read.flankOut(self.locusDict,useCompress=self.useCompress,withAlignment=self.withAlignment)
+                except:
+                    read.locus = False
             return reads
 
     def processRead_px(self,read):
@@ -2250,6 +2253,10 @@ if __name__ == '__main__':
             defaultP = sig[3][sig[0].index(param)-(len(sig[0])-len(sig[3]))] #deprecated
             typeP = (type(defaultP) if defaultP is not None else builtins.__dict__[doc[param].split()[-1].strip()[1:-1]])
             parser_analysis.add_argument('--'+param,type=typeP,default=defaultP,help=doc[param])
+    parser_analysis.add_argument('--kMerAssign',type=int,
+                                 help='''Instead of looking for exact primers, assign a read based on
+                                 primer k-mer words of size int KMERASSIGN.
+                                 This is only meant to be used exploratory. All reads will be assigned to some locus.''')
     parser_analysis.add_argument('-r','--report',const=True,nargs='?',
                                  help='Make report, optionally provide filename to save xml')
     parser_analysis.add_argument('-s','--stylesheet',const=True,nargs='?',
@@ -2265,7 +2272,7 @@ if __name__ == '__main__':
     parser.add_argument('-p','--password',help='MySQL user password (if not provided, will be asked for)')
     
     
-    #Parse arguments
+    #Parse/process arguments
     args = parser.parse_args()
     #args = parser.parse_args(['analysis','-v','--stutterBuffer','0','--flankOut','False','--randomSubset','0.05',
     #        '--verbose','True','--useCompress','True','--withAlignment','True',#'--parallelProcessing','0',
@@ -2275,6 +2282,9 @@ if __name__ == '__main__':
         import getpass
         try: args.password = getpass.getpass('MySQL password for '+args.user+': ')
         except EOFError: args.password = input('MySQL password for '+args.user+': ')
+    if args.kMerAssign:
+        args.kMerAssign = ('k-mer',args.kMerAssign)
+    else: del args.kMerAssign
 
     #Check if user and password match => if user is authorised to make or change MyFLq databases
     login = Login(user=args.user,passwd=args.password,database=args.db)
@@ -2292,6 +2302,7 @@ if __name__ == '__main__':
     elif 'fqFilename' in args:
         #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
         kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]}
+        #Start analysis
         analysis = Analysis(kitName=args.kit,**kwargs)
         if not sum({len(analysis.loci[locus].uniqueAbundances) for locus in analysis.loci}):
             raise Exception('''There does't seem to be any valid reads in your fastq.
