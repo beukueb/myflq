@@ -76,7 +76,7 @@ function draw(data) {
         .domain([0,100]);
     var y_axis = d3.svg.axis().scale(y_scale).orient("left");
     function barWidth() {
-	return Math.max(1,x_scale(1)-1);
+	return Math.max(1,x_scale(1)-x_scale(0)-1);
 	//return (stackedGraph) ?  Math.max(1,x_stackedScale(1)-1) : Math.max(1,x_scale(1)-1);
     }
     //console.log(x_extent,barWidth);
@@ -99,7 +99,7 @@ function draw(data) {
     var maxPosStackedBar = stackedAllelesLociPositions[stackedAllelesLociPositions.length-1];
     var zoom = d3.behavior.zoom()
         .x(x_scale)
-        .scaleExtent([.9,Math.min(100,Math.max(10,10*maxPosStackedBar/width))]) //simple [1,10]
+	.scaleExtent([.9,Math.min(100,Math.max(10,10*maxPosStackedBar/width))]) //simple [1,10]
         .on("zoom", zoomHandler);
 
     //Clipping zone for all bars and x axis
@@ -175,13 +175,14 @@ function draw(data) {
 	//svg.select(".y.axis").call(y_axis);
 	if (stackedGraph) {
 	    bars.selectAll(".alleleCandidate")
-		  .attr("transform", function(d,i) { return "translate("+x_scale(stackedAlleles[i][0]) + "," + (y_scale(stackedAlleles[i][1])-y_scale(stackedAlleles[i][2]))+")";})
-		  .attr("width",barWidth());
+		  .attr("width",barWidth())
+		  .attr("transform", function(d,i) { return "translate("+x_scale(stackedAlleles[i][0]) + "," + (y_scale(stackedAlleles[i][1])-y_scale(stackedAlleles[i][2]))+")";});
 	}
 	else {
 	    bars.selectAll("g.locus")
 		.selectAll("rect.alleleCandidate")
-		  .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentElement.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ") scale(" + d3.event.scale + ", 1)";});
+       		  .attr("width",barWidth())
+		  .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentElement.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ")";});
 	}
     }
 
