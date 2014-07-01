@@ -2,11 +2,25 @@ function draw(data) {
     "use strict";
 
     //Prepare data
+    var results = data.documentElement;
+    if (results.nodeName != "results"){
+	results = results.getElementsByTagName("results")[0];
+      //.getElementsByTagName("results") is a hack to allow processing 
+      //when html document is passed instead of xml data to draw
+      //this is used in the BaseSpace version, where the xml is dumped into
+      //the html document
+    }
+    if (results.getElementsByTagName("lociDatabaseState").length){
+	//Database info also contains locus tags, 
+	//and therefore needs to be removed if present
+	results.getElementsByTagName("lociDatabaseState")[0].remove();
+    }
+
       //Normal sequential graph
     var lociNames = [];
     var lociStartPosition = [0]; //First locus starts at 0
     //var lociInfo = {}
-    var loci=data.documentElement.getElementsByTagName("locus");
+    var loci = results.getElementsByTagName("locus");
     for (var i=0;i<loci.length;i++)
 	{
 	    lociNames[lociNames.length] = loci[i].getAttribute('name');
@@ -48,7 +62,7 @@ function draw(data) {
     height = 400 - margin.top - margin.bottom;
     
       //Setting scales
-    var domainMaxNormalGraph = [0,loci.length + data.documentElement.getElementsByTagName("alleleCandidate").length],
+    var domainMaxNormalGraph = [0,loci.length + results.getElementsByTagName("alleleCandidate").length],
         domainMaxStackedGraph = [-1,stackedAllelesLociPositions[stackedAllelesLociPositions.length-1]+1];
     var x_scale = d3.scale.linear().range([0,width])
         .domain(domainMaxNormalGraph);
@@ -68,8 +82,8 @@ function draw(data) {
     //console.log(x_extent,barWidth);
 
     //Constructing chart
-    var sampleName = (data.documentElement.getAttribute("sample")) ? data.documentElement.getAttribute("sample") : "unknown";
-    var date = new Date(data.documentElement.getAttribute("timestamp")*1000);
+    var sampleName = (results.getAttribute("sample")) ? results.getAttribute("sample") : "unknown";
+    var date = new Date(results.getAttribute("timestamp")*1000);
     d3.select("#sampleTitle").append("h1")
 	.text("Sample " +
 	      sampleName +
@@ -133,7 +147,7 @@ function draw(data) {
 	.call(zoom);//.on("dblclick.zoom",null);
 
     bars.selectAll("g.locus")
-        .data(data.documentElement.getElementsByTagName("locus"))
+        .data(results.getElementsByTagName("locus"))
         .enter()
         .append("g")
           .attr("class","locus")
@@ -161,7 +175,8 @@ function draw(data) {
 	//svg.select(".y.axis").call(y_axis);
 	if (stackedGraph) {
 	    bars.selectAll(".alleleCandidate")
-		  .attr("transform", function(d,i) { return "translate("+x_scale(stackedAlleles[i][0]) + "," + (y_scale(stackedAlleles[i][1])-y_scale(stackedAlleles[i][2]))+") scale(" + d3.event.scale + ", 1)";});
+		  .attr("transform", function(d,i) { return "translate("+x_scale(stackedAlleles[i][0]) + "," + (y_scale(stackedAlleles[i][1])-y_scale(stackedAlleles[i][2]))+")";})
+		  .attr("width",barWidth());
 	}
 	else {
 	    bars.selectAll("g.locus")
@@ -333,7 +348,7 @@ function draw(data) {
 		var delay = function(d, i) { return i * 50; };
 
 		bars.selectAll(".alleleCandidate")
-		    //.data(data.documentElement.getElementsByTagName("alleleCandidate"))
+		    //.data(results.getElementsByTagName("alleleCandidate"))
 		    .transition()
 		    .delay(delay)
 		    .attr("width",barWidth())
