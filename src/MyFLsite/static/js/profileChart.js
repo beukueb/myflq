@@ -1,5 +1,9 @@
-function draw(data) {
+function draw(error,data,width,height) {
     "use strict";
+
+    //Set defaults
+    width = width || 900; 
+    height = height || 400;
 
     //Prepare data
     var results = data.documentElement;
@@ -58,8 +62,8 @@ function draw(data) {
     //Prepare chart
       //svg properties
     var margin = {top: 30, right: 30, bottom: 70, left: 40},
-    width = 900 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = width - margin.left - margin.right,
+    height = height - margin.top - margin.bottom;
     
       //Setting scales
     var domainMaxNormalGraph = [0,loci.length + results.getElementsByTagName("alleleCandidate").length],

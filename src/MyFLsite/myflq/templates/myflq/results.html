@@ -33,6 +33,7 @@
       min-height: 1500px; /*TODO hack should not be necessary but dynamic, css flawed somewhere*/
     }
 
+/*TODO add in seperate css file for general profileChart.js use*/
     #chart {
       position: relative; 
         /*Needs to be either relative or absolute,
@@ -51,15 +52,15 @@
       margin: 0px;
       left: 0px;
       top: 0px;
-      width: 900px;
-      height: 400px;
+      /*width: 700px; /*Normally set within javascript draw function*/
+      height: 400px;*/
     }
 
     #svgFunctions {
       position: absolute;
       box-sizing: border-box;
       margin: 0px;
-      left: 900px;
+      left: 700px; /*TODO set in draw function dynamically based on graph width*/
       top: 0px;
       width: 200px;
     }
@@ -123,7 +124,9 @@
     </div>
   </div>
   <script>
-    d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",draw);
+    d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",function(error,data){
+      draw(error,data,700);
+    });
   </script>
 
 {% endif %}
