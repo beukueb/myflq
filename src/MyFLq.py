@@ -2303,6 +2303,8 @@ if __name__ == '__main__':
         #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
         kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]}
         #Start analysis
+        #import pdb
+        #pdb.set_trace()
         analysis = Analysis(kitName=args.kit,**kwargs)
         if not sum({len(analysis.loci[locus].uniqueAbundances) for locus in analysis.loci}):
             raise Exception('''There does't seem to be any valid reads in your fastq.

@@ -90,11 +90,15 @@ sudo easy_install3 python-dateutil six #other matplotlib dependency
 sudo easy_install3 -U distribute
 sudo easy_install3 matplotlib #in case of strange installation problems, try: sudo easy_install3 -m matplotlib
 # or: sudo easy_install ipython #this normally includes above dependencies and is necessary for parallel processing
-python3 MyFLdb.py --install root
+mysql -uroot -p
+      GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION;
+      FLUSH PRIVILEGES;
+python3 MyFLdb.py --install admin -p passall
 
 #Enable tasks daemon
 ##With simple_tasks.py
 cd ~/MyFLqApp/MyFLsite
+export PYTHONPATH=$PYTHONPATH:~/github/myflq/src/MyFLsite:~/github/myflq/src
 sudo -u www-data python3 myflq/simple_tasks.py
 ##With celery
 sudo -i

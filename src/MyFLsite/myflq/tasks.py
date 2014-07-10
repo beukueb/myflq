@@ -27,7 +27,7 @@ def myflqTaskRequest(analysisID):
                                    '--withAlignment', str(analysis.withAlignment), '--threshold', str(analysis.threshold),
                                    '--clusterInfo', str(analysis.clusterInfo), '--randomSubset', str(analysis.randomSubset),
                                    '-r',tempxml.name,'-s', settings.STATIC_URL+'css/results.css','-v',tempfigure.name,
-                                   '--parallelProcessing','0', analysis.fastq.file.name, analysis.dbname.dbusername(), 
+                                   analysis.fastq.file.name, analysis.dbname.dbusername(), 
                                    analysis.dbname.fulldbname(), 'default']
     if not analysis.randomSubset:
         command.pop(command.index('--randomSubset')+1)

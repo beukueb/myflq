@@ -7,11 +7,23 @@ The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beuku
 
 The datafile can be a single-individual-source or multiple-individual-source sample. Profile results depend on both csv files. Loci.csv will determine the number of loci that will be analyzed; alleles.csv will determine the region of interest [ROI] of those loci.
 
-##Custom loci.csv and alleles.csv
-When custom loci.csv and alleles.csv are required, one can submit them on [MyFLhub](https://github.com/beukueb/myflq) (MyFLq repo on Github) with a pull request (ask a bioinformatician to help if you don't know how). The program will then be rebuild, and your files will be available to select within 24 hours.
+## Options for running MyFLq
+### From the Github repo
+Initial setup:
 
-If you do not want those files to be public, you can copy paste them into the respective textbox in the input form. In this case pay close attention to the format of your *.csv files. There should not be any whitespace, unless at the end of a line or within a commented line.
+    git clone https://github.com/beukueb/myflq.git
+    cd myflq/src/MyFLsite/
+    python3 manage.py syncdb
 
+For the above to work all dependencies need to be installed, and MySQL needs to be prepared. Detailed instructions are in src/MyFLsite/documentation.
+
+To start the webapp:
+
+    celery -A MyFLsite worker -l info &
+    python3 manage.py runserver 0.0.0.0:8000
+
+
+### As a Docker container
 Another option is, after installing [Docker](https://www.docker.io/), to pull and start the MyFLq container on your server with the following command:
 
     sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
@@ -19,6 +31,14 @@ Another option is, after installing [Docker](https://www.docker.io/), to pull an
 If you want the webapp to run on another port than the standard webport 80, change that in the commandline.
 
 MyFLq will then run as a local web application on the indicated port. For more information on this see [MyFLhub](https://github.com/beukueb/myflq)
+
+### Illumina BaseSpace
+MyFLq is also accessible directly from the Illumina BaseSpace environment.
+
+#### Custom loci.csv and alleles.csv
+When custom loci.csv and alleles.csv are required, one can submit them on [MyFLhub](https://github.com/beukueb/myflq) (MyFLq repo on Github) with a pull request (ask a bioinformatician to help if you don't know how). The program will then be rebuild, and your files will be available to select within 24 hours.
+
+If you do not want those files to be public, you can copy paste them into the respective textbox in the input form. In this case pay close attention to the format of your *.csv files. There should not be any whitespace, unless at the end of a line or within a commented line.
 
 In the future it will be possible to upload files (e.g. small csv's) to your BaseSpace projects. At that time you will be able to select personal files.
 

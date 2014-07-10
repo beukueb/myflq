@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 <h1> Results </h1>
@@ -24,15 +25,106 @@
 {% endif %}
 
 {% if analysis %}
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="{% static 'js/profileChart.js' %}"></script>
+  <style>
+    #content {
+      min-height: 1500px; /*TODO hack should not be necessary but dynamic, css flawed somewhere*/
+    }
+
+    #chart {
+      position: relative; 
+        /*Needs to be either relative or absolute,
+          in order to be able to position child divs absolutely to this one*/
+      display: block;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      /*overflow: hidden;*/
+      width: 1100px;
+      margin: auto;
+    }
+    
+    #svgContainer {
+      position: absolute;
+      box-sizing: border-box;
+      margin: 0px;
+      left: 0px;
+      top: 0px;
+      width: 900px;
+      height: 400px;
+    }
+
+    #svgFunctions {
+      position: absolute;
+      box-sizing: border-box;
+      margin: 0px;
+      left: 900px;
+      top: 0px;
+      width: 200px;
+    }
+
+    #alleleInfo {
+      position: absolute;
+      box-sizing: border-box;
+      margin: 0px;
+      left: 0px;
+      top: 400px;
+      width: 900px;
+    }
+
+    div.locus {
+      background-color: red;
+    }
+    .axis path {
+      fill: none;
+      stroke: black;
+    }
+    .axis {
+      font-size: 8pt;
+      font-family: sans-serif;
+      shape-rendering: crispEdges;
+    }
+    .tick {
+      fill: none;
+      stroke: black;
+    }
+    rect.pane {
+      cursor: move;
+      fill: none;
+      pointer-events: all;
+    }
+    rect.threshold {
+      cursor: n-resize;
+    }
+  </style>
+
 <h2>Analysis details</h2>
 <h3>Parameters</h3>
 {{ analysis }}
 
-<h3>Visual profile</h3>
+<h3>Profile</h3>
+<!--TODO provide links, so that the static profiles can be downloaded
 <img src="{{ analysis.analysisresults.figFile.url }}" width="900">
 
 <h3>Xml report</h3>
-<iframe src="{{ analysis.analysisresults.xmlFile.url }}" width="900" height="450">A more recent browser is needed to see full results</iframe>
+<iframe src="{{ analysis.analysisresults.xmlFile.url }}" width="900" height="450">A more recent browser is needed to see full results</iframe-->
+
+  <!--div id="sampleTitle"></div-->
+  <div id="chart">
+    <div id="svgContainer"></div>
+    <div id="svgFunctions">
+      <h3>Settings</h3>
+      <label><input type="checkbox" id="sortLength">Absolute length</label><br /><br />
+      Threshold (%):<input type="number" class="thresQuant" value="10" min="0" max="100" step="0.05"><br />
+      0<input type="range" class="thresQuant" value="10" min="0" max="100" step="0.05">100<br /><br />
+      <hr />
+      <button id="makeProfile">Make profile</button>
+    </div>
+  </div>
+  <script>
+    d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",draw);
+  </script>
 
 {% endif %}
 
