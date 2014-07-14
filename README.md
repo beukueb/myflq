@@ -3,7 +3,7 @@
 
 Open source, straightforward analysis tool for forensic DNA samples.
 
-The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fastq datafile, whereupon the datafile's profile is extracted.
+The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fast[a/q] datafile, whereupon the datafile's profile is extracted.
 
 The datafile can be a single-individual-source or multiple-individual-source sample. Profile results depend on both csv files. Loci.csv will determine the number of loci that will be analyzed; alleles.csv will determine the region of interest [ROI] of those loci.
 
@@ -15,7 +15,7 @@ Initial setup:
     cd myflq/src/MyFLsite/
     python3 manage.py syncdb
 
-For the above to work all dependencies need to be installed, and MySQL needs to be prepared. Detailed instructions are in src/MyFLsite/documentation.
+For the above to work all dependencies need to be installed, and a MySQL database needs to be prepared. Detailed instructions are in src/MyFLsite/documentation.
 
 To start the webapp:
 
@@ -30,13 +30,13 @@ Another option is, after installing [Docker](https://www.docker.io/), to pull an
 
 If you want the webapp to run on another port than the standard webport 80, change that in the commandline.
 
-MyFLq will then run as a local web application on the indicated port. For more information on this see [MyFLhub](https://github.com/beukueb/myflq)
+MyFLq will then run as a local web application on the indicated port.
 
 ### Illumina BaseSpace
 MyFLq is also accessible directly from the Illumina BaseSpace environment.
 
 #### Custom loci.csv and alleles.csv
-When custom loci.csv and alleles.csv are required, one can submit them on [MyFLhub](https://github.com/beukueb/myflq) (MyFLq repo on Github) with a pull request (ask a bioinformatician to help if you don't know how). The program will then be rebuild, and your files will be available to select within 24 hours.
+When custom loci.csv and alleles.csv are required on BaseSpace, one can submit them on [MyFLhub](https://github.com/beukueb/myflq) (MyFLq repo on Github) with a pull request (ask a bioinformatician to help if you don't know how). The program will then be rebuild, and your files will be available to select within 24 hours.
 
 If you do not want those files to be public, you can copy paste them into the respective textbox in the input form. In this case pay close attention to the format of your *.csv files. There should not be any whitespace, unless at the end of a line or within a commented line.
 
@@ -57,14 +57,10 @@ ps://github.com/beukueb/myflq). You can also copy paste your custom file in the 
   The fastq can be either single-end or paired-end.
 - Save results to: the project where your results will be saved.
 - General options for analysis:
- - *Negative reads filter*   
-   Working with a ROI, immplies the possibility of having flanks that overlap in certain reads, therefore implying a negative ROI-length. With this option activated they are annotated in the locus stats, else they are represented as '[-]' together with the other allele candidates.
- - *Cluster information*  
-   With this option activated, unique reads within a locus are compared to each other. Reads that differ little are annotated as such. Does require more processing time.
  - *Threshold*  
    Unique reads with an abundance lower than this value (in %), are discarded. It is reported in the locus stats how many reads were discarded in this way.
  - *Preview*  
-   Analyzing very big fastq's can take a considerable amount of time. If you want a quick preview, select a random percentage of the file to analyze. For low values (2-10%), this will give you a quick analysis of the profile. If at this point all alleles indicate a clear single contributor and have at least 1000 loci per locus, it is probably not necessary to do an analysis on the full file.
+   Analyzing very big fastq's can take a considerable amount of time. If you want a quick preview, select a random percentage of the file to analyze. For low values (2-10%), this will give you a quick analysis of the profile. If at this point all alleles indicate a clear single contributor and have at least 1000 reads per locus, it is probably not necessary to do an analysis on the full file.
 - Alignment options  
   Different types of alignments occur during the process of analysis. With these options you can influence the processing.
  - *Primer buffer*  
@@ -82,12 +78,21 @@ After selecting options, launch analysis.
 
 ###Review results.
 When the analysis is done, BaseSpace will have automatically made a report with all the results.  
-In the report, there is a link to the parameters chosen for this analysis ('Inputs'), then a quick visual overview of the analysis to indicate if it looks like a normal profile, followed by the detailed profile.
+
+The report primarily shows the visual profile. Initially it shows the overview of all analyzed loci. 
+
+Functionality:
+
+- On the X-axis (with the loci names), you can zoom in and move the axis to go over all the loci.
+- Putting the mouse on an allele candidate bar, shows all information for that candidate. Clicking on a bar from an allele candidate that has an abundance higher than the threshold, will deselect it from the profile. Sequence aberrations can be removed by doing so.
+- Selecting 'Absolute length' in the settings, will reorganize the graph. All allele candidates will now be plotted within each locus proportionate to their sequence length.
+- Pushing 'Make profile' generates a table in a new window that contains only the allele candidates that were present with an abundance higher than the threshold and were not manually deselected from the profile.
 
 Suggested steps:
 
-- Click on the image to download it, and visually go over it one locus at a time.
-- For each locus, having the visual indication close by, go over the alleles and validate them by selecting the checkbox, or if the stats indicate poor quality, deselect them.
+- Set the threshold to a level appropriate for the sample noise.
+- Inspect each red allele (unknown in the database), that is still higher in abundance than the threshold. If the abundance is not far removed from the threshold and the stats indicate poor quality, deselect them from the profile.
+- In case it is known to be a single contributor sample, closely inspect all sequences from loci that have more than 2 alleles.
 
 ###Make profile and save it locally
 - After reviewing all loci, click "Make profile" at the top of "Detailed profile".
