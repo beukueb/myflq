@@ -17,66 +17,71 @@
         },
         {
             "$type": "Select",
-            "id": "select-loci",
-            "label": "Select loci set",
+        	"id": "select-loci",
+        	"label": "Select loci set",
             "helpText": "The loci set contains all loci that will be analyzed together with their primers, and period number in case of STR loci. Merge your loci.csv file with MyFLhub if it is not here.",
-            "multiselect": false,
+        	"multiselect": false,
             "required": false,
             "rules": "only-one-option-loci",
-            "choices": [
-            	       {
-				"value": 0,
-						"text": "--------",
-								"selected": true
-        								    },
+        	"choices": [
+            	{
+        			"value": 0,
+        			"text": "--------",
+        			"selected": true
+        		},
                 {
-				"value": 1,
-						"text": "Promega 16",
-        							 "selected": false
-        							 	     }
-        								     ]
+        			"value": 1,
+        			"text": "Promega 16",
+        			"selected": false
+        		}
+        	]
         },
         {
             "$type": "TextBox",
-	            "size": 300,
+	        "size": 300,
             "maxLength": 10000,
-	            "label": "or copy paste loci.csv file here",
-		            "required": false,
-			            "id": "loci-textbox",
-				            "helpText": "If you do not want your loci.csv to go public on MyFLhub, paste it here. There cannot be any spaces around ','. Spaces should only be at the end of lines."
+	        "label": "or copy paste loci.csv file here",
+	        "required": false,
+	        "id": "loci-textbox",
+	        "helpText": "If you do not want your loci.csv to go public on MyFLhub, paste it here. There cannot be any spaces around ','. Spaces should only be at the end of lines."
         },
         {
             "$type": "SectionBreak"
         },
         {
             "$type": "Select",
-            "id": "select-allele",
-            "label": "Select allele database",
+        	"id": "select-allele",
+        	"label": "Select allele database",
             "helpText": "The allele database should contain all known alleles for the loci in loci set. Merge your alleles.csv file with MyFLhub if it is not here",
-            "multiselect": false,
+        	"multiselect": false,
             "required": false,
             "rules": "only-one-option-allele",
-            "choices": [
-            	       {
-				"value": 0,
-						"text": "--------",
-								"selected": true
-        								    },
+        	"choices": [
+            	{
+        			"value": 0,
+        			"text": "--------",
+        			"selected": true
+        		},
                 {
-				"value": 1,
-						"text": "MyFLq paper database",
-        						       "selected": false
-        						       		   }
-        								   ]
+        			"value": 1,
+        			"text": "MyFLq paper database",
+        			"selected": false
+        		},
+                {
+            		"value": -1,
+        			"text": "Empty database - only for research purposes",
+        			"selected": false
+        		}
+        	]
         },
         {
             "$type": "TextBox",
             "size": 300,
             "maxLength": 100000,
-	            "label": "or copy paste alleles.csv file here",
-		            "required": false,
-			            "id": "alleles-textbox",
-				            "helpText": "If you do not want your alleles.csv to go public on MyFLhub, paste it here. There cannot be any spaces around ','. Spaces should only be at the end of lines."
+	        "label": "or copy paste alleles.csv file here",
+	        "required": false,
+	        "id": "alleles-textbox",
+	        "helpText": "If you do not want your alleles.csv to go public on MyFLhub, paste it here. There cannot be any spaces around ','. Spaces should only be at the end of lines."
         },
         {
             "$type": "SectionBreak"
@@ -109,11 +114,11 @@
         {
             "$type": "FieldSet",
             "id": "general-options",
-            "label": "General options",
-            "isCollapsible": true,
-            "isOpen": true,
-            "helpText": "Select the options for the analysis.",
-            "fields": [
+        	"label": "General options",
+        	"isCollapsible": true,
+        	"isOpen": true,
+        	"helpText": "Select the options for the analysis.",
+        	"fields": [
                     {
                         "$type": "Numeric",
                     	"id": "threshold",
@@ -143,10 +148,10 @@
         {
             "$type": "FieldSet",
             "id": "alignment-options",
-            "label": "Alignment options",
-            "isCollapsible": true,
-            "isOpen": true,
-            "fields": [
+        	"label": "Alignment options",
+        	"isCollapsible": true,
+        	"isOpen": true,
+        	"fields": [
                   {
                         "$type": "Numeric",
                         "id": "primerBuffer",
@@ -177,11 +182,11 @@
                     	"label": "Flankout",
                         "helpText": "If you see a large amount of negative reads in the analysis, or a high abundant unique read with very poor flanks, turn this feature off. The analysis will then be done between the primers. Previously unknown alleles can be discovered this way.",
                     	"choices": [
-                    		   {
-						"value": 0,
+                    		{
+                    			"value": 0,
                                 "checked": true
-                    			   }
-                    			   ]
+                    		}
+                    	]
                     },
                     {
                         "$type": "CheckBox",
@@ -189,11 +194,11 @@
                     	"label": "Homopolymers compressed",
                         "helpText": "Long homopolymers in the flanks could stutter during PCR. This option annotates flanks of loci that were possibly affected by this.",
                     	"choices": [
-                    		   {
-						"value": 0,
+                    		{
+                    			"value": 0,
                                 "checked": true
-                    			   }
-                    			   ]
+                    		}
+                    	]
                     },
                     {
                         "$type": "CheckBox",
@@ -201,11 +206,11 @@
                         "label": "Flankout by alignment",
                         "helpText": "If this option is activated, flanks are removed with our alignment algorithm, instead of the k-mer based flexible flanking.",
                     	"choices": [
-                    		   {
-						"value": 0,
+                    		{
+                    			"value": 0,
                                 "checked": false
-                    			   }
-                    			   ]
+                    		}
+                    	]
                     }
                 ]
         }
@@ -254,5 +259,14 @@
                 return null;",
                 "id": "only-one-option-allele"
         },
+        {
+                "$type": "MaxSizeSampleValidationRule",
+	            "message": "This app currently only supports samples with less than 200 gigabases.",
+	            "field": "MaxSize",
+	            "relation": "LessThan",
+	            "value": 200000000000,
+	            "severity": "Warning",
+	            "id": "sample-size-maximum"
+}
     ]
 }
