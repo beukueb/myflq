@@ -247,6 +247,25 @@ function draw(error,data,width,height) {
 	    row.append("td").text("Clean flanks");
 	    row.append("td").text(d.getElementsByTagName("qualityFlanks")[0].getAttribute("clean"));
 
+	    //In profile checkbox
+	    aI.append("br")
+	    aI.append("label")
+		.attr("for","profileCheckbox")
+		.text("In profile: ");
+	    var profileCB = aI.append("input")
+		.attr("type","checkbox")
+		.attr("id","profileCheckbox");
+	    if (parseFloat(d.getAttribute('abundance')) < threshold) {
+		profileCB.attr("disabled","disabled");
+	    } else if (d.getAttribute('profile')!='no') {
+		profileCB.attr("checked","checked");
+	    }
+	    profileCB.on("click",function(){
+		//console.log(this);
+		d.setAttribute('profile', (d.getAttribute('profile')=='no') ? 'yes' : 'no');
+	    })
+window.pcb = profileCB;//DEBUG
+
 	    //Cluster-info
 	    aI.append("h3").text("Relations to other sequences within "+locus.getAttribute("name"));
 	    table = aI.append("div").attr("style","overflow-x: scroll;").append("table");
@@ -284,8 +303,13 @@ function draw(error,data,width,height) {
 	})
     svg.selectAll(".alleleCandidate")
 	.on("click", function(d,i) {
-	    d.setAttribute('profile',(d.getAttribute('profile')=='no') ? 'yes' : 'no')
-	    console.log(d.getAttribute('profile'));
+	    if (parseFloat(d.getAttribute('abundance')) >= threshold)
+	    {
+		d.setAttribute('profile', (d.getAttribute('profile')=='no') ? 'yes' : 'no');
+		//Set profile checkbox accordingly
+		d3.select("#profileCheckbox")
+		    .attr("checked", (d.getAttribute('profile')=='no') ? null : 'checked');
+	    }
 	})
 
     //Threshold functionality
