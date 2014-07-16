@@ -378,13 +378,13 @@ window.pcb = profileCB;//DEBUG
 		x_axis.tickValues(stackedAllelesLociPositions)
 		    .tickFormat(function(d) { return lociNames[stackedAllelesLociPositions.indexOf(d)];});
 		
-		/*var transition = svg.transition().duration(750),*/
-		var delay = function(d, i) { return i * 50; };
+		/*Delay is nice for once but not practical for actual use*
+		var delay = function(d, i) { return i * 50; };*/
 
 		bars.selectAll(".alleleCandidate")
 		    //.data(results.getElementsByTagName("alleleCandidate"))
 		    .transition()
-		    .delay(delay)
+		    //.delay(delay)
 		    .attr("width",barWidth())
 		    .attr("transform",function(d,i) {  return "translate("+x_scale(stackedAlleles[i][0]) + "," + (y_scale(stackedAlleles[i][1])-y_scale(stackedAlleles[i][2]))+")"});
 
@@ -427,6 +427,7 @@ window.pcb = profileCB;//DEBUG
 		    .attr("transform", "rotate(45)");
 		bars.selectAll("g.locus")
 		    .selectAll("rect.alleleCandidate")
+		      .attr("width",barWidth())
 		      .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentNode.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ")";});
 	    }	
 	})
