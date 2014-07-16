@@ -1,0 +1,76 @@
+/*This provides the general layout for the chart produced by profileChart.js
+  Overwrite application specific needs within html style*/
+
+#chart {
+    position: relative; 
+    /*Needs to be either relative or absolute,
+      in order to be able to position child divs absolutely to this one*/
+    display: block;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    /*overflow: hidden;*/
+    width: 1100px;
+    margin: auto;
+}
+
+#svgContainer {
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0px;
+    left: 0px;
+    top: 0px;
+    /*width: 700px; /*Normally set within javascript draw function*/
+    height: 400px;*/
+}
+
+#svgFunctions {
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0px;
+    left: 700px; /*TODO set in draw function dynamically based on graph width*/
+    top: 0px;
+    width: 200px;
+}
+
+#alleleInfo {
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0px;
+    left: 0px;
+    top: 400px;
+    width: 900px;
+}
+
+div.locus {
+    background-color: red;
+}
+
+.axis path {
+    fill: none;
+    stroke: black;
+}
+
+.axis {
+    font-size: 8pt;
+    font-family: sans-serif;
+    shape-rendering: crispEdges;
+}
+
+.tick {
+    fill: none;
+    stroke: black;
+}
+
+rect.pane {
+    cursor: move;
+    fill: none;
+    pointer-events: all;
+}
+
+rect.threshold {
+    cursor: n-resize;
+}
+
+.thresQuant {
+    width: 120px;
+}

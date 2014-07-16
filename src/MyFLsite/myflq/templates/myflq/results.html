@@ -28,75 +28,10 @@
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="{% static 'js/profileChart.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/profileChart.css' %}">
   <style>
     #content {
       min-height: 1500px; /*TODO hack should not be necessary but dynamic, css flawed somewhere*/
-    }
-
-/*TODO add in seperate css file for general profileChart.js use*/
-    #chart {
-      position: relative; 
-        /*Needs to be either relative or absolute,
-          in order to be able to position child divs absolutely to this one*/
-      display: block;
-      box-sizing: border-box;
-      font-family: sans-serif;
-      /*overflow: hidden;*/
-      width: 1100px;
-      margin: auto;
-    }
-    
-    #svgContainer {
-      position: absolute;
-      box-sizing: border-box;
-      margin: 0px;
-      left: 0px;
-      top: 0px;
-      /*width: 700px; /*Normally set within javascript draw function*/
-      height: 400px;*/
-    }
-
-    #svgFunctions {
-      position: absolute;
-      box-sizing: border-box;
-      margin: 0px;
-      left: 700px; /*TODO set in draw function dynamically based on graph width*/
-      top: 0px;
-      width: 200px;
-    }
-
-    #alleleInfo {
-      position: absolute;
-      box-sizing: border-box;
-      margin: 0px;
-      left: 0px;
-      top: 400px;
-      width: 900px;
-    }
-
-    div.locus {
-      background-color: red;
-    }
-    .axis path {
-      fill: none;
-      stroke: black;
-    }
-    .axis {
-      font-size: 8pt;
-      font-family: sans-serif;
-      shape-rendering: crispEdges;
-    }
-    .tick {
-      fill: none;
-      stroke: black;
-    }
-    rect.pane {
-      cursor: move;
-      fill: none;
-      pointer-events: all;
-    }
-    rect.threshold {
-      cursor: n-resize;
     }
   </style>
 
