@@ -124,9 +124,12 @@
     </div>
   </div>
   <script>
-    d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",function(error,data){
-      draw(error,data,700);
-    });
+    window.onload = function ()
+    {
+      d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",function(error,data){
+        draw(error,data,700);
+      });
+    }
   </script>
 
 {% endif %}

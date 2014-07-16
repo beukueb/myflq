@@ -95,9 +95,10 @@ Suggested steps:
 - In case it is known to be a single contributor sample, closely inspect all sequences from loci that have more than 2 alleles.
 
 ###Make profile and save it locally
-- After reviewing all loci, click "Make profile" at the top of "Detailed profile".
+- After reviewing all loci, click "Make profile".
 - A new browser window will open with all the alleles in the profile. Save it locally.  
   (For now it is not possible to save it in your project, so choose a filename that refers to the project/result.) 
+- If there is a locus with more than two alleles, it is indicated that based on the threshold this profile derives from a multi-contributor sample. If there is maximum two alleles per locus, the probability of that profile can be retrieved from the [ENFSI STRbase](http://strbase.org/) site.
 
 ###Test files
 Click [here](https://cloud-hoth.illumina.com/s/6nsamiEr4SNk) to get access to a project with forensic samples that can be used to try out MyFLq.

@@ -17,7 +17,12 @@ function draw(error,data,width,height) {
     if (results.getElementsByTagName("lociDatabaseState").length){
 	//Database info also contains locus tags, 
 	//and therefore needs to be removed if present
-	results.getElementsByTagName("lociDatabaseState")[0].remove();
+	try {
+	    results.getElementsByTagName("lociDatabaseState")[0].remove();
+	}
+	catch(err) {
+	    results.removeChild(results.getElementsByTagName("lociDatabaseState")[0]);
+	}
     }
 
       //Normal sequential graph
@@ -161,11 +166,11 @@ function draw(error,data,width,height) {
         .append("rect")
           .attr("class","alleleCandidate")
 	  .attr("id", function(d,i) {
-	      return d.parentElement.getAttribute("name")+"_"+i;
+	      return d.parentNode.getAttribute("name")+"_"+i;
 	      })
           .attr("width",barWidth())
           .attr("height",function(a) { return height - y_scale(parseFloat(a.getAttribute('abundance')))})
-          .attr("transform",function(a,i) {  return "translate("+x_scale(lociStartPosition[lociNames.indexOf(a.parentElement.getAttribute("name"))]+i)+","+y_scale(parseFloat(a.getAttribute('abundance')))+")"})
+          .attr("transform",function(a,i) {  return "translate("+x_scale(lociStartPosition[lociNames.indexOf(a.parentNode.getAttribute("name"))]+i)+","+y_scale(parseFloat(a.getAttribute('abundance')))+")"})
           .style("fill",function(a) { return (a.getAttribute("db-name") == "NA") ? "red": "green";})
           //.text(function(a) { return a.getAttribute('db-name'); })
 
@@ -186,7 +191,7 @@ function draw(error,data,width,height) {
 	    bars.selectAll("g.locus")
 		.selectAll("rect.alleleCandidate")
        		  .attr("width",barWidth())
-		  .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentElement.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ")";});
+		  .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentNode.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ")";});
 	}
     }
 
@@ -210,7 +215,7 @@ function draw(error,data,width,height) {
 	    var aI = d3.select("#chart")
 		.append("div")
 		  .attr("id","alleleInfo");
-	    var locus = d.parentElement;
+	    var locus = d.parentNode;
 	    aI.append("h2")
 		.text("Locus "+locus.getAttribute("name")+
 		      " → allele candidate: "+d.getAttribute("db-name")+
@@ -422,7 +427,7 @@ window.pcb = profileCB;//DEBUG
 		    .attr("transform", "rotate(45)");
 		bars.selectAll("g.locus")
 		    .selectAll("rect.alleleCandidate")
-		      .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentElement.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ")";});
+		      .attr("transform", function(d,i) { return "translate(" + x_scale(lociStartPosition[lociNames.indexOf( d.parentNode.getAttribute("name"))]+i) + "," + y_scale(parseFloat(d.getAttribute('abundance')))  + ")";});
 	    }	
 	})
 

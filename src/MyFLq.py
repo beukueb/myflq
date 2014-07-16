@@ -1786,7 +1786,7 @@ class Analysis:
             locusDict.set('info','this was the state of the locus information used for the present analysis')
             locusDict.text = locusDict.tail = '\n'
             for locus in sorted(self.locusDict):
-                locusxml = ET.SubElement(locusDict,'locus')
+                locusxml = ET.SubElement(locusDict,'locusInfo')
                 locusxml.set('name',locus)
                 locusxml.text = locusxml.tail = '\n'
                 for info in sorted(self.locusDict[locus]):
