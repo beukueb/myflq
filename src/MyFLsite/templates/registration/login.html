@@ -7,9 +7,9 @@
 <form action='/accounts/login/' method='post'>
   {% csrf_token %}
   <label for="username">User name:</label>
-  <input type="text" name="username" value="" id="username" size="15">
+  <input type="text" name="username" value="" id="username" size="15" style="width:100px;">
   <label for="password">Password:</label>
-  <input type="password" name="password" value="" id="password" size="15">
+  <input type="password" name="password" value="" id="password" size="15" style="width:100px;">
 
   <input type="submit" value="login" /> (<a href="/register">register</a>)
   <input type="hidden" name="next" value="{{ next|escape }}" />

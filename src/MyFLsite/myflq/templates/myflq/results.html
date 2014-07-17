@@ -29,11 +29,6 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="{% static 'js/profileChart.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/profileChart.css' %}">
-  <style>
-    #content {
-      min-height: 1500px; /*TODO hack should not be necessary but dynamic, css flawed somewhere*/
-    }
-  </style>
 
 <h2>Analysis details</h2>
 <h3>Parameters</h3>
@@ -58,6 +53,7 @@
       <button id="makeProfile">Make profile</button>
     </div>
   </div>
+  <div id="alleleInfo"></div>
   <script>
     window.onload = function ()
     {

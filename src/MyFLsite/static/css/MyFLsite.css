@@ -7,10 +7,6 @@ body {
     padding: 0;
 }
 
-body div {
-    padding: 5px;
-}
-
 /*
  *Different div's:
  *
@@ -18,6 +14,7 @@ body div {
  */
 
 #page {
+    position: relative; /*In order to position child divs absolutely to this one*/
     margin-left: auto;
     margin-right: auto;
     /*width: 980px;*/
@@ -30,11 +27,13 @@ body div {
  */
  
 #header {
+    position: relative;
+    height: 100px;
+    margin-top: 20px;
     padding: 0;
-    margin-top:20px;
     display: block;
-    min-width:inherit;
-    font-size:12px;
+    min-width: inherit;
+    font-size: 12px;
 }
 
 #header h1,h2 {
@@ -42,9 +41,12 @@ body div {
 }
 
 #header-title {
-    float: left;
-    width: calc(100% - 180px - 165px);/*-165px for bg image padding*/
-    height: calc(100px - 17px);
+    position: absolute;
+    box-sizing: border-box;
+    left: 0;
+    top: 0;
+    width: calc(100% - 180px);/*-165px for bg image padding*/
+    height: 100px;
     background-color: #fcf8f9;/*Previous colors: #f3f9fd;*/
     box-shadow: 10px 10px 5px #888888;
     background-image: url('../images/MyFLqLogo_s.png');
@@ -55,31 +57,33 @@ body div {
 }
 
 #logform {
-    float: right;
+    position: absolute;
+    box-sizing: border-box;
+    right: 0;
+    top: 0;
     width: 150px;/*width: 18%;*/
     height: 100px;
     background-color: #fcf8f9;
     box-shadow: 10px 10px 5px #888888;
-    overflow: hidden;
     padding-left: 10px;
-    /*clear: right;*/
 }
 
 /*
  * Navigation
  */
 #navigation {
+    position: relative;
     box-sizing: border-box;
-    float: left;
+    margin-top: 20px;
     width: 100%;
-    margin-top: 10px;
+    height: 30px;
     box-shadow: 10px 10px 5px #888888;
     background-color: #fcf8f9;
 }
 
 #navigation ul li {
-    float: left; 
-    padding: 0 10px 0 0; 
+    display: inline-block; 
+    padding: 3px 10px 0 0; 
     list-style-type: none;
     list-style-image: none;
 }
@@ -106,27 +110,28 @@ body div {
  */
  
 #content {
+    position: relative;
+    margin-top: 10px;
     box-sizing: border-box;
     padding: 15px;
     padding-top: 2px;
-    float: left;
     width: 100%;
-    clear: both;
-    margin-top:20px;
     min-height:200px;
     box-shadow: 10px 10px 5px #888888;
     background-color: #fcf8f9;
 }
 
 #contentmain {
-    float: left;
-    width: calc(100% - 250px - 80px);
+    display: inline-block;
+    box-sizing: border-box;
+    width: calc(100% - 250px - 20px);
     text-align: justify;
+    padding-right: 10px;
 }
 
 #contentwidgets {
-    float: right;
-    padding: 0px;
+    display: inline-block;
+    padding: 0;
     width: 250px;
     text-align: justify;
     font-size:12px;
@@ -141,7 +146,6 @@ body div {
  */
  
 #footer {
-    float: left;
     margin-top: 20px;
     font-size: 12px;
 }

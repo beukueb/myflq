@@ -200,7 +200,7 @@ function draw(error,data,width,height) {
     svg.selectAll(".alleleCandidate")
 	.on("mouseover.tooltip", function(d,i) {
 	    d3.select("#dbnameTip").remove();
-	    d3.select("#alleleInfo").remove();
+	    d3.select("#alleleInfo").selectAll('*').remove();
 	    var x_pos = (stackedGraph) ? stackedAlleles[i][0] :
 		lociStartPosition[lociNames.indexOf(this.id.split('_')[0])] + Number(this.id.split('_')[1]);
 	    //var y_pos =
@@ -212,9 +212,7 @@ function draw(error,data,width,height) {
 		.style("text-anchor", "middle");
 
 	    //Allele info div
-	    var aI = d3.select("#chart")
-		.append("div")
-		  .attr("id","alleleInfo");
+	    var aI = d3.select("#alleleInfo");
 	    var locus = d.parentNode;
 	    aI.append("h2")
 		.text("Locus "+locus.getAttribute("name")+

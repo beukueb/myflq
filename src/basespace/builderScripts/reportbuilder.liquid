@@ -6,78 +6,33 @@
 <html>
 <head>
      <title>{{ result.name }}</title>
-     <!--<link rel="stylesheet" type="text/css"
-        href="https://da1s119xsxmu0.cloudfront.net/libraries/basestrap/1.0.0/css/master.min.css" />-->
   <meta charset="utf-8">
   <script src="https://dl.dropboxusercontent.com/u/30816694/JS/d3.js"></script>
   <script src="https://rawgit.com/beukueb/myflq/master/src/MyFLsite/static/js/profileChart.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/beukueb/myflq/master/src/MyFLsite/static/css/profileChart.css">
   <style>
     #chart {
-      position: relative; 
-        /*Needs to be either relative or absolute,
-          in order to be able to position child divs absolutely to this one*/
-      display: block;
-      box-sizing: border-box;
-      font-family: sans-serif;
-      /*overflow: hidden;*/
       width: 1100px;
       height: 800px;
-      /*margin: auto;*/
+      margin: 0px;
       overflow-x: scroll;
     }
     
     #svgContainer {
-      position: absolute;
-      box-sizing: border-box;
-      margin: 0px;
-      left: 0px;
-      top: 0px;
       width: 900px;
       min-height: 400px;
     }
 
     #svgFunctions {
-      position: absolute;
-      box-sizing: border-box;
-      margin: 0px;
       left: 900px;
       top: 0px;
       width: 200px;
     }
 
     #alleleInfo {
-      position: absolute;
-      box-sizing: border-box;
-      margin: 0px;
-      left: 0px;
-      top: 400px;
       width: 900px;
     }
 
-    div.locus {
-      background-color: red;
-    }
-    .axis path {
-      fill: none;
-      stroke: black;
-    }
-    .axis {
-      font-size: 8pt;
-      font-family: sans-serif;
-      shape-rendering: crispEdges;
-    }
-    .tick {
-      fill: none;
-      stroke: black;
-    }
-    rect.pane {
-      cursor: move;
-      fill: none;
-      pointer-events: all;
-    }
-    rect.threshold {
-      cursor: n-resize;
-    }
   </style>
 </head>
 <body>
@@ -98,6 +53,7 @@
                                 <button id="makeProfile">Make profile</button>
                             </div>
                         </div>
+			<div id="alleleInfo"></div>
                         <xml id="xmlresults" style="display:none;">
                             {{ result.files[filename].content }}
                         </xml>

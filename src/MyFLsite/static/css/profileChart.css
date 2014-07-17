@@ -10,6 +10,7 @@
     font-family: sans-serif;
     /*overflow: hidden;*/
     width: 1100px;
+    height: 400px;
     margin: auto;
 }
 
@@ -19,7 +20,7 @@
     margin: 0px;
     left: 0px;
     top: 0px;
-    /*width: 700px; /*Normally set within javascript draw function*/
+    /*width: 700px; /*Normally set within javascript draw function
     height: 400px;*/
 }
 
@@ -33,11 +34,9 @@
 }
 
 #alleleInfo {
-    position: absolute;
+    position: relative;
     box-sizing: border-box;
     margin: 0px;
-    left: 0px;
-    top: 400px;
     width: 900px;
 }
 
