@@ -126,6 +126,7 @@ body {
     box-sizing: border-box;
     width: calc(100% - 250px - 20px);
     text-align: justify;
+    vertical-align: top;
     padding-right: 10px;
 }
 
