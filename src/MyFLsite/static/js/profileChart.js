@@ -206,7 +206,7 @@ function draw(error,data,width,height) {
 	    //var y_pos =
 	    svg.append("text")
 		.text(d.getAttribute("db-name") +
-		      ( (d.getAttribute("db-subtype")) ? d.getAttribute("db-subtype") : "" )  )
+		      ( (d.getAttribute("db-subtype")) ? d.getAttribute("db-subtype") : '['+d.getAttribute("size")+']' )  )
 		.attr("id","dbnameTip")
 	        .attr("x", x_scale(x_pos))
 		.style("text-anchor", "middle");

@@ -1376,6 +1376,13 @@ class Locus:
                 allele.set('db-name',self.knownAlleles[pR][0])
                 allele.set('db-subtype',self.knownAlleles[pR][1])
             else: allele.set('db-name',self.knownAlleles[pR])
+
+            #Allele candidate length info
+            if pR == '[-]': alleleSize = '-1'
+            elif not self.info['locusType']: alleleSize = str(len(pR))
+            else: alleleSize = calculateAlleleNumber(pR if pR != '[RL]' else '',self.info)
+            allele.set('size',alleleSize)
+            #end allele candidate length info
             allele.set('direction-distrib',format(100.*self.uniqueForwards[pR]/self.uniqueReads[pR],'.2f')+'%')
             allele.text='\n\t\t'
             allele.tail = '\n\t'

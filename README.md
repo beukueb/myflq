@@ -19,6 +19,7 @@ For the above to work all dependencies need to be installed, and a MySQL databas
 
 To start the webapp:
 
+    sudo systemctl start rabbitmq
     celery -A MyFLsite worker -l info &
     python3 manage.py runserver 0.0.0.0:8000
 
