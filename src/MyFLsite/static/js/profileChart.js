@@ -505,9 +505,14 @@ window.pcb = profileCB;//DEBUG
 		form.append("p").text("(This only calculates the probability for the subset of ENFSI loci.)");
 	    }
 
-	    var profileWindow = window.open("data:text/html;charset=utf-8,<html>"+d3.select(profileHTML).html()+"</html>");//,"Profile","location=no");
+	    if (navigator.appName == "Microsoft Internet Explorer"){
+		//Todo, make alternative that works in IE (maybe using Blob)
+		alert("For this functionality use either Firefox or Chrome");}
+	    else{
+		var profileWindow = window.open("data:text/html;charset=utf-8,<html>"+d3.select(profileHTML).html()+"</html>");//,"Profile","location=no");
 	    //var profileWindow = window.open('');
 	    //var profileRoot = d3.select(profileWindow.document.body);
+	    }
 	})
 
 }
