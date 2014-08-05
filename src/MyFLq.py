@@ -2289,9 +2289,6 @@ if __name__ == '__main__':
         import getpass
         try: args.password = getpass.getpass('MySQL password for '+args.user+': ')
         except EOFError: args.password = input('MySQL password for '+args.user+': ')
-    if args.kMerAssign:
-        args.kMerAssign = ('k-mer',args.kMerAssign)
-    else: del args.kMerAssign
 
     #Check if user and password match => if user is authorised to make or change MyFLq databases
     login = Login(user=args.user,passwd=args.password,database=args.db)
@@ -2307,6 +2304,11 @@ if __name__ == '__main__':
             processLociNames()      #In the future, when choosing a subset of dataset alleles for analysis
             processLociAlleles()    #this will have to be rewritten
     elif 'fqFilename' in args:
+        #Prepare special arguments
+        if args.kMerAssign:
+            args.kMerAssign = ('k-mer',args.kMerAssign)
+        else: del args.kMerAssign
+
         #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
         kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]}
         #Start analysis
