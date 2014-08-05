@@ -1523,7 +1523,7 @@ class Analysis:
     #for automatic processing of commandline options
     def __init__(self,fqFilename,kitName='Illumina',maintainAllReads=True,negativeReadsFilter=True,kMerAssign=False,
                     primerBuffer=0,flankOut=False,stutterBuffer=1,useCompress=True,withAlignment=False,threshold=0.005,
-                    clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=False,verbose=False):
+                    clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=0,verbose=False):
         """
         Sets up an analysis of loci for a specific kit
             fqFilename => Fastq file on which to perform the analysis
@@ -2242,22 +2242,22 @@ if __name__ == '__main__':
     
     #Commandline options for performing an analysis
     import inspect,builtins #allows to dynamically ask for options
-    #sig = inspect.signature(Analysis.__init__) #needs python3.3
-    sig = inspect.getfullargspec(Analysis.__init__) #deprecated
+    sig = inspect.signature(Analysis.__init__) #needs python3.3
+    #sig = inspect.getfullargspec(Analysis.__init__) #deprecated python2.7
     doc = {d.split('=>')[0].strip():d.split('=>')[1] 
            for d in inspect.getdoc(Analysis.__init__).split('\n') if '=>' in d}
     parser_analysis = subparsers.add_parser('analysis', help='analysis help')
     #                                        formatter_class=argparse.MetavarTypeHelpFormatter)
     noDynamicOptions = {'self','kitName','kMerAssign','maintainAllReads','processNow'}
-    #for param in sig.parameters: #needs python3.3
-    for param in sig[0]: #deprecated
+    for param in sig.parameters: #needs python3.3
+    #for param in sig[0]: #deprecated python2.7
         if param in noDynamicOptions: continue 
-        #if sig.parameters[param].default == inspect._empty: #needs python3.3
-        if sig[0].index(param) < (len(sig[0])-len(sig[3])): #deprecated
+        if sig.parameters[param].default == inspect._empty: #needs python3.3
+        #if sig[0].index(param) < (len(sig[0])-len(sig[3])): #deprecated python2.7
             parser_analysis.add_argument(param,help=doc[param])
         else:
-            #defaultP = sig.parameters[param].default #needs python3.3
-            defaultP = sig[3][sig[0].index(param)-(len(sig[0])-len(sig[3]))] #deprecated
+            defaultP = sig.parameters[param].default #needs python3.3
+            #defaultP = sig[3][sig[0].index(param)-(len(sig[0])-len(sig[3]))] #deprecated python2.7
             typeP = (type(defaultP) if defaultP is not None else builtins.__dict__[doc[param].split()[-1].strip()[1:-1]])
             parser_analysis.add_argument('--'+param,type=typeP,default=defaultP,help=doc[param])
     parser_analysis.add_argument('--kMerAssign',type=int,
@@ -2309,8 +2309,8 @@ if __name__ == '__main__':
             args.kMerAssign = ('k-mer',args.kMerAssign)
         else: del args.kMerAssign
 
-        #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
-        kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]}
+        kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
+        #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]} #deprecated python 2.7
         #Start analysis
         #import pdb
         #pdb.set_trace()
