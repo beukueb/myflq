@@ -3,10 +3,10 @@
 # VERSION 1.0
 # Execute with: docker build myflq.build
 
-FROM ubuntu:13.04
+FROM ubuntu:14.04
 MAINTAINER Christophe Van Neste, christophe.vanneste@ugent.be
 
-#RUN apt-get update #Docker isuues with update, see https://github.com/docker/docker/issues/1724
+RUN apt-get update
 RUN apt-get install -y supervisor #managing container services
 RUN apt-get -y install mg
 RUN apt-get -y install python3 python3-setuptools
