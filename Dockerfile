@@ -8,7 +8,7 @@ MAINTAINER Christophe Van Neste, christophe.vanneste@ugent.be
 
 RUN apt-get update
 RUN apt-get install -y supervisor #managing container services
-RUN apt-get -y install mg
+RUN apt-get -y install mg && apt-get -y install expect
 RUN apt-get -y install python3 python3-setuptools
 #RUN easy_install3 pip
 RUN apt-get install -y git libmysqlclient-dev python3-dev
@@ -24,7 +24,7 @@ RUN apt-get install -y python3-matplotlib
 RUN easy_install3 matplotlib
 
 #Set up database
-RUN apt-get install -y mysql-server
+RUN apt-get -y install mysql-server
 #RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf #Will make it listen on any port to make it available outside of the container
 #RUN /usr/sbin/mysqld &
 EXPOSE 3306

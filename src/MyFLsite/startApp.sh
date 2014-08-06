@@ -25,18 +25,24 @@ mysql <<EOF
 EOF
 cd /myflq/MyFLsite
 
-#Configuring databases and superuser with EOF
-python3 manage.py syncdb <<EOF
-yes
-admin
-admin@localhost
-myfl1234admin
-myfl1234admin
+#Configuring databases and superuser with expect
+expect <<EOF
+spawn python3 manage.py syncdb
+
+set timeout 60
+expect "(yes/no):" { send "yes\r" }
+expect "Username" { send "admin\r" }
+expect "Email" { send "admin@localhost\r" }
+expect "Password" { send "myfl1234admin\r" }
+expect "Password" { send "myfl1234admin\r" }
+expect eof
 EOF
 
-#Starting simple taskmanager (for more advance use still need to configure celery)
-python3 myflq/simple_tasks.py &
+#Taskmanager celery started with supervisord
+#python3 myflq/simple_tasks.py & #deprecated
 
 #Starting server
+echo "For administrative use, go to http://localhost/admin"
+echo "You can log in with user 'admin' and password 'myfl1234admin'"
 python3 manage.py runserver 0.0.0.0:8000 &
 bash #Debug
