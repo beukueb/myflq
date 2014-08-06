@@ -2,7 +2,7 @@ function launchSpec(dataProvider)
 {
     var retval = {
         commandLine: ["$AccessToken", "$AppSessionId", "$ApiUrl"],
-        containerImageId:"beukueb/myflc"
+        containerImageId:"beukueb/myflq_stable"
     };
     
     return retval;
