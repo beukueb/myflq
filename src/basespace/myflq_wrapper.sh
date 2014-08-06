@@ -5,7 +5,7 @@
 #executing the main analysis program MyFLq.py
 
 #Services
-/usr/bin/supervisord
+/usr/bin/supervisord -c /myflq/supervisord.conf
 #/usr/sbin/mysqld &
 
 #Setup MySQL for MyFLq
