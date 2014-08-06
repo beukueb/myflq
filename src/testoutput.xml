@@ -1,811 +1,658 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="resultMyFLq.xsl"?>
-<results stutterBuffer="1" thresholdUsed="0.005" timestamp="1396291435">
-<locus badReads="0" name="Amelogenin" reads="262" readsFiltered="248" uniqueFiltered="3" uniqueReads="17">
-  <alleleCandidate abundance="0.81%" db-name="NA" direction-distrib="50.00%">
-    <regionOfInterest>TAGTGTGTTGATTCTTTATCCCAGACGTTTCTCAAGTGGTCCTGATTTTACAGTTCCTACCAC</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="98.39%" db-name="X" direction-distrib="50.00%">
-    <regionOfInterest>TAGTGTGTTGATTCTTTATCCCAGATGTTTCTCAAGTGGTCCTGATTTTACAGTTCCTACCAC</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="2" index="2" orders="1"><differences amount="1"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.81%" db-name="NA" direction-distrib="50.00%">
-    <regionOfInterest>TAGTGTGTTGATTCTTTATCCCAGATGTTTCTCGAGTGGTCCTGATTTTACAGTTCCTACCAC</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="2" index="3" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
+<?xml-stylesheet type="text/xsl" href="/static/css/resultMyFLq.xsl"?>
+<results flankedOut="True" homomerCorrection="True" sample="myfls_test_test.fastq" stutterBuffer="1" thresholdUsed="0.005" timestamp="1405692993">
+<locus badReads="0" name="Amelogenin" reads="426" readsFiltered="402" uniqueFiltered="4" uniqueReads="24">
+	<alleleCandidate abundance="97.76%" db-name="X" direction-distrib="47.58%" size="63">
+		<regionOfInterest>TAGTGTGTTGATTCTTTATCCCAGATGTTTCTCAAGTGGTCCTGATTTTACAGTTCCTACCAC</regionOfInterest>
+		<qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="3" index="1" orders="1"><differences amount="1"><rel index="2" /><rel index="3" /><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.75%" db-name="NA" direction-distrib="66.67%" size="63">
+		<regionOfInterest>TAGTGTGTTGATTCTTTATCCCAGATGTTTCTCAAGTGGTCCTGGTTTTACAGTTCCTACCAC</regionOfInterest>
+		<qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="3" index="2" orders="2"><differences amount="1"><rel index="1" /></differences><differences amount="2"><rel index="3" /><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.75%" db-name="NA" direction-distrib="66.67%" size="63">
+		<regionOfInterest>TAGTGTGTCGATTCTTTATCCCAGATGTTTCTCAAGTGGTCCTGATTTTACAGTTCCTACCAC</regionOfInterest>
+		<qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="3" index="3" orders="2"><differences amount="1"><rel index="1" /></differences><differences amount="2"><rel index="2" /><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.75%" db-name="NA" direction-distrib="33.33%" size="63">
+		<regionOfInterest>TAGTGCGTTGATTCTTTATCCCAGATGTTTCTCAAGTGGTCCTGATTTTACAGTTCCTACCAC</regionOfInterest>
+		<qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="3" index="4" orders="2"><differences amount="1"><rel index="1" /></differences><differences amount="2"><rel index="2" /><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
 </locus>
-<locus badReads="1" name="CSF1PO" reads="1753" readsFiltered="1732" uniqueFiltered="4" uniqueReads="17">
-  <alleleCandidate abundance="43.42%" db-name="12" db-subtype="[a]" direction-distrib="48.01%">
-    <regionOfInterest>AGATTAGATAGATAGATAGA</regionOfInterest>
-    <qualityFlanks clean="84.8%" clean_compressed="1.8%" unclean="13.4%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="4.50%" db-name="11" db-subtype="[a]" direction-distrib="48.72%">
-    <regionOfInterest>AGATTAGATAGATAGA</regionOfInterest>
-    <qualityFlanks clean="74.4%" clean_compressed="1.3%" unclean="24.4%" />
-    <cluster-info connections="3" index="2" orders="2"><differences amount="1"><rel index="1" /><rel index="3" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="48.33%" db-name="10" db-subtype="[a]" direction-distrib="50.42%">
-    <regionOfInterest>AGATTAGATAGA</regionOfInterest>
-    <qualityFlanks clean="84.4%" clean_compressed="1.9%" unclean="13.7%" />
-    <cluster-info connections="3" index="3" orders="2"><differences amount="1"><rel index="2" /><rel index="4" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="3.75%" db-name="9" db-subtype="[a]" direction-distrib="56.92%">
-    <regionOfInterest>AGATTAGA</regionOfInterest>
-    <qualityFlanks clean="73.1%" clean_compressed="0.8%" unclean="26.2%" />
-    <cluster-info connections="2" index="4" orders="2"><differences amount="1"><rel index="3" /></differences><differences amount="2"><rel index="2" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="7" name="CSF1PO" reads="3651" readsFiltered="3575" uniqueFiltered="5" uniqueReads="50">
+	<alleleCandidate abundance="3.64%" db-name="9" db-subtype="[a]" direction-distrib="55.38%" size="9">
+		<regionOfInterest>AGATTAGA</regionOfInterest>
+		<qualityFlanks clean="73.1%" clean_compressed="3.5%" unclean="23.5%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="47.78%" db-name="10" db-subtype="[a]" direction-distrib="50.64%" size="10">
+		<regionOfInterest>AGATTAGATAGA</regionOfInterest>
+		<qualityFlanks clean="84.7%" clean_compressed="2.0%" unclean="13.3%" />
+		<cluster-info connections="1" index="2" orders="1"><differences amount="1"><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.53%" db-name="NA" direction-distrib="63.16%" size="10">
+		<regionOfInterest>AGATTAGATAGG</regionOfInterest>
+		<qualityFlanks clean="84.2%" clean_compressed="0.0%" unclean="15.8%" />
+		<cluster-info connections="1" index="3" orders="1"><differences amount="1"><rel index="2" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="4.31%" db-name="11" db-subtype="[a]" direction-distrib="53.25%" size="11">
+		<regionOfInterest>AGATTAGATAGATAGA</regionOfInterest>
+		<qualityFlanks clean="74.4%" clean_compressed="1.0%" unclean="24.7%" />
+		<cluster-info connections="0" index="4" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="43.75%" db-name="12" db-subtype="[a]" direction-distrib="47.38%" size="12">
+		<regionOfInterest>AGATTAGATAGATAGATAGA</regionOfInterest>
+		<qualityFlanks clean="85.1%" clean_compressed="2.3%" unclean="12.6%" />
+		<cluster-info connections="0" index="5" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="D13S317" reads="2753" readsFiltered="2675" uniqueFiltered="5" uniqueReads="35">
-  <alleleCandidate abundance="0.82%" db-name="12" db-subtype="[a]" direction-distrib="45.45%">
-    <regionOfInterest>TATCTATCTATCTATCTATCAATCA</regionOfInterest>
-    <qualityFlanks clean="97.7%" clean_compressed="0.0%" unclean="2.3%" />
-    <cluster-info connections="3" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="4" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="92.45%" db-name="11" db-subtype="[a]" direction-distrib="51.15%">
-    <regionOfInterest>TATCTATCTATCTATCAATCA</regionOfInterest>
-    <qualityFlanks clean="95.3%" clean_compressed="0.3%" unclean="4.4%" />
-    <cluster-info connections="4" index="2" orders="1"><differences amount="1"><rel index="1" /><rel index="3" /><rel index="4" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.86%" db-name="NA" direction-distrib="39.13%">
-    <regionOfInterest>TATCTATCTATCAATCAATCA</regionOfInterest>
-    <qualityFlanks clean="97.8%" clean_compressed="0.0%" unclean="2.2%" />
-    <cluster-info connections="2" index="3" orders="1"><differences amount="1"><rel index="2" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="5.35%" db-name="NA" direction-distrib="48.95%">
-    <regionOfInterest>TATCTATCTATCAATCA</regionOfInterest>
-    <qualityFlanks clean="85.7%" clean_compressed="0.7%" unclean="13.6%" />
-    <cluster-info connections="4" index="4" orders="2"><differences amount="1"><rel index="2" /><rel index="3" /><rel index="5" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.52%" db-name="NA" direction-distrib="64.29%">
-    <regionOfInterest>TATCTATCTATCTATCA</regionOfInterest>
-    <qualityFlanks clean="57.1%" clean_compressed="0.0%" unclean="42.9%" />
-    <cluster-info connections="3" index="5" orders="2"><differences amount="1"><rel index="2" /><rel index="4" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="0" name="D13S317" reads="5374" readsFiltered="5205" uniqueFiltered="6" uniqueReads="55">
+	<alleleCandidate abundance="0.56%" db-name="NA" direction-distrib="58.62%" size="10">
+		<regionOfInterest>TATCTATCTATCTATCA</regionOfInterest>
+		<qualityFlanks clean="51.7%" clean_compressed="0.0%" unclean="48.3%" />
+		<cluster-info connections="1" index="1" orders="1"><differences amount="1"><rel index="2" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="5.69%" db-name="NA" direction-distrib="53.38%" size="10">
+		<regionOfInterest>TATCTATCTATCAATCA</regionOfInterest>
+		<qualityFlanks clean="85.1%" clean_compressed="0.3%" unclean="14.5%" />
+		<cluster-info connections="1" index="2" orders="1"><differences amount="1"><rel index="1" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.60%" db-name="11" db-subtype="[a]" direction-distrib="54.84%" size="11">
+		<regionOfInterest>TATCTATCTATCTATCTATCA</regionOfInterest>
+		<qualityFlanks clean="98.4%" clean_compressed="0.0%" unclean="1.6%" />
+		<cluster-info connections="2" index="3" orders="2"><differences amount="1"><rel index="5" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.00%" db-name="NA" direction-distrib="46.15%" size="11">
+		<regionOfInterest>TATCTATCTATCAATCAATCA</regionOfInterest>
+		<qualityFlanks clean="96.2%" clean_compressed="0.0%" unclean="3.8%" />
+		<cluster-info connections="2" index="4" orders="2"><differences amount="1"><rel index="5" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="91.16%" db-name="11" db-subtype="[b]" direction-distrib="50.62%" size="11">
+		<regionOfInterest>TATCTATCTATCTATCAATCA</regionOfInterest>
+		<qualityFlanks clean="95.1%" clean_compressed="0.2%" unclean="4.7%" />
+		<cluster-info connections="2" index="5" orders="1"><differences amount="1"><rel index="3" /><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.00%" db-name="12" db-subtype="[a]" direction-distrib="42.31%" size="12">
+		<regionOfInterest>TATCTATCTATCTATCTATCAATCA</regionOfInterest>
+		<qualityFlanks clean="96.2%" clean_compressed="0.0%" unclean="3.8%" />
+		<cluster-info connections="0" index="6" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="D16S539" reads="3338" readsFiltered="2702" uniqueFiltered="3" uniqueReads="356">
-  <alleleCandidate abundance="48.00%" db-name="12" db-subtype="[a]" direction-distrib="44.56%">
-    <regionOfInterest>ATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGA</regionOfInterest>
-    <qualityFlanks clean="95.6%" clean_compressed="0.6%" unclean="3.8%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="47.89%" db-name="11" db-subtype="[a]" direction-distrib="45.60%">
-    <regionOfInterest>ATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGA</regionOfInterest>
-    <qualityFlanks clean="95.6%" clean_compressed="0.7%" unclean="3.7%" />
-    <cluster-info connections="2" index="2" orders="1"><differences amount="1"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="4.11%" db-name="10" db-subtype="[b]" direction-distrib="51.35%">
-    <regionOfInterest>ATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGA</regionOfInterest>
-    <qualityFlanks clean="95.9%" clean_compressed="0.5%" unclean="3.6%" />
-    <cluster-info connections="2" index="3" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="0" name="D16S539" reads="6653" readsFiltered="5393" uniqueFiltered="3" uniqueReads="575">
+	<alleleCandidate abundance="3.91%" db-name="10" db-subtype="[b]" direction-distrib="41.23%" size="10">
+		<regionOfInterest>ATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGA</regionOfInterest>
+		<qualityFlanks clean="94.8%" clean_compressed="1.4%" unclean="3.8%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="49.75%" db-name="11" db-subtype="[a]" direction-distrib="46.48%" size="11">
+		<regionOfInterest>ATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGA</regionOfInterest>
+		<qualityFlanks clean="95.9%" clean_compressed="0.5%" unclean="3.5%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="46.34%" db-name="12" db-subtype="[a]" direction-distrib="46.54%" size="12">
+		<regionOfInterest>ATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGA</regionOfInterest>
+		<qualityFlanks clean="95.5%" clean_compressed="0.9%" unclean="3.7%" />
+		<cluster-info connections="0" index="3" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="D18S51" reads="1382" readsFiltered="1315" uniqueFiltered="8" uniqueReads="51">
-  <alleleCandidate abundance="1.22%" db-name="NA" direction-distrib="68.75%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="65.6%" clean_compressed="21.9%" unclean="12.5%" />
-    <cluster-info connections="3" index="1" orders="2"><differences amount="1"><rel index="3" /></differences><differences amount="2"><rel index="2" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.53%" db-name="NA" direction-distrib="28.57%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="21.4%" clean_compressed="14.3%" unclean="64.3%" />
-    <cluster-info connections="3" index="2" orders="2"><differences amount="1"><rel index="4" /></differences><differences amount="2"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="41.90%" db-name="19" db-subtype="[a]" direction-distrib="58.98%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="82.8%" clean_compressed="3.8%" unclean="13.4%" />
-    <cluster-info connections="4" index="3" orders="2"><differences amount="1"><rel index="1" /><rel index="5" /></differences><differences amount="2"><rel index="2" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info connections="3" index="4" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="6.16%" db-name="18" db-subtype="[a]" direction-distrib="48.15%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="82.1%" clean_compressed="4.3%" unclean="13.6%" />
-    <cluster-info connections="4" index="5" orders="2"><differences amount="1"><rel index="3" /></differences><differences amount="2"><rel index="1" /><rel index="4" /><rel index="6" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.84%" db-name="16" db-subtype="[a]" direction-distrib="63.64%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="63.6%" clean_compressed="22.7%" unclean="13.6%" />
-    <cluster-info connections="3" index="6" orders="2"><differences amount="1"><rel index="7" /></differences><differences amount="2"><rel index="5" /><rel index="8" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="44.18%" db-name="15" db-subtype="[a]" direction-distrib="53.87%">
-    <regionOfInterest>GAAAGAAAGAAAGAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="83.4%" clean_compressed="5.8%" unclean="10.8%" />
-    <cluster-info connections="2" index="7" orders="1"><differences amount="1"><rel index="6" /><rel index="8" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="4.49%" db-name="NA" direction-distrib="55.93%">
-    <regionOfInterest>GAAAGAAAGAAAAAGA</regionOfInterest>
-    <qualityFlanks clean="85.6%" clean_compressed="1.7%" unclean="12.7%" />
-    <cluster-info connections="2" index="8" orders="2"><differences amount="1"><rel index="7" /></differences><differences amount="2"><rel index="6" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="2" name="D18S51" reads="2827" readsFiltered="2603" uniqueFiltered="6" uniqueReads="101">
+	<alleleCandidate abundance="5.15%" db-name="NA" direction-distrib="57.46%" size="14">
+		<regionOfInterest>GAAAGAAAGAAAAAGA</regionOfInterest>
+		<qualityFlanks clean="82.5%" clean_compressed="2.2%" unclean="15.3%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="43.64%" db-name="15" db-subtype="[a]" direction-distrib="52.29%" size="15">
+		<regionOfInterest>GAAAGAAAGAAAGAAAAAGA</regionOfInterest>
+		<qualityFlanks clean="83.2%" clean_compressed="5.0%" unclean="11.8%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.69%" db-name="16" db-subtype="[a]" direction-distrib="55.56%" size="16">
+		<regionOfInterest>GAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
+		<qualityFlanks clean="61.1%" clean_compressed="27.8%" unclean="11.1%" />
+		<cluster-info connections="0" index="3" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="6.26%" db-name="18" db-subtype="[a]" direction-distrib="55.83%" size="18">
+		<regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
+		<qualityFlanks clean="81.9%" clean_compressed="2.8%" unclean="15.3%" />
+		<cluster-info connections="0" index="4" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="43.49%" db-name="19" db-subtype="[a]" direction-distrib="56.98%" size="19">
+		<regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
+		<qualityFlanks clean="83.2%" clean_compressed="4.2%" unclean="12.6%" />
+		<cluster-info connections="0" index="5" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.77%" db-name="NA" direction-distrib="65.00%" size="20">
+		<regionOfInterest>GAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGA</regionOfInterest>
+		<qualityFlanks clean="55.0%" clean_compressed="27.5%" unclean="17.5%" />
+		<cluster-info connections="0" index="6" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="D21S11" reads="3737" readsFiltered="3268" uniqueFiltered="5" uniqueReads="215">
-  <alleleCandidate abundance="0.73%" db-name="NA" direction-distrib="58.33%">
-    <regionOfInterest>ATCTATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
-    <qualityFlanks clean="97.9%" clean_compressed="0.0%" unclean="2.1%" />
-    <cluster-info connections="4" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /><rel index="4" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="89.81%" db-name="30" db-subtype="[b]" direction-distrib="52.13%">
-    <regionOfInterest>ATCTATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
-    <qualityFlanks clean="96.5%" clean_compressed="0.5%" unclean="3.0%" />
-    <cluster-info connections="4" index="2" orders="1"><differences amount="1"><rel index="1" /><rel index="3" /><rel index="4" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.86%" db-name="NA" direction-distrib="64.29%">
-    <regionOfInterest>ATCTATCTGTCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
-    <qualityFlanks clean="96.4%" clean_compressed="1.8%" unclean="1.8%" />
-    <cluster-info connections="4" index="3" orders="2"><differences amount="1"><rel index="2" /><rel index="5" /></differences><differences amount="2"><rel index="1" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="6.88%" db-name="NA" direction-distrib="53.78%">
-    <regionOfInterest>ATCTATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
-    <qualityFlanks clean="95.3%" clean_compressed="0.2%" unclean="4.4%" />
-    <cluster-info connections="3" index="4" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="1.71%" db-name="NA" direction-distrib="39.29%">
-    <regionOfInterest>ATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
-    <qualityFlanks clean="75.9%" clean_compressed="0.0%" unclean="24.1%" />
-    <cluster-info connections="3" index="5" orders="2"><differences amount="1"><rel index="2" /><rel index="3" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="0" name="D21S11" reads="7632" readsFiltered="6600" uniqueFiltered="5" uniqueReads="404">
+	<alleleCandidate abundance="2.36%" db-name="NA" direction-distrib="41.03%" size="29">
+		<regionOfInterest>ATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
+		<qualityFlanks clean="77.9%" clean_compressed="0.0%" unclean="22.1%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="6.70%" db-name="NA" direction-distrib="51.13%" size="29">
+		<regionOfInterest>ATCTATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
+		<qualityFlanks clean="97.6%" clean_compressed="0.1%" unclean="2.3%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.79%" db-name="NA" direction-distrib="55.77%" size="30">
+		<regionOfInterest>ATCTATCTGTCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
+		<qualityFlanks clean="99.0%" clean_compressed="0.0%" unclean="1.0%" />
+		<cluster-info connections="1" index="3" orders="1"><differences amount="1"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="89.33%" db-name="30" db-subtype="[a]" direction-distrib="52.83%" size="30">
+		<regionOfInterest>ATCTATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
+		<qualityFlanks clean="96.8%" clean_compressed="0.3%" unclean="2.9%" />
+		<cluster-info connections="1" index="4" orders="1"><differences amount="1"><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.82%" db-name="NA" direction-distrib="62.96%" size="31">
+		<regionOfInterest>ATCTATCTATCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATC</regionOfInterest>
+		<qualityFlanks clean="98.1%" clean_compressed="0.9%" unclean="0.9%" />
+		<cluster-info connections="0" index="5" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="D3S1358" reads="594" readsFiltered="588" uniqueFiltered="4" uniqueReads="9">
-  <alleleCandidate abundance="0.85%" db-name="16" db-subtype="[a]" direction-distrib="40.00%">
-    <regionOfInterest>AGATAGATAGATAGAC</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="58.50%" db-name="15" db-subtype="[a]" direction-distrib="48.26%">
-    <regionOfInterest>AGATAGATAGAC</regionOfInterest>
-    <qualityFlanks clean="95.5%" clean_compressed="0.0%" unclean="4.5%" />
-    <cluster-info connections="3" index="2" orders="2"><differences amount="1"><rel index="1" /><rel index="3" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="38.10%" db-name="14" db-subtype="[a]" direction-distrib="47.77%">
-    <regionOfInterest>AGATAGAC</regionOfInterest>
-    <qualityFlanks clean="94.0%" clean_compressed="0.0%" unclean="6.0%" />
-    <cluster-info connections="3" index="3" orders="2"><differences amount="1"><rel index="2" /><rel index="4" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="2.55%" db-name="NA" direction-distrib="40.00%">
-    <regionOfInterest>AGAC</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="0.0%" unclean="100.0%" />
-    <cluster-info connections="2" index="4" orders="2"><differences amount="1"><rel index="3" /></differences><differences amount="2"><rel index="2" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="0" name="D3S1358" reads="1171" readsFiltered="1144" uniqueFiltered="6" uniqueReads="22">
+	<alleleCandidate abundance="2.97%" db-name="NA" direction-distrib="44.12%" size="13">
+		<regionOfInterest>AGAC</regionOfInterest>
+		<qualityFlanks clean="79.4%" clean_compressed="0.0%" unclean="20.6%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="34.00%" db-name="14" db-subtype="[a]" direction-distrib="44.99%" size="14">
+		<regionOfInterest>AGATAGAC</regionOfInterest>
+		<qualityFlanks clean="92.2%" clean_compressed="0.1%" unclean="7.7%" />
+		<cluster-info connections="1" index="2" orders="1"><differences amount="1"><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.61%" db-name="NA" direction-distrib="85.71%" size="14">
+		<regionOfInterest>AGATAGAT</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info connections="1" index="3" orders="1"><differences amount="1"><rel index="2" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="61.01%" db-name="15" db-subtype="[b]" direction-distrib="48.28%" size="15">
+		<regionOfInterest>AGATAGATAGAC</regionOfInterest>
+		<qualityFlanks clean="96.4%" clean_compressed="0.1%" unclean="3.5%" />
+		<cluster-info connections="1" index="4" orders="1"><differences amount="1"><rel index="5" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.61%" db-name="NA" direction-distrib="85.71%" size="15">
+		<regionOfInterest>AGATAGATAGAT</regionOfInterest>
+		<qualityFlanks clean="92.9%" clean_compressed="0.0%" unclean="7.1%" />
+		<cluster-info connections="1" index="5" orders="1"><differences amount="1"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.79%" db-name="16" db-subtype="[a]" direction-distrib="55.56%" size="16">
+		<regionOfInterest>AGATAGATAGATAGAC</regionOfInterest>
+		<qualityFlanks clean="94.4%" clean_compressed="0.0%" unclean="5.6%" />
+		<cluster-info connections="0" index="6" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="D5S818" reads="1407" readsFiltered="1327" uniqueFiltered="3" uniqueReads="54">
-  <alleleCandidate abundance="0.90%" db-name="12" db-subtype="[a]" direction-distrib="58.33%">
-    <regionOfInterest>CGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGAGGTAT</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="95.18%" db-name="11" db-subtype="[b]" direction-distrib="50.91%">
-    <regionOfInterest>CGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGAGGTAT</regionOfInterest>
-    <qualityFlanks clean="99.1%" clean_compressed="0.2%" unclean="0.6%" />
-    <cluster-info connections="2" index="2" orders="1"><differences amount="1"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="3.92%" db-name="NA" direction-distrib="46.15%">
-    <regionOfInterest>CGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGAGGTAT</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="2" index="3" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="0" name="D5S818" reads="2807" readsFiltered="2606" uniqueFiltered="3" uniqueReads="95">
+	<alleleCandidate abundance="4.83%" db-name="NA" direction-distrib="55.56%" size="10">
+		<regionOfInterest>CGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGAGGTAT</regionOfInterest>
+		<qualityFlanks clean="99.2%" clean_compressed="0.0%" unclean="0.8%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="93.98%" db-name="11" db-subtype="[b]" direction-distrib="51.08%" size="11">
+		<regionOfInterest>CGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGAGGTAT</regionOfInterest>
+		<qualityFlanks clean="99.5%" clean_compressed="0.1%" unclean="0.4%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="1.19%" db-name="12" db-subtype="[b]" direction-distrib="51.61%" size="12">
+		<regionOfInterest>CGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGAGGTAT</regionOfInterest>
+		<qualityFlanks clean="98.4%" clean_compressed="0.0%" unclean="1.6%" />
+		<cluster-info connections="0" index="3" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="1" name="D7S820" reads="3897" readsFiltered="3703" uniqueFiltered="8" uniqueReads="92">
-  <alleleCandidate abundance="0.81%" db-name="NA" direction-distrib="46.67%">
-    <regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTTTATCT</regionOfInterest>
-    <qualityFlanks clean="86.7%" clean_compressed="0.0%" unclean="13.3%" />
-    <cluster-info connections="4" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /><rel index="4" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="35.35%" db-name="11" db-subtype="[a]" direction-distrib="49.96%">
-    <regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTTATCT</regionOfInterest>
-    <qualityFlanks clean="92.1%" clean_compressed="0.6%" unclean="7.3%" />
-    <cluster-info connections="5" index="2" orders="2"><differences amount="1"><rel index="1" /><rel index="3" /><rel index="4" /><rel index="5" /></differences><differences amount="2"><rel index="6" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.51%" db-name="NA" direction-distrib="21.05%">
-    <regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTAATCT</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="7" index="3" orders="2"><differences amount="1"><rel index="2" /><rel index="4" /><rel index="6" /></differences><differences amount="2"><rel index="1" /><rel index="5" /><rel index="7" /><rel index="8" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="1.92%" db-name="NA" direction-distrib="50.70%">
-    <regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTATCT</regionOfInterest>
-    <qualityFlanks clean="91.5%" clean_compressed="0.0%" unclean="8.5%" />
-    <cluster-info connections="6" index="4" orders="2"><differences amount="1"><rel index="2" /><rel index="3" /></differences><differences amount="2"><rel index="1" /><rel index="5" /><rel index="6" /><rel index="7" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="3.27%" db-name="10" db-subtype="[b]" direction-distrib="56.20%">
-    <regionOfInterest>TAGATAGATAGACAGATTGATAGTTTTTTTTTATCT</regionOfInterest>
-    <qualityFlanks clean="80.6%" clean_compressed="0.0%" unclean="19.4%" />
-    <cluster-info connections="7" index="5" orders="2"><differences amount="1"><rel index="2" /><rel index="6" /></differences><differences amount="2"><rel index="1" /><rel index="3" /><rel index="4" /><rel index="7" /><rel index="8" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="52.82%" db-name="10" db-subtype="[a]" direction-distrib="51.07%">
-    <regionOfInterest>TAGATAGATAGACAGATTGATAGTTTTTTTTAATCT</regionOfInterest>
-    <qualityFlanks clean="94.0%" clean_compressed="0.6%" unclean="5.4%" />
-    <cluster-info connections="6" index="6" orders="2"><differences amount="1"><rel index="3" /><rel index="5" /><rel index="7" /><rel index="8" /></differences><differences amount="2"><rel index="2" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="1.13%" db-name="NA" direction-distrib="66.67%">
-    <regionOfInterest>TAGATAGATAGACAGATTGATAGTTTTTTTAATCT</regionOfInterest>
-    <qualityFlanks clean="91.7%" clean_compressed="1.2%" unclean="7.1%" />
-    <cluster-info connections="5" index="7" orders="2"><differences amount="1"><rel index="6" /></differences><differences amount="2"><rel index="3" /><rel index="4" /><rel index="5" /><rel index="8" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="4.19%" db-name="NA" direction-distrib="52.90%">
-    <regionOfInterest>TAGATAGACAGATTGATAGTTTTTTTTAATCT</regionOfInterest>
-    <qualityFlanks clean="77.7%" clean_compressed="1.3%" unclean="21.0%" />
-    <cluster-info connections="4" index="8" orders="2"><differences amount="1"><rel index="6" /></differences><differences amount="2"><rel index="3" /><rel index="5" /><rel index="7" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="1" name="D7S820" reads="7845" readsFiltered="7371" uniqueFiltered="7" uniqueReads="164">
+	<alleleCandidate abundance="3.72%" db-name="NA" direction-distrib="49.64%" size="9">
+		<regionOfInterest>TAGATAGACAGATTGATAGTTTTTTTTAATCT</regionOfInterest>
+		<qualityFlanks clean="83.0%" clean_compressed="0.2%" unclean="16.8%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="1.37%" db-name="NA" direction-distrib="41.58%" size="9.3">
+		<regionOfInterest>TAGATAGATAGACAGATTGATAGTTTTTTTAATCT</regionOfInterest>
+		<qualityFlanks clean="95.0%" clean_compressed="0.5%" unclean="4.5%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="53.49%" db-name="10" db-subtype="[b]" direction-distrib="50.75%" size="10">
+		<regionOfInterest>TAGATAGATAGACAGATTGATAGTTTTTTTTAATCT</regionOfInterest>
+		<qualityFlanks clean="94.6%" clean_compressed="0.5%" unclean="4.8%" />
+		<cluster-info connections="1" index="3" orders="1"><differences amount="1"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="3.11%" db-name="10" db-subtype="[a]" direction-distrib="52.40%" size="10">
+		<regionOfInterest>TAGATAGATAGACAGATTGATAGTTTTTTTTTATCT</regionOfInterest>
+		<qualityFlanks clean="84.3%" clean_compressed="0.4%" unclean="15.3%" />
+		<cluster-info connections="1" index="4" orders="1"><differences amount="1"><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.83%" db-name="NA" direction-distrib="42.22%" size="10.3">
+		<regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTATCT</regionOfInterest>
+		<qualityFlanks clean="93.3%" clean_compressed="0.4%" unclean="6.3%" />
+		<cluster-info connections="0" index="5" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="35.86%" db-name="11" db-subtype="[a]" direction-distrib="51.68%" size="11">
+		<regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTTATCT</regionOfInterest>
+		<qualityFlanks clean="93.3%" clean_compressed="0.6%" unclean="6.1%" />
+		<cluster-info connections="0" index="6" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.62%" db-name="NA" direction-distrib="54.35%" size="11.1">
+		<regionOfInterest>TAGATAGATAGATAGACAGATTGATAGTTTTTTTTTTATCT</regionOfInterest>
+		<qualityFlanks clean="90.2%" clean_compressed="0.0%" unclean="9.8%" />
+		<cluster-info connections="0" index="7" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="2" name="D8S1179" reads="4299" readsFiltered="4172" uniqueFiltered="5" uniqueReads="42">
-  <alleleCandidate abundance="0.58%" db-name="NA" direction-distrib="54.17%">
-    <regionOfInterest>ATCTATTTATCTATCTATCT</regionOfInterest>
-    <qualityFlanks clean="95.8%" clean_compressed="0.0%" unclean="4.2%" />
-    <cluster-info connections="4" index="1" orders="2"><differences amount="1"><rel index="3" /><rel index="5" /></differences><differences amount="2"><rel index="2" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="50.43%" db-name="13" db-subtype="[b]" direction-distrib="48.10%">
-    <regionOfInterest>ATCTGTCTATCTATCTATCT</regionOfInterest>
-    <qualityFlanks clean="93.4%" clean_compressed="0.5%" unclean="6.1%" />
-    <cluster-info connections="4" index="2" orders="2"><differences amount="1"><rel index="3" /><rel index="4" /><rel index="5" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="40.87%" db-name="13" db-subtype="[a]" direction-distrib="48.56%">
-    <regionOfInterest>ATCTATCTATCTATCTATCT</regionOfInterest>
-    <qualityFlanks clean="93.9%" clean_compressed="0.5%" unclean="5.6%" />
-    <cluster-info connections="4" index="3" orders="2"><differences amount="1"><rel index="1" /><rel index="2" /><rel index="5" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="3.62%" db-name="NA" direction-distrib="48.34%">
-    <regionOfInterest>ATCTGTCTATCTATCT</regionOfInterest>
-    <qualityFlanks clean="90.4%" clean_compressed="1.0%" unclean="8.6%" />
-    <cluster-info connections="4" index="4" orders="2"><differences amount="1"><rel index="2" /><rel index="5" /></differences><differences amount="2"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="4.51%" db-name="12" db-subtype="[a]" direction-distrib="47.87%">
-    <regionOfInterest>ATCTATCTATCTATCT</regionOfInterest>
-    <qualityFlanks clean="91.0%" clean_compressed="0.0%" unclean="9.0%" />
-    <cluster-info connections="4" index="5" orders="1"><differences amount="1"><rel index="1" /><rel index="2" /><rel index="3" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="4" name="D8S1179" reads="8392" readsFiltered="8099" uniqueFiltered="6" uniqueReads="84">
+	<alleleCandidate abundance="3.25%" db-name="NA" direction-distrib="47.91%" size="12">
+		<regionOfInterest>ATCTGTCTATCTATCT</regionOfInterest>
+		<qualityFlanks clean="91.8%" clean_compressed="1.1%" unclean="7.0%" />
+		<cluster-info connections="1" index="1" orders="1"><differences amount="1"><rel index="2" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="4.15%" db-name="12" db-subtype="[a]" direction-distrib="38.69%" size="12">
+		<regionOfInterest>ATCTATCTATCTATCT</regionOfInterest>
+		<qualityFlanks clean="90.5%" clean_compressed="0.3%" unclean="9.2%" />
+		<cluster-info connections="1" index="2" orders="1"><differences amount="1"><rel index="1" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="40.57%" db-name="13" db-subtype="[b]" direction-distrib="49.63%" size="13">
+		<regionOfInterest>ATCTATCTATCTATCTATCT</regionOfInterest>
+		<qualityFlanks clean="94.3%" clean_compressed="0.6%" unclean="5.1%" />
+		<cluster-info connections="2" index="3" orders="1"><differences amount="1"><rel index="4" /><rel index="5" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="50.73%" db-name="13" db-subtype="[a]" direction-distrib="49.33%" size="13">
+		<regionOfInterest>ATCTGTCTATCTATCTATCT</regionOfInterest>
+		<qualityFlanks clean="94.3%" clean_compressed="0.6%" unclean="5.1%" />
+		<cluster-info connections="2" index="4" orders="2"><differences amount="1"><rel index="3" /></differences><differences amount="2"><rel index="5" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.77%" db-name="NA" direction-distrib="56.45%" size="13">
+		<regionOfInterest>ATCTATTTATCTATCTATCT</regionOfInterest>
+		<qualityFlanks clean="94.4%" clean_compressed="0.0%" unclean="5.6%" />
+		<cluster-info connections="2" index="5" orders="2"><differences amount="1"><rel index="3" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="0.53%" db-name="NA" direction-distrib="58.14%" size="14">
+		<regionOfInterest>ATCTATCTATCTATCTATCTATCT</regionOfInterest>
+		<qualityFlanks clean="93.0%" clean_compressed="0.0%" unclean="7.0%" />
+		<cluster-info connections="0" index="6" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="FGA" reads="1168" readsFiltered="1128" uniqueFiltered="5" uniqueReads="29">
-  <alleleCandidate abundance="0.89%" db-name="NA" direction-distrib="50.00%">
-    <regionOfInterest>TTTCTTTCTTTCTTTCTTTCTTTCTTTC</regionOfInterest>
-    <qualityFlanks clean="65.0%" clean_compressed="25.0%" unclean="10.0%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="34.57%" db-name="24" db-subtype="[a]" direction-distrib="45.38%">
-    <regionOfInterest>TTTCTTTCTTTCTTTCTTTCTTTC</regionOfInterest>
-    <qualityFlanks clean="79.9%" clean_compressed="7.7%" unclean="12.4%" />
-    <cluster-info connections="3" index="2" orders="2"><differences amount="1"><rel index="1" /><rel index="3" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="57.62%" db-name="23" db-subtype="[a]" direction-distrib="47.54%">
-    <regionOfInterest>TTTCTTTCTTTCTTTCTTTC</regionOfInterest>
-    <qualityFlanks clean="81.5%" clean_compressed="6.4%" unclean="12.1%" />
-    <cluster-info connections="4" index="3" orders="2"><differences amount="1"><rel index="2" /><rel index="4" /></differences><differences amount="2"><rel index="1" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="6.38%" db-name="NA" direction-distrib="37.50%">
-    <regionOfInterest>TTTCTTTCTTTCTTTC</regionOfInterest>
-    <qualityFlanks clean="79.9%" clean_compressed="5.6%" unclean="14.6%" />
-    <cluster-info connections="3" index="4" orders="2"><differences amount="1"><rel index="3" /><rel index="5" /></differences><differences amount="2"><rel index="2" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.53%" db-name="21" db-subtype="[a]" direction-distrib="66.67%">
-    <regionOfInterest>TTTCTTTCTTTC</regionOfInterest>
-    <qualityFlanks clean="75.0%" clean_compressed="8.3%" unclean="16.7%" />
-    <cluster-info connections="2" index="5" orders="2"><differences amount="1"><rel index="4" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="2" name="FGA" reads="2266" readsFiltered="2139" uniqueFiltered="5" uniqueReads="71">
+	<alleleCandidate abundance="6.12%" db-name="NA" direction-distrib="42.75%" size="22">
+		<regionOfInterest>TTTCTTTCTTTCTTTC</regionOfInterest>
+		<qualityFlanks clean="75.2%" clean_compressed="9.9%" unclean="14.9%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="56.19%" db-name="23" db-subtype="[a]" direction-distrib="48.09%" size="23">
+		<regionOfInterest>TTTCTTTCTTTCTTTCTTTC</regionOfInterest>
+		<qualityFlanks clean="80.4%" clean_compressed="6.3%" unclean="13.2%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="36.09%" db-name="24" db-subtype="[a]" direction-distrib="45.85%" size="24">
+		<regionOfInterest>TTTCTTTCTTTCTTTCTTTCTTTC</regionOfInterest>
+		<qualityFlanks clean="79.3%" clean_compressed="8.0%" unclean="12.7%" />
+		<cluster-info connections="0" index="3" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.61%" db-name="NA" direction-distrib="61.54%" size="24">
+		<regionOfInterest>TTTCTTTCTTTCTTTCTTTCTCCT</regionOfInterest>
+		<qualityFlanks clean="42.3%" clean_compressed="38.5%" unclean="19.2%" />
+		<cluster-info connections="0" index="4" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.98%" db-name="NA" direction-distrib="28.57%" size="25">
+		<regionOfInterest>TTTCTTTCTTTCTTTCTTTCTTTCTTTC</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="40.5%" unclean="9.5%" />
+		<cluster-info connections="0" index="5" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus badReads="0" name="PentaD" reads="146" readsFiltered="146" uniqueFiltered="106" uniqueReads="106">
-  <alleleCandidate abundance="0.68%" db-name="13" db-subtype="[a]" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCGAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAGACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACCGGCTAAGAGAAAGAAATTCAAATAACAAATCTCAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAACGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAGAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGAAACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATGAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTCAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTACTCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACGCGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATAACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAGAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTCCATCAAAACTTAAAGGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACGGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACAAGCCACAGGCTAAGAGAAAGTAATTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGGAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGAAAAAAAAGAGAATCATAACCATAAATGTAAAATTTCACAAAAAAATCGTTATGACAATGGTTTAGGCAAATATTTCTTAGATATCAAAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAATCTAAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="4.79%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="71.4%" clean_compressed="21.4%" unclean="7.1%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAAAAAAAACGAAGGGAAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTAAAAAAAATCGTTATGACCATAGGTTAGGAAAATATTTCTTAGATATCACAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATCAAAACTAAAAAGTTCTACTCTTAAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGAAACGCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCCCATACCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="13.01%" db-name="12" db-subtype="[a]" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="89.5%" clean_compressed="7.9%" unclean="2.6%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAGAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCCCAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGCGAAAGTAATTCTAATCACATATCTCAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAACCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATACCATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATAACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="100.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATAACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACAAGCCACAGGCTAAAAGAAAGTAATTCTAATAACAAATCTCAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCGTGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAGAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCACAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAAATTCTAATCAAATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCAACTCTTCAAAAGATACCTTATAAAAAAATTAAAAAAACACGCCACAGGCTAAAAGAAAGAACTTCTAAAACCATATTCAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACCAACCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="2.05%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="66.7%" clean_compressed="33.3%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCCCAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAACGAACTTCAAATCACATATCCAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGAAAAAAAAGAAAATCATAAACATAAATGTAAAATTTCTAAAAAAAATCGTTAGGACCATGGGTTAGGAAAATATTTCTTAGATATCAAAAAATCATGACTTATTAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTCCTCTTAAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATACCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAAATACCTTATGAAGAAAGTAAAAAGACAAGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAAACTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATAACATAACTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTCCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATAACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAGAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTGAGAGAAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACCTATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAAGGACTTGTGTCCAGATTAAAGAATTCTAAT</refseq>
-<removed_from_flank_forwardP>GAAAA</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>TTTTT</removed_from_flank_reverseP>
+<locus badReads="0" name="PentaD" reads="290" readsFiltered="133" uniqueFiltered="18" uniqueReads="175">
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="11.4">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCCCAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="5" /></differences><differences amount="2"><rel index="2" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="2.26%" db-name="NA" direction-distrib="100.00%" size="11.4">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAA</regionOfInterest>
+		<qualityFlanks clean="33.3%" clean_compressed="66.7%" unclean="0.0%" />
+		<cluster-info connections="3" index="2" orders="2"><differences amount="1"><rel index="4" /><rel index="5" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="11.4">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="0" index="3" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="11.4">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACAAATCTAAAAA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info connections="2" index="4" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="5" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="6.77%" db-name="NA" direction-distrib="100.00%" size="11.4">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info connections="3" index="5" orders="2"><differences amount="1"><rel index="1" /><rel index="2" /></differences><differences amount="2"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="2.26%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTAATTCTAATCACAAATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="83.3%" clean_compressed="16.7%" unclean="0.0%" />
+		<cluster-info connections="3" index="6" orders="2"><differences amount="1"><rel index="7" /><rel index="13" /></differences><differences amount="2"><rel index="12" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="4.51%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTAATTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="91.7%" clean_compressed="0.0%" unclean="8.3%" />
+		<cluster-info connections="11" index="7" orders="2"><differences amount="1"><rel index="6" /><rel index="12" /></differences><differences amount="2"><rel index="8" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGGCACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="75.0%" clean_compressed="0.0%" unclean="25.0%" />
+		<cluster-info connections="10" index="8" orders="2"><differences amount="1"><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAAGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="10" index="9" orders="2"><differences amount="1"><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="2.26%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACGCGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info connections="10" index="10" orders="2"><differences amount="1"><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATAACTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="75.0%" clean_compressed="25.0%" unclean="0.0%" />
+		<cluster-info connections="10" index="11" orders="2"><differences amount="1"><rel index="12" /><rel index="15" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="13" /><rel index="14" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="54.89%" db-name="12" db-subtype="[a]" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="88.4%" clean_compressed="8.9%" unclean="2.7%" />
+		<cluster-info connections="11" index="12" orders="2"><differences amount="1"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="16" /><rel index="17" /></differences><differences amount="2"><rel index="6" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="7.52%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="11" index="13" orders="2"><differences amount="1"><rel index="6" /><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="14" /><rel index="15" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="4.51%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="83.3%" clean_compressed="16.7%" unclean="0.0%" />
+		<cluster-info connections="10" index="14" orders="2"><differences amount="1"><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="15" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATACCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info connections="10" index="15" orders="2"><differences amount="1"><rel index="11" /><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="13" /><rel index="14" /><rel index="16" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAACAAA</regionOfInterest>
+		<qualityFlanks clean="25.0%" clean_compressed="50.0%" unclean="25.0%" />
+		<cluster-info connections="10" index="16" orders="2"><differences amount="1"><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="17" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTACAAAA</regionOfInterest>
+		<qualityFlanks clean="75.0%" clean_compressed="0.0%" unclean="25.0%" />
+		<cluster-info connections="10" index="17" orders="2"><differences amount="1"><rel index="12" /></differences><differences amount="2"><rel index="7" /><rel index="8" /><rel index="9" /><rel index="10" /><rel index="11" /><rel index="13" /><rel index="14" /><rel index="15" /><rel index="16" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="1.50%" db-name="13" db-subtype="[a]" direction-distrib="100.00%" size="13">
+		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info connections="0" index="18" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus name="PentaE">
-<flank_forwardP>ACAAGAAAAT</flank_forwardP>
-<flank_reverseP>TCTTTTCTTTTCTTTTCTTT</flank_reverseP>
-<locusName>PentaE</locusName>
-<locusType>5</locusType>
-<ref_alleleNumber>12</ref_alleleNumber>
-<ref_forwardP>ATTACCAACATGAAAGGGTACCAATA</ref_forwardP>
-<ref_length>315</ref_length>
-<ref_reverseP>TGGGTTATTAATTGAGAAAACTCCTTACAATTT</ref_reverseP>
-<refseq>ATTACCAACATGAAAGGGTACCAATAACAAGAAAATTGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAATTGTAAGGAGTTTTCTCAATTAATAACCCA</refseq>
-<removed_from_flank_forwardP>TGTGG</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>TCTTT</removed_from_flank_reverseP>
+<locus badReads="0" name="PentaE" reads="41" readsFiltered="41" uniqueFiltered="35" uniqueReads="35">
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="5">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGGGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGGGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGGGACGGAGCAAGACTCAGCCTCAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="4.88%" db-name="NA" direction-distrib="100.00%" size="8">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="9">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="7.32%" db-name="NA" direction-distrib="100.00%" size="11">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="16.7%" unclean="33.3%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="11">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGCACAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>GGTTGCCAGGGGCGGGGGTTCACGCCTGCAAGCCTAGGCCGTGGGGAGGGCGATGCAGGGGTACTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGGGAAACCCCGTTTATACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCCGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGGGGTGGTGCACGCCTGCAATCCTAGCACTTGGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCCCTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGGGGAGATTGAAGGGAGCCGGGATCACGCCATTGCACTCCAGCCTGGGCGACTGGGCAAGACCCAGCCTCAAAGAAAAAAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGGGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGCCCCAAAGAAAAGAAAAGAAAAGAAAAGACAAGCAAACAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATACAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAGGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTCGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>GTGGGCCAGGGGGGGTGGGTAAGGCCTGCAATCCTAGGCCTTTGGGAGGCCGATGCAGGGGTATTACCGGAGCTCGGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAACCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTAGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACCCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGCAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>GGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="12">
+		<regionOfInterest>TGTGGCCAGTTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCCAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGACGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="9.76%" db-name="12" db-subtype="[a]" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCCCTCCAGCCTGGGCGACTGAGCAAGACCCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGCGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGCTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGACAAGCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="12">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCGGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="12.1">
+		<regionOfInterest>TTGTGGCCAGGTGCGGTGGTTCAGGCCTGCAATCCTAGCACTTGGGGAGGCCGATGCAGGTGTATTACCTGAGCTAAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="13">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="13">
+		<regionOfInterest>GGGGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="13">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGGCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="13">
+		<regionOfInterest>TGTGGCCGGGTGCGGTGGTTCAGGCCTGCAATCCTAGCACTTGGGTAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATGAGCGGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="13">
+		<regionOfInterest>TGTGGCCAGATGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="13">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAGCAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="100.00%" size="13">
+		<regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACCCAGTCTCCAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGCAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="13">
+		<regionOfInterest>TGTGGCCAGTTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
+	<alleleCandidate abundance="2.44%" db-name="NA" direction-distrib="0.00%" size="13.1">
+		<regionOfInterest>GTGTGGCCGGGTGCGGTGGTTCACGGCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
+		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
+		<cluster-info remark="too many sequences to cluster" />
+	</alleleCandidate>
 </locus>
-<locus name="TH01">
-<flank_forwardP>CTCCCTTATTTCCCTCATTCATTCAT</flank_forwardP>
-<flank_reverseP>CCGATTATCCAGCCTGGCCCACACAGTCCCCTGTACACAGGGCTTCCGAGTGCAGGTCACAGGGAACACAGACTCCATGGTGAATGA</flank_reverseP>
-<locusName>TH01</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>9.3</ref_alleleNumber>
-<ref_forwardP>GTGATTCCCATTGGCCTGTTC</ref_forwardP>
-<ref_length>15</ref_length>
-<ref_reverseP>ATTCCTGTGGGCTGAAAAGCTC</ref_reverseP>
-<refseq>GTGATTCCCATTGGCCTGTTCCTCCCTTATTTCCCTCATTCATTCATTCATCATTCATTCATTCATTCATTCATTCACCATGGAGTCTGTGTTCCCTGTGACCTGCACTCGGAAGCCCTGTGTACAGGGGACTGTGTGGGCCAGGCTGGATAATCGGGAGCTTTTCAGCCCACAGGAAT</refseq>
-<removed_from_flank_forwardP>TCAT</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>ATGA</removed_from_flank_reverseP>
+<locus badReads="1" name="TH01" reads="7014" readsFiltered="6754" uniqueFiltered="4" uniqueReads="78">
+	<alleleCandidate abundance="2.38%" db-name="NA" direction-distrib="41.61%" size="7">
+		<regionOfInterest>TCATTCATTCAT</regionOfInterest>
+		<qualityFlanks clean="82.9%" clean_compressed="0.9%" unclean="16.1%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="41.46%" db-name="8" db-subtype="[a]" direction-distrib="52.32%" size="8">
+		<regionOfInterest>TCATTCATTCATTCAT</regionOfInterest>
+		<qualityFlanks clean="94.0%" clean_compressed="0.9%" unclean="5.0%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="1.54%" db-name="NA" direction-distrib="53.85%" size="8.3">
+		<regionOfInterest>TCATCATTCATTCATTCAT</regionOfInterest>
+		<qualityFlanks clean="92.3%" clean_compressed="0.5%" unclean="7.2%" />
+		<cluster-info connections="0" index="3" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="54.62%" db-name="9.3" db-subtype="[a]" direction-distrib="49.82%" size="9.3">
+		<regionOfInterest>TCATCATTCATTCATTCATTCAT</regionOfInterest>
+		<qualityFlanks clean="93.9%" clean_compressed="1.0%" unclean="5.1%" />
+		<cluster-info connections="0" index="4" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus name="TPOX">
-<flank_forwardP>GAACCCTCACTGAATGAATGAATGAATGAATGAATGAATG</flank_forwardP>
-<flank_reverseP>ACTCTACTGTCCTGGGCGCTCAGGGGAGGAACTGGG</flank_reverseP>
-<locusName>TPOX</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>11</ref_alleleNumber>
-<ref_forwardP>GCACAGAACAGGCACTTAGG</ref_forwardP>
-<ref_length>160</ref_length>
-<ref_reverseP>CGCTCAAACGTGAGGTTG</ref_reverseP>
-<refseq>GCACAGAACAGGCACTTAGGGAACCCTCACTGAATGAATGAATGAATGAATGAATGAATGAATGAATGAATGAATGTTTGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGAGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGTGGTTCCCAGTTCCTCCCCTGAGCGCCCAGGACAGTAGAGTCAACCTCACGTTTGAGCG</refseq>
-<removed_from_flank_forwardP>AATG</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>AACC</removed_from_flank_reverseP>
+<locus badReads="0" name="TPOX" reads="4778" readsFiltered="4044" uniqueFiltered="2" uniqueReads="307">
+	<alleleCandidate abundance="3.12%" db-name="NA" direction-distrib="40.48%" size="7">
+		<regionOfInterest>TTTGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGAGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGGGGTT</regionOfInterest>
+		<qualityFlanks clean="83.3%" clean_compressed="0.8%" unclean="15.9%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="96.88%" db-name="8" db-subtype="[a]" direction-distrib="51.00%" size="8">
+		<regionOfInterest>AATGTTTGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGAGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGGGGTT</regionOfInterest>
+		<qualityFlanks clean="96.1%" clean_compressed="0.9%" unclean="3.0%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
 </locus>
-<locus name="vWA">
-<flank_forwardP>ACTTGGATTGATCTATCTGTCTGTCT</flank_forwardP>
-<flank_reverseP>ATAGATGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGA</flank_reverseP>
-<locusName>vWA</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>19</ref_alleleNumber>
-<ref_forwardP>GCCCTAGTGGATGATAAGAATAATCAGTATGTG</ref_forwardP>
-<ref_length>13</ref_length>
-<ref_reverseP>GGACAGATGATAAATACATAGGATGGATGG</ref_reverseP>
-<refseq>GCCCTAGTGGATGATAAGAATAATCAGTATGTGACTTGGATTGATCTATCTGTCTGTCTGTCTGTCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCCATCTATCCATCCATCCTATGTATTTATCATCTGTCC</refseq>
-<removed_from_flank_forwardP>GTCT</removed_from_flank_forwardP>
-d<removed_from_flank_reverseP>TAGA</removed_from_flank_reverseP>
-</locus>
-</lociDatabaseState>
-</results>lank_reverseP>
-<locusName>D5S818</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>13</ref_alleleNumber>
-<ref_forwardP>GGTGATTTTCCTCTTTGGTATCC</ref_forwardP>
-<ref_length>69</ref_length>
-<ref_reverseP>AGCCACAGTTTACAACATTTGTATCT</ref_reverseP>
-<refseq>GGTGATTTTCCTCTTTGGTATCCTTACGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATGTATAAATAAGGATACAGATAAAGATACAAATGTTGTAAACTGTGGCT</refseq>
-<removed_from_flank_forwardP />
-<removed_from_flank_reverseP>ATAC</removed_from_flank_reverseP>
-</locus>
-<locus name="D7S820">
-<flank_forwardP>GAGTTATTTTAAGGTTAATATATATAAAGGGTATGATAGAACACTTGTCATAGTTTAGAACGAACTAACGATAGATAGATAGATAGATAGATAGATAGA</flank_forwardP>
-<flank_reverseP>AGAATTGCACCAAATATTGGTAATTAAATGTTTACTATAGACTATTTAGTG</flank_reverseP>
-<locusName>D7S820</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>10</ref_alleleNumber>
-<ref_forwardP>ATGTTGGTCAGGCTGACTATG</ref_forwardP>
-<ref_length>28</ref_length>
-<ref_reverseP>GATTCCACATTTATCCTCATTGAC</ref_reverseP>
-<refseq>ATGTTGGTCAGGCTGACTATGGAGTTATTTTAAGGTTAATATATATAAAGGGTATGATAGAACACTTGTCATAGTTTAGAACGAACTAACGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGACAGATTGATAGTTTTTTTTAATCTCACTAAATAGTCTATAGTAAACATTTAATTACCAATATTTGGTGCAATTCTGTCAATGAGGATAAATGTGGAATC</refseq>
-<removed_from_flank_forwardP>TAGA</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>AGAT</removed_from_flank_reverseP>
-</locus>
-<locus name="D8S1179">
-<flank_forwardP>TGTACATTCGTATCT</flank_forwardP>
-<flank_reverseP>ACGTAGCTATAATTAGTTCATTTTCATCACTGTATCGTATCCCATTGCGTGAATATGCCTTAATTTATTTACCTATCCTGTAGATTATTTTCACTGTGGGGAATAGATAGATAGATAGATAGATAGATAGAT</flank_reverseP>
-<locusName>D8S1179</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>14</ref_alleleNumber>
-<ref_forwardP>ATTGCAACTTATATGTATTTTTGTATTTCATG</ref_forwardP>
-<ref_length>16</ref_length>
-<ref_reverseP>ACCAAATTGTGTTCATGAGTATAGTTTC</ref_reverseP>
-<refseq>ATTGCAACTTATATGTATTTTTGTATTTCATGTGTACATTCGTATCTATCTATCTGTCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATTCCCCACAGTGAAAATAATCTACAGGATAGGTAAATAAATTAAGGCATATTCACGCAATGGGATACGATACAGTGATGAAAATGAACTAATTATAGCTACGTGAAACTATACTCATGAACACAATTTGGT</refseq>
-<removed_from_flank_forwardP>ATCT</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>AGAT</removed_from_flank_reverseP>
-</locus>
-<locus name="FGA">
-<flank_forwardP>TCCAAAAGTCAAATGCCCCATAGGTTTTGAACTCACAGATTAAACTGTAACCAAAATAAAATTAGGCATATTTACAAGCTAGTTTCTTTCTTTCTTTTTTCTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTC</flank_forwardP>
-<flank_reverseP>CTTCAATTCTGCTTCTCAGATCCTCTGACACTCGGTTGTAGGTATTATCACGGTCTGAAATCGAAAATATGGTTATTGAAGTAGCTGCTGAGTGATTTGTCTGTAATTGCCAGCAAAAAAGAAAGGAAGAAAGGAAGGAAGGA</flank_reverseP>
-<locusName>FGA</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>23</ref_alleleNumber>
-<ref_forwardP>GGCTGCAGGGCATAACATTA</ref_forwardP>
-<ref_length>12</ref_length>
-<ref_reverseP>ATTCTATGACTTTGCGCTTCAGGA</ref_reverseP>
-<refseq>GGCTGCAGGGCATAACATTATCCAAAAGTCAAATGCCCCATAGGTTTTGAACTCACAGATTAAACTGTAACCAAAATAAAATTAGGCATATTTACAAGCTAGTTTCTTTCTTTCTTTTTTCTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTCCTTCCTTCCTTTCTTCCTTTCTTTTTTGCTGGCAATTACAGACAAATCACTCAGCAGCTACTTCAATAACCATATTTTCGATTTCAGACCGTGATAATACCTACAACCGAGTGTCAGAGGATCTGAGAAGCAGAATTGAAGTCCTGAAGCGCAAAGTCATAGAAT</refseq>
-<removed_from_flank_forwardP>TTTC</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>GAAA</removed_from_flank_reverseP>
-</locus>
-<locus name="PentaD">
-<flank_forwardP>AGCCATGATCACACCACTACACTCCAGCCTAGGTGACAGAGCAAGACACCATCTCAAGAAAGAAAAAAAAGAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAA</flank_forwardP>
-<flank_reverseP>TCC</flank_reverseP>
-<locusName>PentaD</locusName>
-<locusType>5</locusType>
-<ref_alleleNumber>12</ref_alleleNumber>
-<ref_forwardP>GAAGGTCGAAGCTGAAGTG</ref_forwardP>
-<ref_length>256</ref_length>
-<ref_reverseP>ATTAGAATTCTTTAATCTGGACACAAG</ref_reverseP>
-<refseq>GAAGGTCGAAGCTGAAGTGAGCCATGATCACACCACTACACTCCAGCCTAGGTGACAGAGCAAGACACCATCTCAAGAAAGAAAAAAAAGAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCACTGTATTTACAAATACATTATCTATCTATCTATCTATCTATCTATC</flank_forwardP>
-<flank_reverseP>CAGAAAGATAGATAGATGAT</flank_reverseP>
-<locusName>D13S317</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>9</ref_alleleNumber>
-<ref_forwardP>ATTACAGAAGTCTGGGATGTGGAGGA</ref_forwardP>
-<ref_length>5</ref_length>
-<ref_reverseP>GGCAGCCCAAAAAGACAGA</ref_reverseP>
-<refseq>ATTACAGAAGTCTGGGATGTGGAGGAGAGTTCATTTCTTTAGTGGGCATCCGTGACTCTCTGGACTCTGACCCATCTAACGCCTATCTGTATTTACAAATACATTATCTATCTATCTATCTATCTATCTATCTATCTATCAATCAATCATCTATCTATCTTTCTGTCTGTCTTTTTGGGCTGCC</refseq>
-<removed_from_flank_forwardP>TATC</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>TGAT</removed_from_flank_reverseP>
-</locus>
-<locus name="D16S539">
-<flank_forwardP>TGTACAAGTGCCAGATGCTCGTTGTGCACAAATCTAAATGCAGAAAAGCACTGAAAGAAGA</flank_forwardP>
-<flank_reverseP>TATCATCCATC</flank_reverseP>
-<locusName>D16S539</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>10</ref_alleleNumber>
-<ref_forwardP>GGGGGTCTAAGAGCTTGTAAAAAG</ref_forwardP>
-<ref_length>151</ref_length>
-<ref_reverseP>GTTTGTGTGTGCATCTGTAAGCATGTATC</ref_reverseP>
-<refseq>GGGGGTCTAAGAGCTTGTAAAAAGTGTACAAGTGCCAGATGCTCGTTGTGCACAAATCTAAATGCAGAAAAGCACTGAAAGAAGAATCCAGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAACCAGAGATGGATGATAGATACATGCTTACAGATGCACACACAAAC</refseq>
-<removed_from_flank_forwardP>ATCC</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>TCTG</removed_from_flank_reverseP>
-</locus>
-<locus name="D18S51">
-<flank_forwardP>AGGCTGCAGTGAGCCATGTTCATGCCACTGCACTTCACTCTGAGTGACAAATTGAGACCTTGTCTCAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAA</flank_forwardP>
-<flank_reverseP>AAACCGTCAGCCTAAGGTGGACATGTTGGCTTCTCTCTGTTCTTAACATGTTAAAATTAAAATTAACTTCTCTGGTGTGTGGAGATGTCTTACAATAACAGTTGCTACTATTTCTTTTCTTTTTCTCTTTCTTTCCTCTC</flank_reverseP>
-<locusName>D18S51</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>13</ref_alleleNumber>
-<ref_forwardP>TTCTTGAGCCCAGAAGGTTA</ref_forwardP>
-<ref_length>4</ref_length>
-<ref_reverseP>ATTCTACCAGCAACAACACAAATAAAC</ref_reverseP>
-<refseq>TTCTTGAGCCCAGAAGGTTAAGGCTGCAGTGAGCCATGTTCATGCCACTGCACTTCACTCTGAGTGACAAATTGAGACCTTGTCTCAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGAGAGAGGAAAGAAAGAGAAAAAGAAAAGAAATAGTAGCAACTGTTATTGTAAGACATCTCCACACACCAGAGAAGTTAATTTTAATTTTAACATGTTAAGAACAGAGAGAAGCCAACATGTCCACCTTAGGCTGACGGTTTGTTTATTTGTGTTGTTGCTGGTAGAAT</refseq>
-<removed_from_flank_forwardP>GAAA</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>TCTT</removed_from_flank_reverseP>
-</locus>
-<locus name="D21S11">
-<flank_forwardP>TGAATTGCCTTCTATCTATCTATCT</flank_forwardP>
-<flank_reverseP>AGACTAATAGGAGGTAGATAGACTGGATAGATAGACGATA</flank_reverseP>
-<locusName>D21S11</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>30</ref_alleleNumber>
-<ref_forwardP>ATATGTGAGTCAATTCCCCAAG</ref_forwardP>
-<ref_length>106</ref_length>
-<ref_reverseP>TGTATTAGTCAATGTTCTCCAGAGAC</ref_reverseP>
-<refseq>ATATGTGAGTCAATTCCCCAAGTGAATTGCCTTCTATCTATCTATCTATCTGTCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCGTCTATCTATCCAGTCTATCTACCTCCTATTAGTCTGTCTCTGGAGAACATTGACTAATACA</refseq>
-<removed_from_flank_forwardP>ATCT</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>GATA</removed_from_flank_reverseP>
-</locus>
-<locus name="D3S1358">
-<flank_forwardP>GACAGAGCAAGACCCTGTCTCATAGATAGATAGATAGATAGATAGATAGATAGATAGAT</flank_forwardP>
-<flank_reverseP>ATGTATCTATCTGTCT</flank_reverseP>
-<locusName>D3S1358</locusName>
-<locusType>4</locusType>
-<ref_alleleNumber>15</ref_alleleNumber>
-<ref_forwardP>ACTGCAGTCCAATCTGGGT</ref_forwardP>
-<ref_length>4</ref_length>
-<ref_reverseP>ATGAAATCAACAGAGGCTTGC</ref_reverseP>
-<refseq>ACTGCAGTCCAATCTGGGTGACAGAGCAAGACCCTGTCTCATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGACAGACAGATAGATACATGCAAGCCTCTGTTGATTTCAT</refseq>
-<removed_from_flank_forwardP>AGAT</removed_from_flank_forwardP>
-<removed_from_flank_reverseP>GTCT</removed_from_flank_reverseP>
-</locus>
-<locus name="D5S818">
-<flank_forwardP>TTA</flank_forwardP>
-<flank_reverseP>TTATCTGTATCCTTATTT</fo connections="0" index="7" orders="0" />
-  </alleleCandidate>
-  <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAGAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info connections="1" index="8" orders="1"><differences amount="2"><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info connections="0" index="9" orders="0" />
-  </alleleCandidate>
-  <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACCAAGTCTCAAAGAAAAGAAAAGA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info connections="0" index="10" orders="0" />
-  </alleleCandidate>
-  <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGGGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGGGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGGGACGGAGCAAGACTCAGCCTCAAAGA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info connections="0" index="11" orders="0" />
-  </alleleCandidate>
-</locus>
-<locus badReads="0" name="TH01" reads="3363" readsFiltered="3279" uniqueFiltered="4" uniqueReads="33">
-  <alleleCandidate abundance="54.93%" db-name="9.3" db-subtype="[a]" direction-distrib="49.92%">
-    <regionOfInterest>TCATCATTCATTCATTCATTCAT</regionOfInterest>
-    <qualityFlanks clean="93.5%" clean_compressed="0.9%" unclean="5.5%" />
-    <cluster-info connections="1" index="1" orders="1"><differences amount="1"><rel index="2" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="1.62%" db-name="NA" direction-distrib="49.06%">
-    <regionOfInterest>TCATCATTCATTCATTCAT</regionOfInterest>
-    <qualityFlanks clean="81.1%" clean_compressed="1.9%" unclean="17.0%" />
-    <cluster-info connections="1" index="2" orders="1"><differences amount="1"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="41.05%" db-name="8" db-subtype="[a]" direction-distrib="49.78%">
-    <regionOfInterest>TCATTCATTCATTCAT</regionOfInterest>
-    <qualityFlanks clean="93.2%" clean_compressed="1.2%" unclean="5.7%" />
-    <cluster-info connections="1" index="3" orders="1"><differences amount="1"><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="2.41%" db-name="NA" direction-distrib="39.24%">
-    <regionOfInterest>TCATTCATTCAT</regionOfInterest>
-    <qualityFlanks clean="82.3%" clean_compressed="0.6%" unclean="17.1%" />
-    <cluster-info connections="1" index="4" orders="1"><differences amount="1"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-</locus>
-<locus badReads="0" name="TPOX" reads="2404" readsFiltered="2079" uniqueFiltered="3" uniqueReads="186">
-  <alleleCandidate abundance="0.58%" db-name="NA" direction-distrib="33.33%">
-    <regionOfInterest>AATGTTTGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGGGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGGGGTT</regionOfInterest>
-    <qualityFlanks clean="95.8%" clean_compressed="0.0%" unclean="4.2%" />
-    <cluster-info connections="2" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="96.68%" db-name="8" db-subtype="[a]" direction-distrib="51.04%">
-    <regionOfInterest>AATGTTTGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGAGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGGGGTT</regionOfInterest>
-    <qualityFlanks clean="95.6%" clean_compressed="0.7%" unclean="3.7%" />
-    <cluster-info connections="2" index="2" orders="1"><differences amount="1"><rel index="1" /><rel index="3" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="2.74%" db-name="NA" direction-distrib="43.86%">
-    <regionOfInterest>AATGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGAGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGGGGTT</regionOfInterest>
-    <qualityFlanks clean="48.2%" clean_compressed="0.0%" unclean="51.8%" />
-    <cluster-info connections="2" index="3" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="1" /></differences></cluster-info>
-  </alleleCandidate>
-</locus>
-<locus badReads="0" name="vWA" reads="2509" readsFiltered="2452" uniqueFiltered="7" uniqueReads="24">
-  <alleleCandidate abundance="49.47%" db-name="18" db-subtype="[a]" direction-distrib="47.82%">
-    <regionOfInterest>GTCTGTCTATCTATCTA</regionOfInterest>
-    <qualityFlanks clean="96.2%" clean_compressed="0.0%" unclean="3.7%" />
-    <cluster-info connections="5" index="1" orders="2"><differences amount="1"><rel index="2" /><rel index="3" /><rel index="4" /></differences><differences amount="2"><rel index="5" /><rel index="6" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.53%" db-name="NA" direction-distrib="30.77%">
-    <regionOfInterest>GTCTATCTATCTATCTA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="4" index="2" orders="2"><differences amount="1"><rel index="1" /><rel index="4" /></differences><differences amount="2"><rel index="3" /><rel index="5" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="42.46%" db-name="17" db-subtype="[a]" direction-distrib="45.53%">
-    <regionOfInterest>GTCTGTCTATCTA</regionOfInterest>
-    <qualityFlanks clean="95.7%" clean_compressed="0.0%" unclean="4.3%" />
-    <cluster-info connections="6" index="3" orders="2"><differences amount="1"><rel index="1" /><rel index="4" /><rel index="5" /><rel index="6" /></differences><differences amount="2"><rel index="2" /><rel index="7" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.77%" db-name="NA" direction-distrib="47.37%">
-    <regionOfInterest>GTCTATCTATCTA</regionOfInterest>
-    <qualityFlanks clean="68.4%" clean_compressed="2.6%" unclean="28.9%" />
-    <cluster-info connections="6" index="4" orders="2"><differences amount="1"><rel index="1" /><rel index="2" /><rel index="3" /><rel index="5" /></differences><differences amount="2"><rel index="6" /><rel index="7" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.73%" db-name="16" db-subtype="[b]" direction-distrib="44.44%">
-    <regionOfInterest>GTCTATCTA</regionOfInterest>
-    <qualityFlanks clean="63.9%" clean_compressed="0.0%" unclean="36.1%" />
-    <cluster-info connections="6" index="5" orders="2"><differences amount="1"><rel index="3" /><rel index="4" /><rel index="6" /><rel index="7" /></differences><differences amount="2"><rel index="1" /><rel index="2" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="5.38%" db-name="16" db-subtype="[a]" direction-distrib="53.03%">
-    <regionOfInterest>GTCTGTCTA</regionOfInterest>
-    <qualityFlanks clean="84.8%" clean_compressed="0.0%" unclean="15.2%" />
-    <cluster-info connections="5" index="6" orders="2"><differences amount="1"><rel index="3" /><rel index="5" /><rel index="7" /></differences><differences amount="2"><rel index="1" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
-  <alleleCandidate abundance="0.65%" db-name="NA" direction-distrib="37.50%">
-    <regionOfInterest>GTCTA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info connections="4" index="7" orders="2"><differences amount="1"><rel index="5" /><rel index="6" /></differences><differences amount="2"><rel index="3" /><rel index="4" /></differences></cluster-info>
-  </alleleCandidate>
+<locus badReads="1" name="vWA" reads="4859" readsFiltered="4700" uniqueFiltered="6" uniqueReads="53">
+	<alleleCandidate abundance="0.66%" db-name="NA" direction-distrib="38.71%" size="15">
+		<regionOfInterest>GTCTG</regionOfInterest>
+		<qualityFlanks clean="59.7%" clean_compressed="0.0%" unclean="40.3%" />
+		<cluster-info connections="0" index="1" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="4.72%" db-name="16" db-subtype="[a]" direction-distrib="47.30%" size="16">
+		<regionOfInterest>GTCTGTCTA</regionOfInterest>
+		<qualityFlanks clean="85.6%" clean_compressed="0.0%" unclean="14.4%" />
+		<cluster-info connections="0" index="2" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.57%" db-name="NA" direction-distrib="40.74%" size="17">
+		<regionOfInterest>GTCTATCTATCTA</regionOfInterest>
+		<qualityFlanks clean="77.8%" clean_compressed="0.0%" unclean="22.2%" />
+		<cluster-info connections="1" index="3" orders="1"><differences amount="1"><rel index="4" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="44.85%" db-name="17" db-subtype="[a]" direction-distrib="47.34%" size="17">
+		<regionOfInterest>GTCTGTCTATCTA</regionOfInterest>
+		<qualityFlanks clean="96.4%" clean_compressed="0.0%" unclean="3.6%" />
+		<cluster-info connections="1" index="4" orders="1"><differences amount="1"><rel index="3" /></differences></cluster-info>
+	</alleleCandidate>
+	<alleleCandidate abundance="48.62%" db-name="18" db-subtype="[a]" direction-distrib="49.72%" size="18">
+		<regionOfInterest>GTCTGTCTATCTATCTA</regionOfInterest>
+		<qualityFlanks clean="96.7%" clean_compressed="0.1%" unclean="3.2%" />
+		<cluster-info connections="0" index="5" orders="0" />
+	</alleleCandidate>
+	<alleleCandidate abundance="0.57%" db-name="19" db-subtype="[a]" direction-distrib="51.85%" size="19">
+		<regionOfInterest>GTCTGTCTATCTATCTATCTA</regionOfInterest>
+		<qualityFlanks clean="96.3%" clean_compressed="0.0%" unclean="3.7%" />
+		<cluster-info connections="0" index="6" orders="0" />
+	</alleleCandidate>
 </locus>
 <lociDatabaseState info="this was the state of the locus information used for the present analysis">
-<locus name="Amelogenin">
+<locusInfo name="Amelogenin">
 <flank_forwardP />
 <flank_reverseP />
 <locusName>Amelogenin</locusName>
 <locusType>0</locusType>
-<ref_alleleNumber>Y</ref_alleleNumber>
+<ref_alleleNumber>X</ref_alleleNumber>
 <ref_forwardP>CCCTGGGCTCTGTAAAGAA</ref_forwardP>
-<ref_length>64</ref_length>
+<ref_length>58</ref_length>
 <ref_reverseP>ATCAGAGCTTAAACTGGGAAGCTG</ref_reverseP>
-<refseq>CCCTGGGCTCTGTAAAGAATAGTGGGTGGATTCTTCATCCCAAATAAAGTGGTTTCTCAAGTGGTCCCAATTTTACAGTTCCTACCATCAGCTTCCCAGTTTAAGCTCTGAT</refseq>
+<refseq>CCCTGGGCTCTGTAAAGAATAGTGTGTTGATTCTTTATCCCAGATGTTTCTCAAGTGGTCCTGATTTTACAGTTCCTACCACCAGCTTCCCAGTTTAAGCTCTGAT</refseq>
 <removed_from_flank_forwardP>TAGTG</removed_from_flank_forwardP>
 <removed_from_flank_reverseP />
-</locus>
-<locus name="CSF1PO">
+</locusInfo>
+<locusInfo name="CSF1PO">
 <flank_forwardP>GAGAAAGAATAACTGCATCTTAACCTATTGGGAGGTCATTGTAAAGAGGAGAGTGATGGGGTCAGATTGTACAGAGGAGGCACTTCGTGGTGGTCAGGAGCACACACTCCAGGGCAGTGTTCCAACCTGAGTCTGCCAAGGACTAGCAGGTTGCTAACCACCCTGTGTCTCAGTTTTCCTACCTGTAAAATGAAGATATTAACAGTAACTGCCTTCATAGATAGAAGATAGAT</flank_forwardP>
 <flank_reverseP>CTAAGTACTTCCTATCTATCTATCTATCTATCTATCTATCTATCTA</flank_reverseP>
 <locusName>CSF1PO</locusName>
@@ -817,350 +664,188 @@ d<removed_from_flank_reverseP>TAGA</removed_from_flank_reverseP>
 <refseq>CCGGAGGTAAAGGTGTCTTAAAGTGAGAAAGAATAACTGCATCTTAACCTATTGGGAGGTCATTGTAAAGAGGAGAGTGATGGGGTCAGATTGTACAGAGGAGGCACTTCGTGGTGGTCAGGAGCACACACTCCAGGGCAGTGTTCCAACCTGAGTCTGCCAAGGACTAGCAGGTTGCTAACCACCCTGTGTCTCAGTTTTCCTACCTGTAAAATGAAGATATTAACAGTAACTGCCTTCATAGATAGAAGATAGATAGATTAGATAGATAGATAGATAGATAGATAGATAGATAGATAGGAAGTACTTAGAACAGGGTCTGACACAGGAAAT</refseq>
 <removed_from_flank_forwardP>AGAT</removed_from_flank_forwardP>
 <removed_from_flank_reverseP>TCTA</removed_from_flank_reverseP>
-</locus>
-<locus name="D13S317">
-<flank_forwardP>GAGTTCATTTCTTTAGTGGGCATCCGTGACTCTCTGGACTCTGACCCATCTAACGCCTATGAAATCAAAAAATCAGAACCAATAAAAAATTAAAAATAAATAAAGTTTCATAAAAATTGAAAGGTTCTCCTCTAAAAAAGATACTTAAAAAAAAAGATAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-    </alleleCandidate>
-    <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-      <regionOfInterest>GAAAAAATTAAAAATTTCTCAAAAAAATCTTTAGGACCATAGTTTAGGAAAATATTTCTTAGATATCAAAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTCCTCTTAAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-      <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-      <cluster-info remark="too many sequences to cluster" />
-      </alleleCandidate>
-      <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-	<regionOfInterest>GAAAAAATGAAAAATTTCTAAAAAAAACCTTTATGCCCATAGTTTAGGAAAATATTTCTTAGATATCAAAAAATCATGACCTATAAAAAAATAATAAAAAAGTAAGTTTCATCAAAACTAAAAAGTTCTCCTCTTCAAAAGATCCCTTAAAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	<cluster-info remark="too many sequences to cluster" />
-	</alleleCandidate>
-	<alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-	  <regionOfInterest>GAAAATGTAAAATTTCTCAAAAAATCCGTTATGCCCATAGTTTAGGAAAATTGTTCTAAGATATCACAAAATCATGCCCTATAAAAAAATAATAAAAAAGTAATTTTCATAAAAACTAAAAAGTTCACCCCTCCAAAAGATACCTTAAAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	  <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	  <cluster-info remark="too many sequences to cluster" />
-	  </alleleCandidate>
-	  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-	    <regionOfInterest>GAAAAATTTCTCAAAAAAATCTTTAGGACCATAGTTTAGGAAAATATTTCTTAGATATCAAAAAATCATGCCCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAACCTTAAAAGTTCTCCTCTTCAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	    <cluster-info remark="too many sequences to cluster" />
-	    </alleleCandidate>
-	    <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-	      <regionOfInterest>GAAAAATTTCTCAAAAAATTGTTATGACCATAGGTTAGGAAAATTTTTCTTAGATATCAAAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATCAAAACTAAAAAGTTCTACTCTTCAAAAGATCCCTTAAAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	      <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	      <cluster-info remark="too many sequences to cluster" />
-	      </alleleCandidate>
-	      <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-		<regionOfInterest>GAAAACTAAAAAACCAAAAAACCATGCCCTATAAAAAAATAAAAAAAAAGTAAGTTTCATCAAAACTAAAAAGTTCTACCCTAAAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-		<cluster-info remark="too many sequences to cluster" />
-		</alleleCandidate>
-		</locus>
-<locus badReads="0" name="PentaE" reads="16" readsFiltered="16" uniqueFiltered="11" uniqueReads="11">
-  <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGGCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info connections="3" index="1" orders="2"><differences amount="1"><rel index="2" /></differences><differences amount="2"><rel index="4" /><rel index="6" /></differences></cluster-info>
-    </alleleCandidate>
-    <alleleCandidate abundance="6.25%" db-name="13" db-subtype="[a]" direction-distrib="100.00%">
-      <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-      <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-      <cluster-info connections="4" index="2" orders="2"><differences amount="1"><rel index="1" /><rel index="4" /></differences><differences amount="2"><rel index="5" /><rel index="6" /></differences></cluster-info>
-      </alleleCandidate>
-      <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="0.00%">
-	<regionOfInterest>TGTGGGCCGGGTGCGGTGGTTCACGCCTGCAGTCCTAGCATTTTGGGAGGCCGATGCAGGTGTATTCCCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-	<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	<cluster-info connections="0" index="3" orders="0" />
-	</alleleCandidate>
-	<alleleCandidate abundance="37.50%" db-name="12" db-subtype="[a]" direction-distrib="100.00%">
-	  <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-	  <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-	  <cluster-info connections="5" index="4" orders="2"><differences amount="1"><rel index="2" /><rel index="5" /><rel index="6" /></differences><differences amount="2"><rel index="1" /><rel index="8" /></differences></cluster-info>
-	  </alleleCandidate>
-	  <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="0.00%">
-	    <regionOfInterest>TGTGGCCAGGTGCGTTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-	    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	    <cluster-info connections="3" index="5" orders="2"><differences amount="1"><rel index="4" /></differences><differences amount="2"><rel index="2" /><rel index="6" /></differences></cluster-info>
-	    </alleleCandidate>
-	    <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-	      <regionOfInterest>TGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGCCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-	      <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-	      <cluster-info connections="4" index="6" orders="2"><differences amount="1"><rel index="4" /></differences><differences amount="2"><rel index="1" /><rel index="2" /><rel index="5" /></differences></cluster-info>
-	      </alleleCandidate>
-	      <alleleCandidate abundance="6.25%" db-name="NA" direction-distrib="100.00%">
-		<regionOfInterest>TGTGGCCAGGTGCGGTGCTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGACAAGCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGA</regionOfInterest>
-		<qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-		<cluster-infection-distrib="0.00%">
-    <regionOfInterest>GAAAAAGGGAAAAAAAAGAAAATCAAAAACAAAAATGAAAAATTTCTAAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGCCCTATTAAAAAATAATAATAAAGTAAGTTTCATAAAAACTTAAAAGTTCTACTCTTCAAAAGATCCCTTATAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGGGAAAAAAAAGAAAATAATAAACATAAATGAAAAATTTCTAAAAAAAATCTTTATGCCCATAGTTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTACTCTTCAAAAGATCCCTTATAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="50.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAAAAGAGAATCATAAACAAAAATTAAAAATTTCTAAAAAAAATCGTTATGACAATAGGTTAGGAAAATTTTTCTTAGATATCACAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTACTCTTCAAAAGATCCCTTATAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGAATCATAAACATAAATGTAAAATTTCTAAAAAAAATCGTTATGACCATAGGTTAGGAAAATATTTCTTAGATATCAAAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATAAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAAAATCATAAACATAAAGGTAAAATTTCTCAAAAAAATCTTTATGACCATAGGTTAGGAAAATTTTTTTTAGATATCAAAAAATCATGACCTATAAAAAAATAATAAAAAAGTAATTTTCATCAAAACTAAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGAATCATAAACATAAATGTAAAATTTCTAAAAAAAATCGTTATGACCATAGTTTAGGAAAATATTTCTAAGATATCAAAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTACTCTTCAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGAATCAAAAACATAAATGTAAATTTTCTCAAAAAAACCGTTGTGACCATAGTTTAGGAAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAATTTTCATCAAAACTAAAAAGTTCTACTCTTAAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAACAAAAATGAAAATTTTCTCAAAAAAATCGTTATGCCCATAGTTTAGGAAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAAGTGAAAAATTTCTAAAAAAAATCTTTATGCCAATAGTTAAGGAAAATTTTTCTAAAGAAAAAACGAAGGGAAAAAAAAAAGAATCATAAACATAAATGTAAATTTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCAAAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATCCCTTAAAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="50.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAGAGAAAACGAAGGGAAAAAAAAGAAAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGAAAATATTTCTTAGATATCAAAAAATCATGCCCTATTAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTCCTCTTAAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAAAAAGAAAAAACGAAGGGAAAAAAAAGAGAATCAAAAACAAAAATGAAAAATTTCTAAAAAAAATCTTTATGACAATGGGTTAGGAAAATATTTCTAAGATATCAAAAAATCAGGCCCTATAAAAAAATAAAAAAAAAGTAATTTTCATAAAAACTTAAAAGTTCTCCTCTTAAAAAGATCCCTTAAAAAAAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCATATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAAACGAAGGAAAAAAAAAGAGAATCAAAAACATAAATGAAAAATTTCACAAAAAAATCGTTATGACCATAGGTAAGGAAAATATTTCTAAGATATCACAAAATCATGACCTATAAAAAAATAAAAATAAAGTAAGTTTCATCAAAACTAAAAAGTTCTCCTCTCAAAAAGATACCTTATAAAGAAATTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGGGAAAAAAAAGAAAACCAAAAACAAAAATGTAAAATTTCTGAAAAAAAGCGTTATGACCATAGGTTAGGCAAATATAAATAAAAAAACACAAAAATAGATCCTTTAAAAAATGATAAATAGATAGATTTATATAAAAATAGAAAGGTACATCTCTACAAAAGATACTTTAAAAAAAAGATAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGGGAAAAAAAAGAAAATCAAAAACAAAAATGAAAAATTTCTAAAAAAAATCGTTATGACCATAGGTTAGGAAAATATTTCTTAAATATCAAAAAATCATGACCTATAAAAAAATAATAAAAAAGTAAGTTTCATAAAAACTTAAAAGTTCTACTCTTCAAAAGATCCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAAGGGAAAAAAAAGAGAATCATAAACATAAATGAAAAATTTCTAAAAAAAATCGTTATGACCATAGGTTAGGAAAATATTTCTTAGATATCACAAAATCAGGACCTATAAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" dirACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAACCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-    </alleleCandidate>
-    <alleleCandidate abundance="2.05%" db-name="NA" direction-distrib="100.00%">
-      <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAA</regionOfInterest>
-      <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-      <cluster-info remark="too many sequences to cluster" />
-      </alleleCandidate>
-      <alleleCandidate abundance="1.37%" db-name="NA" direction-distrib="100.00%">
-	<regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAA</regionOfInterest>
-	<qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-	<cluster-info remark="too many sequences to cluster" />
-	</alleleCandidate>
-	<alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-	  <regionOfInterest>GAAAAGAAAAGAAAAGAAAAAACGAGGGAAAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATAAAAAAATAATAATAAAGTAAGTTCCATCAAAACTAAAAAGTTCTCCTCTTCAAAAGATACCTCATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	  <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	  <cluster-info remark="too many sequences to cluster" />
-	  </alleleCandidate>
-	  <alleleCandidate abundance="1.37%" db-name="NA" direction-distrib="100.00%">
-	    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-	    <cluster-info remark="too many sequences to cluster" />
-	    </alleleCandidate>
-	    <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-	      <regionOfInterest>GAAAAGAAAAGAAAAGAAAAAACGAAGGGAAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGAAAATATTTCTAAGATATCAAAAAATCATGCCCTATAAAAAAAAAAAAATAAAGAAATTTTCATCGAAACTAAAAAGTTCTACTCTTAAAAAGATACCTTATAAAGAAAGAAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-	      <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-	      <cluster-info remark="too many sequences to cluster" />
-	      </alleleCandidate>
-	      <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-		<regionOfInterest>GAAAAGAAAAGAAAAGAAAAAACGAAGGGAAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAACCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATAAAAAAATAATAATAAAGAAAGTTTCAAAAAAACTAAAAAGTTCTACTCTTCAAAAGATACCTTATAAAAAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-		<qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-		<cluster-info remark="too many sequences to cluster" />
-		</alleleCandidate>
-		<alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-		  <regionOfInterest>GAAAAGAAAAGAAAAGAAAAAACGAAGGGAAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATCCCTTAAAAAGAAAGTAAAAAGACACGCCATAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-		  <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-		  <cluster-info remark="too many sequences to cluster" />
-		  </alleleCandidate>
-		  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-		    <regionOfInterest>GAAAAGAAAAGAAA" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTCCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACATCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACATCTAATCACATACCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="100.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAGAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAGGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGCAAGAAATTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATAACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="50.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAACGAACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACCCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCCACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCCCAGGCTAAGAGAAAGTACTTCTAATAACAAATCTCAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGGATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGAAAAAAAACACCCCACAGGCTAAGAGAAAGAACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAAATTCTAATCACAAATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="4.79%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="42.9%" clean_compressed="35.7%" unclean="21.4%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTAATTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTATACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCCCAGGCTAAGAGAAAGAACTTCTAATCACAAATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%AAGATGCCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAAAGAAAGTACTTCTAATAACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="0.0%" clean_compressed="100.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCCCAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCAAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAACAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACCTCTAATCACATATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCGCAGGCTAAGAGAAAGAAATTCTAATCACAAATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="1.37%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGAACTTCTAATCACAAATCTAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGTAAAAAGAAACGCCACAGGCTAAGAGAAAGTACTTCTAATCACAAATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAGAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAAAGAAAGTACTTCTAATACCATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATATTAAAGTAAGTTTCATCAAAACTTAGAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="50.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAACGTAAAAAGACACGCCCCAGGCTAAAAGAAAGAACTTCTAATAACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="0.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGAAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTAAAAAAATTCGTTAGGACCATAGGTTAGGAAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATAAAAACTAAAAAGTTCTACTCTTCAAAAGATCCCTTAAAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="50.0%" clean_compressed="0.0%" unclean="50.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTCAAAAA</regionOfInterest>
-    <qualityFlanks clean="100.0%" clean_compressed="0.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="2.74%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTAATTCTAATCACATATCTAAAAAA</regionOfInterest>
-    <qualityFlanks clean="75.0%" clean_compressed="25.0%" unclean="0.0%" />
-    <cluster-info remark="too many sequences to cluster" />
-  </alleleCandidate>
-  <alleleCandidate abundance="0.68%" db-name="NA" direction-distrib="100.00%">
-    <regionOfInterest>GAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAA
+</locusInfo>
+<locusInfo name="D13S317">
+<flank_forwardP>GAGTTCATTTCTTTAGTGGGCATCCGTGACTCTCTGGACTCTGACCCATCTAACGCCTATCTGTATTTACAAATACATTATCTATCTATCTATCTATCTATCTATC</flank_forwardP>
+<flank_reverseP>CAGAAAGATAGATAGATGAT</flank_reverseP>
+<locusName>D13S317</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>11</ref_alleleNumber>
+<ref_forwardP>ATTACAGAAGTCTGGGATGTGGAGGA</ref_forwardP>
+<ref_length>13</ref_length>
+<ref_reverseP>GGCAGCCCAAAAAGACAGA</ref_reverseP>
+<refseq>ATTACAGAAGTCTGGGATGTGGAGGAGAGTTCATTTCTTTAGTGGGCATCCGTGACTCTCTGGACTCTGACCCATCTAACGCCTATCTGTATTTACAAATACATTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCAATCATCTATCTATCTTTCTGTCTGTCTTTTTGGGCTGCC</refseq>
+<removed_from_flank_forwardP>TATC</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>TGAT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D16S539">
+<flank_forwardP>TGTACAAGTGCCAGATGCTCGTTGTGCACAAATCTAAATGCAGAAAAGCACTGAAAGAAGA</flank_forwardP>
+<flank_reverseP>TATCATCCATC</flank_reverseP>
+<locusName>D16S539</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>13</ref_alleleNumber>
+<ref_forwardP>GGGGGTCTAAGAGCTTGTAAAAAG</ref_forwardP>
+<ref_length>163</ref_length>
+<ref_reverseP>GTTTGTGTGTGCATCTGTAAGCATGTATC</ref_reverseP>
+<refseq>GGGGGTCTAAGAGCTTGTAAAAAGTGTACAAGTGCCAGATGCTCGTTGTGCACAAATCTAAATGCAGAAAAGCACTGAAAGAAGAATCCCGAAAACCACAGTTCCCATTTTTATATGGGAGCAAACAAAGGCAGATCCCAAGCTCTTCCTCTTCCCTAGATCAATACAGACAGACAGACAGGTGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATATCATTGAAAGACAAAACAGAGATGGATGATAGATACATGCTTACAGATGCACACACAAAC</refseq>
+<removed_from_flank_forwardP>ATCC</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>TCTG</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D18S51">
+<flank_forwardP>AGGCTGCAGTGAGCCATGTTCATGCCACTGCACTTCACTCTGAGTGACAAATTGAGACCTTGTCTCAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAA</flank_forwardP>
+<flank_reverseP>AAACCGTCAGCCTAAGGTGGACATGTTGGCTTCTCTCTGTTCTTAACATGTTAAAATTAAAATTAACTTCTCTGGTGTGTGGAGATGTCTTACAATAACAGTTGCTACTATTTCTTTTCTTTTTCTCTTTCTTTCCTCTC</flank_reverseP>
+<locusName>D18S51</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>13</ref_alleleNumber>
+<ref_forwardP>TTCTTGAGCCCAGAAGGTTA</ref_forwardP>
+<ref_length>4</ref_length>
+<ref_reverseP>ATTCTACCAGCAACAACACAAATAAAC</ref_reverseP>
+<refseq>TTCTTGAGCCCAGAAGGTTAAGGCTGCAGTGAGCCATGTTCATGCCACTGCACTTCACTCTGAGTGACAAATTGAGACCTTGTCTCAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAAAGAGAGAGGAAAGAAAGAGAAAAAGAAAAGAAATAGTAGCAACTGTTATTGTAAGACATCTCCACACACCAGAGAAGTTAATTTTAATTTTAACATGTTAAGAACAGAGAGAAGCCAACATGTCCACCTTAGGCTGACGGTTTGTTTATTTGTGTTGTTGCTGGTAGAAT</refseq>
+<removed_from_flank_forwardP>GAAA</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>TCTT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D21S11">
+<flank_forwardP>TGAATTGCCTTCTATCTATCTATCT</flank_forwardP>
+<flank_reverseP>AGACTAATAGGAGGTAGATAGACTGGATAGATAGACGATA</flank_reverseP>
+<locusName>D21S11</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>31</ref_alleleNumber>
+<ref_forwardP>ATATGTGAGTCAATTCCCCAAG</ref_forwardP>
+<ref_length>110</ref_length>
+<ref_reverseP>TGTATTAGTCAATGTTCTCCAGAGAC</ref_reverseP>
+<refseq>ATATGTGAGTCAATTCCCCAAGTGAATTGCCTTCTATCTATCTATCTATCTGTCTGTCTGTCTGTCTGTCTGTCTATCTATCTATATCTATCTATCTATCATCTATCTATCCATATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCGTCTATCTATCCAGTCTATCTACCTCCTATTAGTCTGTCTCTGGAGAACATTGACTAATACA</refseq>
+<removed_from_flank_forwardP>ATCT</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>GATA</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D3S1358">
+<flank_forwardP>GACAGAGCAAGACCCTGTCTCATAGATAGATAGATAGATAGATAGATAGATAGATAGAT</flank_forwardP>
+<flank_reverseP>ATGTATCTATCTGTCT</flank_reverseP>
+<locusName>D3S1358</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>16</ref_alleleNumber>
+<ref_forwardP>ACTGCAGTCCAATCTGGGT</ref_forwardP>
+<ref_length>8</ref_length>
+<ref_reverseP>ATGAAATCAACAGAGGCTTGC</ref_reverseP>
+<refseq>ACTGCAGTCCAATCTGGGTGACAGAGCAAGACCCTGTCTCATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGACAGACAGATAGATACATGCAAGCCTCTGTTGATTTCAT</refseq>
+<removed_from_flank_forwardP>AGAT</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>GTCT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D5S818">
+<flank_forwardP>TTA</flank_forwardP>
+<flank_reverseP>TTATCTGTATCCTTATTT</flank_reverseP>
+<locusName>D5S818</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>13</ref_alleleNumber>
+<ref_forwardP>GGTGATTTTCCTCTTTGGTATCC</ref_forwardP>
+<ref_length>69</ref_length>
+<ref_reverseP>AGCCACAGTTTACAACATTTGTATCT</ref_reverseP>
+<refseq>GGTGATTTTCCTCTTTGGTATCCTTACGTAATATTTTGAAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGATGTATAAATAAGGATACAGATAAAGATACAAATGTTGTAAACTGTGGCT</refseq>
+<removed_from_flank_forwardP />
+<removed_from_flank_reverseP>ATAC</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D7S820">
+<flank_forwardP>GAGTTATTTTAAGGTTAATATATATAAAGGGTATGATAGAACACTTGTCATAGTTTAGAACGAACTAACGATAGATAGATAGATAGATAGATAGATAGA</flank_forwardP>
+<flank_reverseP>AGAATTGCACCAAATATTGGTAATTAAATGTTTACTATAGACTATTTAGTG</flank_reverseP>
+<locusName>D7S820</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>8</ref_alleleNumber>
+<ref_forwardP>ATGTTGGTCAGGCTGACTATG</ref_forwardP>
+<ref_length>20</ref_length>
+<ref_reverseP>GATTCCACATTTATCCTCATTGAC</ref_reverseP>
+<refseq>ATGTTGGTCAGGCTGACTATGGAGTTATTTTAAGGTTAATATATATAAAGGGTATGATAGAACACTTGTCATAGTTTAGAACGAACTAACGATAGATAGATAGATAGATAGATAGATAGATAGACAGATTGATAGTTTTTTTTTATCTCACTAAATAGTCTATAGTAAACATTTAATTACCAATATTTGGTGCAATTCTGTCAATGAGGATAAATGTGGAATC</refseq>
+<removed_from_flank_forwardP>TAGA</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>AGAT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="D8S1179">
+<flank_forwardP>TGTACATTCGTATCT</flank_forwardP>
+<flank_reverseP>ACGTAGCTATAATTAGTTCATTTTCATCACTGTATCGTATCCCATTGCGTGAATATGCCTTAATTTATTTACCTATCCTGTAGATTATTTTCACTGTGGGGAATAGATAGATAGATAGATAGATAGATAGAT</flank_reverseP>
+<locusName>D8S1179</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>14</ref_alleleNumber>
+<ref_forwardP>ATTGCAACTTATATGTATTTTTGTATTTCATG</ref_forwardP>
+<ref_length>16</ref_length>
+<ref_reverseP>ACCAAATTGTGTTCATGAGTATAGTTTC</ref_reverseP>
+<refseq>ATTGCAACTTATATGTATTTTTGTATTTCATGTGTACATTCGTATCTATCTATCTGTCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATTCCCCACAGTGAAAATAATCTACAGGATAGGTAAATAAATTAAGGCATATTCACGCAATGGGATACGATACAGTGATGAAAATGAACTAATTATAGCTACGTGAAACTATACTCATGAACACAATTTGGT</refseq>
+<removed_from_flank_forwardP>ATCT</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>AGAT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="FGA">
+<flank_forwardP>TCCAAAAGTCAAATGCCCCATAGGTTTTGAACTCACAGATTAAACTGTAACCAAAATAAAATTAGGCATATTTACAAGCTAGTTTCTTTCTTTCTTTTTTCTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTC</flank_forwardP>
+<flank_reverseP>CTTCAATTCTGCTTCTCAGATCCTCTGACACTCGGTTGTAGGTATTATCACGGTCTGAAATCGAAAATATGGTTATTGAAGTAGCTGCTGAGTGATTTGTCTGTAATTGCCAGCAAAAAAGAAAGGAAGAAAGGAAGGAAGGA</flank_reverseP>
+<locusName>FGA</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>23</ref_alleleNumber>
+<ref_forwardP>GGCTGCAGGGCATAACATTA</ref_forwardP>
+<ref_length>12</ref_length>
+<ref_reverseP>ATTCTATGACTTTGCGCTTCAGGA</ref_reverseP>
+<refseq>GGCTGCAGGGCATAACATTATCCAAAAGTCAAATGCCCCATAGGTTTTGAACTCACAGATTAAACTGTAACCAAAATAAAATTAGGCATATTTACAAGCTAGTTTCTTTCTTTCTTTTTTCTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTTTCTCCTTCCTTCCTTTCTTCCTTTCTTTTTTGCTGGCAATTACAGACAAATCACTCAGCAGCTACTTCAATAACCATATTTTCGATTTCAGACCGTGATAATACCTACAACCGAGTGTCAGAGGATCTGAGAAGCAGAATTGAAGTCCTGAAGCGCAAAGTCATAGAAT</refseq>
+<removed_from_flank_forwardP>TTTC</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>GAAA</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="PentaD">
+<flank_forwardP>AGCCATGATCACACCACTACACTCCAGCCTAGGTGACAGAGCAAGACACCATCTCAAGAAAGAAAAAAAAGAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAA</flank_forwardP>
+<flank_reverseP>TCC</flank_reverseP>
+<locusName>PentaD</locusName>
+<locusType>5</locusType>
+<ref_alleleNumber>8</ref_alleleNumber>
+<ref_forwardP>GAAGGTCGAAGCTGAAGTG</ref_forwardP>
+<ref_length>236</ref_length>
+<ref_reverseP>ATTAGAATTCTTTAATCTGGACACAAG</ref_reverseP>
+<refseq>GAAGGTCGAAGCTGAAGTGAGCCATGATCACACCACTACACTCCAGCCTAGGTGACAGAGCAAGACACCATCTCAAGAAAGAAAAAAAAGAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAAACGAAGGGGAAAAAAAGAGAATCATAAACATAAATGTAAAATTTCTCAAAAAAATCGTTATGACCATAGGTTAGGCAAATATTTCTTAGATATCACAAAATCATGACCTATTAAAAAATAATAATAAAGTAAGTTTCATCAAAACTTAAAAGTTCTACTCTTCAAAAGATACCTTATAAAGAAAGTAAAAAGACACGCCACAGGCTAAGAGAAAGTACTTCTAATCACATATCTAAAAAAGGACTTGTGTCCAGATTAAAGAATTCTAAT</refseq>
+<removed_from_flank_forwardP>GAAAA</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>TTTTT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="PentaE">
+<flank_forwardP>ACAAGAAAAT</flank_forwardP>
+<flank_reverseP>TCTTTTCTTTTCTTTTCTTT</flank_reverseP>
+<locusName>PentaE</locusName>
+<locusType>5</locusType>
+<ref_alleleNumber>7</ref_alleleNumber>
+<ref_forwardP>ATTACCAACATGAAAGGGTACCAATA</ref_forwardP>
+<ref_length>290</ref_length>
+<ref_reverseP>TGGGTTATTAATTGAGAAAACTCCTTACAATTT</ref_reverseP>
+<refseq>ATTACCAACATGAAAGGGTACCAATAACAAGAAAATTGTGGCCAGGTGCGGTGGTTCACGCCTGCAATCCTAGCACTTTGGGAGGCCGATGCAGGTGTATTACCTGAGCTCAGGAGATCAAGACCAGCCTGGGCAACATGGTGAAACCCCGTCTCTACTAAAATACAAAAAATTAGCTGGGTGTGGTGGTAGGCACCTATAATCCCAGCTACTCTGGAGGCTGAAACAGGAGAATCACTTGAACCCAGGAGGTGGAGATTGAAGTGAGCCGAGATCACGCCATTGCACTCCAGCCTGGGCGACTGAGCAAGACTCAGTCTCAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAAGAAAATTGTAAGGAGTTTTCTCAATTAATAACCCA</refseq>
+<removed_from_flank_forwardP>TGTGG</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>TCTTT</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="TH01">
+<flank_forwardP>CTCCCTTATTTCCCTCATTCATTCAT</flank_forwardP>
+<flank_reverseP>CCGATTATCCAGCCTGGCCCACACAGTCCCCTGTACACAGGGCTTCCGAGTGCAGGTCACAGGGAACACAGACTCCATGGTGAATGA</flank_reverseP>
+<locusName>TH01</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>8</ref_alleleNumber>
+<ref_forwardP>GTGATTCCCATTGGCCTGTTC</ref_forwardP>
+<ref_length>8</ref_length>
+<ref_reverseP>ATTCCTGTGGGCTGAAAAGCTC</ref_reverseP>
+<refseq>GTGATTCCCATTGGCCTGTTCCTCCCTTATTTCCCTCATTCATTCATTCATTCATTCATTCATTCATTCACCATGGAGTCTGTGTTCCCTGTGACCTGCACTCGGAAGCCCTGTGTACAGGGGACTGTGTGGGCCAGGCTGGATAATCGGGAGCTTTTCAGCCCACAGGAAT</refseq>
+<removed_from_flank_forwardP>TCAT</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>ATGA</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="TPOX">
+<flank_forwardP>GAACCCTCACTGAATGAATGAATGAATGAATGAATGAATG</flank_forwardP>
+<flank_reverseP>ACTCTACTGTCCTGGGCGCTCAGGGGAGGAACTGGG</flank_reverseP>
+<locusName>TPOX</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>8</ref_alleleNumber>
+<ref_forwardP>GCACAGAACAGGCACTTAGG</ref_forwardP>
+<ref_length>148</ref_length>
+<ref_reverseP>CGCTCAAACGTGAGGTTG</ref_reverseP>
+<refseq>GCACAGAACAGGCACTTAGGGAACCCTCACTGAATGAATGAATGAATGAATGAATGAATGAATGTTTGGGCAAATAAACGCTGACAAGGACAGAAGGGCCTAGCGGGAAGGGAACAGGAGTAAGACCAGCGCACAGCCCGACTTGTGTTCAGAAGACCTGGGATTGGACCTGAGGAGTTCAATTTTGGATGAATCTCTTAATTAACCTGTGGGGTTCCCAGTTCCTCCCCTGAGCGCCCAGGACAGTAGAGTCAACCTCACGTTTGAGCG</refseq>
+<removed_from_flank_forwardP>AATG</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>AACC</removed_from_flank_reverseP>
+</locusInfo>
+<locusInfo name="vWA">
+<flank_forwardP>ACTTGGATTGATCTATCTGTCTGTCT</flank_forwardP>
+<flank_reverseP>ATAGATGGATAGATAGATAGATAGATAGATAGATAGATAGATAGATAGA</flank_reverseP>
+<locusName>vWA</locusName>
+<locusType>4</locusType>
+<ref_alleleNumber>19</ref_alleleNumber>
+<ref_forwardP>GCCCTAGTGGATGATAAGAATAATCAGTATGTG</ref_forwardP>
+<ref_length>13</ref_length>
+<ref_reverseP>GGACAGATGATAAATACATAGGATGGATGG</ref_reverseP>
+<refseq>GCCCTAGTGGATGATAAGAATAATCAGTATGTGACTTGGATTGATCTATCTGTCTGTCTGTCTGTCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCTATCCATCTATCCATCCATCCTATGTATTTATCATCTGTCC</refseq>
+<removed_from_flank_forwardP>GTCT</removed_from_flank_forwardP>
+<removed_from_flank_reverseP>TAGA</removed_from_flank_reverseP>
+</locusInfo>
+</lociDatabaseState>
+</results>

@@ -41,9 +41,12 @@ RUN cd /tmp && git clone https://github.com/clelland/MySQL-for-Python-3.git && \
 RUN mkdir -p /var/log/supervisor
 ADD ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-#Saxon (after this section you cannot use apt-get install any more due to dependencies issues from dpkg strategy)
+#Saxon 
+RUN apt-get install -y openjdk-7-jre-headless
 RUN apt-get install -y libsaxonb-java
-RUN mkdir /tmp/saxon && cd /tmp/saxon && apt-get download openjdk-7-jre-headless openjdk-7-jre && dpkg --force-all -i /tmp/saxon/* && rm /tmp/saxon/* && rmdir /tmp/saxon
+#Previously needed the following workaround to get java running
+#after that section you could not use apt-get install any more due to dependencies issues from dpkg strategy
+#RUN mkdir /tmp/saxon && cd /tmp/saxon && apt-get download openjdk-7-jre-headless openjdk-7-jre && dpkg --force-all -i /tmp/saxon/* && rm /tmp/saxon/* && rmdir /tmp/saxon
 
 #Sending program files
 #The files must be within the buildfile dir or below
