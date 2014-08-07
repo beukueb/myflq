@@ -764,8 +764,11 @@ def calculateAlleleNumber(regionOfInterest,locus):
             ref_length = (int(locus['ref_length'])-
                           int(locus['ref_alleleNumber'][locus['ref_alleleNumber'].index('.')+1:]))
             ref_alleleNumber = int(locus['ref_alleleNumber'][:locus['ref_alleleNumber'].index('.')])
-        alleleNumber = str( ref_alleleNumber + int((regionOfInterest - ref_length  )/locus['locusType']) )
-        if (regionOfInterest - ref_length  )%locus['locusType'] != 0: 
+        ref_difference = regionOfInterest - ref_length
+        ref_offset = (regionOfInterest - ref_length  )%locus['locusType']
+        alleleNumber = str( ref_alleleNumber + int(ref_difference/locus['locusType'])
+                            - (1 if (ref_difference<0 and ref_offset) else 0) ) #correction when regionOfInterest < ref_length
+        if ref_offset != 0: 
             alleleNumber += '.'+str((regionOfInterest - ref_length  )%locus['locusType'])
     return alleleNumber
     

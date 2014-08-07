@@ -28,7 +28,7 @@ body {
  
 #header {
     position: relative;
-    height: 100px;
+    height: 120px;
     margin-top: 20px;
     padding: 0;
     display: block;
@@ -46,7 +46,7 @@ body {
     left: 0;
     top: 0;
     width: calc(100% - 180px);/*-165px for bg image padding*/
-    height: 100px;
+    height: 120px;
     background-color: #fcf8f9;/*Previous colors: #f3f9fd;*/
     box-shadow: 10px 10px 5px #888888;
     background-image: url('../images/MyFLqLogo_s.png');
@@ -62,7 +62,7 @@ body {
     right: 0;
     top: 0;
     width: 150px;/*width: 18%;*/
-    height: 100px;
+    height: 120px;
     background-color: #fcf8f9;
     box-shadow: 10px 10px 5px #888888;
     padding-left: 10px;
