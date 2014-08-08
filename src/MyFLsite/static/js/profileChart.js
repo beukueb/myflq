@@ -523,10 +523,10 @@ function draw(error,data,width,height) {
 }
 
 function colorizeDNA(selection,dna) {
-    var colors = { 'A': 'red',
+    var colors = { 'A': 'blue',
 		   'C': 'green',
 		   'T': 'orange',
-		   'G': 'green'
+		   'G': 'red'
 		 };
     for (var i=0; i < dna.length; i++) {
 	selection.append("span").attr("style","color: "+colors[dna.charAt(i)]+";").text(dna.charAt(i));
