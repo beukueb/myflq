@@ -45,13 +45,18 @@ function draw(error,data,width,height) {
 	var alleles = loci[i].getElementsByTagName('alleleCandidate'),
 	    rangeL = [],
 	    abundances = [];
-	for (var j=0;j<alleles.length;j++) {
-	    var roi = alleles[j].getElementsByTagName('regionOfInterest')[0].textContent;
-	    rangeL[rangeL.length] = (roi == "[RL]") ? 0 : roi.length;
-	    abundances[abundances.length] = parseFloat(alleles[j].getAttribute('abundance'));
+	if (alleles.length != 0) {
+	    for (var j=0;j<alleles.length;j++) {
+		var roi = alleles[j].getElementsByTagName('regionOfInterest')[0].textContent;
+		rangeL[rangeL.length] = (roi == "[RL]") ? 0 : roi.length;
+		abundances[abundances.length] = parseFloat(alleles[j].getAttribute('abundance'));
+	    }
+	    var amin = Math.min.apply(Math, rangeL),
+	        amax = Math.max.apply(Math, rangeL);
 	}
-	var amin = Math.min.apply(Math, rangeL),
-	    amax = Math.max.apply(Math, rangeL);
+	else {
+	    var amin = 0, amax = 1;
+	}
 	//smallestLocusAllele[smallestLocusAllele.length] = amin;
 	var locusStart = stackedAllelesLociPositions[stackedAllelesLociPositions.length-1];
 	stackedAllelesLociPositions[stackedAllelesLociPositions.length] = locusStart + amax - amin + 1; //locusEnd
@@ -268,7 +273,6 @@ function draw(error,data,width,height) {
 		//console.log(this);
 		d.setAttribute('profile', (d.getAttribute('profile')=='no') ? 'yes' : 'no');
 	    })
-window.pcb = profileCB;//DEBUG
 
 	    //Cluster-info
 	    aI.append("h3").text("Relations to other sequences within "+locus.getAttribute("name"));
