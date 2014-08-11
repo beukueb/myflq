@@ -10,7 +10,7 @@ The datafile can be a single-individual-source or multiple-individual-source sam
 ## Options for running MyFLq
 ### From the Github repo
 
-MyFLq is developed as a Django application. It requires the installation of several dependencies (including mySQL) before it can be used.  Detailed instructions can be found in src/MyFLsite/INSTALL.md.
+MyFLq is developed as a Django application. It requires the installation of several dependencies (including MySQL) before it can be used.  Detailed instructions can be found in the file [INSTALL](https://github.com/beukueb/myflq/src/MyFLsite/INSTALL.md).
 
 Setup:
 
@@ -31,7 +31,7 @@ A more convenient way to try MyFLq may be to use the available docker container.
 
     sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
 
-In case you already have a service using the standard webport 80 on your PC, you can adjust the command line to run the webapp on another free port. 
+In case you already have a service using the standard webport 80 on your computer, you can adjust the command line to run the webapp on another free port. 
 MyFLq will then run as a local web application on the indicated port.
 
 ### Illumina BaseSpace
@@ -57,7 +57,7 @@ To start the app on BaseSpace simply launch it, which will direct you to the inp
 ps://github.com/beukueb/myflq). You can also copy paste your custom file in the textbox.
 - Select allele database.  
   These are instead links to the alleles.csv-files. You can copy paste your custom file in the textbox.
-- Sample: select the fastq (or fasta?) file for analysis.  
+- Sample: select the fastq file for analysis.  
   The fastq can be either single-end or paired-end and should be available on BaseSpace.
 - Save results to: the project where your results will be saved.
 - General options for analysis:
@@ -68,11 +68,11 @@ ps://github.com/beukueb/myflq). You can also copy paste your custom file in the 
 - Alignment options  
   Different types of alignments occur during the process of analysis. With these options you can influence the processing.
  - *Primer buffer*  
-   The number of bases at the end of the primer that will not be used for assigning the reads to loci. Choosing a higher buffer therefore means the locus assignment could be slightly less specific, but more reads will get assigned. Is there a recommended maximum setting?
+   The number of bases at the end of the primer that will not be used for assigning the reads to loci. Choosing a higher buffer therefore means the locus assignment could be slightly less specific, but more reads will get assigned. 10 is a recommended maximum setting.
  - *Stutter buffer*  
    The stutters of the smallest allele for a locus are normally not in the database, and could have a negative-length ROI. Default value of this buffer is 1 to accomodate that. This allows all stutters to be seen as flanking out is performed with a flank 1 repeat unit smaller.
  - *Flankout*  
-   If you see a large amount of negative reads (where do you see these?) in the analysis, or a high abundant unique read with very poor flanks, turn this feature off. The analysis will then be done between the primers. Previously unknown alleles can be discovered this way.
+   If you see a large amount of negative reads  in the analysis (this can be derived from the locus statistics), or a high abundant unique read with very poor flanks, turn this feature off. The analysis will then be done between the primers. Previously unknown alleles can be discovered this way.
  - *Homopolymers compressed*  
    Long homopolymers in the flanks could stutter during PCR. This option annotates flanks of loci that were possibly affected by this.
  - *Flankout by alignment*  
@@ -100,16 +100,16 @@ Suggested steps:
 
 ###Make profile and save it locally
 - After reviewing all loci, click "Make profile".
-- A new browser window will open with all the alleles in the profile. Save it locally by selecting 'Save as...' form your browser's 'File' menu.
+- A new browser window will open with all the alleles in the profile. Save it locally by selecting 'Save as...' from your browser's "File" menu.
   (For now it is not possible to save it in your project, so choose a filename that refers to the project/result.) 
 - If there is a locus with more than two alleles, it is indicated that based on the threshold this profile derives from a multi-contributor sample. If there is maximum two alleles per locus, the probability of that profile can be retrieved from the [ENFSI STRbase](http://strbase.org/) site.
 
 ###Test files
-Click [here](https://cloud-hoth.illumina.com/s/6nsamiEr4SNk) to get access to a project with forensic samples that can be used to try out MyFLq.
+Click [here](https://cloud-hoth.illumina.com/s/t64TniA0EKQk) to get access to a project with forensic samples that can be used to try out MyFLq.
   
 
 ##Workflow for a local MyFLq installation
-Start the app as described in the 'Options for running MyFLq' section.
+Start the app as described in the [Options for running MyFLq](https://github.com/beukueb/myflq#options-for-running-myflq) section.
 
 ###Register to create a user account
 To use the application, you need to register.  This will enable the system to keep track of your analyses.
@@ -143,7 +143,7 @@ Click the '__Submit__' button to add your analysis to the queue.
     - __Profile__: Report of the analysis.  See 'Review results' under the 'Workflow on BaseSpace MyFLq' section for a detailed description.
 
 ###Test files
-A sample loci ([loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)) and alleles ( [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) data file are available in the git repository.  You will need to supply your own Fastq sequence file to perform an analysis.
+A sample loci ([loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)) and alleles ( [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) data file are available in the git repository.  You will need to supply your own Fastq sequence file to perform an analysis, or download it from the [BaseSpace project page](https://cloud-hoth.illumina.com/s/t64TniA0EKQk) after registering.
 
 ##More information
 - Original paper: [My-Forensic-Loci-queries (MyFLq) framework for analysis of forensic STR data generated by massive parallel sequencing](http://dx.doi.org/10.1016/j.fsigen.2013.10.012)
