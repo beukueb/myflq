@@ -10,7 +10,7 @@ The datafile can be a single-individual-source or multiple-individual-source sam
 ## Options for running MyFLq
 ### From the Github repo
 
-MyFLq is developed as a Django application. It requires the installation of several dependencies (including MySQL) before it can be used.  Detailed instructions can be found in the file [INSTALL](https://github.com/beukueb/myflq/src/MyFLsite/INSTALL.md).
+MyFLq is developed as a Django application. It requires the installation of several dependencies (including MySQL) before it can be used.  Detailed instructions can be found in the file [INSTALL](https://github.com/beukueb/myflq/blob/src/MyFLsite/INSTALL.md).
 
 Setup:
 
