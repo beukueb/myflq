@@ -9,15 +9,17 @@ The datafile can be a single-individual-source or multiple-individual-source sam
 
 ## Options for running MyFLq
 ### From the Github repo
-Initial setup:
+
+MyFLq is developed as a Django application. It requires the installation of several dependencies (including mySQL) before it can be used.  Detailed instructions can be found in src/MyFLsite/INSTALL.md.
+
+Setup:
 
     git clone https://github.com/beukueb/myflq.git
     cd myflq/src/MyFLsite/
     python3 manage.py syncdb
 
-For the above to work all dependencies need to be installed, and a MySQL database needs to be prepared. Detailed instructions are in src/MyFLsite/documentation.
 
-To start the webapp:
+To start the webapp (e.g. on Ubuntu):
 
     sudo systemctl start rabbitmq
     celery -A MyFLsite worker -l info &
@@ -25,12 +27,11 @@ To start the webapp:
 
 
 ### As a Docker container
-Another option is, after installing [Docker](https://www.docker.io/), to pull and start the MyFLq container on your server with the following command:
+A more convenient way to try MyFLq may be to use the available docker container. Docker is easily installed (see [here](https://www.docker.io/) for instructions). To download and start the MyFLq container, issue the following command:
 
     sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
 
-If you want the webapp to run on another port than the standard webport 80, change that in the commandline.
-
+In case you already have a service using the standard webport 80 on your PC, you can adjust the command line to run the webapp on another free port. 
 MyFLq will then run as a local web application on the indicated port.
 
 ### Illumina BaseSpace
@@ -104,5 +105,44 @@ Suggested steps:
 ###Test files
 Click [here](https://cloud-hoth.illumina.com/s/6nsamiEr4SNk) to get access to a project with forensic samples that can be used to try out MyFLq.
   
+
+##Workflow for a local MyFLq installation
+Start the app as described in the 'Options for running MyFLq' section.
+
+###Register to create a user account
+To use the application, you need to register.  This will enable the system to keep track of your analyses.
+
+- Choose user name and password to complete the registration form.
+
+###Login
+
+- Fill in your user name and password in the upper right corner and click the login button.
+
+###Workflow
+After a succesfull login, you end up on the MyFLq workflow page displaying condensed instructions on how to proceed with the setup, analysis and results.  Detailed instructions can be found in the 'Help' section of the application.
+
+In a nutshell:
+####Setup loci and alleles
+- __Database setup__: Create a new database for your analysis by supplying a name and clicking the '__Create db__' button.  Your database name should now be displayed with the option to delete it.
+- __Primers setup__: Select your database from the Dbname pulldown.  Browse to select a loci file (CSV format), click the '__Upload__' button.  You will be redirected to the 'Setup' page, but the uploaded file will not be displayed in the current version of the software.
+- __Adding alleles__: Select your database from the Dbname pulldown.  Browse to select an allele file (CSV format), click the '__Upload__' button.  Similar to the primers setup, you will be redirected to the 'Setup' page, but the uploaded file will not be displayed in the current version of the software.
+- __Commit settings__: Select your database from the Dbname pulldown and click the '__Commit__' button to store your input into the database. Similar to the primers setup, you will be redirected to the 'Setup' page
+
+####Analysis
+- __Submit analysis request__: Select your database from the Dbname pulldown.  Browse to select a fastq file with the sequences you want to analyse, or alternatively choose a previously uploaded one.
+- __General__ & __Alignment__: Adjust the parameters to your requirements or use the defaults.  See 'General options for analysis' under the 'Workflow on BaseSpace MyFLq' section for a detailed description.
+Click the '__Submit__' button to add your analysis to the queue.
+- __Progress__: A progress table now lists your analysis status and will be periodically refreshed.  When the analysis is completed, the entry is removed from the table and you can proceed to the 'Results' section.
+
+####Results
+- __All results__: The table shows the result sets for all completed analyses.  You can select a result set by clicking the radio button next to its status, then click the '__Visualize result__' button to display the data.
+- __Analysis details__
+    - __Parameters__: Summary of the analysis parameters as entered in the 'Setup loci and alleles' section
+    - __Profile__: Report of the analysis.  See 'Review results' under the 'Workflow on BaseSpace MyFLq' section for a detailed description.
+
+###Test files
+A sample loci ([loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)) and alleles ( [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) data file are available in the git repository.  You will need to supply your own Fastq sequence file to perform an analysis.
+
 ##More information
 - Original paper: [My-Forensic-Loci-queries (MyFLq) framework for analysis of forensic STR data generated by massive parallel sequencing](http://dx.doi.org/10.1016/j.fsigen.2013.10.012)
+
