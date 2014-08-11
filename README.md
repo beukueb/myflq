@@ -41,6 +41,8 @@ When custom loci.csv and alleles.csv are required on BaseSpace, one can submit t
 
 If you do not want those files to be public, you can copy paste them into the respective textbox in the input form. In this case pay close attention to the format of your *.csv files. There should not be any whitespace, unless at the end of a line or within a commented line. The easiest way to achieve this is to open your .csv file in a standard text editor of your choice (e.g. 'Textpad' in Windows or 'gedit' in Linux), to select (CTRL+A) and copy (CTRL+C) its entire contents and to paste them (CTRL+V) in the allocated text field on BaseSpace MyFLq (see 'Choose input settings' below).
 
+When choosing to use custom loci and alleles input files, you have to make sure that both files contain information for the same loci/alleles. That is, the alleles.csv file needs to contain only allele information for every locus specified in the loci.csv file and vice versa. If this is not the case, an error will be generated. 
+
 In the future it will be possible to upload files (e.g. small csv's) to your BaseSpace projects. At that time you will be able to select personal files.
 
 ##Workflow on BaseSpace MyFLq
