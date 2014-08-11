@@ -3,7 +3,7 @@
 
 Open source, straightforward analysis tool for forensic DNA samples.
 
-The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fast[a/q] datafile, whereupon the datafile's profile is extracted.
+The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fast[a/q] datafile, whereupon the datafile's profile is extracted. To download the loci.csv and alleles.csv files, right-click the 'RAW' button and choose 'save as...'. These files can be opened using a regular text editor such as 'Textpad' (Windows) or 'gedit' (Linux).
 
 The datafile can be a single-individual-source or multiple-individual-source sample. Profile results depend on both csv files. Loci.csv will determine the number of loci that will be analyzed; alleles.csv will determine the region of interest [ROI] of those loci.
 
@@ -39,7 +39,7 @@ MyFLq is also accessible directly from the Illumina BaseSpace environment.
 #### Custom loci.csv and alleles.csv
 When custom loci.csv and alleles.csv are required on BaseSpace, one can submit them on [MyFLhub](https://github.com/beukueb/myflq) (MyFLq repo on Github) with a pull request (ask a bioinformatician to help if you don't know how). The program will then be rebuild, and your files will be available to select within 24 hours.
 
-If you do not want those files to be public, you can copy paste them into the respective textbox in the input form. In this case pay close attention to the format of your *.csv files. There should not be any whitespace, unless at the end of a line or within a commented line.
+If you do not want those files to be public, you can copy paste them into the respective textbox in the input form. In this case pay close attention to the format of your *.csv files. There should not be any whitespace, unless at the end of a line or within a commented line. The easiest way to achieve this is to open your .csv file in a standard text editor of your choice (e.g. 'Textpad' in Windows or 'gedit' in Linux), to select (CTRL+A) and copy (CTRL+C) its entire contents and to paste them (CTRL+V) in the allocated text field on BaseSpace MyFLq (see 'Choose input settings' below).
 
 In the future it will be possible to upload files (e.g. small csv's) to your BaseSpace projects. At that time you will be able to select personal files.
 
@@ -54,8 +54,8 @@ To start the app on BaseSpace simply launch it, which will direct you to the inp
 ps://github.com/beukueb/myflq). You can also copy paste your custom file in the textbox.
 - Select allele database.  
   These are instead links to the alleles.csv-files. You can copy paste your custom file in the textbox.
-- Sample: select the fastq file for analysis.  
-  The fastq can be either single-end or paired-end.
+- Sample: select the fastq (or fasta?) file for analysis.  
+  The fastq can be either single-end or paired-end and should be available on BaseSpace.
 - Save results to: the project where your results will be saved.
 - General options for analysis:
  - *Threshold*  
@@ -65,7 +65,7 @@ ps://github.com/beukueb/myflq). You can also copy paste your custom file in the 
 - Alignment options  
   Different types of alignments occur during the process of analysis. With these options you can influence the processing.
  - *Primer buffer*  
-   The number of bases at the end of the primer that will not be used for assigning the reads to loci. Choosing a higher buffer therefore means the locus assignment could be slightly less specific, but more reads will get assigned.
+   The number of bases at the end of the primer that will not be used for assigning the reads to loci. Choosing a higher buffer therefore means the locus assignment could be slightly less specific, but more reads will get assigned. Is there a recommended maximum setting?
  - *Stutter buffer*  
    The stutters of the smallest allele for a locus are normally not in the database, and could have a negative-length ROI. Default value of this buffer is 1 to accomodate that. This allows all stutters to be seen as flanking out is performed with a flank 1 repeat unit smaller.
  - *Flankout*  
@@ -97,7 +97,7 @@ Suggested steps:
 
 ###Make profile and save it locally
 - After reviewing all loci, click "Make profile".
-- A new browser window will open with all the alleles in the profile. Save it locally.  
+- A new browser window will open with all the alleles in the profile. Save it locally by selecting 'Save as...' form your browser's 'File' menu.
   (For now it is not possible to save it in your project, so choose a filename that refers to the project/result.) 
 - If there is a locus with more than two alleles, it is indicated that based on the threshold this profile derives from a multi-contributor sample. If there is maximum two alleles per locus, the probability of that profile can be retrieved from the [ENFSI STRbase](http://strbase.org/) site.
 
