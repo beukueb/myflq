@@ -78,7 +78,7 @@ ps://github.com/beukueb/myflq). You can also copy paste your custom file in the 
 After selecting options, launch analysis.
 
 ###Review results.
-When the analysis is done, BaseSpace will have automatically made a report with all the results.  
+When the analysis is done, BaseSpace will have automatically made a report with all the results. This report can be found in the project folder in which your results were saved.  
 
 The report primarily shows the visual profile. Initially it shows the overview of all analyzed loci. 
 
