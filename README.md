@@ -71,7 +71,7 @@ ps://github.com/beukueb/myflq). You can also copy paste your custom file in the 
  - *Stutter buffer*  
    The stutters of the smallest allele for a locus are normally not in the database, and could have a negative-length ROI. Default value of this buffer is 1 to accomodate that. This allows all stutters to be seen as flanking out is performed with a flank 1 repeat unit smaller.
  - *Flankout*  
-   If you see a large amount of negative reads in the analysis, or a high abundant unique read with very poor flanks, turn this feature off. The analysis will then be done between the primers. Previously unknown alleles can be discovered this way.
+   If you see a large amount of negative reads (where do you see these?) in the analysis, or a high abundant unique read with very poor flanks, turn this feature off. The analysis will then be done between the primers. Previously unknown alleles can be discovered this way.
  - *Homopolymers compressed*  
    Long homopolymers in the flanks could stutter during PCR. This option annotates flanks of loci that were possibly affected by this.
  - *Flankout by alignment*  
