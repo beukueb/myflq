@@ -4,7 +4,7 @@
   <xsl:output method="html" indent="yes"/>
 
   <xsl:param name="appcontext" select="'webapp'"/>
-  <xsl:param name="profilethreshold" select="20"/>
+  <xsl:param name="profilethreshold" select="10"/>
 
   <xsl:template match="/"> 
     <xsl:apply-templates select="results"/>
