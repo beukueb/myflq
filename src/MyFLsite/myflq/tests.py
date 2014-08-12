@@ -18,7 +18,7 @@ class MyflqTestCase(TestCase):
         """
         #Make test database
         response = self.c.post('/myflq/setup/', {'dbname': 'testdb','submitaction':'createdb'})
-        optionValue = [i for i in str(response.content).split('\\n')
+        optionValue = [i for i in response.content.decode().split('\n')
                        if 'option' in i and '>testdb<' in i][0].split('"')[1]
         self.assertEqual(response.status_code, 200, msg='Not able to create settings database')
 
@@ -52,7 +52,7 @@ class MyflqTestCase(TestCase):
         import time
         time.sleep(60) #Waiting for small analysis to complete. Could be implemented by querying django site, until processed
         response = self.c.get('/myflq/results/')
-        resultLine = [i for i in str(response.content).split('\\n') if 'test_subsample_9947A.fastq.gz' in i][0]
+        resultLine = [i for i in response.content.decode().split('\n') if 'test_subsample_9947A.fastq.gz' in i][0]
         self.assertIn('Finished', resultLine, msg='Analysis failed for some reason')
 
 
