@@ -1113,7 +1113,7 @@ class ConsensusRead:
 
 #Loci
 class Locus:
-    def __init__(self,locusName,readsList=None,locusDict=None,threshold=0,stutterBuffer=False):
+    def __init__(self,locusName,readsList=None,locusDict=None,threshold=0,stutterBuffer=False,maxCluster=50):
         """
         Extracts from a list of reads those reads that claim to belong to the locus.
         The Locus instance than offers methods for extracting alleles in the set of reads,
@@ -1121,6 +1121,7 @@ class Locus:
         If stutterBuffer, flanks of reads are shortened by stutterBuffer x repeatsize of locus;
         this prevents having reads with negative length of a significant abundance.
         #todo# stutterbuffer could be implemented to work dynamically instead of statically
+        maxCluster is the maximum number of uniques the locus will consider to try and analyze the relations
         """
         self.name = locusName
         self.info = locusDict[locusName] if locusDict else None
@@ -1130,6 +1131,7 @@ class Locus:
         if readsList: self.reads = [read for read in readsList if read.locus == locusName]
         else: self.reads = []
         self.threshold = threshold
+        self.maxCluster = maxCluster
     def __str__(self):
         return self.name
     def __repr__(self):
@@ -1283,7 +1285,7 @@ class Locus:
                                        key = lambda x: '[' in x, reverse=(not reverse))
             return self.uniqueSorted
     
-    def clusterUniqueReads(self,maxDifferences=2,maxCluster=20): #todo# trueReadsPresent=True,errorSQL=False
+    def clusterUniqueReads(self,maxDifferences=2): #todo# trueReadsPresent=True,errorSQL=False
         """
         Calculate clustering information for the unique reads.
         Clustering is performed stepwise, per allowed number of differences.
@@ -1299,23 +1301,22 @@ class Locus:
         for uR in self.getUniqueSorted():
             self.uniqueClusterInfo[uR]=(index,{})
             index+=1
-        if len(self.uniqueClusterInfo) > maxCluster:
-            raise Exception('More than '+str(maxCluster)+' sequences to cluster')
-        uniqueSortedDouble=self.getUniqueSorted()[:] #Make list copy => to remove sequences
-        for uR in self.getUniqueSorted():
-            uniqueSortedDouble.remove(uR)
-            for uRmatch in uniqueSortedDouble:
+        if len(self.uniqueClusterInfo) > self.maxCluster:
+            raise Exception('More than '+str(self.maxCluster)+' sequences to cluster')
+        uniqueSorted = self.getUniqueSorted()
+        uniqueLength = len(uniqueSorted)
+        for uRi in range(uniqueLength):
+            uR = uniqueSorted[uRi]
+            for uRmatchi in range(uRi+1,uniqueLength):
+                uRmatch = uniqueSorted[uRmatchi]
                 #Heuristics to avoid aligning unnecessary
-                if ((len(uRmatch)>len(uR) or uR == '[RL]') or 
-                    (self.info['locusType'] and (len(uR)-len(uRmatch) > maxDifferences*self.info['locusType'])) or 
-                    (len(uRmatch)==len(uR) and self.getUniqueSorted().index(uRmatch)<self.getUniqueSorted().index(uR)) 
-                    or (uR == '[-]' or uRmatch == '[-]') or 
-                    (len(uRmatch)==len(uR) and sum([len(set((a,b))) == 2 
-                                                    for a,b in zip(uR,uRmatch)]) > maxDifferences)):
-                    continue
+                if uR == '[RL]' or uR == '[-]' or (self.info['locusType'] and
+                                                   (len(uR)-len(uRmatch) > maxDifferences*self.info['locusType'])): break 
+
+                if  uRmatch == '[-]' or (len(uRmatch)==len(uR) and sum([len(set((a,b))) == 2 
+                                          for a,b in zip(uR,uRmatch)]) > maxDifferences): continue
                 #Align to calculate differences
-                differences = Alignment(uR,uRmatch if uRmatch != '[RL]' else '',
-                                        stutter=self.info['locusType']).getDifferences()
+                differences = Alignment(uR,uRmatch,stutter=self.info['locusType']).getDifferences()
                 if differences <= maxDifferences:
                     try: self.uniqueClusterInfo[uR][1][differences].append(self.uniqueClusterInfo[uRmatch][0])
                     except KeyError: self.uniqueClusterInfo[uR][1][differences]=[self.uniqueClusterInfo[uRmatch][0]]
@@ -1399,7 +1400,7 @@ class Locus:
             if not clusterInfo: alleleSub.tail = '\n\t'
             else:
                 alleleSub.tail = '\n\t\t'
-                if len(filteredReads) < 20: #Maximum sequences to cluster
+                if len(filteredReads) < self.maxCluster: #Maximum sequences to cluster
                     try: allele.append(self.getClusterXMLForUnique(pR))
                     except KeyError: print('Missing key (',pR,') in cluster-info') 
                 else:

@@ -29,12 +29,13 @@ To start the webapp (e.g. on Ubuntu):
 ### As a Docker container
 A more convenient way to try MyFLq may be to use the available docker container. Docker is easily installed (see [here](https://www.docker.io/) for instructions). To download and start the MyFLq container, issue the following command:
 
+    sudo docker pull beukueb/myflq #Only necessary to ensure using latest version
     sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
 
 In case you already have a service using the standard webport 80 on your computer, you can adjust the command line to run the webapp on another free port. 
 MyFLq will then run as a local web application on the indicated port.
 
-With the following command, a user 'test' will be installed, with password 'test', that you can use to have a quick look at MyFLq, or to follow the workflow tutorial.
+With the following command, a user 'test' will be installed, with password 'test', that you can use to have a quick look at MyFLq, or to follow the workflow tutorial:
 
     sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
 
