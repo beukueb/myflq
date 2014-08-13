@@ -10,7 +10,7 @@
 
 #Setup MySQL for MyFLq
 sleep 10 #mysqld needs some time to start up (maybe less than 5 seconds is also ok)
-mysql <<EOF
+mysql -uroot -proot <<EOF
 GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EOF

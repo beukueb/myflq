@@ -11,14 +11,14 @@
 #Setup MySQL for MyFLq
 sleep 10 #mysqld needs some time to start up (maybe less than 5 seconds is also ok)
 ##MyFLdb
-mysql <<EOF                                                                                                         
+mysql -uroot -proot <<EOF                                                                                                         
 GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION; 
 FLUSH PRIVILEGES;
 EOF
 python3 /myflq/MyFLdb.py --install admin -p 'passall'
 
 ##MyFLsite
-mysql <<EOF
+mysql -uroot -proot <<EOF
     CREATE DATABASE myflsitedb CHARACTER SET utf8;
     CREATE USER 'myflsiteuser'@'localhost' IDENTIFIED BY 'myfl1234user';
     GRANT ALL ON myflsitedb.* TO 'myflsiteuser'@'localhost';
