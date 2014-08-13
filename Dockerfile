@@ -6,7 +6,16 @@
 FROM ubuntu:14.04
 MAINTAINER Christophe Van Neste, christophe.vanneste@ugent.be
 
+#Prepare
 RUN apt-get update
+
+#Set up database
+RUN echo 'mysql-server mysql-server/root_password password root' | debconf-set-selections && \
+    echo 'mysql-server mysql-server/root_password_again password root' | debconf-set-selections && \
+    apt-get -y install mysql-server
+#RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf #Will make it listen on any port to make it available outside of the container
+EXPOSE 3306
+
 RUN apt-get install -y supervisor #managing container services
 RUN apt-get -y install expect
 RUN apt-get -y install python3 python3-setuptools
@@ -21,13 +30,6 @@ RUN apt-get install -y python3-matplotlib
 #RUN apt-get build-dep -y python-matplotlib
 #RUN easy_install3 -m matplotlib
 RUN easy_install3 matplotlib
-
-#Set up database
-RUN echo 'mysql-server mysql-server/root_password password root' | debconf-set-selections && \
-    echo 'mysql-server mysql-server/root_password_again password root' | debconf-set-selections && \
-    apt-get -y install mysql-server-5.6
-#RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf #Will make it listen on any port to make it available outside of the container
-EXPOSE 3306
 
 #MyFLsite dependencies
 RUN easy_install3 django celery Pillow
