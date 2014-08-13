@@ -25,7 +25,7 @@ RUN easy_install3 matplotlib
 #Set up database
 RUN echo 'mysql-server mysql-server/root_password password root' | debconf-set-selections && \
     echo 'mysql-server mysql-server/root_password_again password root' | debconf-set-selections && \
-    apt-get -y install mysql-server
+    DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
 #RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf #Will make it listen on any port to make it available outside of the container
 EXPOSE 3306
 
