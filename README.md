@@ -37,7 +37,7 @@ MyFLq will then run as a local web application on the indicated port.
 
 With the following command, a user 'test' will be installed, with password 'test', that you can use to have a quick look at MyFLq, or to follow the workflow tutorial:
 
-    sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq
+    sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq test
 
 ### Illumina BaseSpace
 MyFLq is also accessible directly from the Illumina BaseSpace environment.
