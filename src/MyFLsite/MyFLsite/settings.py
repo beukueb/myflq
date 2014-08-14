@@ -59,10 +59,9 @@ WSGI_APPLICATION = 'MyFLsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'myflsitedb',
         'USER': 'myflsiteuser',
-        'PASSWORD': 'myfl1234user',
     }
 }
 

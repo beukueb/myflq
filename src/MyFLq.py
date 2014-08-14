@@ -30,16 +30,6 @@
 
 ### General functions
 
-#Future imports for python2.6
-from __future__ import print_function
-from __future__ import unicode_literals
-import sys
-python2 = sys.version < '3'
-if python2:
-    str = unicode
-    from itertools import izip as zip
-    input = raw_input
-
 #General imports
 from itertools import repeat
     
@@ -118,7 +108,7 @@ def getSeq(seqID,sql=None):
     """
     #if not sql: conn,sql = login()
     #else: conn=None
-    sql.execute("SELECT sequence FROM BASEseqs WHERE seqID = %s", (seqID))
+    sql.execute("SELECT sequence FROM BASEseqs WHERE seqID = %s", (seqID,))
     if sql.rowcount == 0: raise Exception("No such sequence in the database")
     seq = sql.fetchone()['sequence']
     #if conn: logout(conn,sql)
@@ -378,7 +368,7 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
                        #which is connection dependent
     
     #Check authentification of submitting institution
-    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s", (labID))
+    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s", (labID,))
     if sql.rowcount == 0: raise Exception("Lab identifier not known, register first")
     elif sql.fetchone()['passphrase'] != passphrase: raise Exception("Passphrase for "+labID+" not correct!")
         
@@ -395,7 +385,8 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
     primersetID,qualID = makeLocusEntry(forwardP,reverseP,locusName,locusType,technology,filterLevel,sql=sql)
     
     #Third table that needs to be updated is BASEtrack
-    sql.execute("INSERT INTO BASEtrack (locusName, qualID, labID, validated, manualRevision, nrSeqs, nrReads,                   population) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
+    sql.execute("""INSERT INTO BASEtrack (locusName, qualID, labID, validated, manualRevision, nrSeqs, nrReads, population)
+                   VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (locusName,qualID,labID,bool(validatedInfo),manualRevision,len(sequences),sum(seqCounts),population))
     #Fetch entryID from previous step
     #!!!Don't do any other sql inserts between updating BASEbasetrack and before fetching this entryID!!!
@@ -413,7 +404,8 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
         validatedInfo=[-1 for s in sequences]
     for seqID,seqCount,valid,avalid in zip(seqIDs,seqCounts,validatedInfo,alleleValidation):
         if valid and valid > 0: valid = seqIDs[valid-1] # -1 as list number is given and not python index
-        sql.execute ("INSERT INTO BASEstat (entryID, seqID, primersetID,validated, alleleValidation, seqCount)                       VALUES (%s,%s,%s,%s,%s,%s)"
+        sql.execute ("""INSERT INTO BASEstat (entryID, seqID, primersetID,validated, alleleValidation, seqCount) 
+                        VALUES (%s,%s,%s,%s,%s,%s)"""
                     ,(entryID, seqID, primersetID, valid, avalid, seqCount))
         
     #Log out of database
@@ -430,7 +422,7 @@ def makeLocusEntry(forwardP,reverseP,locusName,locusType,technology,filterLevel,
     else: conn=None
 
     #BASEnames
-    sql.execute("SELECT locusType FROM BASEnames WHERE locusName = %s",(locusName))
+    sql.execute("SELECT locusType FROM BASEnames WHERE locusName = %s",(locusName,))
     if not sql.rowcount:
         sql.execute("INSERT INTO BASEnames (locusName,locusType) VALUES (%s,%s)",(locusName,locusType))
     elif sql.fetchone()['locusType'] is None and locusType is not None:
@@ -470,10 +462,10 @@ def getSeqID(seq,sql=None):
     if not sql: conn,sql = login()
     else: conn=None
         
-    sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq))
+    sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq,))
     if sql.rowcount == 0: 
-        sql.execute ("INSERT INTO BASEseqs (sequence) VALUES (%s)", (seq))
-        sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq))
+        sql.execute ("INSERT INTO BASEseqs (sequence) VALUES (%s)", (seq,))
+        sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq,))
 
     if conn: logout(conn,sql)
     return sql.fetchone()['seqID']
@@ -481,7 +473,7 @@ def getSeqID(seq,sql=None):
 #Functions for adding users/laboratories
 def addLab(labID,passphrase):
     conn,sql=login()
-    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s",(labID))
+    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s",(labID,))
     if sql.rowcount != 0: raise Exception(
             "Lab identifier not unique, you either already registered or need to choose another identifier")
     else:
@@ -560,7 +552,7 @@ def processLociNames():
     for name in locusNames:
         #Collect known primersets for locus
         sql.execute("SELECT getSeq(forwardP) AS fP,getSeq(reverseP) AS rP FROM BASEprimersets WHERE locusName = %s",
-                    (name))
+                    (name,))
         primersets = {(s['fP'],complement(s['rP'])) for s in sql.fetchall()} #Complement taken from reverse primer!!!
         
         #Collect known alleles for locus
@@ -568,7 +560,7 @@ def processLociNames():
         #Flanking region determination considers all and only validated alleles
         sql.execute("""SELECT getSeq(seqID) AS seq,alleleValidation FROM BASEtrack
                        JOIN BASEstat USING (entryID)
-                       WHERE locusName = %s AND BASEstat.validated = 0""", (name))
+                       WHERE locusName = %s AND BASEstat.validated = 0""", (name,))
         locAlleles={(s['seq'],s['alleleValidation']) for s in sql.fetchall()}
         
         #At this point all alleles for a locus are gathered and relevant information needs to be extracted:
@@ -576,7 +568,7 @@ def processLociNames():
         reference_allele,(primerF,primerR) = getRefAllel(primersets,locAlleles)
         primerR = complement(primerR) #Revert primerR back to complementary strand
          #Locustype
-        sql.execute("""SELECT locusType FROM BASEnames WHERE locusName = %s""", (name))
+        sql.execute("""SELECT locusType FROM BASEnames WHERE locusName = %s""", (name,))
         locusType = sql.fetchone()['locusType']
         if locusType != 0 and ':R' in reference_allele[1]:
             reference_allele=(reference_allele[0],reference_allele[1][:reference_allele[1].index(':R')])
@@ -688,7 +680,7 @@ def processLociAlleles(flush=True):
         locusName = locus['locusName']
         sql.execute("""SELECT getSeq(seqID) AS seq,alleleValidation FROM BASEtrack
                        JOIN BASEstat USING (entryID)
-                       WHERE locusName = %s AND BASEstat.validated = 0""", (locusName))
+                       WHERE locusName = %s AND BASEstat.validated = 0""", (locusName,))
         locAlleles={(s['seq'],s['alleleValidation']) for s in sql.fetchall()}
         for allele,alleleNomen in locAlleles:
             allele = flankOutAllele(locus,allele)
@@ -1442,10 +1434,10 @@ class Locus:
             sql.execute("SELECT * FROM LOCInames")
             locusDict={locus['locusName']:locus for locus in sql.fetchall()}
         else:
-            sql.execute("SELECT locusName FROM LOCIkits WHERE kitName = %s",(kitName))
+            sql.execute("SELECT locusName FROM LOCIkits WHERE kitName = %s",(kitName,))
             locusDict={}
             for locus in sql.fetchall():
-                sql.execute("SELECT * FROM LOCInames WHERE locusName = %s",(locus['locusName']))
+                sql.execute("SELECT * FROM LOCInames WHERE locusName = %s",(locus['locusName'],))
                 locusDict[locus['locusName']]=sql.fetchone()
         #if conn: logout(conn,sql)
         if primerBuffer:
@@ -1507,10 +1499,10 @@ class Locus:
         
         if kitName:
             conn,sql = login()
-            sql.execute("SELECT * FROM LOCIkits WHERE kitName = %s",(kitName))
+            sql.execute("SELECT * FROM LOCIkits WHERE kitName = %s",(kitName,))
             if sql.rowcount != 0:
                 if 'Y' == input("kitName ("+kitName+") already in use, overwrite? (Y/N) "):
-                    sql.execute("DELETE FROM LOCIkits WHERE kitName = %s",(kitName))
+                    sql.execute("DELETE FROM LOCIkits WHERE kitName = %s",(kitName,))
                 else: return locusDict
             for locusName in locusDict:
                 sql.execute("INSERT INTO LOCIkits (kitName,locusName) VALUES (%s,%s)",(kitName,locusName))

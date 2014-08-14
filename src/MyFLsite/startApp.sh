@@ -8,26 +8,27 @@
 /usr/bin/supervisord -c /myflq/supervisord.conf
 #/usr/sbin/mysqld &
 
-#Setup MySQL for MyFLq
-sleep 10 #mysqld needs some time to start up (maybe less than 5 seconds is also ok)
-##MyFLdb
-mysql -uroot -proot <<EOF                                                                                                         
-GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION; 
-FLUSH PRIVILEGES;
+#Setup postgresql
+sleep 5
+expect <<EOF
+spawn sudo -u postgres createuser -s -P admin
+expect "password" { send "passall\r" }
+expect "again" { send "passall\r" }
+expect eof
 EOF
-python3 /myflq/MyFLdb.py --install admin -p 'passall'
+
+sudo -u postgres createdb -O admin MyFLqADMIN
 
 ##MyFLsite
-mysql -uroot -proot <<EOF
-    CREATE DATABASE myflsitedb CHARACTER SET utf8;
-    CREATE USER 'myflsiteuser'@'localhost' IDENTIFIED BY 'myfl1234user';
-    GRANT ALL ON myflsitedb.* TO 'myflsiteuser'@'localhost';
-EOF
+useradd myflsiteuser
+sudo -u postgres createuser -d myflsiteuser
+sudo -u myflsiteuser createdb myflsitedb
+
 cd /myflq/MyFLsite
 
 #Configuring databases and superuser with expect
 expect <<EOF
-spawn python3 manage.py syncdb
+spawn sudo -u myflsiteuser python3 manage.py syncdb
 
 set timeout 60
 expect "(yes/no):" { send "yes\r" }
@@ -82,7 +83,7 @@ fi
 #Starting server
 echo "For administrative use, go to http://localhost/admin"
 echo "You can log in with user 'admin' and password 'myfl1234admin'"
-python3 manage.py runserver 0.0.0.0:8000 &
+sudo -u myflsiteuser python3 manage.py runserver 0.0.0.0:8000 &
 
 #Allowing interaction from system admin
 sleep 10 #to have commandline prompt under first django output

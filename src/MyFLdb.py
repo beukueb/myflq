@@ -2,97 +2,6 @@
 
 ## Implementing a database for STR's [and SNP's]
 
-# #Bash commands to make user and database:
-# mysql -uroot -p
-# mysql> CREATE USER 'profiler'@'localhost' IDENTIFIED BY 'many#1profile';
-# mysql> CREATE DATABASE strdb;
-# mysql> GRANT ALL ON strdb.* TO 'profiler'@'localhost';
-# 
-
-# #Example code block
-# #Starting up
-# import MySQLdb
-# conn = MySQLdb.connect (host = "localhost",
-#                            user = "profiler",
-#                            passwd = "many#1profile",
-#                            db = "strdb")
-# sql = conn.cursor () #Using conn.cursor(MySQLdb.cursors.DictCursor) you can access the results like a dictionary instead of a tuple
-# 
-# #Creating table and inserting values
-# #sql.execute ("DROP TABLE IF EXISTS locus")
-# sql.execute ("""
-#        CREATE TABLE locus
-#        (
-#          name     CHAR(40),
-#          category CHAR(40)
-#        )
-#      """)
-# sql.execute ("""
-#        INSERT INTO locus (name, category)
-#        VALUES
-#          ('D13S317', 'STR'),
-#          ('vWA', 'STR'),
-#          ('Amelogenin', 'X-marker'),
-#          ('FGA', 'STR')
-#      """)
-# print("Number of rows inserted: %d" % sql.rowcount)
-# 
-# #Query table
-# sql.execute ("SELECT name, category FROM locus")
-# #rows=sql.fetchall() #Easier to use => without 'while 1' loop
-# while True:
-#     row = sql.fetchone()
-#     if row == None: break
-#     print("%s, %s" % (row[0], row[1]))
-# print("Number of rows returned: %d" % sql.rowcount)
-# 
-# #Update table
-# sql.execute ("""
-#          UPDATE locus SET name = 'D8'
-#          WHERE name = 'D13S317'
-#        """)
-# #or#
-# sql.execute ("""
-#          UPDATE locus SET name = %s
-#          WHERE name = %s
-#        """, ("D8", "D13S317"))
-# #NULL values can be passed to MySQL by either proving a string 'NULL' or None, e.g.:
-# sql.execute ("""
-#          UPDATE locus SET name = %s
-#          WHERE name = %s
-#        """, ('NULL', None)) #Would make a line with two MySQL NULL values
-#        #However for select statements None doesn't work and you need to use 'NULL'
-# 
-# #2 equivalent complex select statements
-# sql.execute("""SELECT forwardP,reverseP,seqID,alleleValidation FROM BASEtech 
-#                             JOIN BASElocustrack USING (techID) 
-#                             JOIN BASEstat USING (entryID) 
-#                             WHERE locusName = %s AND BASEstat.validated = 0""", (name))
-# ##Equivalent to##
-# sql.execute("""SELECT forwardP,reverseP,seqID FROM BASEtech 
-#                 JOIN BASElocustrack ON BASEtech.techID=BASElocustrack.techID 
-#                     JOIN BASEstat ON BASElocustrack.entryID = BASEstat.entryID 
-#                     WHERE locusName = %s AND BASEstat.validated = 0""", (name))
-# 
-# #Closing up
-# sql.execute ("DROP TABLE locus")#Because it's just a test run and we don't need this table
-# sql.close ()
-# conn.commit() #To commit all changes to the database, otherwise changes could be lost, though probably not necessary for MySQL
-# conn.close()
-# 
-
-# In[1]:
-
-#Future imports for python2.6
-from __future__ import print_function
-from __future__ import unicode_literals
-import sys
-python2 = sys.version < '3'
-if python2:
-    str = unicode
-    from itertools import izip as zip
-    input = raw_input
-
 #Database functions
 def login(user="""admin""",passwd="""passall""",database='MyFLqADMIN', test=False):
     """
@@ -100,24 +9,18 @@ def login(user="""admin""",passwd="""passall""",database='MyFLqADMIN', test=Fals
     If test: just tests the connection, and closes it again returning None. 
         An exception should be raised automatically if there's a problem with the connection.
     """
-    try: import pymysql as MySQLdb
-    except ImportError: import MySQLdb #py2#
-    conn = MySQLdb.connect(host = "localhost",
-                           user = user,
-                           passwd = passwd,
-                           db = database)
-    sql = conn.cursor(MySQLdb.cursors.DictCursor)
+    import psycopg2,psycopg2.extras
+    conn = psycopg2.connect(user=user,database=database,password=passwd,host='localhost')
+    sql = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     if not test: return (conn,sql)
     else: logout(conn, sql)
-#login.database="strdb" #database can be changed, by changing function variable
-#in use: strdb (for illumina);iontorrent;roche454
 
 def logout(conn,sql):
     """
     Logout from the database connection
     """
+    conn.commit() #make the changes persistent
     sql.close()
-    conn.commit()
     conn.close()
 
 def dbBackup(backupfile='strdb.sql',restore=True,flush=False):
@@ -127,7 +30,6 @@ def dbBackup(backupfile='strdb.sql',restore=True,flush=False):
     """
     import os
     if flush != 'onlyFlush':
-        if python2: input = raw_input
         if not backupfile.startswith('/'): backupfile='mysql/'+backupfile
         if restore: os.system('mysql -uroot -p'+input('Password: ')+' strdb < '+backupfile)
         else: os.system('mysqldump -uroot -p'+input('Password: ')+' strdb > '+backupfile)
@@ -139,8 +41,6 @@ def dbBackup(backupfile='strdb.sql',restore=True,flush=False):
         logout(conn,sql)
 
 
-# In[2]:
-
 #To rebuild all tables, drop them all -- Use with care
 def dropTables(sql):
     tables = ('BASEseqs','BASEnames','BASEprimersets','BASEqual','BASEtrack','BASEstat','laboratories',
@@ -148,16 +48,14 @@ def dropTables(sql):
     for table in tables: sql.execute ("DROP TABLE "+table)
 
 
-# In[3]:
-
 #Create tables
 def makeTables(sql):
     #Tables for basic sequence input
         #When a sequence gets added at the very least BASEstat and BASEtrack will have to be updated
     sql.execute ("""
     CREATE TABLE IF NOT EXISTS BASEseqs (
-    `seqID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `sequence` TEXT(1000) NOT NULL COMMENT 'sequence of allele, error sequence or primer'
+    seqID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sequence TEXT(1000) NOT NULL COMMENT 'sequence of allele, error sequence or primer'
     )
     COMMENT 'All non processed sequences are maintained here and referenced by seqID in the other tables';
          """)    
@@ -286,8 +184,6 @@ def makeTables(sql):
          """)
 
 
-# In[4]:
-
 #Create views and functions
 #sql.execute('DROP VIEW BASEcombined;')
 def makeViews(sql):
@@ -307,115 +203,57 @@ def makeFunctions(sql):
     #READS SQL DATA
 
 
-# In[5]:
-
-def setUpUserDatabase(user,password):
-    """
-    Set up MyFLqADMIN databases.
-    This would allow in the future for users to share their databases.
-    However, currently not yet implemented.
-    """
-#This section needs to be elaborated for implementing extra features
-    conn,sql = login(user=user,passwd=password,database=None)
-    sql.execute("""
-    CREATE DATABASE MyFLqADMIN;
-    USE MyFLqADMIN;
-    """)
-#    CREATE TABLE users (
-#        `userID` CHAR(40) NOT NULL UNIQUE KEY COMMENT  'identification of the user',
-#        `passphrase` CHAR(200) NOT NULL COMMENT  'a passphrase or link to a key containing file'
-#    );
-#    CREATE TABLE dbases (
-#        `database` CHAR(40) NOT NULL UNIQUE KEY COMMENT  'database => currently only one user can own database',
-#        `userID` CHAR(40) NOT NULL COMMENT  'identification of the user => table users'
-#    );
-#    """)
-    logout(conn,sql)
-    
-    #Rewrite scriptfile with MySQL admin credentials
-    import sys
-    scriptfile = sys.argv[0]
-    scriptlines = open(scriptfile).readlines()
-    for l in range(len(scriptlines)):
-        if scriptlines[l].startswith('def login(user='): break
-    scriptlines[l] = 'def login(user="""'+user+'""",passwd="""'+password+'""",database=\'MyFLqADMIN\', test=False):\n'
-    scriptfile = open(scriptfile,'wt')
-    scriptfile.writelines(scriptlines)
-    scriptfile.close()
-
-
-# In[ ]:
-
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Add a user, or database for the MyFLq application')
     parser.add_argument('user', help='User for which a database will be created')
     parser.add_argument('db',nargs='*',help='Database[s] to create')
-    parser.add_argument('-p','--password',help='MySQL user password (if not provided, will be asked for)')
+    parser.add_argument('-p','--password',help='PostgreSQL user password (if not provided, will be asked for)')
     parser.add_argument('--delete', action="store_true",help='Delete database[s] instead')
     parser.add_argument('--delete-user', action="store_true",help='Delete user instead')
-    parser.add_argument('--install', action="store_true", 
-                        help='''Sets up the system to add users and databases for MyFLq
-                        MySQL admin 'user' with the ability to create users, databases, functions and assign rights
-                        has to be provided on the commandline.
-                        The user and password will be recorded in the scriptfile itself.
-                        ''')
+
     args = parser.parse_args()
     if not args.password:
         import getpass
-        try: args.password = getpass.getpass('MySQL password for '+args.user+': ')
-        except EOFError: args.password = input('MySQL password for '+args.user+': ')
-    if args.install: setUpUserDatabase(args.user,args.password)
-    else:
-        #Check if user and password match => if user is authorised to make or change MyFLq databases
-        conn,sql = login()
-        sql.execute("""
-        SELECT User FROM mysql.user WHERE User = %s;
-        """,args.user)
-            #SELECT passphrase FROM users WHERE %s = userID; #when using MyFLqADMIN
-        if not sql.rowcount:
-            sql.execute("CREATE USER %s@'localhost' IDENTIFIED BY %s;",(args.user,args.password))
-                #Comments for future implementation
-            #sql.execute("INSERT INTO users (userID,passphrase) VALUES (%s,%s)",(args.user,args.password))
-            #sql.execute("GRANT SELECT ON MyFLqADMIN.dbases TO %s@'localhost';",args.user)
-        #else:
-        #    if sql.fetchone()['passphrase'] != args.password:
-        #        raise Exception('Password provided does not match user password')
-        if not (args.delete or args.delete_user):
-            for db in args.db:
-                sql.execute("CREATE DATABASE "+db+";")
-                sql.execute("GRANT ALL ON "+db+".* TO %s@'localhost';",args.user)
-                #sql.execute("INSERT INTO dbases (dbases.database,userID) VALUES (%s,%s)",(db,args.user))
-                    #above line would be to allow users sharing dbases, but not implemented yet
-                    #could also be implemented from a meta application like MyFLsite
-            
-            #Make tables
-            for db in args.db:
-                sql.execute("USE "+db+";")
-                makeTables(sql)
-                makeViews(sql)
-                makeFunctions(sql)
-        elif args.delete_user:
-            sql.execute("SELECT Db FROM mysql.db WHERE User = %s;", (args.user))
-            for db in sql.fetchall():
-                db = db['Db']
-                sql.execute("DROP DATABASE "+db.decode()+";") #The mysql.'tables' return b'' strings
-            sql.execute("DROP USER '"+args.user+"'@'localhost'")
+        try: args.password = getpass.getpass('PostgreSQL password for '+args.user+': ')
+        except EOFError: args.password = input('PostgreSQL password for '+args.user+': ')
 
-        elif args.delete:
-            for db in args.db:
-                login(user=args.user,passwd=args.password,database=db, test=True)
-                sql.execute("DELETE FROM dbases WHERE dbases.database = %s;",(db))
-                sql.execute("DROP DATABASE "+db+";")
-        logout(conn,sql)
+    #Check if user already defined
+    conn,sql = login()
+    sql.execute("SELECT 1 FROM pg_roles WHERE rolname= %s ",(args.user,))
+        #For MySQL => SELECT User FROM mysql.user WHERE User = %s;
+    if not sql.rowcount:
+        sql.execute("CREATE USER "+args.user+" WITH PASSWORD %s;",(args.password,))
+        #MySQL => "CREATE USER %s@'localhost' IDENTIFIED BY %s;",(args.user,args.password)
+    if not (args.delete or args.delete_user):
+        for db in args.db:
+            sql.execute("commit") #For PostgreSQL
+            sql.execute("CREATE DATABASE "+db+" OWNER "+args.user+";")
+            conn.commit()
+            #MySQL => sql.execute("CREATE DATABASE "+db+";")
+            #sql.execute("GRANT ALL ON "+db+".* TO %s@'localhost';",(args.user,))
+        
+        #Make tables
+        for db in args.db:
+            conn_u,sql_u = login(user=args.user,passwd=args.password,database=db)
+            #MySQL => sql_u.execute("USE "+db+";")
+            makeTables(sql_u)
+            makeViews(sql_u)
+            makeFunctions(sql_u)
+            logout(conn_u,sql_u)
+    elif args.delete_user:
+        raise NotImplementedError
+        # sql.execute("SELECT Db FROM mysql.db WHERE User = %s;", (args.user,))
+        # for db in sql.fetchall():
+        #     db = db['Db']
+        #     sql.execute("DROP DATABASE "+db.decode()+";") #The mysql.'tables' return b'' strings
+        # sql.execute("DROP USER '"+args.user+"'@'localhost'")
+
+    elif args.delete:
+        for db in args.db:
+            login(user=args.user,passwd=args.password,database=db, test=True)
+            sql.execute("DROP DATABASE "+db+";")
+    logout(conn,sql)
             
     #print(args) #debug    
-
-
-# %%bash
-# #To save executable: first save notebook (Ctr-s), activate this cell (Ctr-m y), run (Ctr-Enter) and deactivate (Ctr-m t)
-# 
-# echo '#!/bin/env python' > MyFLdb.py
-# ipython nbconvert --to python MyFLdb.ipynb --stdout >> MyFLdb.py
-# chmod +x MyFLdb.py
 
