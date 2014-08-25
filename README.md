@@ -1,14 +1,21 @@
-#MyFLq version 1.0 
+# MyFLq version 1.0 
 [My Forensic Loci queries]
 
 Open source, straightforward analysis tool for forensic DNA samples.
+
+### Introduction
+
+Routine use of massively parallel sequencing (MPS) for forensic genomics is on the horizon. The last few years, several programs have been developed to analyze forensic MPS data and generate DNA profiles. However, none have yet been tailored to the needs of the forensic analyst who does not possess an extensive bioinformatics background.
+We developed our forensic MPS data analysis framework MyFLq into an open-source, user-friendly, web-based application. It can be installed as a standalone web application, or run directly from the Illumina BaseSpace environment. In the former, laboratories can keep their data on-site, while in the latter, data from forensic samples that are sequenced on an Illumina sequencer can be uploaded to Basespace during acquisition, and can subsequently be analyzed using the published MyFLq BaseSpace application. Implemented features are an interactive graphical report of the results, an interactive threshold selection bar, and an allele length-based analysis in addition to the sequenced-based analysis. STR loci and SNP loci are both supported.
+
+### Use requirements
 
 The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fast[a/q] datafile, whereupon the datafile's profile is extracted. To download the loci.csv and alleles.csv files, right-click the 'RAW' button and choose 'save as...'. These files can be opened using a regular text editor such as 'Textpad' (Windows) or 'gedit' (Linux).
 
 The datafile can be a single-individual-source or multiple-individual-source sample. Profile results depend on both csv files. Loci.csv will determine the number of loci that will be analyzed; alleles.csv will determine the region of interest [ROI] of those loci.
 
 ## Options for running MyFLq
-### From the Github repo
+### Installation from the Github repo
 
 MyFLq is developed as a Django application. It requires the installation of several dependencies (including MySQL) before it can be used.  Detailed instructions can be found in the file [INSTALL](https://github.com/beukueb/myflq/blob/master/src/MyFLsite/INSTALL.md).
 
@@ -26,7 +33,7 @@ To start the webapp (e.g. on Ubuntu):
     python3 manage.py runserver 0.0.0.0:8000
 
 
-### As a Docker container
+### Running the MyFLq Docker container
 A more convenient way to try MyFLq may be to use the available docker container. Docker is easily installed (see [here](https://www.docker.io/) for instructions). To download and start the MyFLq container, issue the following command:
 
     sudo docker pull beukueb/myflq #Only necessary to ensure using latest version
@@ -39,7 +46,7 @@ With the following command, a user 'test' will be installed, with password 'test
 
     sudo docker run -p 0.0.0.0:80:8000 -i -t --entrypoint webapp beukueb/myflq test
 
-### Illumina BaseSpace
+### Launching MyFLq on Illumina BaseSpace
 MyFLq is also accessible directly from the Illumina BaseSpace environment.
 
 #### Custom loci.csv and alleles.csv
