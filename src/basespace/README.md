@@ -24,7 +24,8 @@ The report primarily shows the visual profile.
 Functionality:
 
 - On the X-axis (with the loci names), you can zoom in and move the axis to go over all the loci.
-- Putting the mouse on an allele candidate bar, shows all information for that candidate. Clicking on a bar from an allele candidate that has an abundance higher than the threshold, will deselect it from the profile.
+- Putting the mouse on an allele candidate bar, shows all information for that candidate. Clicking on the bar will fix the information box for this candidate.
+- Clicking on a checked "In profile" in the information box will deselect a candidate from the profile, even if its abundance is higher than the threshold.
 - Selecting 'Absolute length' in the settings, will reorganize the graph. All allele candidates will now be plotted within each locus proportionate to their sequence length.
 
 Suggested steps:
