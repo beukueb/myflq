@@ -48,6 +48,7 @@ print("Installing 'test' user")
 import os,sys,gzip,django
 os.environ['DJANGO_SETTINGS_MODULE'] = 'MyFLsite.settings'
 sys.path.append('.')
+django.setup()
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import Client
