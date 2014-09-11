@@ -3,7 +3,9 @@
 ## MyFLq Interface functions to the MyFLdb produced tables
 
 # MyFLq (My-Forensic-Loci-queries, developer Christophe Van Neste, CC BY-SA 3.0).
-# Python support: version 2.6 or higher
+version = '1.0.0'
+
+# Python support: version 3
 # 
 # This framework consists out of two parts: (1) A MySQL database backend that is
 # populated by calibration data; (2) a Python frontend with functions for
@@ -29,16 +31,6 @@
 # 
 
 ### General functions
-
-#Future imports for python2.6
-from __future__ import print_function
-from __future__ import unicode_literals
-import sys
-python2 = sys.version < '3'
-if python2:
-    str = unicode
-    from itertools import izip as zip
-    input = raw_input
 
 #General imports
 from itertools import repeat
@@ -1780,6 +1772,7 @@ class Analysis:
 
         #Set root with important analysis characteristics as attributes
         results = ET.Element('results')
+        results.set('versionMyFLq',version)
         results.set('timestamp',format(time.time(),'.0f'))
         results.text = '\n'
         for locus in sorted(self.loci):
