@@ -10,7 +10,9 @@ MAINTAINER Christophe Van Neste, christophe.vanneste@ugent.be
 RUN apt-get update
 
 #Set up database
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
+RUN echo 'mysql-server mysql-server/root_password password root' | debconf-set-selections && \
+    echo 'mysql-server mysql-server/root_password_again password root' | debconf-set-selections && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
 #RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf #Will make it listen on any port to make it available outside of the container
 EXPOSE 3306
 
@@ -29,6 +31,13 @@ RUN apt-get install -y python3-matplotlib
 #RUN easy_install3 -m matplotlib
 RUN easy_install3 matplotlib
 
+#Saxon => XSLT output
+RUN apt-get install -y openjdk-7-jre-headless
+RUN apt-get install -y libsaxonb-java
+#Previously needed the following workaround to get java running
+#after that section you could not use apt-get install any more due to dependencies issues from dpkg strategy
+#RUN mkdir /tmp/saxon && cd /tmp/saxon && apt-get download openjdk-7-jre-headless openjdk-7-jre && dpkg --force-all -i /tmp/saxon/* && rm /tmp/saxon/* && rmdir /tmp/saxon
+
 #MyFLsite dependencies
 RUN easy_install3 django celery Pillow
 RUN apt-get install -y rabbitmq-server
@@ -40,13 +49,6 @@ RUN cd /tmp && git clone https://github.com/clelland/MySQL-for-Python-3.git && \
 #Supervisor config
 RUN mkdir -p /var/log/supervisor
 ADD ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-#Saxon 
-RUN apt-get install -y openjdk-7-jre-headless
-RUN apt-get install -y libsaxonb-java
-#Previously needed the following workaround to get java running
-#after that section you could not use apt-get install any more due to dependencies issues from dpkg strategy
-#RUN mkdir /tmp/saxon && cd /tmp/saxon && apt-get download openjdk-7-jre-headless openjdk-7-jre && dpkg --force-all -i /tmp/saxon/* && rm /tmp/saxon/* && rmdir /tmp/saxon
 
 #Sending program files
 #The files must be within the buildfile dir or below
