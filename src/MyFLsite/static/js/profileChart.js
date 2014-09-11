@@ -25,6 +25,10 @@ function draw(error,data,width,height) {
 	}
     }
 
+    //Set MyFLq version for reference (if not available in xml, default is '1.0')
+    var versionMyFLq = (results.getAttribute('versionMyFLq')) ? results.getAttribute('versionMyFLq'):'1.0'
+    d3.select("#versionMyFLq").text('MyFLq version used: ' + versionMyFLq);
+
       //Normal sequential graph
     var lociNames = [];
     var lociStartPosition = [0]; //First locus starts at 0
