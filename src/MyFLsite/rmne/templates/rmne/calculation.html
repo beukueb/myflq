@@ -1,0 +1,65 @@
+{% extends "rmne/base_ajax.html" %}
+
+{% if rmneResultID and not rmneResult %}
+{% block extrahead %}
+{{  block.super }} {# block.super loads jquery #}
+<script>
+  function checkResult(){
+    $.getJSON('./?SESSIONID={{ rmneResultID }}',function(data) {
+       if (data['finished']==1) {
+         //console.log(data['finished'])
+         location.reload(true)
+       }
+    })
+}
+$(document).ready(function() {setInterval("checkResult();", 30000)}) //checks every half minute
+</script>
+{% endblock %}
+{% endif %}
+
+{% block title %}RMNE calculation{% endblock %}
+
+{% block content %}
+    <h1>Calculate RMNE</h1>
+
+    {% if rmneResultID and not rmneResult %}
+    <h2>Processing</h2>
+    <p>Your request is processing and has session-id {{ rmneResultID }}<br />When processing is finished it will automatically show.</p>
+    {% endif %}
+    
+    {% if rmneResult %}
+    <h2>Result</h2>
+    <p>The RMNE value is equal to {{ rmneResult }}</p>
+    <img src="{{ MEDIA_URL }}rmne/{{ rmneResultID }}/figure.png">
+    {% endif %}
+
+    {% if firstView %}
+    <h2>Load settings file</h2>
+    <form action="." enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      {{ fileform }}
+      <input type="submit" name="submitaction" value="Upload settings">
+    </form>
+    {% endif %}
+
+    <h2>Settings</h2>
+    <form action="." method="POST">
+      {{ formset.management_form }}
+      {% csrf_token %}
+      <table>
+	<style>
+	  li { display: inline; }
+	  input { width: 100px; }
+	  .cbox { width: auto; }
+	</style>
+	{% for form in formset %}
+	{{ form.as_ul }}
+	<br />
+	{% endfor %}
+      </table>
+      <p>
+	<input type="submit" name="submitaction" value="Add alleles">
+	<input type="submit" name="submitaction" value="Calculate">
+      </p>
+    </form>
+{% endblock %}

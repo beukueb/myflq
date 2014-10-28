@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'main',
     'myflq',
+    'rmne',
 )
 
 MIDDLEWARE_CLASSES = (
