@@ -11,17 +11,17 @@ After the main example, you can find an install on a CentOS 5 server.
 # Ubuntu 12.04 server
 ## Dependencies
 
-   sudo apt-get install libapache2-mod-wsgi-py3
-   sudo apt-get install python3 python3-setuptools
-   sudo easy_install3 django
-   sudo apt-get install git libmysqlclient-dev python3-dev
-   git clone https://github.com/clelland/MySQL-for-Python-3.git
-   cd MySQL-for-Python-3/
-   python3 setup.py build
-   sudo python3 setup.py install
-   sudo easy_install3 Pillow
-   sudo apt-get install rabbitmq-server
-   sudo easy_install3 Celery
+    sudo apt-get install libapache2-mod-wsgi-py3
+    sudo apt-get install python3 python3-setuptools
+    sudo easy_install3 django
+    sudo apt-get install git libmysqlclient-dev python3-dev
+    git clone https://github.com/clelland/MySQL-for-Python-3.git
+    cd MySQL-for-Python-3/
+    python3 setup.py build
+    sudo python3 setup.py install
+    sudo easy_install3 Pillow
+    sudo apt-get install rabbitmq-server
+    sudo easy_install3 Celery
 
 ## Prepare server mysql
 With "mysql -uroot -p":
@@ -97,10 +97,10 @@ With "sudo mg /etc/apache2/httpd.conf":
 
 ## MyFL[q|db].py setup
 
-   cd ~/MyFLsite/myflq/programs
-   #MyFL[q|db].py dependencies
-   sudo easy_install3 pymysql numpy
-   sudo apt-get install g++ libfreetype6-dev libpng-dev #dependencies matplotlib
+    cd ~/MyFLsite/myflq/programs
+    #MyFL[q|db].py dependencies
+    sudo easy_install3 pymysql numpy
+    sudo apt-get install g++ libfreetype6-dev libpng-dev #dependencies matplotlib
     #or: sudo apt-get build-dep python-matplotlib #to install all, including optional dependencies for matplotlib (+- 700 Mb)
     sudo easy_install3 python-dateutil six #other matplotlib dependency
     sudo easy_install3 -U distribute
@@ -130,9 +130,7 @@ Install MyFLq databases
     wget https://raw.github.com/celery/celery/3.1/extra/generic-init.d/celeryd --no-check-certificate
     chmod +x /etc/init.d/celeryd
 
-Celery config
-
-With "emacs /etc/default/celeryd":
+Celery config with "emacs /etc/default/celeryd":
 
     # Names of nodes to start
     #   most will only start one node:
@@ -180,4 +178,138 @@ With "emacs /etc/rc.local":
     #Other option would be making symbolic links in relevant /etc/rcX.d/ runlevels
 
 
+# CentOS 5
+This section contains the steps that were necessary to get the MyFLq website running on an older server that was still running CentOS 5
 
+cat /proc/version:
+
+    Linux version 2.6.18-348.4.1.el5 (mockbuild@builder10.centos.org)
+    (gcc version 4.1.2 20080704 (Red Hat 4.1.2-54)) #1 SMP Tue Apr 1
+
+## Python
+The system python version is 2.4.3, which is way outdated.
+Install python version 3.3.0 from source:
+
+    wget https://www.python.org/ftp/python/3.3.0/Python-3.3.0.tgz
+    tar xzf Python-3.3.0.tgz
+    cd Python-3.3.0
+    ./configure
+    make
+    sudo make install #Will install it in /usr/local/bin/
+
+Install virtualenv with python3.3
+
+    sudo yum install python-virtualenv
+        #or from source
+        #wget --no-check-certificate https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.9.tar.gz
+        #tar xzf virtualenv-1.9.tar.gz
+        #cd virtualenv-1.9
+        #/usr/local/bin/python3.3 setup.py install #will install it under /usr/local bin
+    mkdir ~/.virtualenv
+    virtualenv -p /usr/local/bin/python3.3 ~/.virtualenv/myflqenv
+    source  ~/.virtualenv/myflqenv/bin/activate
+
+Inside virtualenv:
+
+    cd ~/.virtualenv/myflqenv/
+    pip install numpy==1.8
+    pip install ipython
+    pip install matplotlib==1.3.1
+    pip install django==1.6
+    pip install uwsgi
+    pip install pymysql
+    wget http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.0.1.tar.gz
+    tar xzf mysql-connector-python-2.0.1.tar.gz
+    cd mysql-connector-python-2.0.1
+    python setup.py install
+
+### Matplotlib
+
+    yum install libpng-devel
+    yum install freetype-devel
+
+## MySQL
+Was already installed but without root password available
+
+### Reset MySQL root password
+As root
+
+   /etc/init.d/mysqld stop
+
+As mysql user with "su mysql":
+
+   cat > /var/lib/mysql/reset.sql <<EOF
+       UPDATE mysql.user SET Password=PASSWORD('YOURNEWROOTPASSWORD') WHERE User='root';
+       FLUSH PRIVILEGES;
+   EOF
+   mysqld_safe --init-file=/var/lib/mysql/reset.sql
+   
+As root
+
+   /etc/init.d/mysqld start
+
+## Normal config
+With "mysql -uroot -pYOURNEWROOTPASSWORD"
+
+    CREATE DATABASE myflsitedb CHARACTER SET utf8;
+    #On different computer with recent MySQL client => SELECT PASSWORD('myfl1234user');
+    CREATE USER 'myflsiteuser'@'localhost' IDENTIFIED BY '*5CBC1F92CB520771C013EA7C62ED99670EBC6342';
+    GRANT ALL ON myflsitedb.* TO 'myflsiteuser'@'localhost';
+    GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION;
+    FLUSH PRIVILEGES;
+    
+
+## Nginx
+
+    yum install nginx
+    /etc/init.d/nginx start
+
+## Celery
+
+    yum install rabbitmq-server
+    /etc/init.d/rabbitmq-server start
+
+## Final setup
+
+    git clone https://github.com/beukueb/myflq
+    mkdir /home/christophe/.virtualenv/myflqenv/media/
+    mkdir /home/christophe/.virtualenv/myflqenv/static
+    cp /etc/nginx/uwsgi_params /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/
+    cat > myflsite_nginx.conf <<EOF
+    	# myflsite_nginx.conf
+
+	# the upstream component nginx needs to connect to
+	upstream django {
+		 server unix:///home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite.sock; # for a file socket
+	         #server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+		 }
+
+	# configuration of the server
+	server {
+    	       # the port your site will be served on
+	       listen      8000;
+	       # the domain name it will serve for
+	       server_name ipar4.ugent.be; # substitute your machine's IP address or FQDN
+	       charset     utf-8;
+
+	       # max upload size
+	       client_max_body_size 75M;   # adjust to taste
+
+	# Django media
+	    location /media  {
+	             alias /home/christophe/.virtualenv/myflqenv/media;  # your Django project's media files - amend as required
+	    }
+
+	    location /static {
+	    	     alias /home/christophe/.virtualenv/myflqenv/static; # your Django project's static files - amend as required
+   	    }
+
+    	# Finally, send all non-media requests to the Django server.
+    	   location / {
+           	    uwsgi_pass  django;
+        	    include     /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/uwsgi_params; # the uwsgi_params file you installed
+           }
+	   }
+
+    EOF
+    sudo ln -s /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_nginx.conf /etc/nginx/conf.d/
