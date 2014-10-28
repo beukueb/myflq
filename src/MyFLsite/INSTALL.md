@@ -356,5 +356,6 @@ Add the following to /etc/rc.local for automatic startup:
     celery -A MyFLsite worker -l info &
     disown
     uwsgi --socket MyFLsite/myflsite.sock --module MyFLsite.wsgi --chmod-socket=666 &
+    #or if using inifile => uwsgi --ini /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_uwsgi.ini
     disown
     deactivate
