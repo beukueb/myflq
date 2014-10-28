@@ -234,19 +234,19 @@ Was already installed but without root password available
 ### Reset MySQL root password
 As root
 
-   /etc/init.d/mysqld stop
+    /etc/init.d/mysqld stop
 
 As mysql user with "su mysql":
 
-   cat > /var/lib/mysql/reset.sql <<EOF
+    cat > /var/lib/mysql/reset.sql <<EOF
        UPDATE mysql.user SET Password=PASSWORD('YOURNEWROOTPASSWORD') WHERE User='root';
        FLUSH PRIVILEGES;
-   EOF
-   mysqld_safe --init-file=/var/lib/mysql/reset.sql
+    EOF
+    mysqld_safe --init-file=/var/lib/mysql/reset.sql
    
 As root
 
-   /etc/init.d/mysqld start
+    /etc/init.d/mysqld start
 
 ## Normal config
 With "mysql -uroot -pYOURNEWROOTPASSWORD"
@@ -313,3 +313,21 @@ With "mysql -uroot -pYOURNEWROOTPASSWORD"
 
     EOF
     sudo ln -s /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_nginx.conf /etc/nginx/conf.d/
+
+Change the following in /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/settings.py:
+
+    'ENGINE': 'mysql.connector.django', #=> new database driver
+    STATIC_ROOT = '/home/christophe/.virtualenv/myflqenv/static/'
+    MEDIA_ROOT = '/home/christophe/.virtualenv/myflqenv/media/'
+
+##Startup
+Add the following to /etc/rc.local for automatic startup:
+
+    su christophe
+    source  /home/christophe/.virtualenv/myflqenv/bin/activate
+    cd /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite
+    celery -A MyFLsite worker -l info &
+    disown
+    uwsgi --socket MyFLsite/myflsite.sock --module MyFLsite.wsgi --chmod-socket=666 &
+    disown
+    deactivate
