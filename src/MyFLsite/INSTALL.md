@@ -320,6 +320,33 @@ Change the following in /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite
     STATIC_ROOT = '/home/christophe/.virtualenv/myflqenv/static/'
     MEDIA_ROOT = '/home/christophe/.virtualenv/myflqenv/media/'
 
+uwsgi ini file:
+
+    cat > /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_uwsgi.ini <<EOF
+    # myflsite_uwsgi.ini file
+    [uwsgi]
+    
+    # Django-related settings
+    # the base directory (full path)
+    chdir           = /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/
+    # Django's wsgi file
+    module          = MyFLsite.wsgi
+    # the virtualenv (full path)
+    home            = /home/christophe/.virtualenv/myflqenv
+    
+    # process-related settings
+    # master
+    master          = true
+    # maximum number of worker processes
+    processes       = 10
+    # the socket (use the full path to be safe
+    socket          = /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite.sock
+    # ... with appropriate permissions - may be needed
+    chmod-socket    = 666
+    # clear environment on exit
+    vacuum          = true
+    EOF
+
 ##Startup
 Add the following to /etc/rc.local for automatic startup:
 
