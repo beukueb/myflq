@@ -27,6 +27,7 @@ def setup(request):
         if request.POST['submitaction'] == 'createdb':
             #For the databasename user and dbname are combined so that different users can use same dbname
             userdb = UserResources(user=request.user,dbname=request.POST['dbname'])
+            userdb.full_clean() #Raises validation error if dbname contains non alphanumericals
             command = ['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'), 
                             '-p',request.user.password,userdb.dbusername(),userdb.fulldbname()]
             failed = subprocess.call(command)#,  shell=True)          

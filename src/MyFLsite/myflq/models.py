@@ -3,13 +3,18 @@ from django.db import models
 # Create your models here.
 
 #Setup
+##some symbols allowed in django username that are not allowed in MySQL name
+noSQLname = {'@','+','-','.'}
+
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 class UserResources(models.Model):
     """
     This model indicates which databases the user has at their disposal.
     """
     user = models.ForeignKey(User)
-    dbname = models.CharField(max_length=200)
+    dbname = models.CharField(max_length=200,
+         validators=[RegexValidator(regex=r'^\w*$', message='Should ony contain alphanumericals.')])
     isAlreadyCommitted = models.BooleanField(default=False)
     creationDate = models.DateField(auto_now_add=True)
     
@@ -20,7 +25,10 @@ class UserResources(models.Model):
         """
         This is the username for the database, linked to the MyFLsite current user 
         """
-        return 'myfls_'+self.user.username
+        if not set(self.user.username) & noSQLname:
+            return 'myfls_'+self.user.username
+        else:
+            return 'myflsid_'+str(self.user.id)
     
     def fulldbname(self):
         """
@@ -28,7 +36,7 @@ class UserResources(models.Model):
         It includes a general MyFLsite prefix, and the username so that
         different users can use the same short dbname
         """
-        return 'myfls_'+self.user.username+'_'+self.dbname
+        return 'myfls_'+self.dbusername()+'_'+self.dbname
         
 class Primer(models.Model):
     """
