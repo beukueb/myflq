@@ -368,7 +368,7 @@ uwsgi ini file:
     chkconfig supervisord on
     cat >> /etc/supervisord.conf <<EOF
         [program:uwsgi]
-	command=/home/christophe/.virtualenv/myflqenv/bin/uwsgi --ini /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_uwsgi.ini
+	command=bash -c "source /home/christophe/.virtualenv/myflqenv/bin/activate && uwsgi --ini /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_uwsgi.ini"
 	priority=888
 	user=christophe
 

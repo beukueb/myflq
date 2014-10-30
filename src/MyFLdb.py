@@ -405,7 +405,7 @@ if __name__ == '__main__':
         elif args.delete:
             for db in args.db:
                 login(user=args.user,passwd=args.password,database=db, test=True)
-                sql.execute("DELETE FROM dbases WHERE dbases.database = %s;",(db))
+                #sql.execute("DELETE FROM dbases WHERE dbases.database = %s;",(db))
                 sql.execute("DROP DATABASE "+db+";")
         logout(conn,sql)
             
