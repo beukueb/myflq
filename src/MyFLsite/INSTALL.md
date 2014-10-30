@@ -247,6 +247,7 @@ As mysql user with "su mysql":
 As root
 
     /etc/init.d/mysqld start
+    chkconfig mysqld on
 
 ## Normal config
 With "mysql -uroot -pYOURNEWROOTPASSWORD"
@@ -262,12 +263,14 @@ With "mysql -uroot -pYOURNEWROOTPASSWORD"
 ## Nginx
 
     yum install nginx
-    /etc/init.d/nginx start
+    service nginx start
+    chkconfig nginx on
 
 ## Celery
 
     yum install rabbitmq-server
-    /etc/init.d/rabbitmq-server start
+    service rabbitmq-server start
+    chkconfig rabbitmq-server on
 
 ## Final setup
 
@@ -347,8 +350,7 @@ uwsgi ini file:
     vacuum          = true
     EOF
 
-##Startup
-Add the following to /etc/rc.local for automatic startup:
+##Manual startup
 
     su christophe
     source  /home/christophe/.virtualenv/myflqenv/bin/activate
@@ -359,3 +361,33 @@ Add the following to /etc/rc.local for automatic startup:
     #or if using inifile => uwsgi --ini /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_uwsgi.ini
     disown
     deactivate
+
+##Automatic startup
+
+    yum install supervisor
+    chkconfig supervisord on
+    cat >> /etc/supervisord.conf <<EOF
+        [program:uwsgi]
+	command=/home/christophe/.virtualenv/myflqenv/bin/uwsgi --ini /home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite/MyFLsite/myflsite_uwsgi.ini
+	priority=888
+	user=christophe
+
+	[program:celery]
+	command=bash -c "source /home/christophe/.virtualenv/myflqenv/bin/activate && /home/christophe/.virtualenv/myflqenv/bin/celery -A MyFLsite worker -l info"
+	numprocs=1
+	directory=/home/christophe/.virtualenv/myflqenv/myflq/src/MyFLsite
+	priority=999
+	startsecs=10
+	startretries=3
+	user=christophe
+	redirect_stderr=true
+	stdout_logfile=/var/tmp/celery.log
+    EOF
+
+supervisord.conf still needed to be ammended with the following, as supervisorctl was not working:
+
+    [unix_http_server]
+    file=/var/tmp/supervisor.sock
+
+    [rpcinterface:supervisor]
+    supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
