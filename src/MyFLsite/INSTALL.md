@@ -116,15 +116,7 @@ Install MyFLq databases
 
     python3 MyFLdb.py --install admin -p passall
 
-## Enable tasks daemon
-### With simple_tasks.py
-
-    cd ~/MyFLqApp/MyFLsite
-    export PYTHONPATH=$PYTHONPATH:~/github/myflq/src/MyFLsite:~/github/myflq/src
-    sudo -u www-data python3 myflq/simple_tasks.py
-
-### With celery
-
+## Enable celery tasks daemon
     sudo -i
     cd /etc/init.d/
     wget https://raw.github.com/celery/celery/3.1/extra/generic-init.d/celeryd --no-check-certificate

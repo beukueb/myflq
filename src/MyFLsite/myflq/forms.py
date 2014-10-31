@@ -45,22 +45,13 @@ class FastqChoiceField(forms.ModelChoiceField):
 def analysisform_factory(db_queryset,upfiles_queryset):
     uniqueUpFiles = {up['originalFilename']:up['id'] for up in upfiles_queryset.values('id','originalFilename')}.values()
     class AnalysisForm(ModelForm):
-        dbname = forms.ModelChoiceField(db_queryset)
+        configuration = forms.ModelChoiceField(db_queryset)
         prevUploadedFiles = FastqChoiceField(upfiles_queryset.filter(id__in=uniqueUpFiles),required=False,empty_label="(Upload file instead)")
         
         class Meta:
             model = Analysis
             exclude = ['originalFilename','progress','creationTime']
         
-        def clean_dbname(self):
-            dbname = self.cleaned_data.get('dbname',False)
-            if dbname:
-                if not dbname.isAlreadyCommitted:
-                    raise forms.ValidationError(dbname.dbname+' has not yet been committed!'+
-                                                 ' If you want to use this database for analysis, commit it first in Setup.')
-                return dbname
-            else: raise forms.ValidationError("Dbname not provided")
-
         #def clean_fastq(self): #when cleaning needs to combine different form fields
         # do that from general 'clean' method
         def clean(self):

@@ -86,8 +86,9 @@ from myflq.tasks import myflqTaskRequest #import tasks
 def analysis(request):
     #add.delay(2,3) #debug tasks
     #User specific Form(Set)s/processes queud/running
-    AnalysisForm = analysisform_factory(UserResources.objects.filter(user=request.user),Analysis.objects.filter(dbname__user=request.user))
-    processes = Analysis.objects.filter(dbname__user=request.user).exclude(progress__contains='F')
+    AnalysisForm = analysisform_factory(UserResources.objects.filter(user=request.user),
+                                        Analysis.objects.filter(configuration__user=request.user))
+    processes = Analysis.objects.filter(configuration__user=request.user).exclude(progress__contains='F')
     
     #Process AJAX
     if request.is_ajax():
@@ -127,7 +128,7 @@ def results(request):
     
     return render(request,'myflq/results.html',{'myflq':True,
                                                 'analysis':analysis,
-                                                'processes':Analysis.objects.filter(dbname__user=request.user).filter(progress__contains='F')})
+                                                'processes':Analysis.objects.filter(configuration__user=request.user).filter(progress__contains='F')})
      
  
  

@@ -73,13 +73,13 @@ def validate_percentage(value):
 
 def generateFileName(instance,filename):
     instance.originalFilename = filename
-    return 'fastqfiles/'+instance.dbname.fulldbname()+'.fastq'
+    return 'fastqfiles/'+instance.configuration.fulldbname()+'.fastq'
 
 class Analysis(models.Model):
     """
     Gathers all information for starting an analysis.
     """
-    dbname = models.ForeignKey(UserResources)
+    configuration = models.ForeignKey(UserResources)
     fastq = models.FileField(upload_to=generateFileName,blank=True,
                              help_text='''Provide the fastq file either by uploading or by choosing a previously uploaded file.'''
     )
@@ -140,7 +140,7 @@ class Analysis(models.Model):
     creationTime = models.TimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'Analysis: db = '+str(self.dbname)+', file = '+self.originalFilename+' [settings => '+ \
+        return 'Analysis: config = '+str(self.configuration)+', file = '+self.originalFilename+' [settings => '+ \
             'negativeReadsFilter = '+str(self.negativeReadsFilter)+', '+ \
             'primerBuffer = '+str(self.primerBuffer)+', '+ \
             'flankOut = '+str(self.flankOut)+' ,'+ \
@@ -158,5 +158,7 @@ class AnalysisResults(models.Model):
     One-to one linked with analysis. Info for post-processing.
     """
     analysis = models.OneToOneField(Analysis)
-    xmlFile = models.FileField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+instance.analysis.dbname.fulldbname()+'.xml')
-    figFile = models.ImageField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+instance.analysis.dbname.fulldbname()+'.png')
+    xmlFile = models.FileField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
+                               instance.analysis.configuration.fulldbname()+'.xml')
+    figFile = models.ImageField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
+                                instance.analysis.configuration.fulldbname()+'.png')

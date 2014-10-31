@@ -21,10 +21,10 @@ def myflqTaskRequest(analysisID):
     tempfigure.close(), tempxml.close() #Only their filenames need to be passed to the subprocess
 
     command = ['python3','../MyFLq.py', '-p', analysis.dbname.user.password, 
-                                   'analysis', '--negativeReadsFilter', str(analysis.negativeReadsFilter),
-                                   '--primerBuffer', str(analysis.primerBuffer), '--flankOut', str(analysis.flankOut),
-                                   '--stutterBuffer', str(analysis.stutterBuffer), '--useCompress', str(analysis.useCompress),
-                                   '--withAlignment', str(analysis.withAlignment), '--threshold', str(analysis.threshold),
+                                   'analysis', '--negativeReadsFilter', int(analysis.negativeReadsFilter),
+                                   '--primerBuffer', str(analysis.primerBuffer), '--flankOut', int(analysis.flankOut),
+                                   '--stutterBuffer', str(analysis.stutterBuffer), '--useCompress', int(analysis.useCompress),
+                                   '--withAlignment', int(analysis.withAlignment), '--threshold', str(analysis.threshold),
                                    '--clusterInfo', str(analysis.clusterInfo), '--randomSubset', str(analysis.randomSubset),
                                    '-r',tempxml.name,'-s', settings.STATIC_URL+'css/resultMyFLq.xsl','-v',tempfigure.name,
                                    analysis.fastq.file.name, analysis.dbname.dbusername(), 
