@@ -2240,23 +2240,21 @@ if __name__ == '__main__':
     #Commandline options for performing an analysis
     import inspect,builtins #allows to dynamically ask for options
     sig = inspect.signature(Analysis.__init__) #needs python3.3
-    #sig = inspect.getfullargspec(Analysis.__init__) #deprecated python2.7
     doc = {d.split('=>')[0].strip():d.split('=>')[1] 
            for d in inspect.getdoc(Analysis.__init__).split('\n') if '=>' in d}
     parser_analysis = subparsers.add_parser('analysis', help='analysis help')
-    #                                        formatter_class=argparse.MetavarTypeHelpFormatter)
     noDynamicOptions = {'self','kitName','kMerAssign','maintainAllReads','processNow'}
     for param in sig.parameters: #needs python3.3
-    #for param in sig[0]: #deprecated python2.7
         if param in noDynamicOptions: continue 
         if sig.parameters[param].default == inspect._empty: #needs python3.3
-        #if sig[0].index(param) < (len(sig[0])-len(sig[3])): #deprecated python2.7
             parser_analysis.add_argument(param,help=doc[param])
         else:
             defaultP = sig.parameters[param].default #needs python3.3
-            #defaultP = sig[3][sig[0].index(param)-(len(sig[0])-len(sig[3]))] #deprecated python2.7
             typeP = (type(defaultP) if defaultP is not None else builtins.__dict__[doc[param].split()[-1].strip()[1:-1]])
-            parser_analysis.add_argument('--'+param,type=typeP,default=defaultP,help=doc[param])
+            if typeP == bool:
+                parser_analysis.add_argument('--'+param,action='store_true',help=doc[param])
+            else:
+                parser_analysis.add_argument('--'+param,type=typeP,default=defaultP,help=doc[param])
     parser_analysis.add_argument('--kMerAssign',type=int,
                                  help='''Instead of looking for exact primers, assign a read based on
                                  primer k-mer words of size int KMERASSIGN.
