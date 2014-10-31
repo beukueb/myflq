@@ -2,9 +2,9 @@
 
 {% block content %}
 <h1> Setup loci and alleles </h1>
-<h2> Database setup </h2>
 
-<p>Databases in use: </p>
+{% if userdbs %}
+<h2>Available configurations</h2>
 <table>
     {% for database in userdbs %}
     <tr>
@@ -19,67 +19,37 @@
     {% endfor %}
 </table><br />
 
-<p>Create database:</p>
-    <form action='.' method='post'>
-        {% csrf_token %}
-        <label for="dbname">Database name:</label>
-        <input type="text" name="dbname" value="" id="dbname">
-        <input type="hidden" name="submitaction" value="createdb" />
-        <input type="submit" value="Create db" />
-    </form>
-
 <hr />
+{% endif %}
 
-<h2> Primers setup </h2>
-    <form action='.' enctype="multipart/form-data" method='post'>
-        {% csrf_token %}
-        {{ primerfileform }}
-        <input type="hidden" name="submitaction" value="addlocifile" />
-        <input type="submit" value="Upload" />
-    </form>
-    <br />
-    
-    <button type="button" id="primerbutton">Manual primer input</button>
-    <div id="primers" style="display:none;font-size:smaller;">
-    <form action='.' method='post'>
-        <style type="text/css" scoped> form li {display:inline;} </style>
-        {% csrf_token %}
-        {{ primerset.management_form }}
-        {% for pform in primerset %} {{ pform.as_ul }} <br /> {% endfor %}
-        
-        <input type="hidden" name="submitaction" value="addlocus" />
-        <input type="submit" value="Update loci" />
-    </form>
-    </div>
-    <script>
-      $("#primerbutton").click(function(){$("#primers").toggle()})
-    </script>
+{% if configFilesError %}
+<h2>Warning</h2>
+Something is not right with the supplied config files:<br />
+{{ configFilesError }}
+<br>Fix the files, and upload them again.
+{% endif %}
 
-<hr />
-
-<h2> Adding alleles </h2>
-    <form action='.' enctype="multipart/form-data" method='post'>
+<h2>Create a new configuration</h2>
+    <form class="setupForm" action='.' enctype="multipart/form-data" method='post'>
+      <style>
+	#content > form > p:nth-child(5) > label {
+	display: block;
+	}
+      </style>
+      <script>
+	$(document).ready(function() {$(".setupForm label").addClass("helponhover")})
+      </script>
         {% csrf_token %}
-        {{ allelefileform }}
-        <input type="hidden" name="submitaction" value="addallelesfile" />
-        <input type="submit" value="Upload" />
+	{{ configForm.as_p }}
+
+	<br />
+        <input type="hidden" name="submitaction" value="createconfig" />
+        <input type="submit" value="Create configuration" />
     </form>
 
-<hr />
-
-<h2> Commit settings </h2>
-By selecting a database and pressing Commit, the above settings for that database are applied to the MyFLq application.
-After commiting settings to a database, that database can be used for analysis.
-    <form action='.' method='post'>
-        {% csrf_token %}
-        {{ databaseselectionform }}
-        <input type="hidden" name="submitaction" value="commitdb" />
-        <input type="submit" value="Commit" />
-    </form>
+<p>
+Once you have created a configuration you cannot alter it unless you delete it and start over.<br />
+If you delete a configuration, all results that were procured with that configuration will be deleted as well.
+This is for validation purposes: you can always trace back which configuration you used to obtain a specific result.
+</p>
 {% endblock %}
-
-
-
-
-
-

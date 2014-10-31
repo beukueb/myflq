@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.safestring import mark_safe
 
 # Create your models here.
 
@@ -13,11 +14,21 @@ class UserResources(models.Model):
     This model indicates which databases the user has at their disposal.
     """
     user = models.ForeignKey(User)
-    dbname = models.CharField(max_length=200,
+    dbname = models.CharField(max_length=200,verbose_name="configuration name",
+                              help_text='Choose a sensible name for your configuration',
          validators=[RegexValidator(regex=r'^\w*$', message='Should ony contain alphanumericals.')])
-    isAlreadyCommitted = models.BooleanField(default=False)
+    description = models.TextField(verbose_name="configuration description",null=True,blank=True)
+    lociFile = models.FileField(verbose_name='loci configuration file',
+                                upload_to=lambda instance,filename: 'locifiles/'+instance.fulldbname()+'.csv',
+                                help_text="The loci file should contain one line for every locus with the following structure:<br />\
+                                LocusName,LocusType(a number for STR indicating repeat length or 'SNP' for other \
+                                loci),forward primer, reverse primer")
+    alleleFile = models.FileField(verbose_name='allele database file',
+                                  upload_to=lambda instance,filename: 'allelefiles/'+instance.fulldbname()+'.csv',
+                                  help_text="This file should contain all known alleles within the population. Each line should have\
+                                  the following structure:<br />Locus name, STR number for STR loci/Allele name for SNP loci, Sequence")
     creationDate = models.DateField(auto_now_add=True)
-    
+
     def __str__(self):
         return self.dbname
         
@@ -54,18 +65,6 @@ class Primer(models.Model):
     def __str__(self):
         return self.locusName
         
-class AlleleFiles(models.Model):
-    """
-    One instance extends UserResources pointing to an allele file that can
-    be used to populate the MyFLq relevant database
-    """
-    dbname = models.OneToOneField(UserResources)
-    alleleFile = models.FileField(upload_to=lambda instance,filename: 'allelefiles/'+instance.dbname.fulldbname()+'.csv')
-    
-    def __str__(self):
-        return self.alleleFile.url
-        
-
 #Analysis
 from django.core.exceptions import ValidationError
 def validate_percentage(value):
@@ -97,11 +96,16 @@ class Analysis(models.Model):
                 locus assignment will be less specific, but more reads will be
                 asigned.'''
     )
-    flankOut = models.BooleanField(default=True,help_text=
-                '''If you see a large amount of negative reads in the analyis, or
-                a high abundant unique reads with very poor flanks, turn off flankOut.
-                The analysis will then be done between the primers. Previously unknown
-                alleles can be discovered this way.'''
+    flankOut = models.BooleanField(default=True,help_text=mark_safe(
+                '''Options:<br />
+                Flankout analysis. This analysis will only consider the region of interest
+                of the different population alleles, based on the selected configuration
+                allele database.<br /><br />
+                Variant discovery. For population studies, where the scope is to find new
+                variants, this option should be selected. It will report on all new variants
+                discovered between the primers for the loci considered in the configuration.
+                This option should also be chosen if you see a large amount of negative reads
+                in a flankout analyis, or a high abundant unique read with very poor flanks.''')
     )
     stutterBuffer = models.IntegerField(default=1,help_text=
                 '''The stutters of the smallest allele for a locus are normally not in
