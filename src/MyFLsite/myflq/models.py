@@ -19,12 +19,12 @@ class UserResources(models.Model):
          validators=[RegexValidator(regex=r'^\w*$', message='Should ony contain alphanumericals.')])
     description = models.TextField(verbose_name="configuration description",null=True,blank=True)
     lociFile = models.FileField(verbose_name='loci configuration file',
-                                upload_to=lambda instance,filename: 'locifiles/'+instance.fulldbname()+'.csv',
+                                upload_to=''#lambda instance,filename: 'locifiles/'+instance.fulldbname()+'.csv',
                                 help_text="The loci file should contain one line for every locus with the following structure:<br />\
                                 LocusName,LocusType(a number for STR indicating repeat length or 'SNP' for other \
                                 loci),forward primer, reverse primer")
     alleleFile = models.FileField(verbose_name='allele database file',
-                                  upload_to=lambda instance,filename: 'allelefiles/'+instance.fulldbname()+'.csv',
+                                  upload_to=''#lambda instance,filename: 'allelefiles/'+instance.fulldbname()+'.csv',
                                   help_text="This file should contain all known alleles within the population. Each line should have\
                                   the following structure:<br />Locus name, STR number for STR loci/Allele name for SNP loci, Sequence")
     creationDate = models.DateField(auto_now_add=True)
@@ -159,7 +159,7 @@ class AnalysisResults(models.Model):
     One-to one linked with analysis. Info for post-processing.
     """
     analysis = models.OneToOneField(Analysis)
-    xmlFile = models.FileField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
-                               instance.analysis.configuration.fulldbname()+'.xml')
-    figFile = models.ImageField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
-                                instance.analysis.configuration.fulldbname()+'.png')
+    xmlFile = models.FileField(upload_to='')#lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
+#                               instance.analysis.configuration.fulldbname()+'.xml')
+    figFile = models.ImageField(upload_to='')#lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
+#                                instance.analysis.configuration.fulldbname()+'.png')
