@@ -20,30 +20,35 @@ def myflqTaskRequest(analysisID):
     tempxml = tempfile.NamedTemporaryFile(delete=False,suffix='.xml')
     tempfigure.close(), tempxml.close() #Only their filenames need to be passed to the subprocess
 
-    command = ['python3','../MyFLq.py', '-p', analysis.dbname.user.password, 
-                                   'analysis', '--negativeReadsFilter', int(analysis.negativeReadsFilter),
-                                   '--primerBuffer', str(analysis.primerBuffer), '--flankOut', int(analysis.flankOut),
-                                   '--stutterBuffer', str(analysis.stutterBuffer), '--useCompress', int(analysis.useCompress),
-                                   '--withAlignment', int(analysis.withAlignment), '--threshold', str(analysis.threshold),
-                                   '--clusterInfo', str(analysis.clusterInfo), '--randomSubset', str(analysis.randomSubset),
-                                   '-r',tempxml.name,'-s', settings.STATIC_URL+'css/resultMyFLq.xsl','-v',tempfigure.name,
-                                   analysis.fastq.file.name, analysis.dbname.dbusername(), 
-                                   analysis.dbname.fulldbname(), 'default']
-    if not analysis.randomSubset:
-        command.pop(command.index('--randomSubset')+1)
-        command.pop(command.index('--randomSubset'))
-    failed = subprocess.call(command)
-    if not failed:
+    command = ['python3','../MyFLq.py', '-p', analysis.configuration.user.password, 
+               'analysis', '--negativeReadsFilter' if analysis.negativeReadsFilter else 'REMOVE'
+               '--primerBuffer', str(analysis.primerBuffer),
+               '--flankOut' if analysis.flankOut else 'REMOVE',
+               '--stutterBuffer', str(analysis.stutterBuffer),
+               '--useCompress' if analysis.useCompress else 'REMOVE',
+               '--withAlignment' if analysis.withAlignment else 'REMOVE',
+               '--threshold', str(analysis.threshold),
+               '--clusterInfo' if analysis.clusterInfo else 'REMOVE',
+               '--randomSubset' if analysis.randomSubset else 'REMOVE',
+               str(analysis.randomSubset) if analysis.randomSubset else 'REMOVE',
+               '-r',tempxml.name,'-s', settings.STATIC_URL+'css/resultMyFLq.xsl','-v',tempfigure
+               analysis.fastq.file.name, analysis.configuration.dbusername(), 
+               analysis.configuration.fulldbname(), 'default']
+    while 'REMOVE' in command: command.remove('REMOVE')
+
+    try:
+        subprocess.check_output(command,stderr=subprocess.STDOUT)
         analysisResult = AnalysisResults(analysis=analysis)
         analysisResult.xmlFile.save(tempxml.name,File(open(tempxml.name)))
         analysisResult.figFile.save(tempfigure.name,File(open(tempfigure.name,'rb')))
         analysisResult.save()
         analysis.progress = 'F'
         analysis.save()
-    else:
+    except subprocess.CalledProcessError as e:
         analysis.progress = 'FA'
         analysis.save()
+        print('FAILURE:',e.output.decode())
     import os
     os.remove(tempxml.name), os.remove(tempfigure.name)
 
-    return 'Executed:\n'+' '.join(command)+'\nStatus: '+str(failed)
+    return 'Executed:\n'+' '.join(command)

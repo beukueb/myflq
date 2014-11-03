@@ -65,10 +65,6 @@ subprocess.check_call([
         ])
 
 #Prepare fastq
-#from glob import glob
-#fastqfiles = glob('/data/input/samples/*/Data/Intensities/BaseCalls/*.fastq.gz')
-#if not fastqfiles: fastqfiles = glob('/data/input/samples/*/Data/Intensities/BaseCalls/*.fastq')
-#if not fastqfiles: raise Exception('No fastq or fqstq.gz present to work with')
 import os
 sampleName = '/tmp/' + inform['sample-id']['Content']['Name'].replace(' ','') + '.fastq'
 fastqfiles = []
@@ -88,13 +84,14 @@ command = ['python3',
            'analysis',
            #'--negativeReadsFilter', str('negativeReadsFilter' in inform), #For now disabled, no added value/buggy
            '--primerBuffer', str(inform['primerBuffer']['Content']),
-           '--flankOut', 'True' if 'flankOut' in inform else '', #should change the store_action for booleans #TODO#
+           '--flankOut' if 'flankOut' in inform else 'REMOVE',
            '--stutterBuffer', str(inform['stutterBuffer']['Content']),
-           '--useCompress', 'True' if 'useCompress' in inform else '',
-           '--withAlignment', 'True' if 'withAlignment' in inform else '',
+           '--useCompress' if 'useCompress' in inform else 'REMOVE',
+           '--withAlignment' if 'withAlignment' in inform else 'REMOVE',
            '--threshold', str(float(inform['threshold']['Content'])/100),
            #'--clusterInfo', str('clusterInfo' in inform), #Makes no sense not to see this info for forensic analyst
-           '--randomSubset', str(float(inform['randomSubset']['Content'])/100),
+           '--randomSubset' if str(inform['randomSubset']['Content']) == '100' else 'REMOVE',
+           str(float(inform['randomSubset']['Content'])/100) if str(inform['randomSubset']['Content']) == '100' else 'REMOVE',
            '-r', outDir+'resultMyFLq.xml',
            '-s', '/myflq/resultMyFLq.xsl', #Should be either on same domain as xml file, or local
            '-v', outDir+'resultMyFLq.png',
@@ -103,9 +100,8 @@ command = ['python3',
            'admin', 'onetimedbuse', 'default'
     ]
 
-if str(inform['randomSubset']['Content']) == '100':
-    command.pop(command.index('--randomSubset')+1)
-    command.pop(command.index('--randomSubset'))
+while 'REMOVE' in command: command.remove('REMOVE')
+
 print('Start processing with command: '+' '.join(command))
 #try: 
 subprocess.check_call(command)

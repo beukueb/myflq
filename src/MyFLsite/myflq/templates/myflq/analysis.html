@@ -37,8 +37,8 @@ function changeAim() {
         {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}        
         
         <table>
-        <tr><td><label for="{{ analysisform.dbname.id_for_label }}">Configuration</label></td>
-        <td>{{ analysisform.dbname }}</td></tr>
+        <tr><td><label for="{{ analysisform.configuration.id_for_label }}">{{ analysisform.configuration.label }}</label></td>
+        <td>{{ analysisform.configuration }}</td></tr>
 
 	<tr><td><label class="helponhover" for="analysisAim">Analysis scope</label><span class="helptext">{{ analysisform.flankOut.help_text }}</span></td></td>
 	<td><button id="analysisAim" type="button" onClick="changeAim();">Flankout analysis</button></td></tr>
@@ -102,9 +102,9 @@ function changeAim() {
 
 {% if processes %}
 <table border="1">
-<tr><td></td><td>Dbname</td><td>Filename</td><td>Status</td></tr>
+<tr><td></td><td>Configuration</td><td>Filename</td><td>Status</td></tr>
 {% for process in processes %}
-<tr><td>{{ forloop.counter }}</td><td>{{ process.dbname }}</td><td>{{ process.originalFilename }}</td><td class='progress' id='{{  process.pk }}'>{{ process.get_progress_display }}</td></tr>
+<tr><td>{{ forloop.counter }}</td><td>{{ process.configuration }}</td><td>{{ process.originalFilename }}</td><td class='progress' id='{{  process.pk }}'>{{ process.get_progress_display }}</td></tr>
 {% endfor %}
 </table>
 
