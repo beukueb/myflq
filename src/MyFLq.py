@@ -3,7 +3,7 @@
 ## MyFLq Interface functions to the MyFLdb produced tables
 
 # MyFLq (My-Forensic-Loci-queries, developer Christophe Van Neste, CC BY-SA 3.0).
-version = '1.0.0'
+version = '1.0.1'
 
 # Python support: version 3
 # 
@@ -967,8 +967,14 @@ class Read:
         If it is desired that the exact same subset is generated => e.g.: from random import seed; seed(1000)
         """
         if randomSubset: from random import random
-        legacy = True if fqFilename.endswith('fasta') else False
-        fq=open(fqFilename)
+        legacy = True if fqFilename.endswith(('fasta','fasta.gz')) else False
+        #Open gz compressed file
+        if fqFilename.endswith('.gz'):
+            import gzip
+            fq=gzip.open(fqFilename, mode='rt')
+        #Open normal file
+        else: fq=open(fqFilename)
+
         fqcount=4 # == size of fq entry
         for line in fq:
             if (fqcount%4)==0: read=[line]
@@ -1517,12 +1523,13 @@ class Analysis:
     #All parameters in the docstring need to be followed by '=>' on a line of their own, 
     #and if the default value (None/False) is different from expected type when used, the line should end with [type]
     #for automatic processing of commandline options
-    def __init__(self,fqFilename,kitName='Illumina',maintainAllReads=True,negativeReadsFilter=True,kMerAssign=False,
-                    primerBuffer=0,flankOut=False,stutterBuffer=1,useCompress=True,withAlignment=False,threshold=0.005,
-                    clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=0,verbose=False):
+    def __init__(self,fqFilename,sampleName='',kitName='Illumina',maintainAllReads=True,negativeReadsFilter=True,
+                 kMerAssign=False,primerBuffer=0,flankOut=False,stutterBuffer=1,useCompress=True,withAlignment=False,
+                 threshold=0.005,clusterInfo=True,randomSubset=None,processNow=True,parallelProcessing=0,verbose=False):
         """
         Sets up an analysis of loci for a specific kit
             fqFilename => Fastq file on which to perform the analysis
+            sampleName => In case it is a random fastq filename, a more descriptive sample reference
             kitname => name of the loci-kit (in database)
             maintainAllReads => saves also the full read list in the analysis object
             negativeReadsFilter => '[-]' reads are filtered 
@@ -1550,6 +1557,7 @@ class Analysis:
         """
         #Save analysis characteristics
         self.fqFilename = fqFilename
+        self.sampleName = sampleName
         self.kitName = kitName
         self.maintainAllReads = maintainAllReads
         self.negativeReadsFilter = negativeReadsFilter
@@ -1777,7 +1785,7 @@ class Analysis:
         results.text = '\n'
         for locus in sorted(self.loci):
             results.append(self.loci[locus].xml)
-        results.set('sample',os.path.basename(self.fqFilename))
+        results.set('sample',os.path.basename(self.sampleName if self.sampleName else self.fqFilename))
         results.set('thresholdUsed',str(self.threshold))
         results.set('flankedOut',str(self.flankOut))
         if self.flankOut:

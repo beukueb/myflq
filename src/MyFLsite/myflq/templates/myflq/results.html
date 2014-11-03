@@ -15,7 +15,7 @@
         <tr>
 	  <td>{{ forloop.counter }}</td>
 	  <td>{{ process.configuration }}</td>
-	  <td>{{ process.creationDate }}</td>
+	  <td>{{ process.creationTime|date:"D d M Y" }}</td>
 	  <td>{{ process.originalFilename }}</td>
 	  <td>{{ process.get_progress_display }}</td>
         <td><input type="radio" name="viewResult" value="{{ process.id }}" {% if forloop.first %} checked {% endif %}></td></tr>

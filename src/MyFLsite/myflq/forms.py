@@ -51,6 +51,9 @@ def analysisform_factory(db_queryset,upfiles_queryset):
         class Meta:
             model = Analysis
             exclude = ['originalFilename','progress','creationTime']
+            widgets = {
+                'name': forms.Textarea(attrs={'rows':1, 'cols':30}),
+            }
         
         #def clean_fastq(self): #when cleaning needs to combine different form fields
         # do that from general 'clean' method

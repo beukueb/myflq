@@ -21,7 +21,8 @@ def myflqTaskRequest(analysisID):
     tempfigure.close(), tempxml.close() #Only their filenames need to be passed to the subprocess
 
     command = ['python3','../MyFLq.py', '-p', analysis.configuration.user.password, 
-               'analysis', '--negativeReadsFilter' if analysis.negativeReadsFilter else 'REMOVE'
+               'analysis', '--sampleName', analysis.originalFilename,
+               '--negativeReadsFilter' if analysis.negativeReadsFilter else 'REMOVE',
                '--primerBuffer', str(analysis.primerBuffer),
                '--flankOut' if analysis.flankOut else 'REMOVE',
                '--stutterBuffer', str(analysis.stutterBuffer),
@@ -51,4 +52,5 @@ def myflqTaskRequest(analysisID):
     import os
     os.remove(tempxml.name), os.remove(tempfigure.name)
 
+    print('Command:\n',' '.join(command))
     return 'Executed:\n'+' '.join(command)

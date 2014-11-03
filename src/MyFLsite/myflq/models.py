@@ -47,7 +47,7 @@ class UserResources(models.Model):
         It includes a general MyFLsite prefix, and the username so that
         different users can use the same short dbname
         """
-        return 'myfls_'+self.dbusername()+'_'+self.dbname
+        return self.dbusername()+'_'+self.dbname
         
 class Primer(models.Model):
     """
@@ -71,9 +71,11 @@ def validate_percentage(value):
     if value and not (0 < value <= 1):
         raise ValidationError('{} is not within [0-1]'.format(value))
 
+import re, uuid
+goodSeqFileRegex = re.compile(r'.*(\.fasta|\.fasta\.gz|\.fastq|\.fastq\.gz)$')
 def generateFileName(instance,filename):
     instance.originalFilename = filename
-    return 'fastqfiles/'+instance.configuration.fulldbname()+'.fastq'
+    return 'fastqfiles/'+str(uuid.uuid4())+goodSeqFileRegex.match(filename).groups()[0]
 
 class Analysis(models.Model):
     """
@@ -81,8 +83,10 @@ class Analysis(models.Model):
     """
     name = models.TextField(verbose_name="analysis name",null=True,blank=True)
     configuration = models.ForeignKey(UserResources)
-    fastq = models.FileField(upload_to=generateFileName,blank=True,
-                             help_text='''Provide the fastq file either by uploading or by choosing a previously uploaded file.'''
+    fastq = models.FileField(verbose_name="fast[a|q][.gz]",upload_to=generateFileName,blank=True,
+                             validators=[RegexValidator(regex=goodSeqFileRegex, message='Only fast[a|q][gz] files.')],
+                             help_text='''Provide the file either by uploading or by choosing a previously uploaded one.
+                             A filename should end with either: .fasta, .fasta.gz, .fastq, or, .fastq.gz'''
     )
         #blank=True=>Form processing needs to make fastq required
     originalFilename = models.CharField(max_length=128,null=True)
@@ -138,7 +142,7 @@ class Analysis(models.Model):
                 This allows to get an initial quick analysis for low values.'''
     )
     progress = models.CharField(max_length=2,default='Q',choices=[('Q','Queued'),('P','Processing'),('F','Finished'),('FA','Failed')])
-    creationTime = models.DateField(auto_now_add=True)
+    creationTime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return 'Analysis: config = '+str(self.configuration)+', file = '+self.originalFilename+' [settings => '+ \

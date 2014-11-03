@@ -37,6 +37,9 @@ function changeAim() {
         {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}        
         
         <table>
+        <tr><td><label for="{{ analysisform.name.id_for_label }}">{{ analysisform.name.label }}</label></td>
+        <td>{{ analysisform.name }}</td></tr>
+
         <tr><td><label for="{{ analysisform.configuration.id_for_label }}">{{ analysisform.configuration.label }}</label></td>
         <td>{{ analysisform.configuration }}</td></tr>
 
