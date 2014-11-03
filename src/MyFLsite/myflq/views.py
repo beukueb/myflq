@@ -96,7 +96,10 @@ def analysis(request):
             p.progress = p.get_progress_display()
         from django.core import serializers
         data = serializers.serialize("json", processes, fields=('progress',)) #Only progress field required. pk automatically added
-        return HttpResponse(data, mimetype='application/json') 
+        return HttpResponse(data, 'application/json')
+            #mimetype error in django 1.7 => in django < 1.6 mimetype='application/json'
+            #                                in django 1.7   content_type='application/json'
+            #                 temporary solution that works in all django => do not mention keyword
     
     #Testing parameter for bounded/unbounded forms
     newanalysisform = True
