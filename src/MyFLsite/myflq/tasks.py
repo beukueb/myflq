@@ -31,7 +31,7 @@ def myflqTaskRequest(analysisID):
                '--clusterInfo' if analysis.clusterInfo else 'REMOVE',
                '--randomSubset' if analysis.randomSubset else 'REMOVE',
                str(analysis.randomSubset) if analysis.randomSubset else 'REMOVE',
-               '-r',tempxml.name,'-s', settings.STATIC_URL+'css/resultMyFLq.xsl','-v',tempfigure
+               '-r',tempxml.name,'-s', settings.STATIC_URL+'css/resultMyFLq.xsl','-v',tempfigure.name,
                analysis.fastq.file.name, analysis.configuration.dbusername(), 
                analysis.configuration.fulldbname(), 'default']
     while 'REMOVE' in command: command.remove('REMOVE')

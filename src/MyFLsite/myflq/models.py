@@ -79,6 +79,7 @@ class Analysis(models.Model):
     """
     Gathers all information for starting an analysis.
     """
+    name = models.TextField(verbose_name="analysis name",null=True,blank=True)
     configuration = models.ForeignKey(UserResources)
     fastq = models.FileField(upload_to=generateFileName,blank=True,
                              help_text='''Provide the fastq file either by uploading or by choosing a previously uploaded file.'''
@@ -137,7 +138,7 @@ class Analysis(models.Model):
                 This allows to get an initial quick analysis for low values.'''
     )
     progress = models.CharField(max_length=2,default='Q',choices=[('Q','Queued'),('P','Processing'),('F','Finished'),('FA','Failed')])
-    creationTime = models.TimeField(auto_now_add=True)
+    creationTime = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return 'Analysis: config = '+str(self.configuration)+', file = '+self.originalFilename+' [settings => '+ \

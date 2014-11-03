@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h1> Welcome </h1>
-To use the online MyFLq application, login (or register <a href="/register">here</a>) and follow the instructions. <br />
-You can also download the source files, and use it locally by following the menu link.
-{% endblock %}
