@@ -22,6 +22,9 @@ After the main example, you can find an install on a CentOS 5 server.
     sudo easy_install3 Pillow
     sudo apt-get install rabbitmq-server
     sudo easy_install3 Celery
+    #Django extension dependencies
+    sudo easy_install3 django-extensions
+    sudo easy_install3 Werkzeug
 
 ## Prepare server mysql
 With "mysql -uroot -p":
