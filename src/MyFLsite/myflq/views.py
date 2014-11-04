@@ -123,15 +123,25 @@ def analysis(request):
  
 @login_required
 def results(request):
+    #TODO search options/page functionality for users with many results
+
     #User specific Form(Set)s
+    return render(request,'myflq/results.html',
+                  {'myflq':True,
+                   'processes': Analysis.objects.filter(configuration__user=request.user
+                                                    ).filter(progress__contains='F')})
+
+@login_required
+def result(request):
+    #User requeste result
     
     if request.method == 'POST':
         analysis = Analysis.objects.get(pk=request.POST['viewResult'])
-    else: analysis = False
-    
-    return render(request,'myflq/results.html',{'myflq':True,
-                                                'analysis':analysis,
-                                                'processes':Analysis.objects.filter(configuration__user=request.user).filter(progress__contains='F')})
+        return render(request,'myflq/result.html',
+                      {'myflq':True,
+                       'analysis':analysis})
+
+
      
  
  

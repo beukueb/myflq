@@ -1,0 +1,109 @@
+{% extends "base_ajax.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h1> Result for {% if analysis.name %}{{ analysis.name }}{% else %}{{ analysis.originalFilename }}{% endif %}</h1>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="{% static 'js/profileChart.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/profileChart.css' %}">
+
+<button type="button" id="parameterButton" onclick='$("#parameterDiv").toggle();' style="width:110px;">Parameters</button>
+<div style="display:none;" id="parameterDiv">
+  <table>
+    <tr>
+      <td>Configuration</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.configuration }}</td>
+    </tr>
+    <tr>
+      <td>Scope</td>
+      <td>&#8594;</td>
+      <td>{% if analysis.flankOut %}Flankout analysis{% else %}Variant discovery{% endif %}</td>
+    </tr>
+    <tr>
+      <td>File</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.originalFilename }}</td>
+    </tr>
+    <tr>
+      <td>Minimum threshold</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.threshold }}</td>
+    </tr>
+    {% if analysis.randomSubset %}
+    <tr>
+      <td>Random subset</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.randomSubset }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td>Primer buffer</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.primerBuffer }}</td>
+    </tr>
+    {% if analysis.flankOut %}
+    <tr>
+      <td>Stutter buffer</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.stutterBuffer }}</td>
+    </tr>
+    <tr>
+      <td>Homopolymer compression</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.useCompress }}</td>
+    </tr>
+    <tr>
+      <td>Alignment flankout</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.withAlignment }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td>Run date</td>
+      <td>&#8594;</td>
+      <td>{{ analysis.creationTime }}</td>
+    </tr>
+</table>
+</div>
+
+{% if analysis.progress == 'F' %}
+<br />
+<button type="button" id="downloadButton" onclick='$("#downloadDiv").toggle();' style="width:110px;">Downloads</button>
+<div style="display:none;" id="downloadDiv">
+<p>A simple image of the profile below, that can be stored locally: <a href="{{ analysis.analysisresults.figFile.url }}">image</a></p>
+<p>A different form to process the results. Mainly of use for new variant discovery: <a href="{{ analysis.analysisresults.xmlFile.url }}"> form</a></p>
+</div>
+
+<h2>Profile</h2>
+
+  <div id="versionMyFLq"></div>
+  <div id="chart">
+    <div id="svgContainer"></div>
+    <div id="svgFunctions">
+      <h3>Settings</h3>
+      <label><input type="checkbox" id="sortLength">Absolute length</label><br /><br />
+      Threshold (%):<input type="number" class="thresQuant" value="10" min="0" max="100" step="0.05"><br />
+      0<input type="range" class="thresQuant" value="10" min="0" max="100" step="0.05">100<br /><br />
+      <hr />
+      <button id="makeProfile">Make profile</button>
+    </div>
+  </div>
+  <div id="alleleInfo"></div>
+  <script>
+    window.onload = function ()
+    {
+      d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",function(error,data){
+        draw(error,data,700);
+      });
+    }
+  </script>
+{% else %}
+  <p>Analysis failed!</p>
+{% endif %}
+{% endblock %}
+
+
+
+
