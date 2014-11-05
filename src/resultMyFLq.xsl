@@ -4,7 +4,7 @@
   <xsl:output method="html" indent="yes"/>
 
   <xsl:param name="appcontext" select="'webapp'"/>
-  <xsl:param name="profilethreshold" select="10"/>
+  <xsl:param name="profilethreshold" select="101"/><!--set to 101 to not select any-->
 
   <xsl:template match="/"> 
     <xsl:apply-templates select="results"/>
@@ -34,7 +34,7 @@
       <body>
 	<div class="resultMyFLq">
 	  <h1> Results for <xsl:value-of select="substring-before(@sample,'.fast')"/> (threshold: <xsl:value-of select="format-number(number(@thresholdUsed),'0.00%')"/>) </h1>
-	  <p style="margin-top: -20px;"><span class="hideInProfile"><br />After reviewing all loci, press here to show only selected alleles. </span><button id="profileButton" onclick="processLoci()">Make profile</button><span class="hideInProfile"><br />If you need to make changes afterwards, refresh this page.<br />The results can be saved in the newly generated page.</span></p>
+	  <p style="margin-top: -20px;"><span class="hideInProfile"><br />After reviewing all loci, press here to show only selected allele variants. </span><button id="profileButton" onclick="processLoci()">Select variants</button><span class="hideInProfile"><br />If you need to make changes afterwards, refresh this page.<br />The results can be saved in the newly generated page.</span></p>
 	  <xsl:apply-templates select="locus"/>
 	</div>
       </body> 
@@ -45,7 +45,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <div class="resultMyFLq">
       <h1> Results for <xsl:value-of select="substring-before(@sample,'.fast')"/> (threshold: <xsl:value-of select="format-number(number(@thresholdUsed),'0.00%')"/>) </h1>
-      <p>After reviewing all loci, press here to show only selected alleles <button onclick="processLoci()">Make profile</button></p>
+      <p>After reviewing all loci, press here to show only selected alleles <button onclick="processLoci()">Select variants</button></p>
       <xsl:apply-templates select="locus"/>
     </div>
   </xsl:template>
@@ -82,7 +82,7 @@
 	  </xsl:choose>
 	</xsl:for-each>
 	<xsl:if test="count(alleleCandidate) > 10">
-	  <p class="hideInProfile">More than 10 allele candidates <button type="button" id="allelebutton" class="{concat('show',$locusName)}" onclick="$('div.{$locusName}.hiddenCandidate').toggle()">Show all</button></p>
+	  <p class="hideInProfile">More than 10 allele variants <button type="button" id="allelebutton" class="{concat('show',$locusName)}" onclick="$('div.{$locusName}.hiddenCandidate').toggle()">Show all</button></p>
 	</xsl:if>
       </div>
     </div>
@@ -99,7 +99,7 @@
 	<xsl:with-param name="str" select="concat(@db-name,'.')"/>
 	<xsl:with-param name="where" select="'after'"/>
       </xsl:call-template>
-      <span class="hideInProfile">Select for profile:</span>
+      <span class="hideInProfile">Select for variant list:</span>
       <!--input type="checkbox" name="{$locusName}" value="{position}" checked="True"/-->
       <xsl:choose>
 	<xsl:when test="number(substring(@abundance,0,string-length(@abundance)-1)) >= $profilethreshold">
@@ -189,7 +189,7 @@
 	   
 	   var html = $('html').clone();
 	    html.find('#profileButton').remove()
-	   html.find('head').append('<title>MyFLq Processed Profile</title>');
+	   html.find('head').append('<title>MyFLq Processed Variants</title>');
 	   html.find('div.resultMyFLq').css('width','900px');
 	   var htmlString = html.html();
 
