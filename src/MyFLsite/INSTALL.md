@@ -15,10 +15,7 @@ After the main example, you can find an install on a CentOS 5 server.
     sudo apt-get install python3 python3-setuptools
     sudo easy_install3 django
     sudo apt-get install git libmysqlclient-dev python3-dev
-    git clone https://github.com/clelland/MySQL-for-Python-3.git
-    cd MySQL-for-Python-3/
-    python3 setup.py build
-    sudo python3 setup.py install
+    sudo easy_install3 mysqlclient
     sudo easy_install3 Pillow
     sudo apt-get install rabbitmq-server
     sudo easy_install3 Celery
