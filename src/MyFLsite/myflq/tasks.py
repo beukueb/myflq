@@ -1,10 +1,6 @@
 #from __future__ import absolute_import
 from celery import shared_task
-
-#Example
-#@shared_task
-#def add(x, y):
-#    return x + y
+#from celery.contrib import rdb #DEBUG
 
 @shared_task
 def myflqTaskRequest(analysisID):
@@ -12,6 +8,8 @@ def myflqTaskRequest(analysisID):
     from myflq.models import Analysis,AnalysisResults
     from django.core.files import File
     import subprocess,time,tempfile
+
+    #rdb.set_trace() #DEBUG => telnet 127.0.0.1 portnumber
 
     analysis = Analysis.objects.get(id=analysisID)
     analysis.progress = 'P'
