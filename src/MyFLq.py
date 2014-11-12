@@ -134,6 +134,26 @@ def compress(dna):
     Compresses all homopolymers in a DNA sequence to their base (including 'N' homopolymers)
     """
     return ''.join([dna[na] for na in range(len(dna)) if dna[na]!=dna[na-1] or na == 0])
+
+def fastaReader(fd):
+    """
+    Expects an open file descripter from a multi-lined fasta
+    and turns it into a one-lined fasta iterator
+    Will only work with constructs: line in file
+    and not with file.readline()
+    """
+    previousLine=''
+    for line in fd:
+        if previousLine.startswith('>'):
+            lineToYield = previousLine
+            previousLine = line
+            yield lineToYield
+        elif line.startswith('>'):
+            lineToYield = previousLine
+            previousLine = line
+            if lineToYield: yield lineToYield
+        else: previousLine = previousLine.replace('\n',line)
+    yield previousLine
     
 class Alignment:
     """
@@ -974,6 +994,8 @@ class Read:
             fq=gzip.open(fqFilename, mode='rt')
         #Open normal file
         else: fq=open(fqFilename)
+        #Fasta wrapper to generate one-lined fasta
+        if legacy: fq = fastaReader(fq)
 
         fqcount=4 # == size of fq entry
         for line in fq:
