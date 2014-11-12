@@ -14,11 +14,11 @@ After the main example, you can find an install on a CentOS 5 server.
     sudo apt-get install libapache2-mod-wsgi-py3
     sudo apt-get install python3 python3-setuptools
     sudo easy_install3 django
+    sudo easy_install3 django-celery
     sudo apt-get install git libmysqlclient-dev python3-dev
     sudo easy_install3 mysqlclient
     sudo easy_install3 Pillow
     sudo apt-get install rabbitmq-server
-    sudo easy_install3 Celery
     #Django extension dependencies
     sudo easy_install3 django-extensions
     sudo easy_install3 Werkzeug
