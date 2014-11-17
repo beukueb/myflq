@@ -4,15 +4,26 @@
 <h1> Setup loci and alleles </h1>
 
 {% if userdbs %}
+<script>
+  function confirmDelete() {
+   var agree=confirm("Are you sure you want to delete?");
+   if (agree) return true ;
+   else return false ;
+  }
+</script>
+
 <h2>Available configurations</h2>
 <table>
+  <tr><td style="border-right:solid;border-bottom:solid;">Name</td><td colspan="2" style="border-bottom:solid;">Associated files</td><td></td></tr>
     {% for database in userdbs %}
     <tr>
-        <form action='.' method='post'>
+        <form action='.' method='post' onsubmit="return confirmDelete()">
             {% csrf_token %}
             <input type="hidden" name="submitaction" value="deletedb" />
             <input type="hidden" name="dbname" value="{{ database.dbname }}" />
-            <td>{{ database.dbname }}</td>
+            <td style="border-right:solid;">{{ database.dbname }}</td>
+	    <td><a href="{{ database.lociFile.url }}">Loci</a></td>
+	    <td><a href="{{ database.alleleFile.url }}">Alleles</a></td>
             <td><input type="submit" value="Delete" name="deletedb" /></td>
         </form>
     </td></tr>
