@@ -22,15 +22,23 @@ inform = {item['Name'][6:]:item for item in appsession['Properties']['Items'] if
 # else: raise NotImplementedError
 if 'loci-textbox' in inform:
     lociFile = '/tmp/loci.csv'
-    tmp = open(lociFile,'wt')
-    tmp.write('\n'.join([l for l in inform['loci-textbox']['Content'].split() if l.count(',') == 3]))
-    tmp.close()
+    subprocess.check_call([
+        'wget',
+        '--no-check-certificate',
+        '-O',
+        lociFile,
+        inform['loci-textbox']['Content'].strip()
+    ])
 else: lociFile = '/myflq/loci/'+lociOptions[int(inform['select-loci']['Content'])]
 if 'alleles-textbox' in inform:
     alleleFile = '/tmp/alleles.csv'
-    tmp = open(alleleFile,'wt')
-    tmp.write('\n'.join([l for l in inform['alleles-textbox']['Content'].split() if l.count(',') == 2]))
-    tmp.close()
+    subprocess.check_call([
+        'wget',
+        '--no-check-certificate',
+        '-O',
+        alleleFile,
+        inform['alleles-textbox']['Content'].strip()
+    ])
 else:
     if int(inform['select-allele']['Content']) == -1:
         import sys
@@ -82,14 +90,14 @@ command = ['python3',
            '/myflq/MyFLq.py',
            '-p', 'passall',
            'analysis',
-           #'--negativeReadsFilter', str('negativeReadsFilter' in inform), #For now disabled, no added value/buggy
+           '--negativeReadsFilter', #if 'negativeReadsFilter' in inform, #For now always enabled, no added value/buggy
            '--primerBuffer', str(inform['primerBuffer']['Content']),
            '--flankOut' if 'flankOut' in inform else 'REMOVE',
            '--stutterBuffer', str(inform['stutterBuffer']['Content']),
            '--useCompress' if 'useCompress' in inform else 'REMOVE',
            '--withAlignment' if 'withAlignment' in inform else 'REMOVE',
            '--threshold', str(float(inform['threshold']['Content'])/100),
-           #'--clusterInfo', str('clusterInfo' in inform), #Makes no sense not to see this info for forensic analyst
+           '--clusterInfo', #if 'clusterInfo' in inform else 'REMOVE', #Makes no sense not to see this info for forensic analyst
            '--randomSubset' if str(inform['randomSubset']['Content']) == '100' else 'REMOVE',
            str(float(inform['randomSubset']['Content'])/100) if str(inform['randomSubset']['Content']) == '100' else 'REMOVE',
            '-r', outDir+'resultMyFLq.xml',

@@ -15,6 +15,11 @@ The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beuku
 The datafile can be a single-individual-source or multiple-individual-source sample. Profile results depend on both csv files. Loci.csv will determine the number of loci that will be analyzed; alleles.csv will determine the region of interest [ROI] of those loci.
 
 ## Options for running MyFLq
+### Active sites
+[forensic.UGent.be](https://forensic.ugent.be)  
+[BaseSpace](https://basespace.illumina.com/apps/174174/MyFLq)
+
+
 ### Installation from the Github repo
 
 MyFLq is developed as a Django application. It requires the installation of several dependencies (including MySQL) before it can be used.  Detailed instructions can be found in the file [INSTALL](https://github.com/beukueb/myflq/blob/master/src/MyFLsite/INSTALL.md).

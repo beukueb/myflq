@@ -50,6 +50,9 @@ RUN cd /tmp && git clone https://github.com/clelland/MySQL-for-Python-3.git && \
 RUN mkdir -p /var/log/supervisor
 ADD ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+#Wget #TODO: This should move up to other program installations
+RUN apt-get install -y wget
+
 #Sending program files
 #The files must be within the buildfile dir or below
 RUN mkdir /myflq
