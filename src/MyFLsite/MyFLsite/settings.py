@@ -21,6 +21,8 @@ SECRET_KEY = 'ap1(^gw_*loimc6fsrre&b6j*bw1o(39frgc86(#z4ba^(g&5y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#When DEBUG = FALSE, provide admin account that will receive error messages
+#ADMINS = (('admin name','admin@ma.il'),)
 
 TEMPLATE_DEBUG = True
 
