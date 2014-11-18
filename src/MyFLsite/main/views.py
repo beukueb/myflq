@@ -11,6 +11,9 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
+            import logging
+            logger = logging.getLogger('django.request')
+            logger.info('New registered user\n'+str(request).replace('\n','\n\t'))
             new_user = form.save()
             return HttpResponseRedirect("/")
     else:
