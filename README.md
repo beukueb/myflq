@@ -1,4 +1,4 @@
-# MyFLq version 1.0 
+# MyFLq version 1.1 
 [My Forensic Loci queries]
 
 Open source, straightforward analysis tool for forensic DNA samples.
