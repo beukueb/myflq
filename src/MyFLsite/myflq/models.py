@@ -144,6 +144,9 @@ class Analysis(models.Model):
     progress = models.CharField(max_length=2,default='Q',choices=[('Q','Queued'),('P','Processing'),('F','Finished'),('FA','Failed')])
     creationTime = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-creationTime']
+
     def __str__(self):
         return 'Analysis: config = '+str(self.configuration)+', file = '+self.originalFilename+' [settings => '+ \
             'negativeReadsFilter = '+str(self.negativeReadsFilter)+', '+ \

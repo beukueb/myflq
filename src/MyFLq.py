@@ -1563,7 +1563,7 @@ class Analysis:
                 kMerAssign=('refseq-k-mer',5) => reference sequence k-mer assign with wordsize 5
             primerBuffer => int: shortens with int bp the primer (outer) in locusDict to assign
                                     more reads that have bad primerends (not tested using with kMerAssign)
-            flankOut => bool, default True. 
+            flankOut => bool, default False. 
                 If False, only primerOut: this is usefull to explore for new alleles (non current-database alleles),
                                           or to explore the quality of the sample without flanking out
             stutterBuffer => int: shortens with int repeatsize the flanks (inner) in locusDict 
