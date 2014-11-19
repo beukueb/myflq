@@ -44,7 +44,7 @@ function changeAim() {
         <td>{{ analysisform.configuration }}</td></tr>
 
 	<tr><td><label class="helponhover" for="analysisAim">Analysis scope</label><span class="helptext">{{ analysisform.flankOut.help_text }}</span></td></td>
-	<td><button id="analysisAim" type="button" onClick="changeAim();">Flankout analysis</button></td></tr>
+	<td><button id="analysisAim" type="button" onClick="changeAim();">{% if analysisform.flankOut.value %}Flankout analysis{% else %}Variant discovery{% endif %}</button></td></tr>
 
 	<tr height="10px"></tr>
         
@@ -78,8 +78,8 @@ function changeAim() {
         </div>
         
         <div style="float:left;margin-left:20px;">
-            <h3 class="flankOut">Flankout options</h3>
-            <table class="flankOut">
+            <h3 class="flankOut" {% if not analysisform.flankOut.value %}style="display:none;"{% endif %}>Flankout options</h3>
+            <table class="flankOut" {% if not analysisform.flankOut.value %}style="display:none;"{% endif %}>
             <tr><td><label class="helponhover" for="{{ analysisform.stutterBuffer.id_for_label }}">{{ analysisform.stutterBuffer.label }}</label>
  <span class="helptext">{{ analysisform.stutterBuffer.help_text }}</span></td>
             <td>{{ analysisform.stutterBuffer }}</td></tr>
