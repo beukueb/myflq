@@ -95,6 +95,12 @@
       Threshold (%):<input type="number" class="thresQuant" value="10" min="0" max="100" step="0.05"><br />
       0<input type="range" class="thresQuant" value="10" min="0" max="100" step="0.05">100<br /><br />
       <hr />
+      <div style="display: table;">
+      <button id="goLeft" style="display:table-cell; vertical-align:middle; height:25px;"><img src="{% static 'images/q_left.png' %}" style="height:20px"></button>
+      <button id="zoomButton" style="display:table-cell; vertical-align:middle; height:25px;">Max zoom</button>
+      <button id="goRight" style="display:table-cell; vertical-align:middle; height:25px;"><img src="{% static 'images/q_right.png' %}" style="height:20px"></button>
+      </div>
+      <hr />
       <button id="makeProfile">Make profile</button>
     </div>
   </div>

@@ -86,8 +86,6 @@ function draw(error,data,width,height) {
         domainMaxStackedGraph = [-1,stackedAllelesLociPositions[stackedAllelesLociPositions.length-1]+1];
     var x_scale = d3.scale.linear().range([0,width])
         .domain(domainMaxNormalGraph);
-        /*x_stackedScale = d3.scale.linear().range([0,width])
-        .domain([0,stackedAllelesLociPositions[stackedAllelesLociPositions.length-1]]);*/
     var x_axis = d3.svg.axis().scale(x_scale).tickValues(lociStartPosition)
 	.tickFormat(function(d) { return lociNames[lociStartPosition.indexOf(d)];});
     var axisText_dx = ".8em",
@@ -97,7 +95,6 @@ function draw(error,data,width,height) {
     var y_axis = d3.svg.axis().scale(y_scale).orient("left");
     function barWidth() {
 	return Math.max(1,x_scale(1)-x_scale(0)-1);
-	//return (stackedGraph) ?  Math.max(1,x_stackedScale(1)-1) : Math.max(1,x_scale(1)-1);
     }
     //console.log(x_extent,barWidth);
 
@@ -119,9 +116,10 @@ function draw(error,data,width,height) {
           .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
     var maxPosStackedBar = stackedAllelesLociPositions[stackedAllelesLociPositions.length-1];
+    var maxZoom = Math.min(100,Math.max(10,10*maxPosStackedBar/width));
     var zoom = d3.behavior.zoom()
         .x(x_scale)
-	.scaleExtent([.9,Math.min(100,Math.max(10,10*maxPosStackedBar/width))]) //simple [1,10]
+	.scaleExtent([.9,maxZoom]) //simple [1,10]
         .on("zoom", zoomHandler);
 
     //Clipping zone for all bars and x axis
@@ -441,6 +439,26 @@ function draw(error,data,width,height) {
 	    }	
 	})
 
+    //Zoom and slider buttons
+    d3.select("#zoomButton")
+	.on("click", function() {
+	    zoom.scale(maxZoom); //Set zoom level
+	    zoomHandler();
+	    window.xscale = x_scale,window.zoom=zoom;
+	});
+
+    d3.select("#goRight")
+	.on("click", function() {
+	    zoom.translate([zoom.translate()[0]-xscale.range()[1],0]); //Move domain to the right
+	    zoomHandler();
+	});
+
+    d3.select("#goLeft")
+	.on("click", function() {
+	    zoom.translate([zoom.translate()[0]+xscale.range()[1],0]); //Move domain to the left
+	    zoomHandler();
+	});   
+    
     //Make profile
     d3.select("#makeProfile")
 	.on("click", function() {
