@@ -11,7 +11,7 @@
     /*overflow: hidden;*/
     width: 1100px;
     height: 400px;
-    margin: auto;
+    /*margin: auto;*/
 }
 
 #svgContainer {
@@ -28,7 +28,7 @@
     position: absolute;
     box-sizing: border-box;
     margin: 0px;
-    left: 700px; /*TODO set in draw function dynamically based on graph width*/
+    right: 0px; /*TODO set in draw function dynamically based on graph width*/
     top: 0px;
     width: 200px;
 }

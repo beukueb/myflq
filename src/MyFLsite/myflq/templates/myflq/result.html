@@ -2,6 +2,14 @@
 {% load staticfiles %}
 
 {% block content %}
+<style>
+#page {
+    margin-left: 50px;
+    margin-right: 50px;
+    max-width: none;
+}
+</style>
+
 <h1> Result for {% if analysis.name %}{{ analysis.name }}{% else %}{{ analysis.originalFilename }}{% endif %}</h1>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -79,7 +87,7 @@
 <h2>Profile</h2>
 
   <div id="versionMyFLq"></div>
-  <div id="chart">
+  <div id="chart" style="width:100%;">
     <div id="svgContainer"></div>
     <div id="svgFunctions">
       <h3>Settings</h3>
@@ -94,9 +102,14 @@
   <script>
     window.onload = function ()
     {
+      window.widthOnPageLoad = document.getElementById('chart').clientWidth-200 //Define global variable
       d3.xml("{{ analysis.analysisresults.xmlFile.url }}", "application/xml",function(error,data){
-        draw(error,data,700);
+        draw(error,data,widthOnPageLoad);
       });
+    }
+    window.onresize = function ()
+    {
+      d3.select("#svgContainer").select('svg').attr('width',document.getElementById('chart').clientWidth-200)
     }
   </script>
 {% else %}

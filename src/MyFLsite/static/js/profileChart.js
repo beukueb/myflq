@@ -76,8 +76,10 @@ function draw(error,data,width,height) {
     //Prepare chart
       //svg properties
     var margin = {top: 30, right: 30, bottom: 70, left: 40},
-    width = width - margin.left - margin.right,
-    height = height - margin.top - margin.bottom;
+        fullWidth = width,
+        fullHeight = height;
+    width = fullWidth - margin.left - margin.right;
+    height = fullHeight - margin.top - margin.bottom;
     
       //Setting scales
     var domainMaxNormalGraph = [0,loci.length + results.getElementsByTagName("alleleCandidate").length],
@@ -109,8 +111,10 @@ function draw(error,data,width,height) {
 	      date);
     var svg = d3.select("#svgContainer")
         .append("svg")
-          .attr("width",width + margin.left + margin.right)
-          .attr("height",height + margin.top + margin.bottom)
+          .attr("width",fullWidth)
+          .attr("height",fullHeight)
+          .attr("viewBox","0 0 "+fullWidth+" "+fullHeight)
+          .attr("preserveAspectRatio","xMinYMin slice")
         .append("g")
           .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
