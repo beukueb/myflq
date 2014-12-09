@@ -36,7 +36,7 @@ class UserResources(models.Model):
         """
         This is the username for the database, linked to the MyFLsite current user 
         """
-        if not set(self.user.username) & noSQLname:
+        if (not set(self.user.username) & noSQLname) and len(self.user.username) <= 10:
             return 'myfls_'+self.user.username
         else:
             return 'myflsid_'+str(self.user.id)
@@ -49,21 +49,21 @@ class UserResources(models.Model):
         """
         return self.dbusername()+'_'+self.dbname
         
-class Primer(models.Model):
+class Locus(models.Model):
     """
-    This model lists all primers analyzed per database
+    This model lists all loci analyzed per configuration
     """
-    dbname = models.ForeignKey(UserResources)
-    locusName = models.CharField(max_length=200)
+    configuration = models.ForeignKey(UserResources)
+    name = models.CharField(max_length=200)
     locusType = models.IntegerField(null=True,blank=True,max_length=1,verbose_name='type')
     forwardPrimer = models.CharField(max_length=200)
     reversePrimer = models.CharField(max_length=200)
     
     class Meta:
-        unique_together = ("dbname", "locusName")
+        unique_together = ("configuration", "name")
     
     def __str__(self):
-        return self.locusName
+        return self.name
         
 #Analysis
 from django.core.exceptions import ValidationError
@@ -170,3 +170,23 @@ class AnalysisResults(models.Model):
                                instance.analysis.configuration.fulldbname()+'.xml')
     figFile = models.ImageField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
                                 instance.analysis.configuration.fulldbname()+'.png')
+
+
+#Alleledatabase
+class Allele(models.Model):
+    """
+    This model lists all alleles analyzed per user configuration
+    """
+    configuration = models.ForeignKey(UserResources)
+    locus = models.ForeignKey(Locus)
+    name = models.CharField(null=True,blank=True,max_length=200)
+    repeatNumber = models.IntegerField(null=True,blank=True,max_length=2,verbose_name='type')
+    sequence = models.CharField(max_length=1000)
+    analysis = models.ForeignKey(Analysis,null=True,blank=True) #Alleles from original csv file will not be linked to an analysis
+    timeAdded = models.DateTimeField(auto_now_add=True)
+    
+    #class Meta:
+    #    unique_together = ("configuration", "sequence") => no uniqueness defined TODO => mechanism to check duplicates
+    
+    def __str__(self):
+        return self.locusName
