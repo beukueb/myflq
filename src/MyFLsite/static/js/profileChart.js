@@ -29,6 +29,9 @@ function draw(error,data,width,height) {
     var versionMyFLq = (results.getAttribute('versionMyFLq')) ? results.getAttribute('versionMyFLq'):'1.0'
     d3.select("#versionMyFLq").text('MyFLq version used: ' + versionMyFLq);
 
+    //Retrieve analysis type
+    var analysisType = (results.getAttribute('flankedOut') == 'True') ? 'flankout analysis':'variant discovery';
+
       //Normal sequential graph
     var lociNames = [];
     var lociStartPosition = [0]; //First locus starts at 0
@@ -265,7 +268,7 @@ function draw(error,data,width,height) {
 		row.append("td").text(d.getElementsByTagName("qualityFlanks")[0].getAttribute("clean"));
 		
 		//In profile checkbox
-		aI.append("br")
+		aI.append("br");
 		aI.append("label")
 		    .attr("for","profileCheckbox")
 		    .text("In profile: ");
@@ -281,6 +284,24 @@ function draw(error,data,width,height) {
 		    //console.log(this);
 		    d.setAttribute('profile', (d.getAttribute('profile')=='no') ? 'yes' : 'no');
 		})
+
+		//In database checkbox
+		if (analysisType == 'variant discovery' && d.getAttribute("db-name")=='NA') {
+		    aI.append("br");
+		    aI.append("label")
+			.attr("for","databaseCheckbox")
+			.text("Add to database: ");
+		    var databaseCB = aI.append("input")
+		    	.attr("type","checkbox")
+			.attr("id","databaseCheckbox");
+		    if (d.getAttribute('addToDatabase')=='yes') {
+			databaseCB.attr("checked","checked");
+		    }
+		    databaseCB.on("click",function(){
+			d.setAttribute('addToDatabase', (d.getAttribute('addToDatabase')=='yes') ? 'no' : 'yes');
+		    })
+		}
+		
 		
 		//Cluster-info
 		aI.append("h3").text("Relations to other sequences within "+locus.getAttribute("name"));
@@ -444,7 +465,6 @@ function draw(error,data,width,height) {
 	.on("click", function() {
 	    zoom.scale(maxZoom); //Set zoom level
 	    zoomHandler();
-	    window.xscale = x_scale,window.zoom=zoom;
 	});
 
     d3.select("#goRight")

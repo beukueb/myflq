@@ -52,3 +52,44 @@ def myflqTaskRequest(analysisID):
 
     print('Command:\n',' '.join(command))
     return 'Executed:\n'+' '.join(command)
+
+@shared_task
+def alleleTaskRequest(sequence):
+    """
+    Retrieves the sequence identifier on ENA.
+    Submits an entry if not already available.
+    """
+    from urllib.request import urlopen
+    from time import sleep
+    #urlopen("http://www.ebi.ac.uk/ena/search/showQueryCollections?type=exact") #DEBUG see collection ids
+    #  20	Human	-----Human (EMBL-Bank)
+    
+    #Submit search for sequence #TODO make work with &type=exact => mail ENA
+    response = urlopen('http://www.ebi.ac.uk/ena/search/executeSearch?Sequence={seq}&collection_id=20'.format(seq=sequence))
+    response = response.read().decode().strip()
+    
+    #Wait for result completion
+    status = urlopen(response).read().decode()
+    while not status.startswith('COMPLETE'):
+        sleep(30)
+        status = urlopen(response).read().decode()
+    totalResults = int(status.strip().split('\t')[-1])
+
+    #See if there is a full identity match (check first only 10 results)
+    resultsQuery = response.replace('Status','Results')+'&fields=accession,identity,e_value&offset={offset}&length=10'
+    for i in range(0,totalResults,10):
+        results = urlopen(resultsQuery.format(offset=i))
+        results = response.read().decode().strip()
+        if '\t100\t' in results: break
+
+    if '\t100\t' in results:
+        for result in results.split('\r\n'):
+            result = result.split('\t')
+            if result[1] == '100': return result[0] #result[0] is the accession id
+
+    #If not returned then sequence has to be submitted
+    enasubmit = 'https://www-test.ebi.ac.uk/ena/submit/drop-box/submit/'
+      #https://www.ebi.ac.uk/ena/submit/drop-box/submit/ #TODO for production
+
+
+    
