@@ -1,6 +1,9 @@
-# Byte-coSara Setolampiled / optimized / DLL files
-__pycache__Sara Setola/
+# Byte-compiled / optimized / DLL files
+__pycache__/
 *.py[cod]
 
 # Django stuff:
 *.log
+
+# Temporary files
+*~
