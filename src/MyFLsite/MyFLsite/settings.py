@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'django_extensions', #Not strictly necessary but helpful for development
     'main',
     'myflq',
+    'flad',
 )
 
 MIDDLEWARE_CLASSES = (

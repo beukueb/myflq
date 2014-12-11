@@ -469,13 +469,13 @@ function draw(error,data,width,height) {
 
     d3.select("#goRight")
 	.on("click", function() {
-	    zoom.translate([zoom.translate()[0]-xscale.range()[1],0]); //Move domain to the right
+	    zoom.translate([zoom.translate()[0]-x_scale.range()[1],0]); //Move domain to the right
 	    zoomHandler();
 	});
 
     d3.select("#goLeft")
 	.on("click", function() {
-	    zoom.translate([zoom.translate()[0]+xscale.range()[1],0]); //Move domain to the left
+	    zoom.translate([zoom.translate()[0]+x_scale.range()[1],0]); //Move domain to the left
 	    zoomHandler();
 	});   
     

@@ -6,7 +6,7 @@ from django.conf import settings
 # Create your views here.
 
 #Setup
-from myflq.models import UserResources,Primer
+from myflq.models import UserResources,Locus
 from myflq.forms import ConfigurationForm
 
 import os, subprocess
@@ -70,12 +70,12 @@ def process_primerfile(requestfile,dbname):
     for line in requestfile.readlines():
         if line.decode().strip().startswith('#'): continue
         line = line.decode().strip().split(',')
-        primer = Primer(dbname = dbname,
+        locus = Locus(dbname = dbname,
                         locusName = line[0],
                         locusType = None if line[1] == 'SNP' else line[1],
                         forwardPrimer = line[2],
                         reversePrimer = line[3])
-        primer.save()
+        locus.save()
 
 #Analysis
 from myflq.forms import analysisform_factory

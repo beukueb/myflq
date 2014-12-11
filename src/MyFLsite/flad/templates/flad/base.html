@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}FLAD{% endblock %}
+
+{% block header %}
+<div id="header-title" style="background-image: url('{% static 'images/FLADLogo.png' %}');background-position: left;">
+  <h1>Forensic Loci Allele Database</h1>
+  <h2>Permanent references for forensic STR and SNP alleles</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+ {% block fladcontent %}
+ {% endblock %}
+
+<h3>{% block flatquery %}Query{% endblock %}</h3>
+
+<table>
+  <tr>
+    <td>FLADid</td><td><input type="text" id="input_fladid" /></td>
+    <td><input type="submit" value="Get sequence" style="width:12em;" onclick="window.location = window.location.origin + '/flad/sequence/' + document.getElementById('input_fladid').value;" /></td>
+  </tr>
+  <tr height="20px;"><tr>
+  <tr>
+    <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
+    <td><input type="submit" value="Get FLADid" style="width:12em;"  onclick="window.location = window.location.origin + '/flad/getid/' + document.getElementById('input_sequence').value;" /></td>
+  </tr>
+  <tr>
+    <td></td><td></td>
+    <td><input type="submit" value="Add sequence" style="width:12em;" onclick="window.location = window.location.origin + '/flad/addid/' + document.getElementById('input_sequence').value;" /></td>
+  </tr>
+</table>
+
+{% endblock %}

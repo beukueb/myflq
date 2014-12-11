@@ -41,4 +41,5 @@ Christophe Van Neste (left).''','style':'border-radius:20px;'}
     
     #MyFLq (only after login)
     url(r'^myflq/', include('myflq.urls')),
+    url(r'^(flad|FLAD)/', include('flad.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #DEBUG# Comment last line out on production server

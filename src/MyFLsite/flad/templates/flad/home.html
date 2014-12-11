@@ -1,0 +1,31 @@
+{% extends "flad/base.html" %}
+{% load staticfiles %}
+
+{% block fladcontent %}
+<h3>Mission statement</h3>
+<p>
+  FLAD is a straightforward database for forensic alleles, that offers you permanent references to any expected allele sequence. If a sequence is not yet in the database, a simple registration is sufficient to start adding alleles to FLAD.<br />
+  FLAD does not intend to get in the way of the forensic analyst and the interpretation of a forensic profile. It does not provide information about the loci a sequence belongs to, not even if it is a validated allele.
+</p>
+
+<h3>Database download</h3>
+A weekly backup is made from the database that is available for download. It is encrypted with the forensic.ugent.be certificate, so that its origin can be determined for quality control.
+
+<h3>Programmatory access</h3>
+<h4>Retrieve sequence with a FLADid</h4>
+<code>https://forensic.ugent.be/flad/sequence/xml/{FLADid}</code>
+<p>Example: <code>https://forensic.ugent.be/flad/sequence/xml/FA001</code></p>
+
+<h4>Retrieve FLADid with a sequence</h4>
+<code>https://forensic.ugent.be/flad/getid/xml/{sequence}</code>
+<p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC</code></p>
+
+<h4>Retrieve FLADid with a sequence (add sequence to database if not present already)</h4>
+<code>https://forensic.ugent.be/flad/getid/xml/{sequence}?u={username}&p={password}</code>
+<p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC?u=jeffreys&p=1984</code></p>
+
+{% endblock %}
+
+
+
+

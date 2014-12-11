@@ -2,17 +2,22 @@
 
 <ul>
     <li><a href="/">Home</a></li>
-    {% if not myflq %}
-    {% if user.is_authenticated %} <li><a href="/myflq">MyFLq</a></li> {% endif %}
-    <li><a href="/source-files">Sources</a></li>
-    <li><a href="/contact">Contact</a></li>
-    <li><a href="/about">About</a></li>
-    {% else %}
+    {% if myflq %}
     <li><a href="/myflq">Start</a></li>
     <li><a href="/myflq/setup">Setup</a></li>
     <li><a href="/myflq/analysis">Analysis</a></li>
     <li><a href="/myflq/results">Results</a></li>
     <li><a href="https://github.com/beukueb/myflq#workflow-for-forensicugent-or-a-local-myflq-installation" target="_blank">Help</a></li>
+    {% elif flad %}
+    <li><a href="/flad">FLAD</a></li>
+    <li><a href="/flad/query">Query</a></li>
+    <li><a href="/contact">Contact</a></li>
+    {% else %}
+    {% if user.is_authenticated %} <li><a href="/myflq">MyFLq</a></li> {% endif %}
+    <li><a href="/flad">FLAD</a></li>
+    <li><a href="/source-files">Sources</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/about">About</a></li>
     {% endif %}
 </ul>
 
