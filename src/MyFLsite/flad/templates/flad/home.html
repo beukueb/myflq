@@ -4,25 +4,13 @@
 {% block fladcontent %}
 <h3>Mission statement</h3>
 <p>
-  FLAD is a straightforward database for forensic alleles, that offers you permanent references to any expected allele sequence. If a sequence is not yet in the database, a simple registration is sufficient to start adding alleles to FLAD.<br />
-  FLAD does not intend to get in the way of the forensic analyst and the interpretation of a forensic profile. It does not provide information about the loci a sequence belongs to, not even if it is a validated allele.
+  FLAD is a simple database for forensic alleles, that offers permanent references to any allele sequence. If a sequence is not yet in the database, a simple registration is sufficient to start adding alleles to FLAD.<br />
+  FLAD does not provide information about the loci a sequence belongs to, nor if it is a validated allele. FLAD aims to be a simple reference service, similar to what <a href="http://www.doi.org/">doi</a> does for publication references, to provide forensic analysis software with permanent references for sequences.
 </p>
 
 <h3>Database download</h3>
-A weekly backup is made from the database that is available for download. It is encrypted with the forensic.ugent.be certificate, so that its origin can be determined for quality control.
-
-<h3>Programmatory access</h3>
-<h4>Retrieve sequence with a FLADid</h4>
-<code>https://forensic.ugent.be/flad/sequence/xml/{FLADid}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/sequence/xml/FA001</code></p>
-
-<h4>Retrieve FLADid with a sequence</h4>
-<code>https://forensic.ugent.be/flad/getid/xml/{sequence}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC</code></p>
-
-<h4>Retrieve FLADid with a sequence (add sequence to database if not present already)</h4>
-<code>https://forensic.ugent.be/flad/getid/xml/{sequence}?u={username}&p={password}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC?u=jeffreys&p=1984</code></p>
+<p>A weekly backup is made from the database that is available for download (<a href="{% static 'flad/FLADback.tar.gz' %}">FLADbackup.tar.gz</a>,<a href="{% static 'flad/FLADback.sha256' %}">verification hash</a>). The verification hash is encrypted with the forensic.ugent.be certificate (<a href="{% static 'flad/forensic.ugent.be.pub' %}">public key</a>). The origin of FLADbackup can be determined for quality control with the following commandline:</p>
+<code>openssl dgst -sha256 -verify forensic.ugent.be.pub -signature FLADbackup.sha256 FLADbackup</code>
 
 {% endblock %}
 

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -6,7 +8,7 @@ from flad.models import Allele
 from myflq.MyFLq import complement
 from django.core.exceptions import ObjectDoesNotExist
 
-def getsequence(request,fladid,xml=False):
+def getsequence(request,fladid,mode=False):
     try: seq = getAllele(fladid).sequence
     except ObjectDoesNotExist:
         seq = ''
@@ -14,11 +16,14 @@ def getsequence(request,fladid,xml=False):
               'complement':complement(seq),
               'fladid':fladid,
               'flad':True}
-    if xml: return render(request,'flad/seqid.xml',kwargs,
-                          content_type="application/xhtml+xml")
+    if mode:
+        if 'xml' in mode:
+            return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
+        elif 'plain' in mode:
+            return HttpResponse(kwargs['sequence'], content_type="text/plain")
     else: return render(request,'flad/seqid.html',kwargs)
 
-def getid(request,seq,xml=False):
+def getid(request,seq,mode=False):
     try: fladid = getAllele(seq,seqid=True).fladid()
     except ObjectDoesNotExist:
         fladid = None
@@ -26,12 +31,30 @@ def getid(request,seq,xml=False):
               'complement':complement(seq),
               'fladid':fladid,
               'flad':True}
-    if xml: return render(request,'flad/seqid.xml',kwargs,
-                          content_type="application/xhtml+xml")
+    if mode:
+        if 'xml' in mode:
+            return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
+        elif 'plain' in mode:
+            return HttpResponse(kwargs['fladid'], content_type="text/plain")
     else: return render(request,'flad/seqid.html',kwargs)
 
-@login_required
-def addid(request,seq,xml=False):
+def addid(request,seq,mode=False):
+    #Authenticate user
+    from django.contrib.auth.models import User
+    try:
+        if request.method == 'POST':
+            request.user = User.objects.get(username=request.POST['user'])
+            if not request.user.check_password(request.POST['password']): raise ObjectDoesNotExist
+        elif request.GET:
+            request.user = User.objects.get(username=request.GET['user'])
+            if not request.user.check_password(request.GET['password']): raise ObjectDoesNotExist
+    except ObjectDoesNotExist:
+        return HttpResponse("User does not exist or password is incorrect.", content_type="text/plain")
+        
+    if not request.user.is_authenticated():
+        return redirect('/accounts/login/?next=%s' % request.path)
+
+    #addid logic
     try: allele = getAllele(seq,seqid=True)    
     except ObjectDoesNotExist: #Add to database
         import random
@@ -49,8 +72,11 @@ def addid(request,seq,xml=False):
               'complement':complement(seq),
               'fladid':allele.fladid(),
               'flad':True}
-    if xml: return render(request,'flad/seqid.xml',kwargs,
-                          content_type="application/xhtml+xml")
+    if mode:
+        if 'xml' in mode:
+            return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
+        elif 'plain' in mode:
+            return HttpResponse(kwargs['fladid'], content_type="text/plain")
     else: return render(request,'flad/seqid.html',kwargs)
 
 def getAllele(id,seqid=False):

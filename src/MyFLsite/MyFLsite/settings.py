@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions', #Not strictly necessary but helpful for development
+    'djcelery', #To set up weekly jobs for flad
     'main',
     'myflq',
     'flad',
@@ -142,3 +143,6 @@ BROKER_URL = 'amqp://guest:guest@localhost//'
 CELERY_ACCEPT_CONTENT = ['json'] #: Only add pickle to this list if your broker is secured
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+# FLAD settings
+FLAD_BACKUPFILE = 'FLADbackup' # Make sure django user has write access
