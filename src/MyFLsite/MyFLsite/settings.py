@@ -143,6 +143,9 @@ BROKER_URL = 'amqp://guest:guest@localhost//'
 CELERY_ACCEPT_CONTENT = ['json'] #: Only add pickle to this list if your broker is secured
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+##If djcelery is enabled in INSTALLED_APPS
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 
 # FLAD settings
 FLAD_BACKUPFILE = 'FLADbackup' # Make sure django user has write access

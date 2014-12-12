@@ -35,9 +35,11 @@ def backup():
     tempcsv.close()
 
     subprocess.check_call(['tar','-czf',backupfile+'.tar.gz',tempcsv.name])
-    subprocess.check_call(['sudo','openssl','dgst','-sha256','-sign','/etc/ssl/private/forensic.ugent.be.key',
+    subprocess.check_call(['sudo','/usr/bin/openssl','dgst','-sha256','-sign','/etc/ssl/private/forensic.ugent.be.key',
                            '-out',backupfile+'.sha256',backupfile+'.tar.gz'])
     #With visudo, enable exact execution of above command on server
+    #Cmnd_Alias FLADBACKUP = /usr/bin/openssl dgst -sha256 -sign /etc/ssl/private/forensic.ugent.be.key -out /home/christophe/.virtualenv/myflqenv/static/FLAD/FLADbackup.sha256 /home/christophe/.virtualenv/myflqenv/static/FLAD/FLADbackup.tar.gz
+    #christophe  ALL=NOPASSWD: FLADBACKUP
     
     #To allow verify, pub key is needed with following commands on the server from ipython django shell
     #from django.conf import settings
