@@ -25,18 +25,18 @@ def backup():
 
     #Rename previous backup
     #TODO consider also renaming sha256
-    try: os.rename(backupfile+'tar.gz',backupfile+datetime.now().strftime('_%H_%M_%d_%m_%Y.tar.gz'))
+    try: os.rename(backupfile+'.tar.gz',backupfile+datetime.now().strftime('_%H_%M_%d_%m_%Y.tar.gz'))
     except FileNotFoundError:
         print('FLADbackup file not found. This is normal for the first backup event.')
 
-    tempcsv = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
+    tempcsv = tempfile.NamedTemporaryFile(delete=False,suffix='.csv',mode='wt')
     for a in Allele.objects.all():
         tempcsv.write('{},{}\n'.format(a.fladid(),a.sequence))
     tempcsv.close()
 
-    subprocess.check_call(['tar','-czf',backupfile+'tar.gz',tempcsv.name])
+    subprocess.check_call(['tar','-czf',backupfile+'.tar.gz',tempcsv.name])
     subprocess.check_call(['sudo','openssl','dgst','-sha256','-sign','/etc/ssl/private/forensic.ugent.be.key',
-                           '-out',backupfile+'.sha256',backupfile+'tar.gz'])
+                           '-out',backupfile+'.sha256',backupfile+'.tar.gz'])
     #With visudo, enable exact execution of above command on server
     
     #To allow verify, pub key is needed with following commands on the server from ipython django shell
