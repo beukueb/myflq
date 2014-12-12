@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 
-from myflq.models import UserResources,Analysis
+from myflq.models import UserResources,Analysis, FLADconfig
 
 #Setup
 from django.core.validators import RegexValidator
@@ -69,3 +69,9 @@ def analysisform_factory(db_queryset,upfiles_queryset):
             return self.cleaned_data
         
     return AnalysisForm
+
+#FLAD configuration
+class FLADconfigForm(ModelForm):
+    class Meta:
+        model = FLADconfig
+        exclude = ['user']

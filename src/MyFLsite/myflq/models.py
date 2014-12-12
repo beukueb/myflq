@@ -190,3 +190,13 @@ class Allele(models.Model):
     
     def __str__(self):
         return self.locusName
+
+class FLADconfig(models.Model):
+    """
+    Username and registration key on forensic.UGent.be.
+    This is defined in the 'myflq' app instead of the 'flad' 
+    app for compatibility with standalone MyFLq installations.
+    """
+    user = models.OneToOneField(User) #only one FLADconfig per user
+    FLADname = models.CharField(max_length=30) #30 maximum Django username length
+    FLADkey = models.CharField(max_length=50)  #50 => no need to exagerate

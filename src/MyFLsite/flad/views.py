@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.html import mark_safe
 
 # Create your views here.
-from flad.models import Allele,UsableReference
+from flad.models import Allele,UsableReference,FLADkey
 from myflq.MyFLq import complement
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -101,6 +101,15 @@ def unvalidate(request,id,mode=False):
         allele.delete()
         return render(request,'flad/messages.html',
                       {'message':mark_safe('Entry <span style="color:red;">{},{}</span> has been removed.'.format(id,seq))})
+
+@login_required
+def registration(request):
+    try: fladkey = FLADkey.objects.get(user=request.user)
+    except:
+        from myflq.MyFLq import makeRandomPassphrase
+        fladkey = FLADkey(FLADkey=makeRandomPassphrase(20,30),user=request.user)
+        fladkey.save()
+    return render(request,'flad/registration.html',{'fladkey': fladkey.FLADkey,'flad':True})
     
 def getAllele(id,seqid=False):
     if seqid:
@@ -122,7 +131,12 @@ def authenticateUser(request):
             if not request.user.check_password(request.POST['password']): raise ObjectDoesNotExist
         elif request.GET:
             request.user = User.objects.get(username=request.GET['user'])
-            if not request.user.check_password(request.GET['password']): raise ObjectDoesNotExist
+            if not request.user.check_password(request.GET['password']):
+                try:
+                    fladkey = FLADkey.objects.get(user=request.user)
+                    if fladkey.FLADkey != request.GET['password']: raise ObjectDoesNotExist
+                except:
+                    raise ObjectDoesNotExist
     except ObjectDoesNotExist:
         return HttpResponse("User does not exist or password is incorrect.", content_type="text/plain")
         

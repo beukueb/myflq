@@ -507,8 +507,8 @@ def makeRandomPassphrase(minLength=8,maxLength=20):
     passphrase=''
     for l in range(length): passphrase+=random.sample(makeRandomPassphrase.symbols,1)[0]
     return passphrase
-makeRandomPassphrase.exsymbols={'"',"'",'\\','/','{','}','(',')','&','`'}
-makeRandomPassphrase.symbols={chr(a+33) for a in range(94) if chr(a+33) not in makeRandomPassphrase.exsymbols}
+makeRandomPassphrase.exsymbols={'"',"'",'\\','/','{','}','(',')','&','`',':','=','@','[',']','^','?','<','>',';'}
+makeRandomPassphrase.symbols={chr(a+48) for a in range(75) if chr(a+48) not in makeRandomPassphrase.exsymbols}
 
 
 #Functions for external connectivity to the database

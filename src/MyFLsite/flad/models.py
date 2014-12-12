@@ -28,3 +28,10 @@ class UsableReference(models.Model):
     If an allele is deleted from FLAD, its id is collected here for random reuse
     """
     id = models.PositiveIntegerField(primary_key=True)
+
+class FLADkey(models.Model):
+    """
+    Registration key for forensic.UGent.be.
+    """
+    user = models.OneToOneField(User) #only one FLADconfig per user
+    FLADkey = models.CharField(max_length=50)  #50 => no need to exagerate

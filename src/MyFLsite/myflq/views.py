@@ -6,8 +6,8 @@ from django.conf import settings
 # Create your views here.
 
 #Setup
-from myflq.models import UserResources,Locus
-from myflq.forms import ConfigurationForm
+from myflq.models import UserResources,Locus,FLADconfig
+from myflq.forms import ConfigurationForm,FLADconfigForm
 
 import os, subprocess
 
@@ -15,6 +15,10 @@ import os, subprocess
 def setup(request):
     #Testing parameter for bounded/unbounded forms
     configForm = configFilesError = None
+
+    try: fladuser = FLADconfig.objects.get(user=request.user)
+    except: fladuser = None
+    fladconfigform = FLADconfigForm(instance=fladuser)
     
     if request.method == 'POST':
         if request.POST['submitaction'] == 'createconfig':
@@ -57,11 +61,19 @@ def setup(request):
                             '-p',request.user.password,'--delete',userdb.dbusername(),userdb.fulldbname()]) 
             userdb.delete()
 
+        elif request.POST['submitaction'] == 'setFLAD':
+            fladconfigform = FLADconfigForm(request.POST)
+            if fladconfigform.is_valid():
+                fladconfigform.instance.user = request.user
+                if fladuser: fladconfigform.instance.id = fladuser.id
+                fladconfigform.save()
+
     userdbs = UserResources.objects.filter(user=request.user)
     if not configForm: configForm = ConfigurationForm()
 
     return render(request,'myflq/setup.html',{'myflq':True,
                                               'userdbs':userdbs,
+                                              'fladconfigform': fladconfigform,
                                               'configForm':configForm,
                                               'configFilesError':configFilesError})
 
