@@ -11,7 +11,7 @@ class Allele(models.Model):
     sequence = models.TextField(max_length=1000,verbose_name="allele sequence",
                                 help_text='Allele sequence should only contain A,C,T or G, and N for masked bases',
                                 validators=[RegexValidator(regex=r'^[ACTGN]*$', message='Should ony contain nucleotide letters A,C,T, or G, and N for masked bases.')])
-    user = models.ForeignKey(User)
+    users = models.ManyToManyField(User)
     creationDate = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -22,3 +22,9 @@ class Allele(models.Model):
         This is the FLADid for the sequence 
         """
         return 'FA{:0>3X}'.format(self.id) #Returns an uppercase hex id
+
+class UsableReference(models.Model):
+    """
+    If an allele is deleted from FLAD, its id is collected here for random reuse
+    """
+    id = models.PositiveIntegerField(primary_key=True)

@@ -2,18 +2,28 @@
 {% load staticfiles %}
 
 {% block content %}
+<style>
+  h4 {color: #50ade5;}
+  code,p {padding-left:20px;}
+</style>
+
 <h3>Programmatory access</h3>
 <h4>Retrieve sequence with a FLADid</h4>
-<code>https://forensic.ugent.be/flad/sequence/xml/{FLADid}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/sequence/xml/FA001</code></p>
+<code>https://forensic.ugent.be/flad/getseq/xml/{FLADid}</code>
+<p>Example: <code>https://forensic.ugent.be/flad/getseq/xml/FA001</code></p>
 
 <h4>Retrieve FLADid with a sequence</h4>
 <code>https://forensic.ugent.be/flad/getid/xml/{sequence}</code>
 <p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC</code></p>
 
-<h4>Retrieve FLADid with a sequence (add sequence to database if not present already)</h4>
-<code>https://forensic.ugent.be/flad/getid/xml/{sequence}?user={username}&password={password}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC?user=jeffreys&password=1984</code></p>
+<h4>Validate sequence and retrieve its FLADid</h4>
+<code>https://forensic.ugent.be/flad/validate/xml/{sequence}?user={username}&password={password}</code>
+<p>Example: <code>https://forensic.ugent.be/flad/validate/xml/ACTGACTAGACATGCGAC?user=jeffreys&password=1984</code></p>
+
+<h4>Unvalidate sequence or FLADid</h4>
+<p>If there are no other users validating this sequence it will be removed, otherwise it only removes the user's validation</p>
+<code>https://forensic.ugent.be/flad/unvalidate/{sequence}?user={username}&password={password}</code>
+<p>Example: <code>https://forensic.ugent.be/flad/unvalidate/ACTGACTAGACATGCGAC?user=jeffreys&password=1984</code></p>
 
 <h4>Plain text instead of xml</h4>
 <p>To get a simple byte string back consisting only of the requested information, use 'plain' instead of 'xml'. In this case, when providing a FLADid to retrieve a sequence, only the sequence present in the database will be send back and not its complementary strand</p>
