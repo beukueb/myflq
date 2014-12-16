@@ -28,26 +28,19 @@ def setup(request):
                 command = ['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'), 
                            '-p',request.user.password,configform.instance.dbusername(),configform.instance.fulldbname()]
                 subprocess.check_call(command)#,  shell=True)
-                configform.save() #Should only get saved if subprocess runs without errors
+                configform.save() #Should be deleted if try block encounters errors
+                config = configform.instance
                 try:
-                    subprocess.check_output(['python3',
-                                             os.path.join(settings.BASE_DIR,'../MyFLq.py'),
-                                             '-p',configform.instance.user.password, 'add',
-                                             '-k',configform.instance.lociFile.file.name,
-                                             '-a',configform.instance.alleleFile.file.name,
-                                             configform.instance.dbusername(),
-                                             configform.instance.fulldbname(),
-                                             'default'],stderr=subprocess.STDOUT)
-                    process_primerfile(request.FILES['lociFile'],dbname=configform.instance)
+                    process_config(request.FILES['lociFile'],config=config)
                 except subprocess.CalledProcessError as e:
                     #Clean up database if commiting configuration did not work
                     subprocess.call(['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'),
-                                     '-p',request.user.password,'--delete',configform.instance.dbusername(),
-                                     configform.instance.fulldbname()])
+                                     '-p',request.user.password,'--delete',config.dbusername(),
+                                     config.fulldbname()])
                     #Clean up UserResource
-                    os.remove(configform.instance.lociFile.file.name)
-                    os.remove(configform.instance.alleleFile.file.name)
-                    UserResources.objects.get(id=configform.instance.id).delete()
+                    os.remove(config.lociFile.file.name)
+                    if config.alleleFile: os.remove(config.alleleFile.file.name)
+                    UserResources.objects.get(id=config.id).delete()
                     #Retrieve error for user
                     from django.utils import html
                     configFilesError = html.escape(e.output.decode())
@@ -78,16 +71,42 @@ def setup(request):
                                               'configFilesError':configFilesError})
 
 ##Further functions for processing setup view
-def process_primerfile(requestfile,dbname):
-    for line in requestfile.readlines():
+def process_config(locifile,config):
+    for line in locifile.readlines():
         if line.decode().strip().startswith('#'): continue
         line = line.decode().strip().split(',')
-        locus = Locus(dbname = dbname,
-                        locusName = line[0],
-                        locusType = None if line[1] == 'SNP' else line[1],
-                        forwardPrimer = line[2],
-                        reversePrimer = line[3])
+        lenline = len(line)
+        locus = Locus(configuration = config,
+                      locusName = line[0],
+                      locusType = None if line[1] == 'SNP' else line[1],
+                      forwardPrimer = line[2],
+                      reversePrimer = line[3],
+                      refnumber = line[4] if lenline >= 6 and line[1] == 'SNP' else None,
+                      refsequence = line[5] if lenline >= 6 else None,
+                      refmask = line[6] if lenline == 7 else None
+                  )
         locus.save()
+
+    if not config.alleleFile:
+        import tempfile
+        from django.core.files.base import File
+        alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
+        for line in open(config.lociFile.file.name):
+            line = line.strip().split(',')
+            alleleFile.file.write('{},{},{}\n'.format(line[0],line[4],line[5]).encode())
+        alleleFile.close()
+        config.alleleFile = File(open(alleleFile.name))
+        config.save()
+
+    #Validate and save config for MyFLq
+    subprocess.check_output(['python3',
+                             os.path.join(settings.BASE_DIR,'../MyFLq.py'),
+                             '-p',config.user.password, 'add',
+                             '-k',config.lociFile.file.name,
+                             '-a',config.alleleFile.file.name,
+                             config.dbusername(),
+                             config.fulldbname(),
+                             'default'],stderr=subprocess.STDOUT)
 
 #Analysis
 from myflq.forms import analysisform_factory

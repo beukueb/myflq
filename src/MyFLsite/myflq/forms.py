@@ -30,7 +30,9 @@ class ConfigurationForm(ModelForm):
                 raise forms.ValidationError("Allele file too large ( > 5 MB )")
             return afile
         else:
-            raise forms.ValidationError("Couldn't read uploaded file")        
+            pass
+            #raise forms.ValidationError("Couldn't read uploaded file")
+            #TODO extended validation of file format
     #Webserver configuration:  !!!
     #    Configure the Web server to limit the allowed upload body size. 
     #    e.g. if using Apache, set the LimitRequestBody setting. 

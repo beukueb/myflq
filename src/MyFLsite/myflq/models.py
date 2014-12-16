@@ -27,6 +27,7 @@ class UserResources(models.Model):
                                 LocusName,LocusType(a number for STR indicating repeat length or 'SNP' for other \
                                 loci),forward primer, reverse primer")
     alleleFile = models.FileField(verbose_name='allele database file',
+                                  null=True,blank=True,#With new config format all necessary info can be in lociFile for first analyses
                                   upload_to=alleleUpload,
                                   help_text="This file should contain all known alleles within the population. Each line should have\
                                   the following structure:<br />Locus name, STR number for STR loci/Allele name for SNP loci, Sequence")
@@ -61,9 +62,10 @@ class Locus(models.Model):
     locusType = models.IntegerField(null=True,blank=True,max_length=1,verbose_name='type')
     forwardPrimer = models.CharField(max_length=200)
     reversePrimer = models.CharField(max_length=200)
-    refsequence = models.CharField(null=True,blank=True,max_length=1000) #For backwards compatibility null=True,blank=True
+    #For backwards compatibility following fields are all null=True,blank=True as they were not in previous versions
     refnumber = models.FloatField(null=True,blank=True,verbose_name='reference repeat number') #For STR loci alleles #TODO add validator
-    refmask = models.CharField(null=True,blank=True,max_length=1000) #For backwards compatibility null=True,blank=True #TODO add validator
+    refsequence = models.CharField(null=True,blank=True,max_length=1000) 
+    refmask = models.CharField(null=True,blank=True,max_length=1000) #TODO add validator same length as refsequence
     
     class Meta:
         unique_together = ("configuration", "name")
@@ -187,6 +189,7 @@ class Allele(models.Model):
     configuration = models.ForeignKey(UserResources)
     locus = models.ForeignKey(Locus)
     name = models.CharField(default='NA',max_length=200)
+    FLADid = models.CharField(default='FAXXX',max_length=200) #TODO FLAD validator
     repeatNumber = models.FloatField(null=True,blank=True,verbose_name='repeat number') #For STR loci alleles
     sequence = models.CharField(max_length=1000,default='')
     analysis = models.ForeignKey(Analysis,related_name='first_reporting_analysis',null=True,
@@ -196,8 +199,8 @@ class Allele(models.Model):
     popstat = models.FloatField(null=True,verbose_name='population statistic') #Calculated popstat based on reports
     timeAdded = models.DateTimeField(auto_now_add=True)
     
-    #class Meta:
-    #    unique_together = ("configuration", "sequence") => no uniqueness defined TODO => mechanism to check duplicates
+    class Meta:
+        unique_together = ("configuration", "locus", "FLADid")
     
     def __str__(self):
         return self.locusName
