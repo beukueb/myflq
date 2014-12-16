@@ -9,6 +9,9 @@ noSQLname = {'@','+','-','.'}
 
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+#Previous lambda functions that needed to be named for migrations to work
+def lociUpload(instance,filename): return 'locifiles/'+instance.fulldbname()+'.csv'
+def alleleUpload(instance,filename): return 'allelefiles/'+instance.fulldbname()+'.csv'
 class UserResources(models.Model):
     """
     This model indicates which databases the user has at their disposal.
@@ -19,12 +22,12 @@ class UserResources(models.Model):
          validators=[RegexValidator(regex=r'^\w*$', message='Should ony contain alphanumericals.')])
     description = models.TextField(verbose_name="configuration description",null=True,blank=True)
     lociFile = models.FileField(verbose_name='loci configuration file',
-                                upload_to=lambda instance,filename: 'locifiles/'+instance.fulldbname()+'.csv',
+                                upload_to=lociUpload,
                                 help_text="The loci file should contain one line for every locus with the following structure:<br />\
                                 LocusName,LocusType(a number for STR indicating repeat length or 'SNP' for other \
                                 loci),forward primer, reverse primer")
     alleleFile = models.FileField(verbose_name='allele database file',
-                                  upload_to=lambda instance,filename: 'allelefiles/'+instance.fulldbname()+'.csv',
+                                  upload_to=alleleUpload,
                                   help_text="This file should contain all known alleles within the population. Each line should have\
                                   the following structure:<br />Locus name, STR number for STR loci/Allele name for SNP loci, Sequence")
     creationDate = models.DateField(auto_now_add=True)
@@ -48,7 +51,7 @@ class UserResources(models.Model):
         different users can use the same short dbname
         """
         return self.dbusername()+'_'+self.dbname
-        
+    
 class Locus(models.Model):
     """
     This model lists all loci analyzed per configuration
@@ -160,16 +163,17 @@ class Analysis(models.Model):
             'randomSubset = '+str(self.randomSubset)+', '+ \
             'creationTime = '+str(self.creationTime)+']'
 
-from time import strftime as st    
+from time import strftime as st
+#Previous lambda functions that needed to be named for migrations to work
+def xmlUpload(instance,filename): return st('resultfiles/%Y/%m/%d/')+instance.analysis.configuration.fulldbname()+'.xml'
+def pngUpload(instance,filename): return st('resultfiles/%Y/%m/%d/')+instance.analysis.configuration.fulldbname()+'.png'
 class AnalysisResults(models.Model):
     """
     One-to one linked with analysis. Info for post-processing.
     """
     analysis = models.OneToOneField(Analysis)
-    xmlFile = models.FileField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
-                               instance.analysis.configuration.fulldbname()+'.xml')
-    figFile = models.ImageField(upload_to=lambda instance,filename: st('resultfiles/%Y/%m/%d/')+
-                                instance.analysis.configuration.fulldbname()+'.png')
+    xmlFile = models.FileField(upload_to=xmlUpload)
+    figFile = models.ImageField(upload_to=pngUpload)
 
 
 #Alleledatabase
@@ -198,7 +202,7 @@ class FLADconfig(models.Model):
     app for compatibility with standalone MyFLq installations.
     """
     user = models.OneToOneField(User) #only one FLADconfig per user
-    #FLAD = models.CharField(max_length=200,default='forensic.ugent.be',
-    #                        verbose_name='FLADprovider',help_text='Domain name for your FLAD provider. E.g. forensic.ugent.be')
+    FLAD = models.CharField(max_length=200,default='forensic.ugent.be',
+                            verbose_name='FLADprovider',help_text='Domain name for your FLAD provider. E.g. forensic.ugent.be')
     FLADname = models.CharField(max_length=30) #30 maximum Django username length
     FLADkey = models.CharField(max_length=50)  #50 => no need to exagerate
