@@ -24,7 +24,6 @@ if 'loci-textbox' in inform:
     lociFile = '/tmp/loci.csv'
     subprocess.check_call([
         'wget',
-        '--no-check-certificate',
         '-O',
         lociFile,
         inform['loci-textbox']['Content'].strip()
@@ -34,7 +33,6 @@ if 'alleles-textbox' in inform:
     alleleFile = '/tmp/alleles.csv'
     subprocess.check_call([
         'wget',
-        '--no-check-certificate',
         '-O',
         alleleFile,
         inform['alleles-textbox']['Content'].strip()
