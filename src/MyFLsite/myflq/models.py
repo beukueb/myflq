@@ -61,6 +61,9 @@ class Locus(models.Model):
     locusType = models.IntegerField(null=True,blank=True,max_length=1,verbose_name='type')
     forwardPrimer = models.CharField(max_length=200)
     reversePrimer = models.CharField(max_length=200)
+    refsequence = models.CharField(null=True,blank=True,max_length=1000) #For backwards compatibility null=True,blank=True
+    refnumber = models.FloatField(null=True,blank=True,verbose_name='reference repeat number') #For STR loci alleles #TODO add validator
+    refmask = models.CharField(null=True,blank=True,max_length=1000) #For backwards compatibility null=True,blank=True #TODO add validator
     
     class Meta:
         unique_together = ("configuration", "name")
@@ -183,10 +186,14 @@ class Allele(models.Model):
     """
     configuration = models.ForeignKey(UserResources)
     locus = models.ForeignKey(Locus)
-    name = models.CharField(null=True,blank=True,max_length=200)
-    repeatNumber = models.IntegerField(null=True,blank=True,max_length=2,verbose_name='type')
-    sequence = models.CharField(max_length=1000)
-    analysis = models.ForeignKey(Analysis,null=True,blank=True) #Alleles from original csv file will not be linked to an analysis
+    name = models.CharField(default='NA',max_length=200)
+    repeatNumber = models.FloatField(null=True,blank=True,verbose_name='repeat number') #For STR loci alleles
+    sequence = models.CharField(max_length=1000,default='')
+    analysis = models.ForeignKey(Analysis,related_name='first_reporting_analysis',null=True,
+                                 blank=True) #Alleles from original csv file will not be linked to an analysis
+    reports = models.ManyToManyField(Analysis) #All analysis in which allele is reported
+    initialPopstat = models.FloatField(null=True,blank=True,verbose_name='initial population statistic')
+    popstat = models.FloatField(null=True,verbose_name='population statistic') #Calculated popstat based on reports
     timeAdded = models.DateTimeField(auto_now_add=True)
     
     #class Meta:
