@@ -198,5 +198,7 @@ class FLADconfig(models.Model):
     app for compatibility with standalone MyFLq installations.
     """
     user = models.OneToOneField(User) #only one FLADconfig per user
+    #FLAD = models.CharField(max_length=200,default='forensic.ugent.be',
+    #                        verbose_name='FLADprovider',help_text='Domain name for your FLAD provider. E.g. forensic.ugent.be')
     FLADname = models.CharField(max_length=30) #30 maximum Django username length
     FLADkey = models.CharField(max_length=50)  #50 => no need to exagerate

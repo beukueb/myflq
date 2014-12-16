@@ -4,9 +4,11 @@
 <h1> FLAD configuration </h1>
 <p>For advanced use of MyFLq it is recommended to have an account on <a href="https://forensic.UGent.be/FLAD">forensic.UGent.be/FLAD</a><br />
   Fill in the username and registration key that you find there.</p>
-<form action='.' method='post'>
+<form action='.' method='post' class="setupForm">
   {% csrf_token %}
-  {{ fladconfigform }}
+  <table style="text-align:left;">
+    {{ fladconfigform.as_table }}
+  </table>
   <input type="hidden" name="submitaction" value="setFLAD" />
   <input type="submit" value="Set FLAD" /></td>
 </form>
