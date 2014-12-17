@@ -2,11 +2,15 @@ from django.shortcuts import render
 from django.http import HttpResponse #,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.utils.safestring import mark_safe
+
+# Loggin
+import logging
+logger = logging.getLogger(__name__)
 
 # Create your views here.
-
 #Setup
-from myflq.models import UserResources,Locus,FLADconfig
+from myflq.models import UserResources,Locus,Allele,FLADconfig
 from myflq.forms import ConfigurationForm,FLADconfigForm
 
 import os, subprocess
@@ -25,25 +29,27 @@ def setup(request):
             configform = ConfigurationForm(request.POST,request.FILES)
             if configform.is_valid():
                 configform.instance.user = request.user
-                command = ['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'), 
-                           '-p',request.user.password,configform.instance.dbusername(),configform.instance.fulldbname()]
-                subprocess.check_call(command)#,  shell=True)
                 configform.save() #Should be deleted if try block encounters errors
                 config = configform.instance
                 try:
-                    process_config(request.FILES['lociFile'],config=config)
+                    process_config(config)
                 except subprocess.CalledProcessError as e:
                     #Clean up database if commiting configuration did not work
                     subprocess.call(['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'),
                                      '-p',request.user.password,'--delete',config.dbusername(),
-                                     config.fulldbname()])
+                                     config.fulldbname()]) #No error raised if database not created
                     #Clean up UserResource
                     os.remove(config.lociFile.file.name)
                     if config.alleleFile: os.remove(config.alleleFile.file.name)
                     UserResources.objects.get(id=config.id).delete()
                     #Retrieve error for user
                     from django.utils import html
-                    configFilesError = html.escape(e.output.decode())
+                    configFilesError = mark_safe('<span style="color:red;">'+
+                                       html.escape(e.output.decode())+'</span>')
+                except NotImplementedError as e:
+                    config.delete()
+                    configFilesError = e.args[0]
+                    logger.error(e.args[0])
             else:
                 configForm = configform
                 
@@ -71,17 +77,19 @@ def setup(request):
                                               'configFilesError':configFilesError})
 
 ##Further functions for processing setup view
-def process_config(locifile,config):
-    for line in locifile.readlines():
-        if line.decode().strip().startswith('#'): continue
-        line = line.decode().strip().split(',')
+def process_config(config):
+    for line in open(config.lociFile.file.name):
+        if line.strip().startswith('#'): continue
+        line = line.strip().split(',')
         lenline = len(line)
+        if lenline == 4:
+            raise NotImplementedError("Loci config file V1.0 not yet reimplemented. Contact us and we will activate it.")
         locus = Locus(configuration = config,
-                      locusName = line[0],
+                      name = line[0],
                       locusType = None if line[1] == 'SNP' else line[1],
                       forwardPrimer = line[2],
                       reversePrimer = line[3],
-                      refnumber = line[4] if lenline >= 6 and line[1] == 'SNP' else None,
+                      refnumber = line[4] if lenline >= 6 and line[1] != 'SNP' else None,
                       refsequence = line[5] if lenline >= 6 else None,
                       refmask = line[6] if lenline == 7 else None
                   )
@@ -98,6 +106,25 @@ def process_config(locifile,config):
         config.alleleFile = File(open(alleleFile.name))
         config.save()
 
+    #Process alleles
+    for line in open(config.alleleFile.file.name):
+        if line.strip().startswith('#'): continue
+        line = line.strip().split(',')
+        allele = Allele(configuration = config,
+                        locus = Locus.objects.get(name=line[0],
+                                                  configuration=config),
+                        name = line[1],
+                        FLADid = getFLAD(line[2],config.user),
+                        #repeatNumber => not implemented for now
+                        sequence = line[2])
+        allele.save()
+
+    #Make database for user
+    subprocess.check_output(['python3',
+                             os.path.join(settings.BASE_DIR,'../MyFLdb.py'), 
+                             '-p',config.user.password,config.dbusername(),
+                             config.fulldbname()],stderr=subprocess.STDOUT)
+
     #Validate and save config for MyFLq
     subprocess.check_output(['python3',
                              os.path.join(settings.BASE_DIR,'../MyFLq.py'),
@@ -108,6 +135,21 @@ def process_config(locifile,config):
                              config.fulldbname(),
                              'default'],stderr=subprocess.STDOUT)
 
+def getFLAD(sequence,user):
+    from urllib.request import urlopen
+    from django.utils.http import urlquote
+    url = 'https://{flad}/flad/validate/plain/{seq}?user={u}&password={p}'
+    provider = user.fladconfig.FLAD
+    if provider == "localhost" or provider.startswith("localhost:"):
+        url = url.replace('https://','http://')
+    response = urlopen(
+        url.format(
+            flad=user.fladconfig.FLAD,
+            seq=sequence,
+            u=urlquote(user.fladconfig.FLADname),
+            p=urlquote(user.fladconfig.FLADkey)))
+    return response.read().decode()
+    
 #Analysis
 from myflq.forms import analysisform_factory
 from myflq.models import Analysis

@@ -203,7 +203,7 @@ class Allele(models.Model):
         unique_together = ("configuration", "locus", "FLADid")
     
     def __str__(self):
-        return self.locusName
+        return self.FLADid
 
 class FLADconfig(models.Model):
     """

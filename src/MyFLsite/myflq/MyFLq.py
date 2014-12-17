@@ -3,7 +3,7 @@
 ## MyFLq Interface functions to the MyFLdb produced tables
 
 # MyFLq (My-Forensic-Loci-queries, developer Christophe Van Neste, CC BY-SA 3.0).
-version = '1.0.1'
+version = '1.1.0'
 
 # Python support: version 3
 # 
@@ -394,7 +394,8 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
     if sql.rowcount == 0: raise Exception("Lab identifier not known, register first")
     elif sql.fetchone()['passphrase'] != passphrase: raise Exception("Passphrase for "+labID+" not correct!")
         
-    #First table that needs to be updated is BASEseqs: take all seqID's for the sequences and primers
+    #First table that needs to be updated is BASEseqs:
+    #   take all seqID's for the sequences and primers
     seqIDs=[]
     if forwardP and reverseP: sequences+=[forwardP,reverseP]
     for seq in sequences:
@@ -404,13 +405,20 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
         sequences.pop(),sequences.pop()
     
     #Second set of tables to be updated: BASEnames,BASEprimersets,BASEqual
-    primersetID,qualID = makeLocusEntry(forwardP,reverseP,locusName,locusType,technology,filterLevel,sql=sql)
+    primersetID,qualID = makeLocusEntry(forwardP,reverseP,locusName,locusType,
+                                        technology=technology,
+                                        filterLevel=filterLevel,
+                                        sql=sql)
     
     #Third table that needs to be updated is BASEtrack
-    sql.execute("INSERT INTO BASEtrack (locusName, qualID, labID, validated, manualRevision, nrSeqs, nrReads,                   population) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
-                (locusName,qualID,labID,bool(validatedInfo),manualRevision,len(sequences),sum(seqCounts),population))
+    sql.execute("""
+    INSERT INTO BASEtrack (locusName, qualID, labID, validated, manualRevision, 
+    nrSeqs, nrReads,population) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
+                (locusName,qualID,labID,bool(validatedInfo),manualRevision,
+                 len(sequences),sum(seqCounts),population))
     #Fetch entryID from previous step
-    #!!!Don't do any other sql inserts between updating BASEbasetrack and before fetching this entryID!!!
+    #!!!Don't do any other sql inserts between updating BASEbasetrack
+    #   and before fetching this entryID!!!
     sql.execute("SELECT LAST_INSERT_ID();")
     entryID=sql.fetchone()['LAST_INSERT_ID()']
     
@@ -425,28 +433,36 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
         validatedInfo=[-1 for s in sequences]
     for seqID,seqCount,valid,avalid in zip(seqIDs,seqCounts,validatedInfo,alleleValidation):
         if valid and valid > 0: valid = seqIDs[valid-1] # -1 as list number is given and not python index
-        sql.execute ("INSERT INTO BASEstat (entryID, seqID, primersetID,validated, alleleValidation, seqCount)                       VALUES (%s,%s,%s,%s,%s,%s)"
+        sql.execute ("""INSERT INTO BASEstat (entryID, seqID, primersetID,
+        validated, alleleValidation, seqCount)
+        VALUES (%s,%s,%s,%s,%s,%s)"""
                     ,(entryID, seqID, primersetID, valid, avalid, seqCount))
         
     #Log out of database
     logout(conn,sql)
     return entryID
 
-def makeLocusEntry(forwardP,reverseP,locusName,locusType,technology,filterLevel,sql=None):
+def makeLocusEntry(forwardP,reverseP,locusName,locusType,refNumber=None,
+                   refSeq=None,refMask=None,technology=None,filterLevel=None,
+                   sql=None):
     """
-    Makes/checks table information that is more general than an individual sequence. It is therefore possible
-    that the relevent tables don't need to be updated. In that case the function returns the necessary
+    Makes/checks table information that is more general than an individual 
+    sequence. It is therefore possible that the relevent tables don't need 
+    to be updated. In that case the function returns the necessary
     ID's for BASEstat and BASEtrack.
     """
     if not sql: conn,sql = login()
     else: conn=None
 
     #BASEnames
-    sql.execute("SELECT locusType FROM BASEnames WHERE locusName = %s",(locusName))
+    sql.execute("SELECT locusType FROM BASEnames WHERE locusName = %s",
+                (locusName))
     if not sql.rowcount:
-        sql.execute("INSERT INTO BASEnames (locusName,locusType) VALUES (%s,%s)",(locusName,locusType))
-    elif sql.fetchone()['locusType'] is None and locusType is not None:
-        sql.execute("UPDATE BASEnames SET locusType = %s WHERE locusName = %s",(locusType,locusName))
+        sql.execute(
+            """INSERT INTO BASEnames (locusName,locusType,ref_alleleNumber,
+            ref_seqID,mask_seqID) VALUES (%s,%s,%s,%s,%s)""",
+            (locusName,locusType,refNumber,
+             getSeqID(refSeq,sql),getSeqID(refMask,sql)))
     
     #BASEprimersets
     if not forwardP: primersetID = None
@@ -458,7 +474,8 @@ def makeLocusEntry(forwardP,reverseP,locusName,locusType,technology,filterLevel,
         if not sql.rowcount:
             sql.execute("INSERT INTO BASEprimersets (forwardP,reverseP,locusName) VALUES (%s,%s,%s)",
                         (forwardP,reverseP,locusName))
-            sql.execute("SELECT primersetID FROM BASEprimersets WHERE forwardP = %s AND reverseP = %s AND                          locusName = %s",(forwardP,reverseP,locusName))
+            sql.execute("""SELECT primersetID FROM BASEprimersets WHERE forwardP = %s AND reverseP = %s AND 
+                         locusName = %s""",(forwardP,reverseP,locusName))
         primersetID = sql.fetchone()['primersetID']
     
     #BASEqual
@@ -479,6 +496,7 @@ def makeLocusEntry(forwardP,reverseP,locusName,locusType,technology,filterLevel,
     return primersetID,qualID
 
 def getSeqID(seq,sql=None):
+    if not seq: return #Empty sequences return None
     if not sql: conn,sql = login()
     else: conn=None
         
@@ -1477,35 +1495,56 @@ class Locus:
     @staticmethod
     def makeLocusDict(inputType=None,submit=False,kitName=None):
         """
-        Makes a locusDict similar to Locus.getLocusDict with user-provided information.
-        Optionally provided by means of inputType: csv,xml format. => give tuple e.g. ('csv','csv_filename')
+        Makes a locusDict similar to Locus.getLocusDict with user-provided 
+        information. Optionally provided by means of inputType: 
+                  csv,xml format. => give tuple e.g. ('csv','csv_filename')
         
         If submit, each entry from the locusDict will be added to BASEtech.
         If kitName is provided, a sequencing kit will be added to LOCIkits.
         
-        Important: ReversePrimer should be the actual primer sequence (5'-3' orientation on complementary strand)
+        Important: ReversePrimer should be the actual primer sequence 
+        (5'-3' orientation on complementary strand)
         
         FORMATS
         -------
-        csv -> e.g. file.csv. LocusType => either int for STR number, or SNP if non-STR locus
-        ===================================================
-        #Locus,LocusType,ForwardPrimer,ReversePrimer
-        FGA,4,GGCTGCAGGGCATAACATTA,ATTCTATGACTTTGCGCTTCAGGA
-        Amelogenin,SNP,CCCTGGGCTCTGTAAAGAA,ATCAGAGCTTAAACTGGGAAGCTG
-        PentaD,5,GAAGGTCGAAGCTGAAGTG,ATTAGAATTCTTTAATCTGGACACAAG
+        csv -> e.g. file.csv. LocusType => either int for STR number, 
+                                           or SNP if non-STR locus
+        =======================================================================
+        #Locus,Type,FPrimer,RPrimer,ReferenceNumberOrName,RefSequence[,RefMask]
+        FGA,4,GGCTGCAGGGCATAA,GACTTTGCGCTTCAGGA,GGCTGCAGGGC...,GGCTGCANNNC...
+        Amelogenin,SNP,CCCTGGGCTCT,TTAAACTGGGAAGCTG,X,ATCAGAGCTTAA...
+        PentaD,5,GAAGGTCGAAGC,ATTCTTTAATCTGGACACAAG,X,GAAGGTCGAAGC...
         """
         locusDict={}
         if inputType and inputType[0] == 'csv':
             for line in open(inputType[1]):
                 if line.strip().startswith('#'): continue
-                line=line.strip()
-                locus,locusType,primerF,primerR=line.split(',')
+                line=line.strip().split(',')
+                try:
+                    locus,locusType,primerF,primerR,rfNumber,rfSeq=line
+                    rfMask=''
+                except ValueError:
+                    locus,locusType,primerF,primerR,rfNumber,rfSeq,rfMask=line
                 primerF = primerF.upper()
                 primerR = primerR.upper()
+                rfSeq = rfSeq.upper()
+                rfMask = rfMask.upper()
+                if not (rfSeq.startswith(primerF) and rfSeq.endswith(complement(primerR))):
+                    import sys
+                    print('All reference sequences should start and end with',
+                          'the primer.\n This is not the case for locus',
+                          locus,'in your configuration.',
+                          file=sys.stderr)
+                    sys.exit(1)
                 try: locusType = int(locusType)
                 except ValueError: locusType = 0
-                locusDict[locus] = {'locusName':locus,'locusType':locusType,
-                                    'ref_forwardP':primerF,'ref_reverseP':primerR}
+                locusDict[locus] = {'locusName':locus,
+                                    'locusType':locusType,
+                                    'ref_forwardP':primerF,
+                                    'ref_reverseP':primerR,
+                                    'ref_number':rfNumber if locusType else None,
+                                    'ref_sequence':rfSeq,
+                                    'ref_mask':rfMask}
         elif inputType and inputType[0] == 'locusDict':
             locusDict = inputType[1]
         elif inputType and inputType[0] == 'xml':
@@ -1517,12 +1556,22 @@ class Locus:
                 locusDict[locusName]['locusType'] = int(input('locusType: '))
                 locusDict[locusName]['ref_forwardP'] = input('Forward primer: ')
                 locusDict[locusName]['ref_reverseP'] = input('Reverse primer: ')
+                if locusDict[locusName]['locusType']:
+                    locusDict[locusName]['ref_number'] = input(
+                        'Reference number: ')
+                else: locusDict[locusName]['ref_number'] = None
+                locusDict[locusName]['ref_sequence'] = input('Reference seq: ')
+                locusDict[locusName]['ref_mask'] = input('Reference mask: ')
                 if input('Continue adding loci? (Y/N) ') == 'N': break
         
         if submit:
             for locusName in locusDict: makeLocusEntry(locusDict[locusName]['ref_forwardP'],
                                                        locusDict[locusName]['ref_reverseP'],
-                                                       locusName, locusDict[locusName]['locusType'],
+                                                       locusName,
+                                                       locusDict[locusName]['locusType'],
+                                                       locusDict[locusName]['ref_number'],
+                                                       locusDict[locusName]['ref_sequence'],
+                                                       locusDict[locusName]['ref_mask'],
                                                        technology=None,filterLevel=None)
         
         if kitName:
