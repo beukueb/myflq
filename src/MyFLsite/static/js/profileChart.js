@@ -307,15 +307,23 @@ function draw(error,data,width,height) {
 		aI.append("h3").text("Relations to other sequences within "+locus.getAttribute("name"));
 		table = aI.append("div").attr("style","overflow-x: scroll;").append("table");
 		row = table.append("tr");
+		row.append("td").text("Relation degree")
+		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;")
 		row.append("td").text("Allele index")
 		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
-		row.append("td").text("Relation degree")
+		row.append("td").text("Allele name")
+		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;")
+		row.append("td").text("Transform")
 		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;")
 		row.append("td").text("Sequence")
 		    .attr("style","border-width:1px; border-bottom-style: solid;");
 		var clusterInfo = d.getElementsByTagName('cluster-info')[0];
 		row = table.append("tr");
+		row.append("td").text("-")
+		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
 		row.append("td").text(clusterInfo.getAttribute("index"))
+		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+		row.append("td").text(d.getAttribute("db-subtype"))
 		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
 		row.append("td").text("-")
 		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
@@ -329,9 +337,13 @@ function draw(error,data,width,height) {
 		    for (var j=0; j < relations.length; j++) {
 			var relation = locus.getElementsByTagName("alleleCandidate")[Number(relations[j].getAttribute("index"))-1]
 			row = table.append("tr");
+			row.append("td").text(relationDegrees[Number(differences[i].getAttribute("amount")-1)])
+			    .attr("style","border-width:1px; border-right-style: solid;");
 			row.append("td").text(relations[j].getAttribute("index"))
 			    .attr("style","border-width:1px; border-right-style: solid;");
-			row.append("td").text(relationDegrees[Number(differences[i].getAttribute("amount")-1)])
+			row.append("td").text(relation.getAttribute("db-subtype"))
+			    .attr("style","border-width:1px; border-right-style: solid;");
+			row.append("td").text(relations[j].getAttribute("transcode"))
 			    .attr("style","border-width:1px; border-right-style: solid;");
 			row.append("td").call(colorizeDNA, relation.getElementsByTagName('regionOfInterest')[0].textContent)
 			    .attr("style","border-width:1px; font-family: monospace;");
@@ -527,7 +539,7 @@ function draw(error,data,width,height) {
 		    if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
 			 aC.getAttribute('profile')!='no') {
 			alleles[alleles.length] = aC.getAttribute("db-name") +
-			    ( (aC.getAttribute("db-subtype")) ? aC.getAttribute("db-subtype") : "" );
+			    ( (aC.getAttribute("db-subtype")) ? '_'+aC.getAttribute("db-subtype") : "" );
 		    
 			//Add allele candidate to form if in strBaseLoci
 			if (d.getAttribute("name") in strBaseLoci && aC.getAttribute("db-name") != 'NA'){

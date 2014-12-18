@@ -78,6 +78,11 @@ def setup(request):
 
 ##Further functions for processing setup view
 def process_config(config):
+    #Imports
+    import tempfile
+    from django.core.files.base import File
+
+    #Process loci
     for line in open(config.lociFile.file.name):
         if line.strip().startswith('#'): continue
         line = line.strip().split(',')
@@ -87,26 +92,27 @@ def process_config(config):
         locus = Locus(configuration = config,
                       name = line[0],
                       locusType = None if line[1] == 'SNP' else line[1],
-                      forwardPrimer = line[2],
-                      reversePrimer = line[3],
+                      forwardPrimer = line[2].upper(),
+                      reversePrimer = line[3].upper(),
                       refnumber = line[4] if lenline >= 6 and line[1] != 'SNP' else None,
-                      refsequence = line[5] if lenline >= 6 else None,
-                      refmask = line[6] if lenline == 7 else None
+                      refsequence = line[5].upper() if lenline >= 6 else None,
+                      refmask = line[6].upper() if lenline == 7 else None
                   )
         locus.save()
 
+    #Process alleles
+    ##If no initial allele file, make one based on lociFile version 2
     if not config.alleleFile:
-        import tempfile
-        from django.core.files.base import File
         alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
         for line in open(config.lociFile.file.name):
             line = line.strip().split(',')
-            alleleFile.file.write('{},{},{}\n'.format(line[0],line[4],line[5]).encode())
+            alleleFile.file.write('{},{},{}\n'.format(
+                line[0],line[4],line[5]).encode())
         alleleFile.close()
         config.alleleFile = File(open(alleleFile.name))
         config.save()
 
-    #Process alleles
+    ##Add alleles to MyFLsite db and retrieve FLADids
     for line in open(config.alleleFile.file.name):
         if line.strip().startswith('#'): continue
         line = line.strip().split(',')
@@ -116,8 +122,17 @@ def process_config(config):
                         name = line[1],
                         FLADid = getFLAD(line[2],config.user),
                         #repeatNumber => not implemented for now
-                        sequence = line[2])
+                        sequence = line[2].upper())
         allele.save()
+
+    ##Save new allele config file with FLADids for MyFLq
+    alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
+    for a in Allele.objects.filter(configuration=config):
+        alleleFile.file.write('{},{},{}\n'.format(
+            a.locus.name,a.FLADid,a.sequence).encode())
+    alleleFile.close()
+    config.alleleFile = File(open(alleleFile.name))
+    config.save()
 
     #Make database for user
     subprocess.check_output(['python3',

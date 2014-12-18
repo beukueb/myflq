@@ -175,7 +175,9 @@ class Alignment:
     def __init__(self,dna1,dna2,mode='global',stutter=False,gapPenalty=None):
         """
         Performs a global alignment according to Needleman-Wunsch algorithm, favouring stutter gaps if desired
-        
+
+        If stutter, should be int of expected STR repeatsize
+
         If mode == 'global': normal global alignment
         If mode == 'primer-search': local alignment is performed. 
             Primer should be given as dna1 and be expected closest to the left.
@@ -185,6 +187,8 @@ class Alignment:
             Should not be used with 'stutter' option
         """
         np = self.np
+        self.dna1 = dna1
+        self.dna2 = dna2
         if gapPenalty: self.gapPenalty = gapPenalty
         #F matrix => i0xx = scores, i1xx = breadcrumbs (0=None;1=->;2=-->;4=L;3=v;6=V)
         F_m = np.zeros((2,len(dna1)+1,len(dna2)+1))
@@ -286,7 +290,82 @@ class Alignment:
             differences+=dna1.count(stutter) + dna1.count('-') - (dna1.count(stutter)*self.stutter)
             differences+=dna2.count(stutter) + dna2.count('-') - (dna2.count(stutter)*self.stutter)
             return differences
+    def getTransformCode(self,startSequence=False,offset=0):
+        """
+        Returns a string that represents how to transform dna1 into dna2,
+        or if startSequence is provided, how to transform it to get the other.
+        startSequence has to be either dna1 or dna2
 
+        An offset can be added, to account for repositioning due to flanks, by
+        doing this the transformcode works in respect to the database allele
+        instead of ROI
+        """
+        transforms=[] #List of tuples with structure (positionInAlnment,newBase,oldBase)
+        if startSequence:
+            if startSequence == self.dna1: startSequence = 0
+            elif startSequence == self.dna2: startSequence = 1
+            else: raise Exception("startSequence has to be one of the dna stings used for the alignment")
+        else: startSequence = 0
+        for i in range(len(self.alnment)):
+            if self.alnment[i][0] != self.alnment[i][1]:
+                transforms.append((i, self.alnment[i][1-startSequence],  self.alnment[i][startSequence]))
+        transformCode = []
+        preInsertions = 0
+        for t in transforms:
+            transformCode.append((
+                t[0] - preInsertions,
+                '{newBase}{insertion}'.format(
+                    newBase = t[1] if t[1] != '-' else 'd',
+                    insertion = 'i' if t[2] == '-' else '')))
+            if t[2] == '-':
+                preInsertions +=1
+        #Compress transformCode for successive deletions/insertions
+        transforms = transformCode
+        transformCode = 't'
+        from itertools import count
+        c = count()
+        i = -1
+        while i < len(transforms)-1:
+            i = next(c)
+            compress = [transforms[i]]
+            #Search for successive insertions
+            try:
+                while transforms[i][0] == transforms[i+1][0]:
+                    i = next(c)
+                    compress.append(transforms[i])
+            except IndexError: pass
+            if len(compress) > 1:
+                code = str(compress[0][0]+offset)
+                for component in compress:
+                    code+=component[1][0]
+                    assert component[1][1] == 'i'
+                code+='i'
+                transformCode+=code
+                continue
+
+            #Search for successive tranformations
+            try:
+                while (transforms[i][0]+1 == transforms[i+1][0] and
+                       len(transforms[i+1][1]) == 1):
+                    i = next(c)
+                    compress.append(transforms[i])
+            except IndexError: pass
+            if len(compress) > 1:
+                code = str(compress[0][0]+offset)
+                for component in compress:
+                    code+=component[1]
+                transformCode+=code
+                continue            
+
+            #Add SNP conversions
+            transformCode+='{}{}'.format(transforms[i][0]+offset,transforms[i][1])
+                
+        #Compress 'homopolymers' three or longer
+        import re
+        compresser=re.compile(r'([ACTGNd])(\1{2,})')
+        transformCode = compresser.sub(lambda x: '.{}{}'.format(len(x.group()),x.groups()[0]),
+                                       transformCode)
+        return transformCode
 
 # AlleleType => work in progress, not yet used
 
@@ -581,6 +660,11 @@ def makeEntries(csvFilename):
 def processLociNames():
     #Get loci names for which an entry serves in LOCInames
     conn,sql = login()
+
+    #Set kitFileVersion
+    sql.execute('select COUNT(*) from BASEnames WHERE ref_seqID IS NOT NULL')
+    kitFileVersion = 2.0 if sql.fetchone()['COUNT(*)'] > 0 else 1.0
+    
     sql.execute("SELECT DISTINCT(locusName) AS locusName FROM BASEnames")
     locusNames = [s['locusName'] for s in sql.fetchall()]
     locusNames.sort()
@@ -603,13 +687,25 @@ def processLociNames():
         
         #At this point all alleles for a locus are gathered and relevant information needs to be extracted:
          #Reference allele and primers
-        reference_allele,(primerF,primerR) = getRefAllel(primersets,locAlleles)
+        if kitFileVersion < 2.0: #Old loci config file processing
+            reference_allele,(primerF,primerR) = getRefAllel(primersets,locAlleles)
+        else: #Config file 2.0 and later processing
+            sql.execute("SELECT getSeq(ref_seqID) FROM BASEnames WHERE locusName = %s", (name))
+            reference_allele = sql.fetchone()['getSeq(ref_seqID)']
+            if len(primersets) != 1:
+                raise NotImplementedError("There should not be more than one primerset per locus for version 2 configurations")
+            primerF,primerR = primersets.pop()
         primerR = complement(primerR) #Revert primerR back to complementary strand
+          
          #Locustype
         sql.execute("""SELECT locusType FROM BASEnames WHERE locusName = %s""", (name))
         locusType = sql.fetchone()['locusType']
-        if locusType != 0 and ':R' in reference_allele[1]:
+        if kitFileVersion < 2.0 and locusType != 0 and ':R' in reference_allele[1]:
             reference_allele=(reference_allele[0],reference_allele[1][:reference_allele[1].index(':R')])
+        elif locusType != 0:
+            sql.execute("""SELECT ref_alleleNumber FROM BASEnames WHERE locusName = %s""", (name))
+            reference_allele=(reference_allele,sql.fetchone()['ref_alleleNumber'])
+                
          #Initial flanking regions
         flank_forwardP,flank_reverseP = getLocusFlanks(locAlleles,primerF,primerR)
          #Calculate ref_length
@@ -711,6 +807,10 @@ def processLociAlleles(flush=True):
     """
     conn,sql = login()
     if flush: sql.execute("DELETE FROM LOCIalleles WHERE TRUE")
+
+    #Set kitFileVersion
+    sql.execute('select COUNT(*) from BASEnames WHERE ref_seqID IS NOT NULL')
+    kitFileVersion = 2.0 if sql.fetchone()['COUNT(*)'] > 0 else 1.0
     
     #Select loci:
     sql.execute('SELECT * FROM LOCInames')
@@ -729,7 +829,7 @@ def processLociAlleles(flush=True):
                 sql.execute("INSERT INTO LOCIalleles (locusName,alleleNumber,alleleSeq) VALUES (%s,%s,%s)",
                             (locusName,alleleNumber,allele))
                 #Set version in alleleNomen for STR alleles with same number
-                if locus['locusType'] != 0:
+                if kitFileVersion < 2.0 and locus['locusType'] != 0:
                     sql.execute("SELECT COUNT(*) FROM LOCIalleles WHERE locusName = %s AND alleleNumber = %s", 
                                 (locusName,alleleNumber))
                     alleleCount=sql.fetchone()['COUNT(*)']
@@ -740,7 +840,7 @@ def processLociAlleles(flush=True):
             elif count > 1:
                 raise LocusConflictError('Too many same alleles in LOCIalleles:                 every combination locusName-allele sequence should be unique')
             #If not STR locus
-            if not alleleNumber and alleleNomen:
+            if kitFileVersion >= 2.0 or (not alleleNumber and alleleNomen):
                 sql.execute("""UPDATE LOCIalleles SET alleleNomen = %s WHERE locusName = %s AND alleleSeq = %s""",
                             (alleleNomen,locusName,allele))
     logout(conn,sql)
@@ -1354,12 +1454,21 @@ class Locus:
                 if  uRmatch == '[-]' or (len(uRmatch)==len(uR) and sum([len(set((a,b))) == 2 
                                           for a,b in zip(uR,uRmatch)]) > maxDifferences): continue
                 #Align to calculate differences
-                differences = Alignment(uR,uRmatch,stutter=self.info['locusType']).getDifferences()
+                alignment = Alignment(uR,uRmatch,stutter=self.info['locusType'])
+                differences = alignment.getDifferences()
                 if differences <= maxDifferences:
-                    try: self.uniqueClusterInfo[uR][1][differences].append(self.uniqueClusterInfo[uRmatch][0])
-                    except KeyError: self.uniqueClusterInfo[uR][1][differences]=[self.uniqueClusterInfo[uRmatch][0]]
-                    try: self.uniqueClusterInfo[uRmatch][1][differences].append(self.uniqueClusterInfo[uR][0])
-                    except KeyError: self.uniqueClusterInfo[uRmatch][1][differences]=[self.uniqueClusterInfo[uR][0]]
+                    try: self.uniqueClusterInfo[uR][1][differences].append((
+                            self.uniqueClusterInfo[uRmatch][0],
+                            alignment.getTransformCode()))
+                    except KeyError: self.uniqueClusterInfo[uR][1][differences]=[(
+                            self.uniqueClusterInfo[uRmatch][0],
+                            alignment.getTransformCode())]
+                    try: self.uniqueClusterInfo[uRmatch][1][differences].append((
+                            self.uniqueClusterInfo[uR][0],
+                            alignment.getTransformCode(startSequence=uRmatch)))
+                    except KeyError: self.uniqueClusterInfo[uRmatch][1][differences]=[(
+                            self.uniqueClusterInfo[uR][0],
+                            alignment.getTransformCode(startSequence=uRmatch))]
     
     def getClusterXMLForUnique(self,uniqueRead):
         """
@@ -1380,7 +1489,9 @@ class Locus:
             differences.set('amount',str(c))  
             for relative in clusterInfo[1][c]:
                 related =  ET.SubElement(differences,'rel')
-                related.set('index',str(relative))
+                related.set('index',str(relative[0]))
+                related.set('transcode',relative[1])
+                #TODO transcode for original allele => offset with flank length
                 connections+=1
         cluster.set('connections',str(connections))
         cluster.tail = '\n\t'
@@ -2383,8 +2494,7 @@ if __name__ == '__main__':
             args.kMerAssign = ('k-mer',args.kMerAssign)
         else: del args.kMerAssign
 
-        kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters} #needs python3.3
-        #kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig[0]} #deprecated python 2.7
+        kwargs = {arg:args.__dict__[arg] for arg in args.__dict__ if arg in sig.parameters}
         #Start analysis
         #import pdb
         #pdb.set_trace()

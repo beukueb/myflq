@@ -3,8 +3,7 @@
 ## Implementing a database for STRs and SNPs
 
 #Database functions
-def login(user="""admin""", passwd="""passall""" ,database='MyFLqADMIN',
-          test=False):
+def login(user="""admin""", passwd="""passall""" ,database='', test=False):
     """
     Returns the formed connection with the db using variablenames: conn, sql
     If test: just tests the connection, and closes it again returning None. 
