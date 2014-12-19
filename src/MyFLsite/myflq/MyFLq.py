@@ -299,6 +299,17 @@ class Alignment:
         An offset can be added, to account for repositioning due to flanks, by
         doing this the transformcode works in respect to the database allele
         instead of ROI
+
+        A transformCode starts with 't', after that follow transform commands.
+        Each command has the following structure:
+            {position}{changed value}{changed value}...
+        A command can end with an 'i' to signify insertion
+        A value can be 'd' for a deletion
+        Subsequent values for same position are changed at subsequent positions
+        From 2 same values they are compressed as follows:
+            AAAA => .4A
+
+        Example transformCode: t21ATAGi77G100\.4A
         """
         transforms=[] #List of tuples with structure (positionInAlnment,newBase,oldBase)
         if startSequence:
@@ -365,7 +376,40 @@ class Alignment:
         compresser=re.compile(r'([ACTGNd])(\1{2,})')
         transformCode = compresser.sub(lambda x: '.{}{}'.format(len(x.group()),x.groups()[0]),
                                        transformCode)
-        return transformCode
+        return transformCode.getTransformCode
+
+    @staticmethod
+    def transformSeq(transformCode,sequence):
+        """
+        Transforms sequence with the transformCode provided.
+        The transformCode should have been generated with Alignment.getTransformCode
+        """
+        import re
+        checkFullCommand = re.compile(r't((\d+)(((\.\d+)?[ACTGNd])+)(i?))+')
+        if not checkFullCommand.fullmatch(transformCode):
+            raise Exception(
+                "transformCode '{}' is not properly formatted.".format(
+                transformCode))
+        transformcommands = re.compile(
+            r'(?P<position>\d+)(?P<transitions>((\.\d+)?[ACTGNd])+)(?P<insert>i?)')
+        transformcommand = re.compile(r'(\.(?P<repeat>\d+))?(?P<sub>[ACTGNd])')
+        sequence = list(sequence)
+        insertions = 0
+        for command in transformcommands.finditer(transformCode):
+            position = int(command.group('position'))
+            insert = True if command.group('insert') else False
+            for command in transformcommand.finditer(command.group('transitions')):
+                for i in range(int(command.group('repeat')) if command.group('repeat') else 1):
+                    if insert:
+                        sequence.insert(position+insertions,command.group('sub'))
+                        insertions += 1
+                    else:
+                        sequence[position+insertions] = command.group('sub')
+                        position += 1
+        sequence = ''.join(sequence)
+        sequence = sequence.replace('d','') #remove deletions
+        return sequence
+            
 
 # AlleleType => work in progress, not yet used
 
