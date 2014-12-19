@@ -276,6 +276,7 @@ class Alignment:
             else: break
         self.alnment = alnment[::-1]
         self.score = F_m[0,-1,-1]
+        
     def getDifferences(self):
         """
         Returns number of differences (one stutter counts for 1 difference)
@@ -290,6 +291,7 @@ class Alignment:
             differences+=dna1.count(stutter) + dna1.count('-') - (dna1.count(stutter)*self.stutter)
             differences+=dna2.count(stutter) + dna2.count('-') - (dna2.count(stutter)*self.stutter)
             return differences
+        
     def getTransformCode(self,startSequence=False,offset=0):
         """
         Returns a string that represents how to transform dna1 into dna2,
@@ -383,6 +385,8 @@ class Alignment:
         """
         Transforms sequence with the transformCode provided.
         The transformCode should have been generated with Alignment.getTransformCode
+
+        See docstring Alignment.getTransformCode for transformCode conventions
         """
         import re
         checkFullCommand = re.compile(r't((\d+)(((\.\d+)?[ACTGNd])+)(i?))+')

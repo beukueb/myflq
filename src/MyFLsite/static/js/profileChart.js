@@ -14,8 +14,8 @@ function draw(error,data,width,height) {
       //this is used in the BaseSpace version, where the xml is dumped into
       //the html document
     }
-    if (results.getElementsByTagName("lociDatabaseState").length){
-	//Database info also contains locus tags, 
+    if (results.getElementsByTagName("lociDatabaseState")[0].getElementsByTagName("locus").length){
+	//In older versions database info also contains locus tags,
 	//and therefore needs to be removed if present
 	try {
 	    results.getElementsByTagName("lociDatabaseState")[0].remove();
@@ -299,6 +299,9 @@ function draw(error,data,width,height) {
 		    }
 		    databaseCB.on("click",function(){
 			d.setAttribute('addToDatabase', (d.getAttribute('addToDatabase')=='yes') ? 'no' : 'yes');
+			if (d.getAttribute('addToDatabase')=='yes'){
+                            d3.select("#makeProfile").text("Add alleles");
+			}
 		    })
 		}
 		
@@ -494,85 +497,98 @@ function draw(error,data,width,height) {
     //Make profile
     d3.select("#makeProfile")
 	.on("click", function() {
-	    //First create profile in memory
-	    var multipleContributor = false;
-	    var profileHTML = document.createElement("html");
-	    var docRoot = d3.select(profileHTML).append("body").append("div");
-	    docRoot.append("h2").text( "Processed profile from " +
-				       sampleName +
-				       ", with threshold: " +
-				       threshold + "%"
-				     );
-	    var table = docRoot.append("table");
-	    var row = table.append("tr");
-	    row.append("td").text("Locus")
-		.attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
-	    row.append("td").text("Alleles")
-		.attr("style","border-width:1px; border-bottom-style: solid;");
-
-	    //Form for calculating profile stat
-	    var form = docRoot.append("form")
-		.attr("action","http://strbase.org/calc.php")
-		.attr("method","post");
-	    form.append("input").attr("name","mode").attr("type","hidden").attr("value","check");
-	    form.append("input").attr("name","fst").attr("type","hidden").attr("value","0.01");
-	    form.append("input").attr("name","countryselect[DB]").attr("type","hidden").attr("value","Full database");
-	    var strBaseLoci = { 'D3S1358' : 'd3',
-				'vWA' : 'vwa',
-				'D16S539' : 'd16',
-				'D8S1179' : 'd8',
-				'D21S11' : 'd21',
-				'D18S51' : 'd18',
-				'TH01' : 'th01',
-				'FGA' : 'fga'
-		}
-
-	    //Add all loci
-	    d3.selectAll(".locus").each(function(d,i){
-		row = table.append("tr");
-		row.append("td").text(d.getAttribute("name")).attr("style","border-width:1px; border-right-style: solid;");
-		//Retrieve alleles that passed the threshold
-		var alleles = []
-		var sBA = false; //This becomes true when first allele is ready to be submitted, maximum two allowed
-		for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
-		    var aC = d.getElementsByTagName('alleleCandidate')[j];
-		    if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
-			 aC.getAttribute('profile')!='no') {
-			alleles[alleles.length] = aC.getAttribute("db-name") +
-			    ( (aC.getAttribute("db-subtype")) ? '_'+aC.getAttribute("db-subtype") : "" );
-		    
-			//Add allele candidate to form if in strBaseLoci
-			if (d.getAttribute("name") in strBaseLoci && aC.getAttribute("db-name") != 'NA'){
-			    form.append("input").attr("name","inputsys["+strBaseLoci[d.getAttribute("name")]+"]["+String(sBA+1)+"]")
-				.attr("type","hidden").attr("value",aC.getAttribute("db-name"));
-			    sBA = true;
+	    if (d3.select("#makeProfile").text() == 'Make profile') {
+		//First create profile in memory
+		var multipleContributor = false;
+		var profileHTML = document.createElement("html");
+		var docRoot = d3.select(profileHTML).append("body").append("div");
+		docRoot.append("h2").text( "Processed profile from " +
+					   sampleName +
+					   ", with threshold: " +
+					   threshold + "%"
+					 );
+		var table = docRoot.append("table");
+		var row = table.append("tr");
+		row.append("td").text("Locus")
+		    .attr("style","border-width:1px; border-bottom-style: solid; border-right-style: solid;");
+		row.append("td").text("Alleles")
+		    .attr("style","border-width:1px; border-bottom-style: solid;");
+		
+		//Form for calculating profile stat
+		var form = docRoot.append("form")
+		    .attr("action","http://strbase.org/calc.php")
+		    .attr("method","post");
+		form.append("input").attr("name","mode").attr("type","hidden").attr("value","check");
+		form.append("input").attr("name","fst").attr("type","hidden").attr("value","0.01");
+		form.append("input").attr("name","countryselect[DB]").attr("type","hidden").attr("value","Full database");
+		var strBaseLoci = { 'D3S1358' : 'd3',
+				    'vWA' : 'vwa',
+				    'D16S539' : 'd16',
+				    'D8S1179' : 'd8',
+				    'D21S11' : 'd21',
+				    'D18S51' : 'd18',
+				    'TH01' : 'th01',
+				    'FGA' : 'fga'
+				  }
+		
+		//Add all loci
+		d3.selectAll(".locus").each(function(d,i){
+		    row = table.append("tr");
+		    row.append("td").text(d.getAttribute("name")).attr("style","border-width:1px; border-right-style: solid;");
+		    //Retrieve alleles that passed the threshold
+		    var alleles = []
+		    var sBA = false; //This becomes true when first allele is ready to be submitted, maximum two allowed
+		    for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
+			var aC = d.getElementsByTagName('alleleCandidate')[j];
+			if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
+			     aC.getAttribute('profile')!='no') {
+			    alleles[alleles.length] = aC.getAttribute("db-name") +
+				( (aC.getAttribute("db-subtype")) ? '_'+aC.getAttribute("db-subtype") : "" );
+			    
+			    //Add allele candidate to form if in strBaseLoci
+			    if (d.getAttribute("name") in strBaseLoci && aC.getAttribute("db-name") != 'NA'){
+				form.append("input").attr("name","inputsys["+strBaseLoci[d.getAttribute("name")]+"]["+String(sBA+1)+"]")
+				    .attr("type","hidden").attr("value",aC.getAttribute("db-name"));
+				sBA = true;
+			    }
 			}
 		    }
+		    if (alleles.length > 2) {multipleContributor = true}
+		    row.append("td").text(alleles.join());
+		    //console.log(i);
+		});
+		
+		if (multipleContributor) {
+		    d3.select(profileHTML).select("div").append("p")
+			.text("Based on the threshold, this sample derives from multiple contributors.")
+			.attr("style","color:red;");
+		    d3.select(profileHTML).select("form").remove();
 		}
-		if (alleles.length > 2) {multipleContributor = true}
-		row.append("td").text(alleles.join());
-		//console.log(i);
-	    });
-
-	    if (multipleContributor) {
-		d3.select(profileHTML).select("div").append("p")
-		    .text("Based on the threshold, this sample derives from multiple contributors.")
-		    .attr("style","color:red;");
-		d3.select(profileHTML).select("form").remove();
+		else {
+		    form.append("br");
+		    form.append("input").attr("type","submit").attr("value","Calculate probability on ENFSI");
+		    form.append("p").text("(This only calculates the probability for the subset of ENFSI loci.)");
+		}
+		
+		if (navigator.appName == "Microsoft Internet Explorer"){
+		    //Todo, make alternative that works in IE (maybe using Blob)
+		    alert("For this functionality use either Firefox or Chrome");}
+		else{
+		    var profileWindow = window.open("data:text/html;charset=utf-8,<html>"+d3.select(profileHTML).html()+"</html>");//,"Profile","location=no");
+		    //var profileWindow = window.open('');
+		    //var profileRoot = d3.select(profileWindow.document.body);
+		}
 	    }
-	    else {
-		form.append("br");
-		form.append("input").attr("type","submit").attr("value","Calculate probability on ENFSI");
-		form.append("p").text("(This only calculates the probability for the subset of ENFSI loci.)");
-	    }
-
-	    if (navigator.appName == "Microsoft Internet Explorer"){
-		//Todo, make alternative that works in IE (maybe using Blob)
-		alert("For this functionality use either Firefox or Chrome");}
-	    else{
-		var profileWindow = window.open("data:text/html;charset=utf-8,<html>"+d3.select(profileHTML).html()+"</html>");//,"Profile","location=no");
-	    //var profileWindow = window.open('');
-	    //var profileRoot = d3.select(profileWindow.document.body);
+	    else { //Add alleles #TODO disable on basespace version
+		d3.selectAll(".locus").each(function(d,i){
+		    var locusName = d.getAttribute("name")
+                    for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
+			var aC = d.getElementsByTagName('alleleCandidate')[j];
+			if (aC.getAttribute('addToDatabase') == 'yes') {
+                            window.aC = aC
+			}
+                    }
+		});
 	    }
 	})
 

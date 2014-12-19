@@ -6,13 +6,23 @@ from django.utils.html import mark_safe
 
 # Create your views here.
 from flad.models import Allele,UsableReference,FLADkey
-from myflq.MyFLq import complement
+from myflq.MyFLq import complement,Alignment
 from django.core.exceptions import ObjectDoesNotExist
 
-def getsequence(request,fladid,mode=False):
+def getsequence(request,fladid,transform=False,mode=False):
     try: seq = getAllele(fladid).sequence
     except ObjectDoesNotExist:
         seq = ''
+    if transform:
+        if transform.startswith('tc'): seq=complement(seq)
+        transformCode = 't'+transform[2:]
+        seq = Alignment.transformSeq(transformCode,seq)
+        #Test if transformed sequence is in database
+        try:
+            allele = getAllele(seq,seqid=True)
+            seq = allele.sequence
+            fladid = allele.fladid()
+        except ObjectDoesNotExist: fladid += transform
     kwargs = {'sequence':seq,
               'complement':complement(seq),
               'fladid':fladid,
