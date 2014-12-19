@@ -200,6 +200,8 @@ def analysis(request):
                 if analysisform.cleaned_data.get('originalFilename',False):
                     analysismodel.originalFilename =  analysisform.cleaned_data['originalFilename']
                 analysismodel.save()
+                #Todo: check if database update required, instead of deleting/installing with every analysis
+                reprocess_config(analysismodel.configuration)
                 myflqTaskRequest.delay(analysismodel.id)
 
             else: newanalysisform = False
@@ -208,7 +210,46 @@ def analysis(request):
                                                  'analysisform':analysisform,
                                                  'processes':processes})
  
- 
+
+def reprocess_config(config):
+    """
+    If alleles have been added, configuration database needs to be updated
+    #TODO check if necessary to update
+    """
+    #Imports
+    import tempfile
+    from django.core.files.base import File
+
+    #Delete previous config database => #TODO only update instead of deleting/installing
+    subprocess.call(['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'),
+                                     '-p',config.user.password,'--delete',config.dbusername(),
+                                     config.fulldbname()])
+    
+    ##Save new allele config file with FLADids for MyFLq
+    alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
+    for a in Allele.objects.filter(configuration=config):
+        alleleFile.file.write('{},{},{}\n'.format(
+            a.locus.name,a.FLADid,a.sequence).encode())
+    alleleFile.close()
+    config.alleleFile = File(open(alleleFile.name))
+    config.save()
+
+    #Make database for user
+    subprocess.check_output(['python3',
+                             os.path.join(settings.BASE_DIR,'../MyFLdb.py'), 
+                             '-p',config.user.password,config.dbusername(),
+                             config.fulldbname()],stderr=subprocess.STDOUT)
+
+    #Validate and save config for MyFLq
+    subprocess.check_output(['python3',
+                             os.path.join(settings.BASE_DIR,'../MyFLq.py'),
+                             '-p',config.user.password, 'add',
+                             '-k',config.lociFile.file.name,
+                             '-a',config.alleleFile.file.name,
+                             config.dbusername(),
+                             config.fulldbname(),
+                             'default'],stderr=subprocess.STDOUT)
+
 @login_required
 def results(request):
     #TODO search options/page functionality for users with many results
@@ -220,17 +261,28 @@ def results(request):
                                                     ).filter(progress__contains='F')})
 
 @login_required
-def result(request):
-    #User requeste result
-    
+def result(request,analysis=False):
+    #User request result
     if request.method == 'POST':
         analysis = Analysis.objects.get(pk=request.POST['viewResult'])
         return render(request,'myflq/result.html',
                       {'myflq':True,
                        'analysis':analysis})
 
-
-     
+    #Process AJAX for adding alleles
+    if request.is_ajax():
+        from myflq.MyFLq import complement
+        sequence = request.GET['seq']+complement(request.GET['cend'])
+        analysis = Analysis.objects.get(pk=int(analysis))
+        allele,created = Allele.objects.get_or_create(
+            configuration = analysis.configuration,
+            locus = Locus.objects.get(name=request.GET['locus'],
+                                      configuration=analysis.configuration),
+            FLADid = getFLAD(sequence,analysis.configuration.user),
+            sequence = sequence)
+        #if created: #todo report in json if created, test if you need to save
+        data = '[{}]'.format(allele.FLADid)#fladid here
+        return HttpResponse(data, 'application/json')     
  
  
  

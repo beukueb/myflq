@@ -24,6 +24,9 @@ function draw(error,data,width,height) {
 	    results.removeChild(results.getElementsByTagName("lociDatabaseState")[0]);
 	}
     }
+    else {
+	var lociDB = results.getElementsByTagName("lociDatabaseState")[0];
+    }
 
     //Set MyFLq version for reference (if not available in xml, default is '1.0')
     var versionMyFLq = (results.getAttribute('versionMyFLq')) ? results.getAttribute('versionMyFLq'):'1.0'
@@ -582,13 +585,24 @@ function draw(error,data,width,height) {
 	    else { //Add alleles #TODO disable on basespace version
 		d3.selectAll(".locus").each(function(d,i){
 		    var locusName = d.getAttribute("name")
+		    var locusInfo = lociDB.querySelector('locusInfo[name='+locusName+']')
                     for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
 			var aC = d.getElementsByTagName('alleleCandidate')[j];
 			if (aC.getAttribute('addToDatabase') == 'yes') {
-                            window.aC = aC
+			    var sequence = locusInfo.querySelector('ref_forwardP').textContent +
+				locusInfo.querySelector('flank_forwardP').textContent +
+				aC.querySelector('regionOfInterest').textContent;
+			    var addComplement = locusInfo.querySelector('ref_reverseP').textContent +
+				locusInfo.querySelector('flank_reverseP').textContent;
+			    d3.xhr('./'+d3.select("#analysisID").property('value')+
+				   '/?seq='+sequence+'&cend='+addComplement+
+				  '&locus='+locusName)
+				.header("X-Requested-With", "XMLHttpRequest")
+				.get(function(){console.log('Submitted to allele database:',aC)});
 			}
                     }
 		});
+		d3.select("#makeProfile").text('Make profile')
 	    }
 	})
 

@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     url(r'^setup/$','myflq.views.setup'),
     url(r'^analysis/$','myflq.views.analysis'),
     url(r'^results/$','myflq.views.results'),
-    url(r'^results/view/$','myflq.views.result'),
+    url(r'^results/view/((?P<analysis>\d+)/)?$','myflq.views.result'),
     url(r'^help/$', login_required(TemplateView.as_view(template_name='myflq/help.html')),kwargs={'myflq':True}), 
 )
