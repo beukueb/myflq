@@ -378,7 +378,7 @@ class Alignment:
         compresser=re.compile(r'([ACTGNd])(\1{2,})')
         transformCode = compresser.sub(lambda x: '.{}{}'.format(len(x.group()),x.groups()[0]),
                                        transformCode)
-        return transformCode.getTransformCode
+        return transformCode
 
     @staticmethod
     def transformSeq(transformCode,sequence):
