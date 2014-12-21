@@ -110,7 +110,7 @@ def getSeq(seqID,sql=None):
     """
     #if not sql: conn,sql = login()
     #else: conn=None
-    sql.execute("SELECT sequence FROM BASEseqs WHERE seqID = %s", (seqID))
+    sql.execute("SELECT sequence FROM BASEseqs WHERE seqID = %s", (seqID,))
     if sql.rowcount == 0: raise Exception("No such sequence in the database")
     seq = sql.fetchone()['sequence']
     #if conn: logout(conn,sql)
@@ -517,7 +517,7 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
                        #which is connection dependent
     
     #Check authentification of submitting institution
-    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s", (labID))
+    sql.execute("SELECT passphrase FROM laboratories WHERE labID = %s", (labID,))
     if sql.rowcount == 0: raise Exception("Lab identifier not known, register first")
     elif sql.fetchone()['passphrase'] != passphrase: raise Exception("Passphrase for "+labID+" not correct!")
         
@@ -560,7 +560,7 @@ def makeEntry(sequences,seqCounts,locusName,labID='NA',passphrase='NA',technolog
         validatedInfo=[-1 for s in sequences]
     for seqID,seqCount,valid,avalid in zip(seqIDs,seqCounts,validatedInfo,alleleValidation):
         if valid and valid > 0: valid = seqIDs[valid-1] # -1 as list number is given and not python index
-        sql.execute ("""INSERT INTO BASEstat (entryID, seqID, primersetID,
+        sql.execute("""INSERT INTO BASEstat (entryID, seqID, primersetID,
         validated, alleleValidation, seqCount)
         VALUES (%s,%s,%s,%s,%s,%s)"""
                     ,(entryID, seqID, primersetID, valid, avalid, seqCount))
@@ -583,7 +583,7 @@ def makeLocusEntry(forwardP,reverseP,locusName,locusType,refNumber=None,
 
     #BASEnames
     sql.execute("SELECT locusType FROM BASEnames WHERE locusName = %s",
-                (locusName))
+                (locusName,))
     if not sql.rowcount:
         sql.execute(
             """INSERT INTO BASEnames (locusName,locusType,ref_alleleNumber,
@@ -627,10 +627,10 @@ def getSeqID(seq,sql=None):
     if not sql: conn,sql = login()
     else: conn=None
         
-    sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq))
+    sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq,))
     if sql.rowcount == 0: 
-        sql.execute ("INSERT INTO BASEseqs (sequence) VALUES (%s)", (seq))
-        sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq))
+        sql.execute ("INSERT INTO BASEseqs (sequence) VALUES (%s)", (seq,))
+        sql.execute ("SELECT seqID FROM BASEseqs WHERE sequence = %s", (seq,))
 
     if conn: logout(conn,sql)
     return sql.fetchone()['seqID']
@@ -638,7 +638,7 @@ def getSeqID(seq,sql=None):
 #Functions for adding users/laboratories
 def addLab(labID,passphrase):
     conn,sql=login()
-    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s",(labID))
+    sql.execute ("SELECT passphrase FROM laboratories WHERE labID = %s",(labID,))
     if sql.rowcount != 0: raise Exception(
             "Lab identifier not unique, you either already registered or need to choose another identifier")
     else:
@@ -722,7 +722,7 @@ def processLociNames():
     for name in locusNames:
         #Collect known primersets for locus
         sql.execute("SELECT getSeq(forwardP) AS fP,getSeq(reverseP) AS rP FROM BASEprimersets WHERE locusName = %s",
-                    (name))
+                    (name,))
         primersets = {(s['fP'],complement(s['rP'])) for s in sql.fetchall()} #Complement taken from reverse primer!!!
         
         #Collect known alleles for locus
@@ -730,7 +730,7 @@ def processLociNames():
         #Flanking region determination considers all and only validated alleles
         sql.execute("""SELECT getSeq(seqID) AS seq,alleleValidation FROM BASEtrack
                        JOIN BASEstat USING (entryID)
-                       WHERE locusName = %s AND BASEstat.validated = 0""", (name))
+                       WHERE locusName = %s AND BASEstat.validated = 0""", (name,))
         locAlleles={(s['seq'],s['alleleValidation']) for s in sql.fetchall()}
         
         #At this point all alleles for a locus are gathered and relevant information needs to be extracted:
@@ -738,7 +738,7 @@ def processLociNames():
         if kitFileVersion < 2.0: #Old loci config file processing
             reference_allele,(primerF,primerR) = getRefAllel(primersets,locAlleles)
         else: #Config file 2.0 and later processing
-            sql.execute("SELECT getSeq(ref_seqID) FROM BASEnames WHERE locusName = %s", (name))
+            sql.execute("SELECT getSeq(ref_seqID) FROM BASEnames WHERE locusName = %s", (name,))
             reference_allele = sql.fetchone()['getSeq(ref_seqID)']
             if len(primersets) != 1:
                 raise NotImplementedError("There should not be more than one primerset per locus for version 2 configurations")
@@ -746,12 +746,12 @@ def processLociNames():
         primerR = complement(primerR) #Revert primerR back to complementary strand
           
          #Locustype
-        sql.execute("""SELECT locusType FROM BASEnames WHERE locusName = %s""", (name))
+        sql.execute("""SELECT locusType FROM BASEnames WHERE locusName = %s""", (name,))
         locusType = sql.fetchone()['locusType']
         if kitFileVersion < 2.0 and locusType != 0 and ':R' in reference_allele[1]:
             reference_allele=(reference_allele[0],reference_allele[1][:reference_allele[1].index(':R')])
         elif locusType != 0:
-            sql.execute("""SELECT ref_alleleNumber FROM BASEnames WHERE locusName = %s""", (name))
+            sql.execute("""SELECT ref_alleleNumber FROM BASEnames WHERE locusName = %s""", (name,))
             reference_allele=(reference_allele,sql.fetchone()['ref_alleleNumber'])
                 
          #Initial flanking regions
@@ -866,7 +866,7 @@ def processLociAlleles(flush=True):
         locusName = locus['locusName']
         sql.execute("""SELECT getSeq(seqID) AS seq,alleleValidation FROM BASEtrack
                        JOIN BASEstat USING (entryID)
-                       WHERE locusName = %s AND BASEstat.validated = 0""", (locusName))
+                       WHERE locusName = %s AND BASEstat.validated = 0""", (locusName,))
         locAlleles={(s['seq'],s['alleleValidation']) for s in sql.fetchall()}
         for allele,alleleNomen in locAlleles:
             allele = flankOutAllele(locus,allele)
@@ -1639,7 +1639,7 @@ class Locus:
             sql.execute("SELECT * FROM LOCInames")
             locusDict={locus['locusName']:locus for locus in sql.fetchall()}
         else:
-            sql.execute("SELECT locusName FROM LOCIkits WHERE kitName = %s",(kitName))
+            sql.execute("SELECT locusName FROM LOCIkits WHERE kitName = %s",(kitName,))
             locusDict={}
             for locus in sql.fetchall():
                 sql.execute("SELECT * FROM LOCInames WHERE locusName = %s",(locus['locusName']))
@@ -1735,10 +1735,10 @@ class Locus:
         
         if kitName:
             conn,sql = login()
-            sql.execute("SELECT * FROM LOCIkits WHERE kitName = %s",(kitName))
+            sql.execute("SELECT * FROM LOCIkits WHERE kitName = %s",(kitName,))
             if sql.rowcount != 0:
                 if 'Y' == input("kitName ("+kitName+") already in use, overwrite? (Y/N) "):
-                    sql.execute("DELETE FROM LOCIkits WHERE kitName = %s",(kitName))
+                    sql.execute("DELETE FROM LOCIkits WHERE kitName = %s",(kitName,))
                 else: return locusDict
             for locusName in locusDict:
                 sql.execute("INSERT INTO LOCIkits (kitName,locusName) VALUES (%s,%s)",(kitName,locusName))

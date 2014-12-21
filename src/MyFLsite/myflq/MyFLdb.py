@@ -16,7 +16,9 @@ def login(user="""admin""", passwd="""passall""" ,database='', test=False):
                            user = user,
                            passwd = passwd,
                            db = database)
+    #conn.autocommit(True)
     sql = conn.cursor(MySQLdb.cursors.DictCursor)
+    #sql.connection().autocommit(True)
     if not test: return (conn,sql)
     else: logout(conn, sql)
 
@@ -117,8 +119,8 @@ def makeTables(sql):
     `passphrase` CHAR(200) NOT NULL
     )
     COMMENT 'Laboratories submitting to current database - for quality control';
-    INSERT INTO laboratories (labID,passphrase) VALUES ("NA","NA");
          """)
+    sql.execute("""INSERT INTO laboratories (labID,passphrase) VALUES ("NA","NA");""")
     sql.execute ("""
     CREATE TABLE IF NOT EXISTS BASEtrack (
     `entryID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -269,7 +271,7 @@ if __name__ == '__main__':
         conn,sql = login()
         sql.execute("""
         SELECT User FROM mysql.user WHERE User = %s;
-        """,args.user)
+        """,(args.user,))
         if not sql.rowcount:
             sql.execute("CREATE USER %s@'localhost' IDENTIFIED BY %s;",
                         (args.user,args.password))
@@ -277,7 +279,7 @@ if __name__ == '__main__':
             for db in args.db:
                 sql.execute("CREATE DATABASE "+db+";")
                 sql.execute("GRANT ALL ON "+db+
-                            ".* TO %s@'localhost';",args.user)
+                            ".* TO %s@'localhost';",(args.user,))
             
             #Make tables
             for db in args.db:
@@ -286,7 +288,7 @@ if __name__ == '__main__':
                 makeViews(sql)
                 makeFunctions(sql)
         elif args.delete_user:
-            sql.execute("SELECT Db FROM mysql.db WHERE User = %s;", (args.user))
+            sql.execute("SELECT Db FROM mysql.db WHERE User = %s;", (args.user,))
             for db in sql.fetchall():
                 db = db['Db']
                 sql.execute("DROP DATABASE "+db.decode()+";")
