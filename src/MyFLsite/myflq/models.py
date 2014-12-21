@@ -52,6 +52,15 @@ class UserResources(models.Model):
         different users can use the same short dbname
         """
         return self.dbusername()+'_'+self.dbname
+
+    def countNonValidatedAlleles(self):
+        """
+        This counts the number of NA or non validated alleles.
+        It is not good practice to have too many such alleles linked to a configuration.
+        Profiles that report such NA alleles should be tracked, and the NA allele
+        should either be validated and get a FLADid or be removed from the profile.
+        """
+        return NotImplemented
     
 class Locus(models.Model):
     """
@@ -190,6 +199,7 @@ class Allele(models.Model):
     locus = models.ForeignKey(Locus)
     name = models.CharField(default='NA',max_length=200)
     FLADid = models.CharField(default='FAXXX',max_length=200) #TODO FLAD validator
+    isFLAD = models.BooleanField(default=True) #True for validated alleles with a FLAdid
     repeatNumber = models.FloatField(null=True,blank=True,verbose_name='repeat number') #For STR loci alleles
     sequence = models.CharField(max_length=1000,default='')
     analysis = models.ForeignKey(Analysis,related_name='first_reporting_analysis',null=True,
@@ -204,6 +214,27 @@ class Allele(models.Model):
     
     def __str__(self):
         return self.FLADid
+
+    @staticmethod
+    def NAreference(configuration):
+        """
+        Returns the first available NAreference for the configuration.
+        NAreferences are not permanent like a FLADid.
+        If an NA allele gets validated and is assigned a FLADid,
+        its NAreference is freed and used for the next NA allele that
+        needs a reference.
+        It is therefore important that users do not make too many profiles
+        with NA alleles. Either an NA allele is valid and should get a FLADid,
+        or it is not and it should be removed from the profile.
+        """
+        pass
+
+    def NArelative(self,maxDifferences=2):
+        """
+        Searches the current configuration validated alleles
+        and returns its NAreference_relativeFLADid+transformCode
+        """
+        return NotImplemented
 
 class FLADconfig(models.Model):
     """
