@@ -5,10 +5,13 @@ function draw(error,data,width,height) {
     width = width || 900; 
     height = height || 400;
 
+    var deployment = 'forensic.ugent';
+
     //Prepare data
     var results = data.documentElement;
     if (results.nodeName != "results"){
 	results = results.getElementsByTagName("results")[0];
+	deployment = 'basespace';
       //.getElementsByTagName("results") is a hack to allow processing 
       //when html document is passed instead of xml data to draw
       //this is used in the BaseSpace version, where the xml is dumped into
@@ -500,7 +503,8 @@ function draw(error,data,width,height) {
     //Make profile
     d3.select("#makeProfile")
 	.on("click", function() {
-	    if (d3.select("#makeProfile").text() == 'Make profile') {
+	    if (d3.select("#makeProfile").text() == 'Make profile' &&
+	       deployment == 'basespace') {
 		//First create profile in memory
 		var multipleContributor = false;
 		var profileHTML = document.createElement("html");
@@ -582,7 +586,62 @@ function draw(error,data,width,height) {
 		    //var profileRoot = d3.select(profileWindow.document.body);
 		}
 	    }
-	    else { //Add alleles #TODO disable on basespace version
+	    else if (d3.select("#makeProfile").text() == 'Make profile' &&
+		     deployment == 'forensic.ugent') {
+		var form = d3.select('#profileForm');
+		form.append("input").attr("name","threshold").attr("type","hidden").attr("value",String(threshold));
+		
+		//Add all loci
+		d3.selectAll(".locus").each(function(d,i){
+		    var locusName = d.getAttribute("name")
+		    var locusInfo = lociDB.querySelector('locusInfo[name='+locusName+']')
+		    form.append('input')
+			.attr('name','locus_'+i)
+			.attr('type','hidden')
+			.attr('value',locusName);
+		    form.append('input')
+			.attr('name','locus_'+i+'_'+j)
+			.attr('type','hidden')
+			.attr('value',d.getAttribute("name"));
+		    form.append('input')
+			.attr('name','forwardPrimer_'+i)
+			.attr('type','hidden')
+			.attr('value',locusInfo.querySelector('ref_forwardP').textContent);
+		    form.append('input')
+			.attr('name','reversePrimer_'+i)
+			.attr('type','hidden')
+			.attr('value',locusInfo.querySelector('ref_reverseP').textContent);
+		    form.append('input')
+			.attr('name','forwardFlank_'+i)
+			.attr('type','hidden')
+			.attr('value',locusInfo.querySelector('flank_forwardP').textContent);
+		    form.append('input')
+			.attr('name','reverseFlank_'+i)
+			.attr('type','hidden')
+			.attr('value',locusInfo.querySelector('flank_reverseP').textContent);
+		    //Retrieve alleles that passed the threshold
+		    for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
+			var aC = d.getElementsByTagName('alleleCandidate')[j];
+			if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
+			     aC.getAttribute('profile')!='no') {
+			    form.append('input')
+				.attr('name','name_'+i+'_'+j)
+				.attr('type','hidden')
+				.attr('value',aC.getAttribute("db-name"));
+			    form.append('input')
+				.attr('name','subtype_'+i+'_'+j)
+				.attr('type','hidden')
+				.attr('value',aC.getAttribute("db-subtype"));
+			    form.append('input')
+				.attr('name','subtype_'+i+'_'+j)
+				.attr('type','hidden')
+				.attr('value',aC.querySelector('regionOfInterest').textContent);
+			}
+		    }
+		});
+		document.getElementById("profileForm").submit();
+	    }
+	    else if (deployment == 'forensic.ugent') {
 		d3.selectAll(".locus").each(function(d,i){
 		    var locusName = d.getAttribute("name")
 		    var locusInfo = lociDB.querySelector('locusInfo[name='+locusName+']')

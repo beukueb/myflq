@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 #Setup
-from myflq.models import UserResources,Locus,Allele,FLADconfig
+from myflq.models import UserResources,Locus,Allele,Profile,FLADconfig
 from myflq.forms import ConfigurationForm,FLADconfigForm
 
 import os, subprocess
@@ -265,7 +265,7 @@ def result(request,analysis=False):
 
 @login_required
 def profile(request,analysis):
-    analysis = Analysis.objects.get(pk=int(analysis),user=request.user)
+    analysis = Analysis.objects.get(pk=int(analysis),configuration__user=request.user)
 
     #Make profile
     if request.method == 'POST':

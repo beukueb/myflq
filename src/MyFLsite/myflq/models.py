@@ -266,6 +266,9 @@ class Profile(models.Model):
     """
     analysis = models.OneToOneField(Analysis)
     alleles = models.ManyToManyField(Allele)
+    threshold = models.FloatField(default=0,help_text=
+                'Threshold applied when profile was generated from resultxml'
+    )
     inAlleleDatabase = models.BooleanField(default=False) #True if used for allele DB
 
     def __str__(self):

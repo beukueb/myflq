@@ -85,7 +85,7 @@
 </div>
 
 <!--Form used by JS to submit profile-->
-<form action='profile/' method='post' style="display:none;">
+<form id="profileForm" action='/myflq/profile/{{ analysis.id }}/' method='post' style="display:none;">
     {% csrf_token %}
     <input type="hidden" id="analysisID" value="{{ analysis.id }}">
 </form>
