@@ -32,6 +32,7 @@ class UserResources(models.Model):
                                   help_text="This file should contain all known alleles within the population. Each line should have\
                                   the following structure:<br />Locus name, STR number for STR loci/Allele name for SNP loci, Sequence")
     creationDate = models.DateField(auto_now_add=True)
+    lastUpDate = models.DateTimeField(null=True,blank=True) #creationTime from last Allele added, to check if config needs updating
 
     def __str__(self):
         return self.dbname
@@ -78,6 +79,7 @@ class Locus(models.Model):
     
     class Meta:
         unique_together = ("configuration", "name")
+        ordering = ('name',)
     
     def __str__(self):
         return self.name
@@ -118,7 +120,7 @@ class Analysis(models.Model):
                 locus assignment will be less specific, but more reads will be
                 asigned.'''
     )
-    flankOut = models.BooleanField(default=True,help_text=mark_safe(
+    flankOut = models.BooleanField(default=False,help_text=mark_safe(
                 '''Options:<br />
                 Flankout analysis. This analysis will only consider the region of interest
                 of the different population alleles, based on the selected configuration
@@ -211,14 +213,15 @@ class Allele(models.Model):
     
     class Meta:
         unique_together = ("configuration", "locus", "FLADid")
+        ordering = ('locus',)
     
     def __str__(self):
         return self.FLADid
 
     @staticmethod
-    def NAreference(configuration):
+    def NAreference(locus,configuration=False):
         """
-        Returns the first available NAreference for the configuration.
+        Returns the first available NAreference for the configuration and locus.
         NAreferences are not permanent like a FLADid.
         If an NA allele gets validated and is assigned a FLADid,
         its NAreference is freed and used for the next NA allele that
@@ -226,8 +229,21 @@ class Allele(models.Model):
         It is therefore important that users do not make too many profiles
         with NA alleles. Either an NA allele is valid and should get a FLADid,
         or it is not and it should be removed from the profile.
+
+        If you provide configuration, locusName is sufficient.
         """
-        pass
+        if not type(locus) == Locus:
+            locus = Locus.objects.get(configuration=configuration,
+                                      name=locus)
+        NAr = 0
+        NAre = re.compile(r'NA(?P<number>\d+)')
+        for i in sorted(int(NAre.match(a.FLADid).group('number'))
+                      for a in Allele.objects.filter(locus=locus,isFLAD=False)):
+            if i-1 == NAr:
+                NAr +=1
+            else: break
+        NAr +=1
+        return 'NA{}'.format(NAr)
 
     def NArelative(self,maxDifferences=2):
         """
@@ -236,6 +252,37 @@ class Allele(models.Model):
         """
         return NotImplemented
 
+class Profile(models.Model):
+    """
+    Collects all the alleles from an Analysis result that have been validated
+    part of the profile.
+    Non validated alleles can be part of a Profile, but it is not considered
+    good practise. Profiles containing NA alleles should be reviewed.
+
+    Profile.addToDatabase, adds all its alleles to the allele database and
+    sets inAlleleDatabase to True. Profile.removeFromDatabase does the opposite.
+
+    Profiles with NA alleles cannot be added to an allele config database.
+    """
+    analysis = models.OneToOneField(Analysis)
+    alleles = models.ManyToManyField(Allele)
+    inAlleleDatabase = models.BooleanField(default=False) #True if used for allele DB
+
+    def __str__(self):
+        return 'Profile {}'.format(self.analysis.id)
+
+    def isValid(self):
+        """
+        Returns True if no NA alleles in the profile.
+        """
+        return False
+
+    def addToDatabase(self):
+        NotImplemented
+
+    def removeFromDatabase(self):
+        NotImplemented
+    
 class FLADconfig(models.Model):
     """
     Username and registration key on forensic.UGent.be.

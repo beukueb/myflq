@@ -77,61 +77,75 @@ def setup(request):
                                               'configFilesError':configFilesError})
 
 ##Further functions for processing setup view
-def process_config(config):
+def process_config(config,reprocess=False):
+    """
+    Checks, makes MyFLq config files and adds loci, alleles to Django MyFLsite db
+    If alleles have been added, configuration database can be updated with reprocess
+    """
     #Imports
     import tempfile
     from django.core.files.base import File
 
-    #Process loci
-    for line in open(config.lociFile.file.name):
-        if line.strip().startswith('#'): continue
-        line = line.strip().split(',')
-        lenline = len(line)
-        if lenline == 4:
-            raise NotImplementedError("Loci config file V1.0 not yet reimplemented. Contact us and we will activate it.")
-        locus = Locus(configuration = config,
-                      name = line[0],
-                      locusType = None if line[1] == 'SNP' else line[1],
-                      forwardPrimer = line[2].upper(),
-                      reversePrimer = line[3].upper(),
-                      refnumber = line[4] if lenline >= 6 and line[1] != 'SNP' else None,
-                      refsequence = line[5].upper() if lenline >= 6 else None,
-                      refmask = line[6].upper() if lenline == 7 else None
-                  )
-        locus.save()
-
-    #Process alleles
-    ##If no initial allele file, make one based on lociFile version 2
-    if not config.alleleFile:
-        alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
+    #Process loci config 
+    if not reprocess: #Not needed for reprocessing
         for line in open(config.lociFile.file.name):
+            if line.strip().startswith('#'): continue
             line = line.strip().split(',')
-            alleleFile.file.write('{},{},{}\n'.format(
-                line[0],line[4],line[5]).encode())
-        alleleFile.close()
-        config.alleleFile = File(open(alleleFile.name))
-        config.save()
+            lenline = len(line)
+            if lenline == 4:
+                raise NotImplementedError("Loci config file V1.0 not yet reimplemented. Contact us and we will activate it.")
+            locus = Locus(configuration = config,
+                          name = line[0],
+                          locusType = None if line[1] == 'SNP' else line[1],
+                          forwardPrimer = line[2].upper(),
+                          reversePrimer = line[3].upper(),
+                          refnumber = line[4] if lenline >= 6 and line[1] != 'SNP' else None,
+                          refsequence = line[5].upper() if lenline >= 6 else None,
+                          refmask = line[6].upper() if lenline == 7 else None
+            )
+            locus.save()
+                
+        #Process alleles
+        ##If no initial allele file, make one based on lociFile version 2
+        if not config.alleleFile:
+            alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
+            for line in open(config.lociFile.file.name):
+                line = line.strip().split(',')
+                alleleFile.file.write('{},{},{}\n'.format(
+                    line[0],line[4],line[5]).encode())
+            alleleFile.close()
+            config.alleleFile = File(open(alleleFile.name))
+            config.save()
 
-    ##Add alleles to MyFLsite db and retrieve FLADids
-    for line in open(config.alleleFile.file.name):
-        if line.strip().startswith('#'): continue
-        line = line.strip().split(',')
-        allele = Allele(configuration = config,
-                        locus = Locus.objects.get(name=line[0],
-                                                  configuration=config),
-                        name = line[1],
-                        FLADid = getFLAD(line[2],config.user),
-                        #repeatNumber => not implemented for now
-                        sequence = line[2].upper())
-        allele.save()
+        ##Add alleles to MyFLsite db and retrieve FLADids
+        for line in open(config.alleleFile.file.name):
+            if line.strip().startswith('#'): continue
+            line = line.strip().split(',')
+            allele = Allele(configuration = config,
+                            locus = Locus.objects.get(name=line[0],
+                                                      configuration=config),
+                            name = line[1],
+                            FLADid = getFLAD(line[2],config.user),
+                            #repeatNumber => not implemented for now
+                            sequence = line[2].upper())
+            allele.save()
+
+    else: #If reprocessing delete previous MyFLq database
+        #Delete previous config database => #TODO only update instead of deleting/installing
+        subprocess.call(['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'),
+                         '-p',config.user.password,'--delete',config.dbusername(),
+                         config.fulldbname()])
+        
 
     ##Save new allele config file with FLADids for MyFLq
     alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
-    for a in Allele.objects.filter(configuration=config):
+    alleles = Allele.objects.filter(configuration=config,isFLAD=True)
+    for a in alleles:
         alleleFile.file.write('{},{},{}\n'.format(
             a.locus.name,a.FLADid,a.sequence).encode())
     alleleFile.close()
     config.alleleFile = File(open(alleleFile.name))
+    config.lastUpDate = alleles.latest('timeAdded').timeAdded
     config.save()
 
     #Make database for user
@@ -201,7 +215,12 @@ def analysis(request):
                     analysismodel.originalFilename =  analysisform.cleaned_data['originalFilename']
                 analysismodel.save()
                 #Todo: check if database update required, instead of deleting/installing with every analysis
-                reprocess_config(analysismodel.configuration)
+                config = analysismodel.configuration
+                latestAllele = Allele.objects.filter(
+                    configuration=analysismodel.configuration,
+                    isFLAD=True).latest('timeAdded')
+                if config.lastUpDate != latestAllele.timeAdded:
+                    process_config(config,reprocess=True)
                 myflqTaskRequest.delay(analysismodel.id)
 
             else: newanalysisform = False
@@ -210,46 +229,6 @@ def analysis(request):
                                                  'analysisform':analysisform,
                                                  'processes':processes})
  
-
-def reprocess_config(config):
-    """
-    If alleles have been added, configuration database needs to be updated
-    #TODO check if necessary to update
-    """
-    #Imports
-    import tempfile
-    from django.core.files.base import File
-
-    #Delete previous config database => #TODO only update instead of deleting/installing
-    subprocess.call(['python3',os.path.join(settings.BASE_DIR,'../MyFLdb.py'),
-                                     '-p',config.user.password,'--delete',config.dbusername(),
-                                     config.fulldbname()])
-    
-    ##Save new allele config file with FLADids for MyFLq
-    alleleFile = tempfile.NamedTemporaryFile(delete=False,suffix='.csv')
-    for a in Allele.objects.filter(configuration=config):
-        alleleFile.file.write('{},{},{}\n'.format(
-            a.locus.name,a.FLADid,a.sequence).encode())
-    alleleFile.close()
-    config.alleleFile = File(open(alleleFile.name))
-    config.save()
-
-    #Make database for user
-    subprocess.check_output(['python3',
-                             os.path.join(settings.BASE_DIR,'../MyFLdb.py'), 
-                             '-p',config.user.password,config.dbusername(),
-                             config.fulldbname()],stderr=subprocess.STDOUT)
-
-    #Validate and save config for MyFLq
-    subprocess.check_output(['python3',
-                             os.path.join(settings.BASE_DIR,'../MyFLq.py'),
-                             '-p',config.user.password, 'add',
-                             '-k',config.lociFile.file.name,
-                             '-a',config.alleleFile.file.name,
-                             config.dbusername(),
-                             config.fulldbname(),
-                             'default'],stderr=subprocess.STDOUT)
-
 @login_required
 def results(request):
     #TODO search options/page functionality for users with many results
@@ -283,9 +262,22 @@ def result(request,analysis=False):
         #if created: #todo report in json if created, test if you need to save
         data = '[{}]'.format(allele.FLADid)#fladid here
         return HttpResponse(data, 'application/json')     
- 
- 
- 
- 
- 
- 
+
+@login_required
+def profile(request,analysis):
+    analysis = Analysis.objects.get(pk=int(analysis),user=request.user)
+
+    #Make profile
+    if request.method == 'POST':
+        profile,created = Profile.objects.get_or_create(
+            analysis = analysis)
+        if not created:
+            #Update profile
+            raise NotImplementedError
+        else:
+            print(request.POST)
+
+        kwargs = {'myflq':True,
+                  'profile': '',
+                  'profileError': 'Work in progress'}
+        return render(request,'myflq/profile.html',kwargs)

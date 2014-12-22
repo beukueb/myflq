@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator
 class ConfigurationForm(ModelForm):
     class Meta:
         model = UserResources
-        exclude = ['user','creationDate']
+        exclude = ['user','creationDate','lastUpDate']
         widgets = {
             'description': forms.Textarea(attrs={'rows':2, 'cols':50}),
         }

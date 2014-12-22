@@ -84,7 +84,11 @@
 <p>A different form to process the results. Mainly of use for new variant discovery: <a href="{{ analysis.analysisresults.xmlFile.url }}" target="_blank"> form</a></p>
 </div>
 
-<input style="display:none;" id="analysisID" type="text" value="{{ analysis.id }}">
+<!--Form used by JS to submit profile-->
+<form action='profile/' method='post' style="display:none;">
+    {% csrf_token %}
+    <input type="hidden" id="analysisID" value="{{ analysis.id }}">
+</form>
 
 <h2>Profile</h2>
 
