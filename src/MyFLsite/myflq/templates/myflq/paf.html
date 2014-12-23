@@ -1,0 +1,59 @@
+{% extends "base_ajax.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h1> Population allele frequencies </h1>
+<h2>Configuration {{ configuration }}</h2>
+
+
+<table>
+  <tr>
+    <td></td>
+    <td style="color:#50ade5;">
+      Locus
+    </td>
+    <td style="color:#50ade5;">
+      Original name
+    </td>
+    <td style="color:#50ade5;">
+      FLADid
+    </td>
+    <td style="color:#50ade5;">
+      {% if configuration.populationdb %}
+       Population count
+      {% else %}
+       Population frequency
+      {% endif %}
+    </td>
+  </tr>
+{% for allele in configuration.allele_set.all %}
+<tr>
+  <td style="color:#50ade5;">
+    {{ forloop.counter }}
+  </td>
+  <td>
+    {{ allele.locus }}
+  </td>
+  <td>
+    {{ allele.name }}
+  </td>
+  <td>
+    {{ allele.FLADid }}
+  </td>
+  <td style="text-align:right;">
+    {% if configuration.populationdb %}
+     {{ allele.reports.count }}
+    {% else %}
+     {{ allele.initialPopstat }}
+    {% endif %}
+  </td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+
+
+
+

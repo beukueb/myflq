@@ -178,7 +178,18 @@ def getFLAD(sequence,user):
             u=urlquote(user.fladconfig.FLADname),
             p=urlquote(user.fladconfig.FLADkey)))
     return response.read().decode()
-    
+
+@login_required
+def paf(request,configuration):
+    """
+    Generates view for population allele frequency information
+    """
+    configuration = UserResources.objects.get(id=configuration,user=request.user)
+
+    kwargs = {'myflq':True,
+              'configuration': configuration}
+    return render(request,'myflq/paf.html',kwargs)
+
 #Analysis
 from myflq.forms import analysisform_factory
 from myflq.models import Analysis

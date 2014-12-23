@@ -12,7 +12,7 @@
 
 <h1> Result for {% if analysis.name %}{{ analysis.name }}{% else %}{{ analysis.originalFilename }}{% endif %}</h1>
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="{% static 'js/d3.min.js' %}"></script>
 <script src="{% static 'js/profileChart.js' %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'css/profileChart.css' %}">
 
