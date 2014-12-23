@@ -21,6 +21,10 @@ class UserResources(models.Model):
                               help_text='Choose a sensible name for your configuration',
          validators=[RegexValidator(regex=r'^\w*$', message='Should ony contain alphanumericals.')])
     description = models.TextField(verbose_name="configuration description",null=True,blank=True)
+    populationdb = models.BooleanField(default=False,verbose_name='population database',help_text=
+        '''Check this box if this configuration will be used to build up
+        a population allele frequency table.'''
+    )
     lociFile = models.FileField(verbose_name='loci configuration file',
                                 upload_to=lociUpload,
                                 help_text="The loci file should contain one line for every locus with the following structure:<br />\
@@ -285,8 +289,9 @@ class Profile(models.Model):
         alleles => set of Allele objects
         """
         if self.alleles.all().exists() and self.inAlleleDatabase:
-            #Account for profile alleles that were previously (not) in database count
-            raise NotImplementedError
+            #A changed profile has to be revalidated to be in popstat db
+            self.removeFromDatabase()
+            
         toRemove = set(self.alleles.all()) - alleles
         self.alleles.remove(*toRemove)
         self.alleles.add(*alleles)
@@ -310,13 +315,20 @@ class Profile(models.Model):
                     allele = next(alleles)
             except StopIteration: continue
         return tableList
-        
+
+    def toggleDB(self):
+        if self.inAlleleDatabase: self.removeFromDatabase()
+        else: self.addToDatabase()
     
     def addToDatabase(self):
-        NotImplemented
+        for a in self.alleles.all():
+            a.reports.add(self.analysis)
+        self.inAlleleDatabase = True
 
     def removeFromDatabase(self):
-        NotImplemented
+        for a in self.alleles.all():
+            a.reports.remove(self.analysis)
+        self.inAlleleDatabase = False
     
 class FLADconfig(models.Model):
     """

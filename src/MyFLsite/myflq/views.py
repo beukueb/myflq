@@ -241,12 +241,9 @@ def results(request):
 
 @login_required
 def result(request,analysis=False):
-    #User request result
+    #User post request result
     if request.method == 'POST':
-        analysis = Analysis.objects.get(pk=request.POST['viewResult'])
-        return render(request,'myflq/result.html',
-                      {'myflq':True,
-                       'analysis':analysis})
+        analysis = request.POST['viewResult']
 
     #Process AJAX for adding alleles
     if request.is_ajax():
@@ -266,13 +263,25 @@ def result(request,analysis=False):
                                isFLAD=False).delete()
             #todo report in json if created
         data = '[{}]'.format(allele.FLADid)#fladid here
-        return HttpResponse(data, 'application/json')     
+        return HttpResponse(data, 'application/json')
+
+    analysis = Analysis.objects.get(pk=analysis,configuration__user=request.user) #todo check if user analysis
+    return render(request,'myflq/result.html',
+                  {'myflq':True,
+                   'analysis':analysis})
 
 @login_required
 def profile(request,analysis):
     analysis = Analysis.objects.get(pk=int(analysis),configuration__user=request.user)
     config = analysis.configuration
 
+    #Process AJAX for adding/removing profile to/from population stats
+    if request.is_ajax():
+        analysis.profile.toggleDB()
+        analysis.profile.save()
+        data = '["completed"]'
+        return HttpResponse(data, 'application/json')
+    
     #Make profile
     if request.method == 'POST':
         from myflq.MyFLq import complement

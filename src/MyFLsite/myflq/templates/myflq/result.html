@@ -107,6 +107,9 @@
       <button id="goRight" style="display:table-cell; vertical-align:middle; height:25px;"><img src="{% static 'images/q_right.png' %}" style="height:20px"></button>
       </div>
       <hr />
+      {% if analysis.profile %}
+      <a href="/myflq/profile/{{ analysis.id }}/"><button>View profile</button></a>
+      {% endif %}
       <button id="makeProfile">Make profile</button>
     </div>
   </div>

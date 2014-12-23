@@ -1,11 +1,12 @@
-{% extends "base.html" %}
+{% extends "base_ajax.html" %}
 {% load staticfiles %}
 
 {% block content %}
 <h1> Profile </h1>
 
 <p>
-  Profile threshold = {{ profile.threshold }}%
+  Analysis => <a href="/myflq/results/view/{{ profile.analysis_id }}/">result</a><br />
+  Profile threshold => {{ profile.threshold }}%
 </p>
 
 {% if profileError %}
@@ -32,23 +33,40 @@
 
 <hr />
 {% if profile.isValid %}
-{% if not profile.analysis.flankOut %}
+ {% if profile.analysis.configuration.populationdb and not profile.analysis.flankOut %}
 <script>
-  inProcess = false;
+  var inProcess = false;
   function toggleDatabase() {
-   console.log('toggle');
+    if (inProcess != true) {
+      inProcess = true;
+      $.getJSON('.',function(data) {
+        $('#toggleDB').text(($('#toggleDB').text()=='Add to population database')?'Remove from population database':'Add to population database');
+        inProcess = false;
+      });
+    }
   }
 </script>
  {% if profile.inAlleleDatabase %}
-   <button onclick="toggleDatabase();">Remove from population database</button>
+   <button id="toggleDB" onclick="toggleDatabase();">Remove from population database</button>
  {% else %}
-   <button onclick="toggleDatabase();">Add to population database</button>
+   <button id="toggleDB" onclick="toggleDatabase();">Add to population database</button>
  {% endif %}
- {% endif %}  
+ {% endif %}
+<script>
+  function calcRMNE() {
+   console.log('rmne');
+  }
+</script>     
+<button onclick="calcRMNE();">Calculate RMNE</button>
+{% if profile.analysis.configuration.populationdb %}
+<p>
+  As the configuration with which this profile was obtained, is meant to build up a population database, it is advised to use the RMNE values only for testing, and not for reporting externally.
+</p>
+{% endif %}
 {% else %}
 <p>
   This profile contains non validated alleles.<br />
-  It cannot be added to the population database.
+  It cannot be added to a population database. RMNE values cannot be calculated.
 </p>
 {% endif %}
 
