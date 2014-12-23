@@ -4,12 +4,53 @@
 {% block content %}
 <h1> Profile </h1>
 
-<h2>{{ profile }}</h2>
+<p>
+  Profile threshold = {{ profile.threshold }}%
+</p>
 
+{% if profileError %}
 <p>
   {{ profileError }}
 </p>
+{% endif %}
 
+<table>
+{% for locus in profile.as_table %}
+<tr>
+  {% for allele in locus  %}
+    {% if forloop.first %}
+    <td style="color:#50ade5;">
+    {% else %}
+    <td> 
+    {% endif %}
+    {{ allele }}
+  </td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+
+<hr />
+{% if profile.isValid %}
+{% if not profile.analysis.flankOut %}
+<script>
+  inProcess = false;
+  function toggleDatabase() {
+   console.log('toggle');
+  }
+</script>
+ {% if profile.inAlleleDatabase %}
+   <button onclick="toggleDatabase();">Remove from population database</button>
+ {% else %}
+   <button onclick="toggleDatabase();">Add to population database</button>
+ {% endif %}
+ {% endif %}  
+{% else %}
+<p>
+  This profile contains non validated alleles.<br />
+  It cannot be added to the population database.
+</p>
+{% endif %}
 
 {% endblock %}
 

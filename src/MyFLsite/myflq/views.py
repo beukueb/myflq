@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 from myflq.models import UserResources,Locus,Allele,Profile,FLADconfig
 from myflq.forms import ConfigurationForm,FLADconfigForm
 
-import os, subprocess
+import os, subprocess, re
 
 @login_required
 def setup(request):
@@ -253,31 +253,90 @@ def result(request,analysis=False):
         from myflq.MyFLq import complement
         sequence = request.GET['seq']+complement(request.GET['cend'])
         analysis = Analysis.objects.get(pk=int(analysis))
+        locus = Locus.objects.get(name=request.GET['locus'],
+                                  configuration=analysis.configuration)
         allele,created = Allele.objects.get_or_create(
             configuration = analysis.configuration,
-            locus = Locus.objects.get(name=request.GET['locus'],
-                                      configuration=analysis.configuration),
+            locus = locus,
             FLADid = getFLAD(sequence,analysis.configuration.user),
             sequence = sequence)
-        #if created: #todo report in json if created, test if you need to save
+        if created and Allele.objects.filter(locus=locus,sequence=sequence,
+                                          isFLAD=False).exists():
+            Allele.objects.get(locus=locus,sequence=sequence,
+                               isFLAD=False).delete()
+            #todo report in json if created
         data = '[{}]'.format(allele.FLADid)#fladid here
         return HttpResponse(data, 'application/json')     
 
 @login_required
 def profile(request,analysis):
     analysis = Analysis.objects.get(pk=int(analysis),configuration__user=request.user)
+    config = analysis.configuration
 
     #Make profile
     if request.method == 'POST':
+        from myflq.MyFLq import complement
+        POSTdict = {}
+        for k in request.POST: POSTdict[k] = request.POST[k]
+        POSTdict.pop('csrfmiddlewaretoken')
+        threshold = POSTdict.pop('threshold')
+        POSTre = re.compile('^(locus|a)_(\w+)_(\d+)_(\d+)$')
+        locusDict = {}
+        alleles = {}
+        def sortPost(x):
+            m = POSTre.match(x)
+            return (0 if m.group(1) == 'locus' else 1,
+                    int(m.group(3)),int(m.group(4)))
+        #Retrieve alleles
+        for key in sorted(POSTdict, key = sortPost):
+            m = POSTre.match(key)
+            if m.group(1) == 'locus':
+                try: locusDict[m.group(3)][m.group(2)] = (
+                        POSTdict[key] if not 'reverse' in key else complement(POSTdict[key]))
+                except: locusDict[m.group(3)] = {m.group(2):
+                    (POSTdict[key] if not 'reverse' in key else complement(POSTdict[key]))}
+            else:
+                uniqueKey = float(m.group(3)+'.'+m.group(4))
+                if not uniqueKey in alleles: alleles[uniqueKey] = [locusDict[m.group(3)]['name'],None,None]
+                if m.group(2) == 'roi':
+                    alleles[uniqueKey][1] = (
+                        locusDict[m.group(3)]['forwardPrimer']+
+                        locusDict[m.group(3)]['forwardFlank']+
+                        POSTdict[key]+
+                        locusDict[m.group(3)]['reverseFlank']+
+                        locusDict[m.group(3)]['reversePrimer']
+                        )
+                elif POSTdict[key].startswith('FA'): alleles[uniqueKey][2] = POSTdict[key]
+
+        for key in alleles:
+            l = Locus.objects.get(name=alleles[key][0],configuration=config)
+            try:
+                a = Allele.objects.get(
+                    sequence = alleles[key][1],
+                    locus = l)
+                assert not alleles[key][2] or a.FLADid == alleles[key][2]
+            except Allele.DoesNotExist:
+                a = Allele(configuration = config,
+                           locus = l,
+                           FLADid = Allele.NAreference(l),
+                           isFLAD = False,
+                           sequence = alleles[key][1],
+                           analysis = analysis)
+                a.save()
+            alleles[key] = a
+        alleles = set(alleles.values())
+
+        #Make profile object
         profile,created = Profile.objects.get_or_create(
             analysis = analysis)
-        if not created:
-            #Update profile
-            raise NotImplementedError
-        else:
-            print(request.POST)
+        profile.threshold = float(threshold)
+        profile.updateAlleles(alleles)
+        profile.save()
 
-        kwargs = {'myflq':True,
-                  'profile': '',
-                  'profileError': 'Work in progress'}
-        return render(request,'myflq/profile.html',kwargs)
+    else: #Retrieve profile for normal request
+        profile = analysis.profile
+
+    kwargs = {'myflq':True,
+              'profile': profile,
+              'profileError': ''}
+    return render(request,'myflq/profile.html',kwargs)

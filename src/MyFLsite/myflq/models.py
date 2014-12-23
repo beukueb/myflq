@@ -278,8 +278,40 @@ class Profile(models.Model):
         """
         Returns True if no NA alleles in the profile.
         """
-        return False
+        return not self.alleles.filter(isFLAD=False).exists()
 
+    def updateAlleles(self,alleles):
+        """
+        alleles => set of Allele objects
+        """
+        if self.alleles.all().exists() and self.inAlleleDatabase:
+            #Account for profile alleles that were previously (not) in database count
+            raise NotImplementedError
+        toRemove = set(self.alleles.all()) - alleles
+        self.alleles.remove(*toRemove)
+        self.alleles.add(*alleles)
+
+    def as_table(self):
+        """
+        Makes a list of lists suitable for an html table representation
+        E.g.:
+        locus1 a1 a2
+        locus2 a1
+        ...
+        """
+        tableList = []
+        alleles = (a for a in self.alleles.all())
+        allele = next(alleles)
+        for l in self.analysis.configuration.locus_set.all():
+            tableList.append([l.name])
+            try:
+                while allele.locus == l:
+                    tableList[-1].append(allele)
+                    allele = next(alleles)
+            except StopIteration: continue
+        return tableList
+        
+    
     def addToDatabase(self):
         NotImplemented
 

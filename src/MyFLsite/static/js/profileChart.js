@@ -596,27 +596,23 @@ function draw(error,data,width,height) {
 		    var locusName = d.getAttribute("name")
 		    var locusInfo = lociDB.querySelector('locusInfo[name='+locusName+']')
 		    form.append('input')
-			.attr('name','locus_'+i)
+			.attr('name','locus_name_'+i+'_0')
 			.attr('type','hidden')
 			.attr('value',locusName);
 		    form.append('input')
-			.attr('name','locus_'+i+'_'+j)
-			.attr('type','hidden')
-			.attr('value',d.getAttribute("name"));
-		    form.append('input')
-			.attr('name','forwardPrimer_'+i)
+			.attr('name','locus_forwardPrimer_'+i+'_1')
 			.attr('type','hidden')
 			.attr('value',locusInfo.querySelector('ref_forwardP').textContent);
 		    form.append('input')
-			.attr('name','reversePrimer_'+i)
+			.attr('name','locus_reversePrimer_'+i+'_2')
 			.attr('type','hidden')
 			.attr('value',locusInfo.querySelector('ref_reverseP').textContent);
 		    form.append('input')
-			.attr('name','forwardFlank_'+i)
+			.attr('name','locus_forwardFlank_'+i+'_3')
 			.attr('type','hidden')
 			.attr('value',locusInfo.querySelector('flank_forwardP').textContent);
 		    form.append('input')
-			.attr('name','reverseFlank_'+i)
+			.attr('name','locus_reverseFlank_'+i+'_4')
 			.attr('type','hidden')
 			.attr('value',locusInfo.querySelector('flank_reverseP').textContent);
 		    //Retrieve alleles that passed the threshold
@@ -625,15 +621,15 @@ function draw(error,data,width,height) {
 			if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
 			     aC.getAttribute('profile')!='no') {
 			    form.append('input')
-				.attr('name','name_'+i+'_'+j)
+				.attr('name','a_name_'+i+'_'+j)
 				.attr('type','hidden')
 				.attr('value',aC.getAttribute("db-name"));
 			    form.append('input')
-				.attr('name','subtype_'+i+'_'+j)
+				.attr('name','a_subtype_'+i+'_'+j)
 				.attr('type','hidden')
 				.attr('value',aC.getAttribute("db-subtype"));
 			    form.append('input')
-				.attr('name','subtype_'+i+'_'+j)
+				.attr('name','a_roi_'+i+'_'+j)
 				.attr('type','hidden')
 				.attr('value',aC.querySelector('regionOfInterest').textContent);
 			}
