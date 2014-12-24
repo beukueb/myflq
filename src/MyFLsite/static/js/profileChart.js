@@ -590,7 +590,8 @@ function draw(error,data,width,height) {
 		     deployment == 'forensic.ugent') {
 		var form = d3.select('#profileForm');
 		form.append("input").attr("name","threshold").attr("type","hidden").attr("value",String(threshold));
-		
+		var minimalReads = Number(d3.select(".thresReadNumber").property("value"));
+		form.append("input").attr("name","thresholdReads").attr("type","hidden").attr("value",String(minimalReads));
 		//Add all loci
 		d3.selectAll(".locus").each(function(d,i){
 		    var locusName = d.getAttribute("name")
@@ -615,10 +616,12 @@ function draw(error,data,width,height) {
 			.attr('name','locus_reverseFlank_'+i+'_4')
 			.attr('type','hidden')
 			.attr('value',locusInfo.querySelector('flank_reverseP').textContent);
-		    //Retrieve alleles that passed the threshold
+		    //Retrieve alleles that pass the thresholds
+		    var locusFilteredReads = Number(d.getAttribute('readsFiltered'));
 		    for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
 			var aC = d.getElementsByTagName('alleleCandidate')[j];
 			if ( parseFloat(aC.getAttribute('abundance')) >= threshold &
+			     parseFloat(aC.getAttribute('abundance'))*locusFilteredReads/100 >= minimalReads &
 			     aC.getAttribute('profile')!='no') {
 			    form.append('input')
 				.attr('name','a_name_'+i+'_'+j)

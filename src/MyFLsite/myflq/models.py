@@ -312,7 +312,10 @@ class Profile(models.Model):
     analysis = models.OneToOneField(Analysis)
     alleles = models.ManyToManyField(Allele)
     threshold = models.FloatField(default=0,help_text=
-                'Threshold applied when profile was generated from resultxml'
+                'Abundance threshold applied when profile was generated from resultxml'
+    )
+    minimalReads = models.IntegerField(default=0,help_text=
+                'Minimal amount of reads that was required for alleles to be in profile'
     )
     inAlleleDatabase = models.BooleanField(default=False) #True if used for allele DB
 

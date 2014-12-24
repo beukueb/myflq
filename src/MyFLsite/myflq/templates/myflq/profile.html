@@ -2,11 +2,15 @@
 {% load staticfiles %}
 
 {% block content %}
-<h1> Profile </h1>
+<h2>
+  Profile for
+  <a style="text-decoration:none;" href="/myflq/results/view/{{ profile.analysis_id }}/">{{ profile.analysis.originalFilename }}</a>
+</h2>
 
 <p>
-  Analysis => <a href="/myflq/results/view/{{ profile.analysis_id }}/">result</a><br />
-  Profile threshold => {{ profile.threshold }}%
+  Profile thresholds<br />
+  => minimal abundance: {{ profile.threshold }}% <br />
+  => minimal read count: {{ profile.minimalReads }}
 </p>
 
 {% if profileError %}

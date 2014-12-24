@@ -303,6 +303,7 @@ def profile(request,analysis):
         for k in request.POST: POSTdict[k] = request.POST[k]
         POSTdict.pop('csrfmiddlewaretoken')
         threshold = POSTdict.pop('threshold')
+        thresholdReads = POSTdict.pop('thresholdReads')
         POSTre = re.compile('^(locus|a)_(\w+)_(\d+)_(\d+)$')
         locusDict = {}
         alleles = {}
@@ -353,6 +354,7 @@ def profile(request,analysis):
         profile,created = Profile.objects.get_or_create(
             analysis = analysis)
         profile.threshold = float(threshold)
+        profile.minimalReads = int(thresholdReads)
         profile.updateAlleles(alleles)
         profile.save()
 
