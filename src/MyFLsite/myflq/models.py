@@ -206,47 +206,58 @@ class AnalysisResults(models.Model):
         However the original image does not change, so that can be used to compare
         the current state of the xml file to its original analysis.
         Returns True on success, False if no match to replace was found.
+
+        Uses two locks to prevent race conditions for a specific AnalysisResult:
+           a database lock and a file lock
         """
-        #Check if ok to update and acquire lock
-        import time
+        #Check if ok to update and acquire database lock
+        import fcntl,time
         while self.updating:
             time.sleep(1)
             self.updating = AnalysisResults.objects.get(id=self.id).updating
         self.updating = True
         self.save()
-        if not self.xmlOriginalFile:
-            self.xmlOriginalFile = self.xmlFile
-            self.xmlOriginalFile.file.open()
-            self.xmlFile = self.xmlOriginalFile.file
-            self.save()
-        if not locus: locus = allele.locus
+        returnValue = False
 
+        #Acquire file lock
+        xmlFile = open(self.xmlFile.file.name,'r+b')
+        fcntl.flock(xmlFile, fcntl.LOCK_EX)
+        
+        if not self.xmlOriginalFile:
+            #self.xmlOriginalFile = self.xmlFile #would not work with locked file
+            #self.xmlOriginalFile.file.open()
+            #self.xmlFile = self.xmlOriginalFile.file
+            from django.core.files.base import File
+            self.xmlOriginalFile = File(xmlFile)
+            self.save()
+            
+        if not locus: locus = allele.locus
+        
         #Update allele in file
         import xml.etree.ElementTree as ET
-        tree = ET.parse(self.xmlFile.file.name)
+        xmlFile.seek(0)
+        tree = ET.parse(xmlFile)
         root = tree.getroot()
         for a in root.findall('locus[@name="{}"]/alleleCandidate'.format(
                 locus)):
             if a.find('regionOfInterest').text == xmlroi:
                 a.set('db-name',allele.FLADid)
-                tree.write(self.xmlFile.file.name)
                 #Prepare file for write out
                 #Copy previous processing instructions
                 procins = b''
-                with open(self.xmlFile.file.name,'rb') as xmlFile:
-                    for line in xmlFile:
-                        if line.startswith(b'<?'): procins+=line
-                        else: break
-                with open(self.xmlFile.file.name,'wb') as xmlFile:
-                    xmlFile.write(procins)
-                    tree.write(xmlFile)
-                    returnValue = True
-                    self.updating = False
-                    self.save()
-                    return True
+                xmlFile.seek(0)
+                for line in xmlFile:
+                    if line.startswith(b'<?'): procins+=line
+                    else: break
+                xmlFile.truncate() #or first seek 0, truncate, write procins
+                tree.write(xmlFile)
+                xmlFile.close()
+                returnValue = True
+        #fcntl.flock(xmlFile, fcntl.LOCK_UN) #closing xmlFile should unlock it
         self.updating = False
         self.save()
-        return False
+        
+        return returnValue
 
 #Alleledatabase
 class Allele(models.Model):
