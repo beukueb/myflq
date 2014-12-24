@@ -197,6 +197,7 @@ class AnalysisResults(models.Model):
     xmlFile = models.FileField(upload_to=xmlUpload)
     xmlOriginalFile = models.FileField(null=True,upload_to=xmlUpload)
     figFile = models.ImageField(upload_to=pngUpload)
+    updating = models.BooleanField(default=False) #There should only be 1 update at a time
 
     def updateXML(self,xmlroi,allele,locus=None):
         """
@@ -206,6 +207,13 @@ class AnalysisResults(models.Model):
         the current state of the xml file to its original analysis.
         Returns True on success, False if no match to replace was found.
         """
+        #Check if ok to update and acquire lock
+        import time
+        while self.updating:
+            time.sleep(1)
+            self.updating = AnalysisResults.objects.get(id=self.id).updating
+        self.updating = True
+        self.save()
         if not self.xmlOriginalFile:
             self.xmlOriginalFile = self.xmlFile
             self.xmlOriginalFile.file.open()
@@ -232,10 +240,13 @@ class AnalysisResults(models.Model):
                 with open(self.xmlFile.file.name,'wb') as xmlFile:
                     xmlFile.write(procins)
                     tree.write(xmlFile)
-                return True
+                    returnValue = True
+                    self.updating = False
+                    self.save()
+                    return True
+        self.updating = False
+        self.save()
         return False
-
-
 
 #Alleledatabase
 class Allele(models.Model):
