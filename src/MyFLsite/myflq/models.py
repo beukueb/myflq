@@ -190,10 +190,51 @@ def pngUpload(instance,filename): return st('resultfiles/%Y/%m/%d/')+instance.an
 class AnalysisResults(models.Model):
     """
     One-to one linked with analysis. Info for post-processing.
+    The first time xmlFile gets modified after analysis, 
+    original file should be copied to xmlOriginalFile
     """
     analysis = models.OneToOneField(Analysis)
     xmlFile = models.FileField(upload_to=xmlUpload)
+    xmlOriginalFile = models.FileField(null=True,upload_to=xmlUpload)
     figFile = models.ImageField(upload_to=pngUpload)
+
+    def updateXML(self,xmlroi,allele,locus=None):
+        """
+        Updates xmlFile if alleles are added from result page.
+        Original file is always kept, but currently not available for users.
+        However the original image does not change, so that can be used to compare
+        the current state of the xml file to its original analysis.
+        Returns True on success, False if no match to replace was found.
+        """
+        if not self.xmlOriginalFile:
+            self.xmlOriginalFile = self.xmlFile
+            self.xmlOriginalFile.file.open()
+            self.xmlFile = self.xmlOriginalFile.file
+            self.save()
+        if not locus: locus = allele.locus
+
+        #Update allele in file
+        import xml.etree.ElementTree as ET
+        tree = ET.parse(self.xmlFile.file.name)
+        root = tree.getroot()
+        for a in root.findall('locus[@name="{}"]/alleleCandidate'.format(
+                locus)):
+            if a.find('regionOfInterest').text == xmlroi:
+                a.set('db-name',allele.FLADid)
+                tree.write(self.xmlFile.file.name)
+                #Prepare file for write out
+                #Copy previous processing instructions
+                procins = b''
+                with open(self.xmlFile.file.name,'rb') as xmlFile:
+                    for line in xmlFile:
+                        if line.startswith(b'<?'): procins+=line
+                        else: break
+                with open(self.xmlFile.file.name,'wb') as xmlFile:
+                    xmlFile.write(procins)
+                    tree.write(xmlFile)
+                return True
+        return False
+
 
 
 #Alleledatabase

@@ -259,7 +259,8 @@ def result(request,analysis=False):
     #Process AJAX for adding alleles
     if request.is_ajax():
         from myflq.MyFLq import complement
-        sequence = request.GET['seq']+complement(request.GET['cend'])
+        sequence = (request.GET['beg']+request.GET['roi']+
+                    complement(request.GET['cend']))
         analysis = Analysis.objects.get(pk=int(analysis))
         locus = Locus.objects.get(name=request.GET['locus'],
                                   configuration=analysis.configuration)
@@ -273,6 +274,8 @@ def result(request,analysis=False):
             Allele.objects.get(locus=locus,sequence=sequence,
                                isFLAD=False).delete()
             #todo report in json if created
+            
+        analysis.analysisresults.updateXML(request.GET['roi'],allele)
         data = '[{}]'.format(allele.FLADid)#fladid here
         return HttpResponse(data, 'application/json')
 

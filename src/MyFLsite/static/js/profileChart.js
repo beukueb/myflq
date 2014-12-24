@@ -641,23 +641,27 @@ function draw(error,data,width,height) {
 		d3.selectAll(".locus").each(function(d,i){
 		    var locusName = d.getAttribute("name")
 		    var locusInfo = lociDB.querySelector('locusInfo[name='+locusName+']')
-                    for (var j = 0; j < d.getElementsByTagName('alleleCandidate').length; j++) {
-			var aC = d.getElementsByTagName('alleleCandidate')[j];
+		    d3.select(this).selectAll(".alleleCandidate").each(function(aC,j) {
 			if (aC.getAttribute('addToDatabase') == 'yes') {
-			    var sequence = locusInfo.querySelector('ref_forwardP').textContent +
-				locusInfo.querySelector('flank_forwardP').textContent +
-				aC.querySelector('regionOfInterest').textContent;
+			    var begseq = locusInfo.querySelector('ref_forwardP').textContent +
+				locusInfo.querySelector('flank_forwardP').textContent;
+			    var roi = aC.querySelector('regionOfInterest').textContent;
 			    var addComplement = locusInfo.querySelector('ref_reverseP').textContent +
 				locusInfo.querySelector('flank_reverseP').textContent;
-			    d3.xhr('./'+d3.select("#analysisID").property('value')+
-				   '/?seq='+sequence+'&cend='+addComplement+
+			    d3.xhr('/myflq/results/view/'+d3.select("#analysisID").property('value')+
+				   '/?beg='+begseq+'&roi='+roi+'&cend='+addComplement+
 				  '&locus='+locusName)
 				.header("X-Requested-With", "XMLHttpRequest")
-				.get(function(){console.log('Submitted to allele database:',aC)});
+				.get(function(error,data){
+				    aC.setAttribute('db-name',data.response);
+				    d3.select("#dbnameTip").remove();
+				    d3.selectAll(".alleleCandidate")
+					.style("fill",function(a) { return (a.getAttribute("db-name") == "NA") ? "red": "green";});
+				});
 			}
-                    }
+                    });
 		});
-		d3.select("#makeProfile").text('Make profile')
+		d3.select("#makeProfile").text('Make profile');
 	    }
 	})
 
