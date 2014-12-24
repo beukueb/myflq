@@ -249,7 +249,9 @@ class AnalysisResults(models.Model):
                 for line in xmlFile:
                     if line.startswith(b'<?'): procins+=line
                     else: break
-                xmlFile.truncate() #or first seek 0, truncate, write procins
+                xmlFile.seek(0)
+                xmlFile.truncate()
+                xmlFile.write(procins)
                 tree.write(xmlFile)
                 xmlFile.close()
                 returnValue = True
