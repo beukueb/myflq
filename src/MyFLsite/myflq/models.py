@@ -261,6 +261,16 @@ class AnalysisResults(models.Model):
         
         return returnValue
 
+    def resetXML(self):
+        """
+        Resets the original xml analysis file, prior to any updateXMLs
+        """
+        if not self.xmlOriginalFile: return
+        self.xmlOriginalFile.file.open()
+        self.xmlFile = self.xmlOriginalFile.file
+        self.xmlOriginalFile = File(xmlFile)
+        self.save()
+
 #Alleledatabase
 class Allele(models.Model):
     """
