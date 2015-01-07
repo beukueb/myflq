@@ -9,20 +9,24 @@ from flad.models import Allele,UsableReference,FLADkey
 from myflq.MyFLq import complement,Alignment
 from django.core.exceptions import ObjectDoesNotExist
 
-def getsequence(request,fladid,transform=False,mode=False):
-    try: seq = getAllele(fladid).sequence
+def getsequence(request,flad,fladid,transform=False,mode=False):
+    #Set up FLAD or FLAX
+    if flad.lower() == 'flax': from flad.models import TestAllele as Allele
+    else: from flad.models import Allele
+
+    try:
+        allele = Allele.search(fladid)
+        seq = allele.sequence
+        if transform:
+            seq = allele.transform(transform)
+            #Test if transformed sequence is in database
+            try:
+                allele = Allele.search(seq,seqid=True)
+                fladid = allele.fladid()
+            except ObjectDoesNotExist: fladid += transform
     except ObjectDoesNotExist:
         seq = ''
-    if transform:
-        if transform.startswith('tc'): seq=complement(seq)
-        transformCode = 't'+transform[2:]
-        seq = Alignment.transformSeq(transformCode,seq)
-        #Test if transformed sequence is in database
-        try:
-            allele = getAllele(seq,seqid=True)
-            seq = allele.sequence
-            fladid = allele.fladid()
-        except ObjectDoesNotExist: fladid += transform
+
     kwargs = {'sequence':seq,
               'complement':complement(seq),
               'fladid':fladid,
@@ -34,8 +38,12 @@ def getsequence(request,fladid,transform=False,mode=False):
             return HttpResponse(kwargs['sequence'], content_type="text/plain")
     else: return render(request,'flad/seqid.html',kwargs)
 
-def getid(request,seq,mode=False):
-    try: fladid = getAllele(seq,seqid=True).fladid()
+def getid(request,flad,seq,mode=False):
+    #Set up FLAD or FLAX
+    if flad.lower() == 'flax': from flad.models import TestAllele as Allele
+    else: from flad.models import Allele
+
+    try: fladid = Allele.search(seq,seqid=True).fladid()
     except ObjectDoesNotExist:
         fladid = None
     kwargs = {'sequence':seq,
@@ -49,16 +57,20 @@ def getid(request,seq,mode=False):
             return HttpResponse(kwargs['fladid'], content_type="text/plain")
     else: return render(request,'flad/seqid.html',kwargs)
 
-def validate(request,seq,mode=False):
-    #Authenticate user
-    response = authenticateUser(request)
-    if response: return response
+def validate(request,flad,seq,mode=False):
+    #Set up FLAD or FLAX
+    if flad.lower() == 'flax': from flad.models import TestAllele as Allele
+    else:
+        from flad.models import Allele
+        #Authenticate user => only for FLAD
+        response = authenticateUser(request)
+        if response: return response
 
     #addid logic
-    try: allele = getAllele(seq,seqid=True)    
+    try: allele = Allele.search(seq,seqid=True)    
     except ObjectDoesNotExist: #Add to database
         import random
-        if UsableReference.objects.exists():
+        if UsableReference.objects.exists() and flad.lower() == 'flad':
             chooseSet = {uR.id for uR in UsableReference.objects.all()}
             id_chosen = random.sample(chooseSet,1)[0]
             UsableReference.objects.get(id=id_chosen).delete()
@@ -87,14 +99,20 @@ def validate(request,seq,mode=False):
             return HttpResponse(kwargs['fladid'], content_type="text/plain")
     else: return render(request,'flad/seqid.html',kwargs)
 
-def unvalidate(request,id,mode=False):
+def unvalidate(request,flad,id,mode=False):
+    #Unvalidating not allowed for FLAD testing service FLAX
+    if flad.lower() == 'flax':
+        return render(request,'flad/messages.html',
+                      {'message':mark_safe('''<span style="color:red;">
+                      Not possible to unvalidate FLAX references 
+                      with the site/API</span>''')})
     #Authenticate user
     response = authenticateUser(request)
     if response: return response
 
     #Allele should exist, otherwise an error from the user
     try:
-        allele = getAllele(id,seqid=False if id.startswith('FA') else True)
+        allele = Allele.search(id,seqid=False if id.startswith('F') else True)
         allele.users.remove(request.user)
         allele.save()
     except ObjectDoesNotExist:
@@ -112,8 +130,13 @@ def unvalidate(request,id,mode=False):
         return render(request,'flad/messages.html',
                       {'message':mark_safe('Entry <span style="color:red;">{},{}</span> has been removed.'.format(id,seq))})
 
+def error(request,api,flad):
+    return render(request,'flad/messages.html',
+                  {'message':'''Something is wrong with your 
+                  FLAD request: {}'''.format(api)})
+
 @login_required
-def registration(request):
+def registration(request,flad):
     try: fladkey = FLADkey.objects.get(user=request.user)
     except:
         from myflq.MyFLq import makeRandomPassphrase
@@ -121,14 +144,6 @@ def registration(request):
         fladkey.save()
     return render(request,'flad/registration.html',{'fladkey': fladkey.FLADkey,'flad':True})
     
-def getAllele(id,seqid=False):
-    if seqid:
-        try: allele = Allele.objects.get(sequence=id)
-        except ObjectDoesNotExist:
-            allele = Allele.objects.get(sequence=id)
-    else: allele = Allele.objects.get(id=int(id[2:],base=16))
-    return allele 
-
 def authenticateUser(request):
     """
     Authenticates also for programmatory access.
