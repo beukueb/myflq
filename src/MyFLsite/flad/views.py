@@ -18,12 +18,11 @@ def getsequence(request,flad,fladid,transform=False,mode=False):
         allele = Allele.search(fladid)
         seq = allele.sequence
         if transform:
-            seq = allele.transform(transform)
-            #Test if transformed sequence is in database
-            try:
-                allele = Allele.search(seq,seqid=True)
-                fladid = allele.fladid()
-            except ObjectDoesNotExist: fladid += transform
+            try: seq = allele.transform(transform)
+            except StopIteration as e:
+                allele = e.value
+                seq = allele.getseq()
+        fladid = allele.fladid()
     except ObjectDoesNotExist:
         seq = ''
 
