@@ -389,8 +389,8 @@ class Alignment:
         See docstring Alignment.getTransformCode for transformCode conventions
         """
         import re
-        checkFullCommand = re.compile(r't((\d+)(((\.\d+)?[ACTGNd])+)(i?))+')
-        if not checkFullCommand.fullmatch(transformCode):
+        checkFullCommand = re.compile(r't((\d+)(((\.\d+)?[ACTGNd])+)(i?))+$')
+        if not checkFullCommand.match(transformCode):
             raise Exception(
                 "transformCode '{}' is not properly formatted.".format(
                 transformCode))
