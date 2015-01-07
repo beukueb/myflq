@@ -20,9 +20,8 @@ class Allele(models.Model):
     testing = False
 
     def save(self, *args, **kwargs):
-        cls = type(self) #To make difference between Allele and TestAllele if necessary
         self.length = len(self.sequence)
-        return super(cls, self).save(*args, **kwargs)
+        return super(Allele, self).save(*args, **kwargs)
     
     def __str__(self):
         return self.fladid()
@@ -98,7 +97,7 @@ class Allele(models.Model):
         return allele
 
     @classmethod
-    def closeMatch(cls,sequence,differences=10):
+    def closeMatch(cls,sequence,differences=10,minimalKmerSize=5):
         """
         Searches if there exists a close match with a maximum number
         of differences that can be provided as argument.
@@ -108,7 +107,39 @@ class Allele(models.Model):
         Returns the matching allele, with transformCode attribute.
         If no match is found raises ObjectDoesNotExist
         """
+        from myflq.MyFLq import complement, Alignment
         
+        #First filter based on length
+        seqlen = len(sequence)
+        alleles = cls.objects.filter(length__gt=(0 if seqlen < differences
+                                       else seqlen-differences)).filter(
+                                               length__lt = seqlen+differences)
+        alleles = {a:[0,0] for a in alleles}
+        
+        #Filter based on kmer from sequence
+        if seqlen > minimalKmerSize:
+            kmersize = int(seqlen/(differences+1))
+            if kmersize < minimalKmerSize: kmersize = minimalKmerSize
+            kmers = {sequence[i:i+kmersize]
+                     for i in range(0,seqlen-kmersize,kmersize)}
+            kmers_c = {complement(k) for k in kmers}
+            for a in alleles:
+                for k in kmers:
+                    if k in a.sequence: alleles[a][0]+=1
+                for k in kmers_c:
+                    if k in a.sequence: alleles[a][1]+=1
+            alleles = {a:alleles[a] for a in alleles if sum(alleles[a])}
+
+        #Look for match that meets differences requirement
+        for allele in sorted(alleles,key=lambda x: max(alleles[x]),reverse=True):
+            complementary = alleles[allele][0] < alleles[allele][1]
+            alignment = Alignment(allele.sequence,sequence #Without stutter info for now #TODO
+                                  if not complementary else complement(sequence))
+            if alignment.getDifferences() <= differences:
+                tc = alignment.getTransformCode(startSequence=allele.sequence)
+                tc = ('tc' if complementary else 'to')+tc[1:]
+                allele.transformCode = tc
+                return allele
         raise ObjectDoesNotExist
 
 class TestAllele(Allele):
