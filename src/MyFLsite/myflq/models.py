@@ -249,7 +249,9 @@ class AnalysisResults(models.Model):
                 for line in xmlFile:
                     if line.startswith(b'<?'): procins+=line
                     else: break
-                xmlFile.truncate() #or first seek 0, truncate, write procins
+                xmlFile.seek(0)
+                xmlFile.truncate()
+                xmlFile.write(procins)
                 tree.write(xmlFile)
                 xmlFile.close()
                 returnValue = True
@@ -258,6 +260,16 @@ class AnalysisResults(models.Model):
         self.save()
         
         return returnValue
+
+    def resetXML(self):
+        """
+        Resets the original xml analysis file, prior to any updateXMLs
+        """
+        if not self.xmlOriginalFile: return
+        self.xmlOriginalFile.file.open()
+        self.xmlFile = self.xmlOriginalFile.file
+        self.xmlOriginalFile = File(xmlFile)
+        self.save()
 
 #Alleledatabase
 class Allele(models.Model):
