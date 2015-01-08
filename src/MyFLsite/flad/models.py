@@ -80,19 +80,26 @@ class Allele(models.Model):
         else: return self.sequence
         
     @classmethod
-    def search(cls,id,seqid=False):
+    def search(cls,id,seqid=False,closeMatch=False):
         """
         Searches for an allele, either with a FLADid or a sequence
         In case of a sequence, if no exact match is found, it will
         look for any close match up to 10 difference
+        If looking up a sequence, with closeMatch, similar sequences
+        will also be considered. Their FLADid will then be returned with
+        transformCode.
         """
         from myflq.MyFLq import complement
         if seqid:
             try: allele = cls.objects.get(sequence=id)
             except ObjectDoesNotExist:
-                try: allele = cls.objects.get(sequence=complement(id))
+                try:
+                    allele = cls.objects.get(sequence=complement(id))
+                    allele.transformCode = 'tc'
                 except ObjectDoesNotExist:
-                    allele = cls.closeMatch(sequence=id,differences=10)
+                    if closeMatch:
+                        allele = cls.closeMatch(sequence=id,differences=10)
+                    else: raise
         else: allele = cls.objects.get(id=int(id[2:],base=16))
         return allele
 
@@ -131,16 +138,22 @@ class Allele(models.Model):
             alleles = {a:alleles[a] for a in alleles if sum(alleles[a])}
 
         #Look for match that meets differences requirement
+        matchedAllele = None
         for allele in sorted(alleles,key=lambda x: max(alleles[x]),reverse=True):
             complementary = alleles[allele][0] < alleles[allele][1]
             alignment = Alignment(allele.sequence,sequence #Without stutter info for now #TODO
-                                  if not complementary else complement(sequence))
+                                  if not complementary else complement(sequence),
+                                  gapPenalty=-10,gapExtension=-5)
             if alignment.getDifferences() <= differences:
                 tc = alignment.getTransformCode(startSequence=allele.sequence)
                 tc = ('tc' if complementary else 'to')+tc[1:]
                 allele.transformCode = tc
-                return allele
-        raise ObjectDoesNotExist
+                if not matchedAllele or len(matchedAllele.transformCode) > len(tc):
+                    matchedAllele = allele
+                #If difference in k-mer count is already substantial => break
+                elif max(alleles[matchedAllele]) > max(alleles[allele])+2: break
+        if matchedAllele: return matchedAllele
+        else: raise ObjectDoesNotExist
 
 class TestAllele(Allele):
     """

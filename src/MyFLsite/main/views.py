@@ -5,21 +5,26 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponseRedirect
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from main.forms import ContactForm
+from main.forms import ContactForm, UserProfileForm
 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_valid():
+        pform = UserProfileForm(request.POST)
+        if form.is_valid() and pform.is_valid():
             import logging
             logger = logging.getLogger('django.request')
             logger.info('New registered user\n'+str(request).replace('\n','\n\t'))
             new_user = form.save()
+            pform.instance.user = new_user
+            pform.save()
             return HttpResponseRedirect("/")
     else:
         form = UserCreationForm()
+        pform = UserProfileForm()
     return render(request, "registration/register.html", {
         'form': form,
+        'pform': pform,
     })
 
 

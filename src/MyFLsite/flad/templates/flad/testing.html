@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}FLAD{% endblock %}
+
+{% block header %}
+<div id="header-title" style="background-image: url('{% static 'images/FLADLogo.png' %}');background-position: 25px 25px;background-size: 90px;">
+  <h1>Forensic Loci Allele Database</h1>
+  <h2>Permanent references for forensic STR and SNP alleles</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+ {% block fladcontent %}
+ {% endblock %}
+
+{% block flatquery %}
+<h3>FLAX: testing FLAD</h3>
+<p>
+  On this page, and with the corresponding API where you only have to replace 'flad' with 'flax', you can
+  submit allele sequences for testing and development.<br />
+  FLAX works exactly as FLAD, except that it is not possible to remove sequences from the database, and that the
+  references are not guaranteed to be permanent. FLAX references start with 'FX' instead of 'FA'.
+</p>
+{% endblock %}
+
+<table>
+  <tr><td colspan="2" style="color: #50ade5;">Look up</td></tr>
+  <tr>
+    <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
+    <td><input type="submit" value="Get FLAXid" style="width:12em;"  onclick="window.location = window.location.origin + '/flax/getid/' + document.getElementById('input_sequence').value;" /></td>
+  </tr>
+  <tr>
+    <td>FLAXid</td><td><input type="text" id="input_fladid" /></td>
+    <td><input type="submit" value="Get sequence" style="width:12em;" onclick="window.location = window.location.origin + '/flax/getseq/' + document.getElementById('input_fladid').value;" /></td>
+  </tr>
+  <tr height="20px;"></tr>
+  <tr><td colspan="3" style="color: #50ade5;">Validation (FLAX)</td></tr>
+  <tr>
+    <td>Sequence</td><td><input type="text" id="valid_sequence" /></td>
+    <td><input type="submit" value="Validate" style="width:12em;" onclick="window.location = window.location.origin + '/flax/validate/' + document.getElementById('valid_sequence').value;" /></td>
+  </tr>
+</table>
+
+{% endblock %}

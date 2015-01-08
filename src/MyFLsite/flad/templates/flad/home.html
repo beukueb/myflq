@@ -12,6 +12,15 @@
 <p>A weekly backup is made from the database that is available for download (<a href="{% static 'FLAD/FLADbackup.tar.gz' %}">FLADbackup.tar.gz</a>,<a href="{% static 'FLAD/FLADbackup.sha256' %}">verification hash</a>). The verification hash is encrypted with the forensic.ugent.be certificate (<a href="{% static 'FLAD/forensic.ugent.be.pub' %}">public key</a>). The origin of FLADbackup can be determined for quality control with the following commandline:</p>
 <code>openssl dgst -sha256 -verify forensic.ugent.be.pub -signature FLADbackup.sha256 FLADbackup.tar.gz</code>
 
+{% if user.userprofile.fladRequest %}
+<h3>Testing FLAD</h3>
+<p>
+  If you requested FLAD and are waiting for authorization, you can start using <a href="/flax/testing">FLAX</a> for testing and development.
+  FLAX works exactly as FLAD, except that it is not possible to remove sequences from the database, and that the
+  references are not guaranteed to be permanent. FLAX references start with 'FX' instead of 'FA'.
+</p>
+{% endif %}
+
 {% endblock %}
 
 

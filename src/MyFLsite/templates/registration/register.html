@@ -14,7 +14,7 @@
   <table>
     <tbody>
       <tr>
-        <td><label for="id_username">Username:</label></td>
+        <td><label for="id_username">Username (*):</label></td>
         <td>
           {{ form.username }}
           {% if form.errors.username %}
@@ -23,7 +23,7 @@
         </td>
       </tr>
       <tr>
-        <td><label for="id_password1">Password:</label></td>
+        <td><label for="id_password1">Password (*):</label></td>
         <td>
           {{ form.password1 }}
           {% if form.errors.password1 %}
@@ -32,7 +32,7 @@
         </td>
       </tr>
       <tr>
-        <td><label for="id_password2">Password (again):</label></td>
+        <td><label for="id_password2">Password (again)(*):</label></td>
         <td>
           {{ form.password2 }}
           {% if form.errors.password2 %}
@@ -42,6 +42,17 @@
       </tr>
     </tbody>
   </table>
+  <br />
+  <table style="text-align:left;">
+    {{ pform.as_table }}
+  </table>
   <input type="submit" value="Create the account" />
+  <p>
+    (*): Required items.<br />
+    If you are requesting FLAD validation
+    all items should be filled in and the email domain should be from
+    the institute/lab for which the validation is requested, as you
+    will be contacted on this email to authorize your validation privileges.
+  </p>
  {% endblock %}
  

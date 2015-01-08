@@ -1,0 +1,22 @@
+{% extends "flad/testing.html" %}
+{% load staticfiles %}
+
+{% block fladcontent %}
+{% if sequence %}
+ {% if fladid %}
+ <h1> FLAX entry </h1>
+ <h3 style="margin-bottom:0px;">{{ fladid }}</h3>
+ <code style="max-width:80em;word-wrap:break-word;">{{ sequence }}</code>
+ <p>Complementary strand:<p>
+ <code style="max-width:80em;word-wrap:break-word;">{{ complement }}</code>
+ {% else %}
+ <p>Not yet entered in the database:</p>
+ <code style="max-width:80em;word-wrap:break-word;">{{ sequence }}</code>
+ {% endif %}
+{% elif fladid %}
+ <p>There is no sequence entry for: <span style="color:red;">{{ fladid }}</span></p>
+{% endif %}
+<br /><br />
+{% endblock %}
+
+{% block flatquery %}<h3>New FLAX query</h3>{% endblock %}

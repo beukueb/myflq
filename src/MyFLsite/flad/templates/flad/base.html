@@ -17,7 +17,7 @@
 <h3>{% block flatquery %}Query{% endblock %}</h3>
 
 <table>
-  <tr><td colspan="2" style="color: #50ade5;">Retrieve</td></tr>
+  <tr><td colspan="2" style="color: #50ade5;">Look up</td></tr>
   <tr>
     <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
     <td><input type="submit" value="Get FLADid" style="width:12em;"  onclick="window.location = window.location.origin + '/flad/getid/' + document.getElementById('input_sequence').value;" /></td>
@@ -27,7 +27,7 @@
     <td><input type="submit" value="Get sequence" style="width:12em;" onclick="window.location = window.location.origin + '/flad/getseq/' + document.getElementById('input_fladid').value;" /></td>
   </tr>
   <tr height="20px;"></tr>
-  <tr><td colspan="2" style="color: #50ade5;">Validation (registration required)</td></tr>
+  <tr><td colspan="3" style="color: #50ade5;">Validation (registration and authorization required)</td></tr>
   <tr>
     <td>Sequence</td><td><input type="text" id="valid_sequence" /></td>
     <td><input type="submit" value="Validate" style="width:12em;" onclick="window.location = window.location.origin + '/flad/validate/' + document.getElementById('valid_sequence').value;" /></td>

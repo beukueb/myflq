@@ -35,14 +35,15 @@ def getsequence(request,flad,fladid,transform=False,mode=False):
             return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
         elif 'plain' in mode:
             return HttpResponse(kwargs['sequence'], content_type="text/plain")
-    else: return render(request,'flad/seqid.html',kwargs)
+    else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
+        else 'flad/seqidx.html',kwargs)
 
 def getid(request,flad,seq,mode=False):
     #Set up FLAD or FLAX
     if flad.lower() == 'flax': from flad.models import TestAllele as Allele
     else: from flad.models import Allele
 
-    try: fladid = Allele.search(seq,seqid=True).fladid()
+    try: fladid = Allele.search(seq,seqid=True,closeMatch=True).fladid()
     except ObjectDoesNotExist:
         fladid = None
     kwargs = {'sequence':seq,
@@ -54,7 +55,8 @@ def getid(request,flad,seq,mode=False):
             return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
         elif 'plain' in mode:
             return HttpResponse(kwargs['fladid'], content_type="text/plain")
-    else: return render(request,'flad/seqid.html',kwargs)
+    else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
+        else 'flad/seqidx.html',kwargs)
 
 def validate(request,flad,seq,mode=False):
     #Set up FLAD or FLAX
@@ -96,7 +98,8 @@ def validate(request,flad,seq,mode=False):
             return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
         elif 'plain' in mode:
             return HttpResponse(kwargs['fladid'], content_type="text/plain")
-    else: return render(request,'flad/seqid.html',kwargs)
+    else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
+        else 'flad/seqidx.html',kwargs)
 
 def unvalidate(request,flad,id,mode=False):
     #Unvalidating not allowed for FLAD testing service FLAX
@@ -150,6 +153,7 @@ def authenticateUser(request):
     """
     from django.contrib.auth.models import User
     try:
+        #Check user credentials
         if request.method == 'POST':
             request.user = User.objects.get(username=request.POST['user'])
             if not request.user.check_password(request.POST['password']): raise ObjectDoesNotExist
@@ -161,8 +165,11 @@ def authenticateUser(request):
                     if fladkey.FLADkey != request.GET['password']: raise ObjectDoesNotExist
                 except:
                     raise ObjectDoesNotExist
+        #Check if user is priviliged
+        if not request.user.userprofile.fladPriviliged: raise ObjectDoesNotExist
     except ObjectDoesNotExist:
-        return HttpResponse("User does not exist or password is incorrect.", content_type="text/plain")
+        return HttpResponse("User does not exist or is not authorized, or password is incorrect.",
+                            content_type="text/plain")
         
     if not request.user.is_authenticated():
         return redirect('/accounts/login/?next=%s' % request.path)
