@@ -170,9 +170,10 @@ class Alignment:
                               [-1,-1,-1,10, 0],
                               [ 0, 0, 0, 0, 0]])
     gapPenalty = -5
+    gapExtension = None
     stutterPenalty = -10
     scoresToBreadcrumbs = {0:4,1:2,2:1,3:6,4:3}
-    def __init__(self,dna1,dna2,mode='global',stutter=False,gapPenalty=None):
+    def __init__(self,dna1,dna2,mode='global',stutter=False,gapPenalty=None,gapExtension=None):
         """
         Performs a global alignment according to Needleman-Wunsch algorithm, favouring stutter gaps if desired
 
@@ -185,11 +186,15 @@ class Alignment:
             Flank should be given as dna1 and be expected closest to the left.
             The alignment will be semi-global => global up to the point where the flank (dna1) ends
             Should not be used with 'stutter' option
+
+        It is not advide to use the gapExtension argument together with the stutter argument.
+        stutter is in itself a specific form of gapExtension
         """
         np = self.np
         self.dna1 = dna1
         self.dna2 = dna2
         if gapPenalty: self.gapPenalty = gapPenalty
+        if gapExtension: self.gapExtension = gapExtension
         #F matrix => i0xx = scores, i1xx = breadcrumbs (0=None;1=->;2=-->;4=L;3=v;6=V)
         F_m = np.zeros((2,len(dna1)+1,len(dna2)+1))
         self.F_m = F_m #for debugging
@@ -228,11 +233,12 @@ class Alignment:
                                   #match: L
                               None if not stutter or stutter > i else F_m[0,i-stutter,j] + self.stutterPenalty,
                                   #stutter-delete: -->
-                              F_m[0,i-1,j] + self.gapPenalty,
+                              F_m[0,i-1,j] + (self.gapPenalty if not (self.gapExtension and F_m[1,i-1,j] != '->') else self.gapExtension),
                                   #delete: ->
                               None if not stutter or stutter > j else F_m[0,i,j-stutter] + self.stutterPenalty,
                                   #stutter-insert: V
-                              F_m[0,i,j-1] + self.gapPenalty #insert: v
+                              F_m[0,i,j-1] + (self.gapPenalty if not (self.gapExtension and F_m[1,i-1,j] != 'v') else self.gapExtension)
+                                  #insert: v
                               ] #stutters come before single gaps as they are preferred                
                     
                 try: maxScore = max(scores)
