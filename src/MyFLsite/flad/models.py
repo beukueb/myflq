@@ -5,19 +5,28 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.core.exceptions import ObjectDoesNotExist
 
+class Locus(models.Model):
+    """
+    Different loci that are used in Allele
+    """
+    name = models.CharField(max_length=100)
+    
 class Allele(models.Model):
     """
     This is the model for the Forensic Loci Allele Database aka FLAD.
     Only on the FLAD server should testing be set to true.
     """
-    id = models.PositiveIntegerField(verbose_name='FLADid',primary_key=True)
+    fladid = models.PositiveIntegerField(verbose_name='FLADid')
+    locus = models.ForeignKey(Locus)
     sequence = models.TextField(max_length=1000,verbose_name="allele sequence",
                                 help_text='Allele sequence should only contain A,C,T or G, and N for masked bases',
                                 validators=[RegexValidator(regex=r'^[ACTGN]*$', message='Should ony contain nucleotide letters A,C,T, or G, and N for masked bases.')])
     length = models.PositiveIntegerField()    
     users = models.ManyToManyField(User)
     creationDate = models.DateField(auto_now_add=True)
-    testing = False
+    validation = models.NullBooleanField(default=False) #Set to None for deleted alleles
+    doi = models.CharField(max_length=200,null=True) #If validated, doi for validation pubblication
+    context = 'FLAD' # 'testing', 'local' or 'FLAD'
 
     def save(self, *args, **kwargs):
         self.length = len(self.sequence)
@@ -35,7 +44,7 @@ class Allele(models.Model):
         """
         #todo change FL to FA on forensic.ugent.be
         #Returns an uppercase hex id
-        return ('FX' if self.testing
+        return ('FX' if self.context == 'testing'
                 else 'FL')+'{:0>3X}'.format(self.id) + (self.transformCode
                                     if hasattr(self,'transformCode') else '')
 
@@ -155,17 +164,39 @@ class Allele(models.Model):
         if matchedAllele: return matchedAllele
         else: raise ObjectDoesNotExist
 
+    @classmethod
+    def checkIntegrity(cls):
+        """
+        Checks if everything has unique ID per locus
+        This function should be used in a weekly/monthly test
+        Unicity cannot be garanteed on the model level, as ID are assigned
+        after creation to avoid race conditions.
+        The algorithm that then assigns a random number with seed should
+        produce the same random and unique number for an allele added.
+        Alleles should not be allowed to be removed, otherwise it will break this logic.
+        """
+        raise NotImplemtedError
+
+    def delete(self,trulyDelete=False):
+        """
+        This reimplements the delete method as alleles cannot truly be deleted.
+        Their sequence is replaced with '' and validation to None.
+
+        trulyDelete deletes it for real. Only use it if you understand the above
+        implications. Should not be done on forensic.ugent.be/FLAD, but only
+        on a local running service to reset.
+        """
+        if not trulyDelete:
+            self.sequence = ''
+            self.validation = None
+            self.save()
+        else: super(type(self),self).delete()
+
 class TestAllele(Allele):
     """
     This model will be used by the FLAD testing service FLAX
     """
-    testing = True
-
-class UsableReference(models.Model):
-    """
-    If an allele is deleted from FLAD, its id is collected here for random reuse
-    """
-    id = models.PositiveIntegerField(primary_key=True)
+    context = 'testing'
 
 class FLADkey(models.Model):
     """
