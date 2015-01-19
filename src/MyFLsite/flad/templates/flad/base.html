@@ -17,24 +17,28 @@
 <h3>{% block flatquery %}Query{% endblock %}</h3>
 
 <table>
-  <tr><td colspan="2" style="color: #50ade5;">Look up</td></tr>
-  <tr>
-    <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
-    <td><input type="submit" value="Get FLADid" style="width:12em;"  onclick="window.location = window.location.origin + '/flad/getid/' + document.getElementById('input_sequence').value;" /></td>
-  </tr>
+  <tr><td colspan="2" style="color: #50ade5;">Retrieve sequence</td></tr>
   <tr>
     <td>FLADid</td><td><input type="text" id="input_fladid" /></td>
-    <td><input type="submit" value="Get sequence" style="width:12em;" onclick="window.location = window.location.origin + '/flad/getseq/' + document.getElementById('input_fladid').value;" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" value="Retrieve" style="width:11em;" onclick="window.location = window.location.origin + '/flad/getseq/' + document.getElementById('input_fladid').value;" /></td>
   </tr>
   <tr height="20px;"></tr>
-  <tr><td colspan="3" style="color: #50ade5;">Validation (registration and authorization required)</td></tr>
-  <tr>
-    <td>Sequence</td><td><input type="text" id="valid_sequence" /></td>
-    <td><input type="submit" value="Validate" style="width:12em;" onclick="window.location = window.location.origin + '/flad/validate/' + document.getElementById('valid_sequence').value;" /></td>
+  <tr><td colspan="3" style="color: #50ade5;">Retrieve FLADid</tr>
+    <tr>
+    <td>Locus</td><td><input type="text" id="input_locus" /></td>
   </tr>
   <tr>
-    <td>Seq or FLADid</td><td><input type="text" id="unvalid_input" /></td>
-    <td><input type="submit" value="Unvalidate" style="width:12em;" onclick="window.location = window.location.origin + '/flad/unvalidate/' + document.getElementById('unvalid_input').value;" /></td>
+    <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
+  </tr>
+  <tr>
+    <td>DOI (validate)</td><td><input type="text" id="input_doi" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" value="Retrieve" style="width:11em;"  onclick="window.location = window.location.origin + '/flad/getid/' + (document.getElementById('input_doi').value ? 'validate/':'') + document.getElementById('input_locus').value + (document.getElementById('input_locus').value ? '/':'')  + document.getElementById('input_sequence').value + (document.getElementById('input_doi').value ? ('?doi='+document.getElementById('input_doi').value):'');" /></td>
   </tr>
 </table>
 

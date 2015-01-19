@@ -5,19 +5,18 @@
 <h3>Mission statement</h3>
 <p>
   FLAD is a simple database for forensic alleles, that offers permanent references to any allele sequence. If a sequence is not yet in the database, a simple registration is sufficient to start adding alleles to FLAD.<br />
-  FLAD does not provide information about the loci a sequence belongs to, or any other type of annotation. FLAD aims to be a simple reference service, similar to what <a href="http://www.doi.org/">doi</a> does for publication references, to provide forensic analysis software with permanent references for sequences. Permanent does not mean an infinity of time and therefore sequences that are not validated useful by any users are removed from the database, to free their references for other sequences.
+  FLAD does not provide information about the loci a sequence belongs to, or any other type of annotation. FLAD aims to be a simple reference service, similar to what <a href="http://www.doi.org/">doi</a> does for publication references, to provide forensic analysis software with permanent references for sequences.
 </p>
 
 <h3>Database download</h3>
 <p>A weekly backup is made from the database that is available for download (<a href="{% static 'FLAD/FLADbackup.tar.gz' %}">FLADbackup.tar.gz</a>,<a href="{% static 'FLAD/FLADbackup.sha256' %}">verification hash</a>). The verification hash is encrypted with the forensic.ugent.be certificate (<a href="{% static 'FLAD/forensic.ugent.be.pub' %}">public key</a>). The origin of FLADbackup can be determined for quality control with the following commandline:</p>
 <code>openssl dgst -sha256 -verify forensic.ugent.be.pub -signature FLADbackup.sha256 FLADbackup.tar.gz</code>
 
-{% if user.userprofile.fladRequest %}
+{% if user.userprofile.fladRequest and not user.userprofile.fladPriviliged %}
 <h3>Testing FLAD</h3>
 <p>
   If you requested FLAD and are waiting for authorization, you can start using <a href="/flax/testing">FLAX</a> for testing and development.
-  FLAX works exactly as FLAD, except that it is not possible to remove sequences from the database, and that the
-  references are not guaranteed to be permanent. FLAX references start with 'FX' instead of 'FA'.
+  FLAX works exactly as FLAD, except that references are not guaranteed to be permanent. FLAX references start with 'T' instead of 'F'.
 </p>
 {% endif %}
 

@@ -15,30 +15,37 @@
  {% endblock %}
 
 {% block flatquery %}
-<h3>FLAX: testing FLAD</h3>
+<h3>Testing FLAD</h3>
 <p>
   On this page, and with the corresponding API where you only have to replace 'flad' with 'flax', you can
   submit allele sequences for testing and development.<br />
-  FLAX works exactly as FLAD, except that it is not possible to remove sequences from the database, and that the
-  references are not guaranteed to be permanent. FLAX references start with 'FX' instead of 'FA'.
+  The testing references start with 'T' instead of 'F'.
 </p>
 {% endblock %}
 
 <table>
-  <tr><td colspan="2" style="color: #50ade5;">Look up</td></tr>
+  <tr><td colspan="2" style="color: #50ade5;">Retrieve sequence</td></tr>
   <tr>
-    <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
-    <td><input type="submit" value="Get FLAXid" style="width:12em;"  onclick="window.location = window.location.origin + '/flax/getid/' + document.getElementById('input_sequence').value;" /></td>
+    <td>FLADid</td><td><input type="text" id="input_fladid" /></td>
   </tr>
   <tr>
-    <td>FLAXid</td><td><input type="text" id="input_fladid" /></td>
-    <td><input type="submit" value="Get sequence" style="width:12em;" onclick="window.location = window.location.origin + '/flax/getseq/' + document.getElementById('input_fladid').value;" /></td>
+    <td></td>
+    <td><input type="submit" value="Retrieve" style="width:11em;" onclick="window.location = window.location.origin + '/flax/getseq/' + document.getElementById('input_fladid').value;" /></td>
   </tr>
   <tr height="20px;"></tr>
-  <tr><td colspan="3" style="color: #50ade5;">Validation (FLAX)</td></tr>
+  <tr><td colspan="3" style="color: #50ade5;">Retrieve TESTid</tr>
+    <tr>
+    <td>Locus</td><td><input type="text" id="input_locus" /></td>
+  </tr>
   <tr>
-    <td>Sequence</td><td><input type="text" id="valid_sequence" /></td>
-    <td><input type="submit" value="Validate" style="width:12em;" onclick="window.location = window.location.origin + '/flax/validate/' + document.getElementById('valid_sequence').value;" /></td>
+    <td>Sequence</td><td><input type="text" id="input_sequence" /></td>
+  </tr>
+  <tr>
+    <td>DOI (validate)</td><td><input type="text" id="input_doi" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input type="submit" value="Retrieve" style="width:11em;"  onclick="window.location = window.location.origin + '/flax/getid/' + (document.getElementById('input_doi').value ? 'validate/':'') + document.getElementById('input_locus').value + (document.getElementById('input_locus').value ? '/':'')  + document.getElementById('input_sequence').value + (document.getElementById('input_doi').value ? ('?doi='+document.getElementById('input_doi').value):'');" /></td>
   </tr>
 </table>
 

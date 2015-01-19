@@ -4,20 +4,24 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.core.exceptions import ObjectDoesNotExist
+import re
 
 class Locus(models.Model):
     """
     Different loci that are used in Allele
     """
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
     
 class Allele(models.Model):
     """
     This is the model for the Forensic Loci Allele Database aka FLAD.
     Only on the FLAD server should testing be set to true.
     """
-    fladid = models.PositiveIntegerField(verbose_name='FLADid')
-    locus = models.ForeignKey(Locus)
+    fladid = models.PositiveIntegerField(verbose_name='FLADid',null=True)
+    locus = models.ForeignKey(Locus,null=True)
     sequence = models.TextField(max_length=1000,verbose_name="allele sequence",
                                 help_text='Allele sequence should only contain A,C,T or G, and N for masked bases',
                                 validators=[RegexValidator(regex=r'^[ACTGN]*$', message='Should ony contain nucleotide letters A,C,T, or G, and N for masked bases.')])
@@ -26,27 +30,41 @@ class Allele(models.Model):
     creationDate = models.DateField(auto_now_add=True)
     validation = models.NullBooleanField(default=False) #Set to None for deleted alleles
     doi = models.CharField(max_length=200,null=True) #If validated, doi for validation pubblication
-    context = 'FLAD' # 'testing', 'local' or 'FLAD'
+
+    #Class attributes
+    context = 'L' # 'T' for testing, 'L' for local and 'F' for FLAD on ugent.be
+        #todo change LF to F on forensic.ugent.be
+    fladrex = re.compile(r'(?P<context>[FLT])(L(?P<locus>\d+))?' +
+                         r'(?P<valid>[AX])(?P<fladid>[\dA-F]{2,})' +
+                         r'(?P<transform>t[oc]((\d+)(((\.\d+)?[ACTGNd])+)(i?))*)?$')
 
     def save(self, *args, **kwargs):
         self.length = len(self.sequence)
         return super(Allele, self).save(*args, **kwargs)
     
     def __str__(self):
-        return self.fladid()
+        return self.getfladid()
 
-    def fladid(self):
+    def getfladid(self):
         """
         This is the FLADid for the sequence
-        On a local running FLADid provider this will start with 'FL'
-        A FLADid from forensic.ugent.be starts with 'FA'
-        A FLAXid for testing starts with 'FX'
+        A FLADid from forensic.ugent.be starts with 'F'
+        On a local running FLADid provider this will start with 'LF'
+        A FLAXid for testing starts with 'TF'
         """
-        #todo change FL to FA on forensic.ugent.be
+        if not self.fladid: return None
+        
         #Returns an uppercase hex id
-        return ('FX' if self.context == 'testing'
-                else 'FL')+'{:0>3X}'.format(self.id) + (self.transformCode
-                                    if hasattr(self,'transformCode') else '')
+        fladstring = '{context}{locus}{valid}{fladid:0>3X}{transformcode}'
+        if self.locus: fladstring = fladstring.replace('>3X','>2X')
+        return fladstring.format(
+            context = self.context,
+            locus = 'L{}'.format(self.locus_id) if self.locus else '',
+            valid = 'A' if self.validation else 'X',
+            fladid = self.fladid,
+            transformcode = self.transformCode if hasattr(
+                self,'transformCode') else ''
+        )
 
     def transform(self,transformCode):
         """
@@ -79,7 +97,7 @@ class Allele(models.Model):
             raise StopIteration(allele)
         except ObjectDoesNotExist: return seq
 
-    def getseq(self):
+    def getsequence(self):
         """
         Returns sequence, accounting for transformCode if necessary.
         If you are not sure that a transformCode could be present,
@@ -87,29 +105,77 @@ class Allele(models.Model):
         """
         if hasattr(self,'transformCode'): return self.transform(self.transformCode)
         else: return self.sequence
+    getseq = getsequence #abbreviation for backwards compatibility
+
+    def getcomplement(self):
+        """
+        Returns the complement sequence
+        uses getseq, so if their is a transformCode it will be applied.
+        """
+        from myflq.MyFLq import complement
+        return complement(self.getseq())
+
+    @classmethod
+    def add(cls,sequence,locus=None,user=None):
+        """
+        Adds a locus/sequence to FLAD
+        Works like get_or_create, but only returns the Allele object
+        """
+        from myflq.MyFLq import complement
+        if locus: locus = Locus.objects.get_or_create(name=locus.upper())[0]
+        #Last check to see if complement is not in database
+        assert not cls.objects.filter(sequence=complement(sequence),
+                                      locus=locus).exists()
+        allele,crtd = cls.objects.get_or_create(sequence=sequence,locus=locus)
+        if crtd: #if created
+            allelePosition = list(cls.objects.filter(locus=locus)).index(allele)
+            if not locus: randomSampleSpace = 1000
+            else: randomSampleSpace = 100
+            alleleBin = int(allelePosition/randomSampleSpace)*randomSampleSpace
+            allelePosition = allelePosition % randomSampleSpace
+            alleleChoices = list(range(alleleBin+1,alleleBin+randomSampleSpace+1))
+            import random
+            random.seed(str(locus)+str(alleleBin))
+            random.shuffle(alleleChoices)
+            allele.fladid = alleleChoices[allelePosition]
+            allele.save()
+        #In case already added, just add user
+        if user: allele.users.add(user)
+        return allele
+        
         
     @classmethod
-    def search(cls,id,seqid=False,closeMatch=False):
+    def search(cls,fladid=False,locus=None,seq=False,closeMatch=False):
         """
-        Searches for an allele, either with a FLADid or a sequence
-        In case of a sequence, if no exact match is found, it will
+        Searches for an allele, either with a FLADid or a locus/sequence combo
+        In case of a locus/sequence, if no exact match is found, it will
         look for any close match up to 10 difference
         If looking up a sequence, with closeMatch, similar sequences
         will also be considered. Their FLADid will then be returned with
         transformCode.
         """
         from myflq.MyFLq import complement
-        if seqid:
-            try: allele = cls.objects.get(sequence=id)
+        if fladid:
+            match = cls.fladrex.match(fladid)
+            fladid = int(match.group('fladid'),base=16)
+            locus = match.group('locus')
+            if locus: locus = Locus.objects.get(id=locus)
+            allele = cls.objects.get(fladid=fladid,
+                                     locus=locus)
+        else:
+            if locus: locus = Locus.objects.get_or_create(name=locus.upper())[0]
+            try: allele = cls.objects.get(sequence=seq,locus=locus)
             except ObjectDoesNotExist:
                 try:
-                    allele = cls.objects.get(sequence=complement(id))
+                    allele = cls.objects.get(sequence=complement(seq),
+                                             locus=locus)
                     allele.transformCode = 'tc'
                 except ObjectDoesNotExist:
                     if closeMatch:
-                        allele = cls.closeMatch(sequence=id,differences=10)
+                        allele = cls.closeMatch(sequence=seq,
+                                                locus=locus,
+                                                differences=10)
                     else: raise
-        else: allele = cls.objects.get(id=int(id[2:],base=16))
         return allele
 
     @classmethod
