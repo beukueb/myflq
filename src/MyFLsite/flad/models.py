@@ -134,8 +134,21 @@ class Allele(models.Model):
             doi = match.group()
 
             #Check if active doi
-            from urllib import request
             url = 'http://dx.doi.org/{doi}'.format(doi=doi)
+            ##Curl
+            #import pycurl
+            #from io import BytesIO
+            #buffer = BytesIO()
+            #c = pycurl.Curl()
+            #c.setopt(c.URL,url)
+            #c.setopt(c.WRITEDATA, buffer)
+            #c.setopt(c.HTTPHEADER, ['Accept: application/rdf+xml'])
+            #c.perform()
+            #c.close()
+            #response = buffer.getvalue()
+            
+            ##urllib
+            from urllib import request
             #If original browser link is needed, add user_Agent to headers
             #user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
             headers = {'Accept':'application/rdf+xml'}
