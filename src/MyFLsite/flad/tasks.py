@@ -3,40 +3,6 @@ from celery import shared_task
 #from celery.contrib import rdb #DEBUG
 
 @shared_task
-def validateDOI(doi,userName):
-    """
-    Checks if a username is an author in a doi-linked pubblication 
-    """
-    #Check if active doi
-    from urllib import request
-    url = 'http://dx.doi.org/{doi}'.format(doi=doi)
-    #If original browser link is needed, add user_Agent to headers
-    #user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
-    headers = {'Accept':'application/rdf+xml'}
-              #'User-Agent':user_agent,
-              #'Accept':'text/turtle' => would then require rdflib for parsing
-    req = request.Request(url, headers = headers)
-    try: response = request.urlopen(req)
-    except request.HTTPError: return None #doi not valid
-    
-    #Check if user is author of the referenced pubblication
-    import xml.etree.ElementTree as ET
-    root = ET.fromstring(response.read())
-    root = root.getchildren()[0]
-    namespaces={'j.2':'http://purl.org/dc/terms/',
-                'j.1':'http://xmlns.com/foaf/0.1/'}
-    try:
-        for c in root.findall('j.2:creator',namespaces=namespaces):
-            name = c.find('j.1:Person/j.1:name',namespaces=namespaces)
-            name = name.text
-            if name == userName:
-                raise StopIteration
-            return False #user not an author
-    except StopIteration:
-        #user is author
-        return True    
-
-@shared_task
 def backup():
     """
     Makes a backup of FLAD, consisting out of FLADid,sequence lines

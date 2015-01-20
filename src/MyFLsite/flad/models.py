@@ -134,25 +134,43 @@ class Allele(models.Model):
             doi = match.group()
 
             #Check if active doi
-            from flad.tasks import validateDOI
-            userName = '{} {}'.format(user.userprofile.firstname,
-                                      user.userprofile.lastname)
-            result=validateDOI.apply((doi,userName))
-            if result.result is True:
-                #user is author
-                self.doi = doi
-                self.validationUser = user
-                self.validation = True
-                self.save()
-                return True
-            elif result.result is False
+            from urllib import request
+            url = 'http://dx.doi.org/{doi}'.format(doi=doi)
+            #If original browser link is needed, add user_Agent to headers
+            #user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
+            headers = {'Accept':'application/rdf+xml'}
+                      #'User-Agent':user_agent,
+                      #'Accept':'text/turtle' => would then require rdflib for parsing
+            req = request.Request(url, headers = headers)
+            try: response = request.urlopen(req)
+            except request.HTTPError: raise KeyError('doi {} not valid'.format(doi))
+            
+            #Check if user is author of the referenced pubblication
+            import xml.etree.ElementTree as ET
+            root = ET.fromstring(response.read())
+            root = root.getchildren()[0]
+            namespaces={'j.2':'http://purl.org/dc/terms/',
+                        'j.1':'http://xmlns.com/foaf/0.1/'}
+            try:
+                for c in root.findall('j.2:creator',namespaces=namespaces):
+                    name = c.find('j.1:Person/j.1:name',namespaces=namespaces)
+                    name = name.text
+                    if name == '{} {}'.format(user.userprofile.firstname,
+                                              user.userprofile.lastname):
+                        raise StopIteration
                 #user is not an author => log
                 import logging
                 logger = logging.getLogger(__name__)
                 logger.info('User {} requests validation of {}, with doi {}.'.format(
                     user,self,doi))
                 raise KeyError('User {} not an author of {}'.format(user,doi))
-            else: raise result.result
+            except StopIteration:
+                #user is author
+                self.doi = doi
+                self.validationUser = user
+                self.validation = True
+                self.save()
+                return True
     
     @classmethod
     def add(cls,sequence,locus=None,user=None):
