@@ -40,9 +40,16 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
         #Authenticate user => only for FLAD
         if flad.lower() == 'flad': 
             response = authenticateUser(request)
-            if response: return error(request,response,True)
+            if response: return error(request,response)
         allele = Allele.add(seq,locus,request.user)
-        
+
+    if validate:
+        if not 'doi' in request.GET:
+            return error(request,'doi not provided')
+        response = authenticateUser(request)
+        if response: return error(request,response)
+        allele.validate(request.user,request.GET['doi'])
+            
     kwargs = {'allele':allele,
               'flad':True}
     if mode:
@@ -53,7 +60,7 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
     else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
         else 'flad/seqidx.html',kwargs)
 
-def error(request,api,flad):
+def error(request,api,flad=True):
     return render(request,'flad/messages.html',
                   {'message':'''Something is wrong with your 
                   FLAD request: {}'''.format(api)})

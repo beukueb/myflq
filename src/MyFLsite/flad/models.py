@@ -29,6 +29,7 @@ class Allele(models.Model):
     users = models.ManyToManyField(User)
     creationDate = models.DateField(auto_now_add=True)
     validation = models.NullBooleanField(default=False) #Set to None for deleted alleles
+    validationUser = models.ForeignKey(User,null=True,related_name="vuser")
     doi = models.CharField(max_length=200,null=True) #If validated, doi for validation pubblication
 
     #Class attributes
@@ -37,6 +38,7 @@ class Allele(models.Model):
     fladrex = re.compile(r'(?P<context>[FLT])(L(?P<locus>\d+))?' +
                          r'(?P<valid>[AX])(?P<fladid>[\dA-F]{2,})' +
                          r'(?P<transform>t[oc]((\d+)(((\.\d+)?[ACTGNd])+)(i?))*)?$')
+    doirex = re.compile(r'\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])\S)+)\b')
 
     def save(self, *args, **kwargs):
         self.length = len(self.sequence)
@@ -115,6 +117,43 @@ class Allele(models.Model):
         from myflq.MyFLq import complement
         return complement(self.getseq())
 
+    def validate(self,user,doi):
+        """
+        If not validated, adds the doi and sends a message that the validation
+        needs to be checked. Only then should validation be set to true.
+        In the future this should be automated by text mining the doi, and
+        checking if the allele sequence is linked to the pubblication.
+        Returns True if adding doi succesful, False if already has a doi linked
+        or some other issue.
+        """
+        if self.doi: return False
+        else:
+            #Check doi format
+            match = self.doirex.search(doi)
+            if not match: raise KeyError('Wrong format: {}'.format(doi))
+            doi = match.group()
+
+            #Check if active doi
+            from flad.tasks import validateDOI
+            userName = '{} {}'.format(user.userprofile.firstname,
+                                      user.userprofile.lastname)
+            result=validateDOI.apply((doi,userName))
+            if result.result is True:
+                #user is author
+                self.doi = doi
+                self.validationUser = user
+                self.validation = True
+                self.save()
+                return True
+            elif result.result is False
+                #user is not an author => log
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.info('User {} requests validation of {}, with doi {}.'.format(
+                    user,self,doi))
+                raise KeyError('User {} not an author of {}'.format(user,doi))
+            else: raise result.result
+    
     @classmethod
     def add(cls,sequence,locus=None,user=None):
         """
