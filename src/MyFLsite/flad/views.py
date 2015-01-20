@@ -48,7 +48,9 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
             return error(request,'doi not provided')
         response = authenticateUser(request)
         if response: return error(request,response)
-        allele.validate(request.user,request.GET['doi'])
+        try: allele.validate(request.user,request.GET['doi'])
+        except KeyError as e:
+            return error(request,e)
             
     kwargs = {'allele':allele,
               'flad':True}
@@ -60,10 +62,10 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
     else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
         else 'flad/seqidx.html',kwargs)
 
-def error(request,api,flad=True):
+def error(request,message,flad=True):
     return render(request,'flad/messages.html',
                   {'message':'''Something is wrong with your 
-                  FLAD request: {}'''.format(api)})
+                  FLAD request: {}'''.format(message)})
 
 @login_required
 def registration(request,flad):

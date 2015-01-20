@@ -13,5 +13,5 @@ urlpatterns = patterns('',
         r'(?P<transform>t[oc]((\d+)(((\.\d+)?[ACTGNd])+)(i?))*)?/$',
         'flad.views.getsequence'),
     url(r'^getid/(?P<mode>xml/|plain/|)(?P<validate>validate/|)((?P<locus>[a-zA-Z]\w+)/)?(?P<seq>[ACTGN]*)$','flad.views.getid'),
-    url(r'^(?P<api>.*)/$','flad.views.error'),
+    url(r'^(?P<message>.*)/$','flad.views.error'),
 )
