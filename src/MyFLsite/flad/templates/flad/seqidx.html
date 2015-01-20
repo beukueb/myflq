@@ -2,19 +2,21 @@
 {% load staticfiles %}
 
 {% block fladcontent %}
-{% if sequence %}
- {% if fladid %}
- <h1> FLAX entry </h1>
- <h3 style="margin-bottom:0px;">{{ fladid }}</h3>
- <code style="max-width:80em;word-wrap:break-word;">{{ sequence }}</code>
+{% if allele.getsequence %}
+ {% if allele.fladid %}
+ <h1> FLAX testing entry </h1>
+ <h3 style="margin-bottom:0px;">{{ allele.getfladid }}</h3>
+ {% if allele.locus %}<p>Locus: {{ allele.locus }}</p>{% endif %}
+ <code style="max-width:80em;word-wrap:break-word;">{{ allele.getsequence }}</code>
  <p>Complementary strand:<p>
- <code style="max-width:80em;word-wrap:break-word;">{{ complement }}</code>
+ <code style="max-width:80em;word-wrap:break-word;">{{ allele.getcomplement }}</code>
  {% else %}
  <p>Not yet entered in the database:</p>
- <code style="max-width:80em;word-wrap:break-word;">{{ sequence }}</code>
+ {% if allele.locus %}<p>Locus = {{ allele.locus }}</p>{% endif %}
+ <code style="max-width:80em;word-wrap:break-word;">{{ allele.getsequence }}</code>
  {% endif %}
-{% elif fladid %}
- <p>There is no sequence entry for: <span style="color:red;">{{ fladid }}</span></p>
+{% elif allele.unknown %}
+ <p>There is no sequence entry for: <span style="color:red;">{{ allele.fladid }}</span></p>
 {% endif %}
 <br /><br />
 {% endblock %}

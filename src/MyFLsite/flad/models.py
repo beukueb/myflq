@@ -229,7 +229,7 @@ class Allele(models.Model):
             match = cls.fladrex.match(fladid)
             fladid = int(match.group('fladid'),base=16)
             locus = match.group('locus')
-            if locus: locus = Locus.objects.get(id=locus)
+            if locus: locus = cls.Locus.objects.get(id=locus)
             allele = cls.objects.get(fladid=fladid,
                                      locus=locus)
         else:
@@ -332,7 +332,7 @@ class TestAllele(Allele):
     """
     This model will be used by the FLAD testing service FLAX
     """
-    context = 'testing'
+    context = 'T'
 
 class FLADkey(models.Model):
     """

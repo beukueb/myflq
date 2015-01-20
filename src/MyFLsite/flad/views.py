@@ -31,7 +31,9 @@ def getsequence(request,flad,fladid,transform=False,mode=False):
 
 def getid(request,flad,locus,seq,mode=False,validate=False):
     #Set up FLAD or FLAX
-    if flad.lower() == 'flax': from flad.models import TestAllele as Allele
+    if flad.lower() == 'flax':
+        from flad.models import TestAllele as Allele
+        locus = None #locus masked for testing
     else: from flad.models import Allele
 
     try: allele = Allele.search(locus=locus,seq=seq,closeMatch=False)
