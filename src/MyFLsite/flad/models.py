@@ -149,34 +149,48 @@ class Allele(models.Model):
             
             ##urllib
             from urllib import request
+            import socket
             #If original browser link is needed, add user_Agent to headers
             #user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
             headers = {'Accept':'application/rdf+xml'}
                       #'User-Agent':user_agent,
                       #'Accept':'text/turtle' => would then require rdflib for parsing
             req = request.Request(url, headers = headers)
-            try: response = request.urlopen(req)
-            except request.HTTPError: raise KeyError('doi {} not valid'.format(doi))
-            
-            #Check if user is author of the referenced pubblication
-            import xml.etree.ElementTree as ET
-            root = ET.fromstring(response.read())
-            root = root.getchildren()[0]
-            namespaces={'j.2':'http://purl.org/dc/terms/',
-                        'j.1':'http://xmlns.com/foaf/0.1/'}
+            userName = '{} {}'.format(user.userprofile.firstname,
+                                      user.userprofile.lastname)
             try:
-                for c in root.findall('j.2:creator',namespaces=namespaces):
-                    name = c.find('j.1:Person/j.1:name',namespaces=namespaces)
-                    name = name.text
-                    if name == '{} {}'.format(user.userprofile.firstname,
-                                              user.userprofile.lastname):
+                try:
+                    response = request.urlopen(req)
+                    #Check if user is author of the referenced pubblication
+                    import xml.etree.ElementTree as ET
+                    root = ET.fromstring(response.read())
+                    root = root.getchildren()[0]
+                    namespaces={'j.2':'http://purl.org/dc/terms/',
+                                'j.1':'http://xmlns.com/foaf/0.1/'}
+                    for c in root.findall('j.2:creator',namespaces=namespaces):
+                        name = c.find('j.1:Person/j.1:name',namespaces=namespaces)
+                        name = name.text
+                        if name == userName:
+                            raise StopIteration
+                except request.HTTPError: raise
+                except (request.URLError,socket.gaierror):
+                    #In case of timeout, use crossref site instead of doi
+                    url = 'http://search.crossref.org/dois?q={doi}'.format(doi=doi)
+                    response = request.urlopen(url)
+                    #Check if user is author of the referenced pubblication
+                    import json
+                    data = json.loads(response.read().decode())
+                    if not data: raise request.HTTPError #No results
+                    if userName in data[0]['fullCitation']:
                         raise StopIteration
+                
                 #user is not an author => log
                 import logging
                 logger = logging.getLogger(__name__)
                 logger.info('User {} requests validation of {}, with doi {}.'.format(
                     user,self,doi))
                 raise KeyError('User {} not an author of {}'.format(user,doi))
+            except request.HTTPError: raise KeyError('doi {} not valid'.format(doi))
             except StopIteration:
                 #user is author
                 self.doi = doi
@@ -184,7 +198,7 @@ class Allele(models.Model):
                 self.validation = True
                 self.save()
                 return True
-    
+            
     @classmethod
     def add(cls,sequence,locus=None,user=None):
         """
@@ -229,7 +243,7 @@ class Allele(models.Model):
             match = cls.fladrex.match(fladid)
             fladid = int(match.group('fladid'),base=16)
             locus = match.group('locus')
-            if locus: locus = cls.Locus.objects.get(id=locus)
+            if locus: locus = Locus.objects.get(id=locus)
             allele = cls.objects.get(fladid=fladid,
                                      locus=locus)
         else:

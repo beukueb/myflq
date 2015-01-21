@@ -13,25 +13,25 @@
 <p>Example: <code>https://forensic.ugent.be/flad/getseq/xml/FA001</code></p>
 
 <h4>Retrieve FLADid with a sequence</h4>
-<code>https://forensic.ugent.be/flad/getid/xml/{sequence}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/getid/xml/ACTGACTAGACATGCGAC</code></p>
+<code>https://forensic.ugent.be/flad/getid/xml/[{locus}/]{sequence}[?user={username}&password={password}]</code>
+<p>Authorization is optional but necessary if the sequence needs to be added to the database.<br />
+  Example: <br />
+  <code>https://forensic.ugent.be/flad/getid/xml/FGA/ACTGACTAGACATGCGAC</code>
+</p>
 
-<h4>Validate sequence and retrieve its FLADid</h4>
-<code>https://forensic.ugent.be/flad/validate/xml/{sequence}?user={username}&password={password}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/validate/xml/ACTGACTAGACATGCGAC?user=jeffreys&password=1984</code></p>
-
-<h4>Unvalidate sequence or FLADid</h4>
-<p>If there are no other users validating this sequence it will be removed, otherwise it only removes the user's validation.</p>
-<code>https://forensic.ugent.be/flad/unvalidate/{sequence}?user={username}&password={password}</code>
-<p>Example: <code>https://forensic.ugent.be/flad/unvalidate/ACTGACTAGACATGCGAC?user=jeffreys&password=1984</code></p>
+<h4>Validate sequence</h4>
+<code>https://forensic.ugent.be/flad/getid/xml/validate/[{locus}/]{sequence}?user={username}&password={password}&doi={doi}</code>
+<p>Example:<br />
+  <code>https://forensic.ugent.be/flad/validate/xml/FGA/ACTGGACGAC?user=jeffreys&password=1984&doi=10.1038/314067a0</code>
+</p>
 
 <h4>Plain text instead of xml</h4>
 <p>To get a simple byte string back consisting only of the requested information, use 'plain' instead of 'xml'. In this case, when providing a FLADid to retrieve a sequence, only the sequence present in the database will be send back and not its complementary strand.</p>
-<p>Example: <code>https://forensic.ugent.be/flad/getid/plain/ACTGACTAGACATGCGAC</code></p>
+<p>Example: <code>https://forensic.ugent.be/flad/getid/plain/FGA/ACTGACTAGACATGCGAC</code></p>
 
 <h4>Testing</h4>
 <p>For development and experimenting there is a parallel testing service FLAX. The API is identical, except that 'flad' needs to be replaced with 'flax' and that no authorization for validation is required. It is not possible to unvalidate alleles. Use only for testing.</p>
-<p>Example: <code>https://forensic.ugent.be/flax/validate/plain/ACTGACTAGACATGCGAC</code></p>
+<p>Example: <code>https://forensic.ugent.be/flax/getid/plain/FGA/ACTGACTAGACATGCGAC</code></p>
 {% endblock %}
 
 

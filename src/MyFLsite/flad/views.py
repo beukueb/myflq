@@ -33,7 +33,10 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
     #Set up FLAD or FLAX
     if flad.lower() == 'flax':
         from flad.models import TestAllele as Allele
-        locus = None #locus masked for testing
+        #For testing, if locus is not registered, drop locus info
+        try: Locus.objects.get(name=locus.upper())
+        except ObjectDoesNotExist:
+            locus = None
     else: from flad.models import Allele
 
     try: allele = Allele.search(locus=locus,seq=seq,closeMatch=False)

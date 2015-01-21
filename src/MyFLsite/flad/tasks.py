@@ -31,7 +31,7 @@ def backup():
 
     tempcsv = tempfile.NamedTemporaryFile(delete=False,suffix='.csv',mode='wt')
     for a in Allele.objects.all():
-        tempcsv.write('{},{}\n'.format(a.fladid(),a.sequence))
+        tempcsv.write('{},{},{}\n'.format(a.fladid(),a.locus,a.sequence))
     tempcsv.close()
 
     subprocess.check_call(['tar','-czf',backupfile+'.tar.gz',tempcsv.name])
