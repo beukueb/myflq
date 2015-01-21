@@ -21,13 +21,15 @@
 		      <h2>Bridging electrophoresis to sequencing</h2>
 		    </div>
                 {% endblock %}
-                {% block logging %}
+		{% if not contentLogin %}
+                 {% block logging %}
                     {% if user.is_authenticated %}
                         {% include "registration/logout.html" %}
                     {% else %}
                         {% include "registration/login.html" with next="/" %}
                     {% endif %}
-                {% endblock logging %}
+                 {% endblock logging %}
+		{% endif %}
             </div>
             <div id="navigation">
                 {% block navigation %}
@@ -36,7 +38,7 @@
             </div>   
             <div id="content">
                 {% block content %}
-                    <h1>Content</h1>
+                    {% include 'registration/login.html' with nested=contentLogin next='/' %}
                 {% endblock %}    
             </div>       
             <div id="footer">

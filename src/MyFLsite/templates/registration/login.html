@@ -1,4 +1,16 @@
-<div id="logform">
+{% if next != '/' %}
+ {% include 'base.html' with contentLogin=next %}
+{% endif %}
+
+{% if nested %}
+ <p>
+   This action requires authorization. <br />
+   Registration and/or login is necessary.
+ </p>
+{% endif %}
+
+{% if next == '/' %}
+<div {% if not nested %}id="logform"{% endif %}>
 {% if form.errors %}
 <p class="error">Sorry, that's not a valid username or password</p>
 {% endif %}
@@ -12,7 +24,13 @@
   <input type="password" name="password" value="" id="password" size="15" style="width:100px;">
 
   <input type="submit" value="login" /> (<a href="/register">register</a>)
-  <input type="hidden" name="next" value="{{ next|escape }}" />
+  {% if nested %}
+   <input type="hidden" name="next" value="{{ nested|escape }}" />
+  {% else %}
+   <input type="hidden" name="next" value="{{ next|escape }}" />
+  {% endif %}
 </form>
 
 </div>
+{% endif %}
+

@@ -206,6 +206,12 @@ class Allele(models.Model):
         Works like get_or_create, but only returns the Allele object
         """
         from myflq.MyFLq import complement
+        #For anonymous user => database does not change for anonymous user
+        if user and not user.is_authenticated():
+            return {'fladid': True,
+                    'getsequence':sequence,
+                    'getcomplement':complement(sequence),
+                    'getfladid':'{}XDUMMY'.format(cls.context)}
         if locus: locus = Locus.objects.get_or_create(name=locus.upper())[0]
         #Last check to see if complement is not in database
         assert not cls.objects.filter(sequence=complement(sequence),

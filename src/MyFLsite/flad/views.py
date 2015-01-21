@@ -34,7 +34,8 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
     if flad.lower() == 'flax':
         from flad.models import TestAllele as Allele
         #For testing, if locus is not registered, drop locus info
-        try: Locus.objects.get(name=locus.upper())
+        try:
+            if locus: Locus.objects.get(name=locus.upper())
         except ObjectDoesNotExist:
             locus = None
     else: from flad.models import Allele
@@ -45,14 +46,14 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
         #Authenticate user => only for FLAD
         if flad.lower() == 'flad': 
             response = authenticateUser(request)
-            if response: return error(request,response)
+            if response: return response
         allele = Allele.add(seq,locus,request.user)
 
-    if validate:
+    if validate and request.user.is_authenticated():
         if not 'doi' in request.GET:
             return error(request,'doi not provided')
         response = authenticateUser(request)
-        if response: return error(request,response)
+        if response: return response
         try: allele.validate(request.user,request.GET['doi'])
         except KeyError as e:
             return error(request,e)
@@ -86,6 +87,9 @@ def authenticateUser(request):
     Authenticates also for programmatory access.
     A program cannot be easily redirected to login, but should receive a informative warning.
     """
+    if not request.user.is_authenticated():
+        return redirect('/accounts/login/?next=%s' % request.path)
+
     from django.contrib.auth.models import User
     try:
         #Check user credentials
@@ -103,7 +107,7 @@ def authenticateUser(request):
         #Check if user is priviliged
         if not request.user.userprofile.fladPriviliged: raise ObjectDoesNotExist
     except ObjectDoesNotExist:
-        return "User does not exist or is not authorized, or password is incorrect."
+        return error(request,
+                     "User does not exist or is not authorized, or password is incorrect.")
         
-    if not request.user.is_authenticated():
-        return redirect('/accounts/login/?next=%s' % request.path)
+
