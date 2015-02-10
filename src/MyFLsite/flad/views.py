@@ -25,7 +25,7 @@ def getsequence(request,flad,fladid,transform=False,mode=False):
         if 'xml' in mode:
             return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
         elif 'plain' in mode:
-            return HttpResponse(kwargs['sequence'], content_type="text/plain")
+            return HttpResponse(allele.getsequence(), content_type="text/plain")
     else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
         else 'flad/seqidx.html',kwargs)
 
@@ -64,7 +64,7 @@ def getid(request,flad,locus,seq,mode=False,validate=False):
         if 'xml' in mode:
             return render(request,'flad/seqid.xml',kwargs,content_type="application/xhtml+xml")
         elif 'plain' in mode:
-            return HttpResponse(kwargs['fladid'], content_type="text/plain")
+            return HttpResponse(allele.getfladid(), content_type="text/plain")
     else: return render(request,'flad/seqid.html' if flad.lower() == 'flad'
         else 'flad/seqidx.html',kwargs)
 
