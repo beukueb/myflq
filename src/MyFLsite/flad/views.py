@@ -87,9 +87,6 @@ def authenticateUser(request):
     Authenticates also for programmatory access.
     A program cannot be easily redirected to login, but should receive a informative warning.
     """
-    if not request.user.is_authenticated():
-        return redirect('/accounts/login/?next=%s' % request.path)
-
     from django.contrib.auth.models import User
     try:
         #Check user credentials
@@ -109,5 +106,10 @@ def authenticateUser(request):
     except ObjectDoesNotExist:
         return error(request,
                      "User does not exist or is not authorized, or password is incorrect.")
+
+    if not request.user.is_authenticated():
+        return redirect('/accounts/login/?next=%s' % request.path)
+
+
         
 

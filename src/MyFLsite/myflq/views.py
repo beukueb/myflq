@@ -125,7 +125,7 @@ def process_config(config,reprocess=False):
                             locus = Locus.objects.get(name=line[0],
                                                       configuration=config),
                             name = line[1],
-                            FLADid = getFLAD(line[2],config.user),
+                            FLADid = getFLAD(line[0],line[2],config.user),
                             #repeatNumber => not implemented for now
                             sequence = line[2].upper())
             allele.save()
@@ -164,16 +164,17 @@ def process_config(config,reprocess=False):
                              config.fulldbname(),
                              'default'],stderr=subprocess.STDOUT)
 
-def getFLAD(sequence,user):
+def getFLAD(locus,sequence,user):
     from urllib.request import urlopen
     from django.utils.http import urlquote
-    url = 'https://{flad}/flad/validate/plain/{seq}?user={u}&password={p}'
+    url = 'https://{flad}/flad/getid/plain/{locus}/{seq}?user={u}&password={p}'
     provider = user.fladconfig.FLAD
     if provider == "localhost" or provider.startswith("localhost:"):
         url = url.replace('https://','http://')
     response = urlopen(
         url.format(
             flad=user.fladconfig.FLAD,
+            locus=locus,
             seq=sequence,
             u=urlquote(user.fladconfig.FLADname),
             p=urlquote(user.fladconfig.FLADkey)))
@@ -267,7 +268,7 @@ def result(request,analysis=False):
         allele,created = Allele.objects.get_or_create(
             configuration = analysis.configuration,
             locus = locus,
-            FLADid = getFLAD(sequence,analysis.configuration.user),
+            FLADid = getFLAD(locus,sequence,analysis.configuration.user),
             sequence = sequence)
         if created and Allele.objects.filter(locus=locus,sequence=sequence,
                                           isFLAD=False).exists():
