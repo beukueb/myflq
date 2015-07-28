@@ -349,7 +349,9 @@ class Alignment:
             compress = [transforms[i]]
             #Search for successive insertions
             try:
-                while transforms[i][0] == transforms[i+1][0]:
+                while transforms[i][0] == transforms[i+1][0] and transforms[i+1][1].endswith('i'):
+                    #endswith('i') added because of bug if after insertion there is a simple change
+                    #TODO check if application of transformCode works as desired
                     i = next(c)
                     compress.append(transforms[i])
             except IndexError: pass
