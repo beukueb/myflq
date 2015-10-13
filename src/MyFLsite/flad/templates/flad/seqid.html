@@ -9,7 +9,14 @@
  {% if allele.locus %}<p>Locus: {{ allele.locus }}</p>{% endif %}
  <code style="max-width:80em;word-wrap:break-word;">{{ allele.getsequence }}</code>
  <p>Complementary strand:<p>
- <code style="max-width:80em;word-wrap:break-word;">{{ allele.getcomplement }}</code>
+  <code style="max-width:80em;word-wrap:break-word;">{{ allele.getcomplement }}</code>
+
+  {% if allele.doi %}
+  <p><br />
+    Validation publication doi: {{ allele.doi }}
+  </p>
+  {% endif %}
+  
  {% else %}
  <p>Not yet entered in the database:</p>
  {% if allele.locus %}<p>Locus = {{ allele.locus }}</p>{% endif %}
