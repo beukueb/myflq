@@ -168,6 +168,7 @@ def getFLAD(locus,sequence,user):
     from urllib.request import urlopen
     from django.utils.http import urlquote
     url = 'https://{flad}/flad/getid/plain/{locus}/{seq}?user={u}&password={p}'
+    if user.fladconfig.FLAD.endswith('flax'): url = url.replace('/flad/','/')
     provider = user.fladconfig.FLAD
     if provider == "localhost" or provider.startswith("localhost:"):
         url = url.replace('https://','http://')

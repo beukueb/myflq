@@ -18,6 +18,17 @@ def register(request):
             new_user = form.save()
             pform.instance.user = new_user
             pform.save()
+            if pform.instance.fladRequest:
+                from django.core.mail import send_mail
+                send_mail('FLAD request',
+                          '{} requested to use FLAD.'.format(new_user.username),
+                          'root@forensic.ugent.be',
+                          ['itfbt@ugent.be'],
+                          fail_silently=True)
+            #Set FLAD test configuration for all new users
+            fc=FLADconfig(user=new_user,FLAD="forensic.ugent.be/flax",
+                          FLADname="testname",FLADkey="testkey")
+            fc.save()
             return HttpResponseRedirect("/")
     else:
         form = UserCreationForm()
