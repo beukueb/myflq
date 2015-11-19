@@ -207,11 +207,13 @@ class Allele(models.Model):
         """
         from myflq.MyFLq import complement
         #For anonymous user => database does not change for anonymous user
-        if user and not user.is_authenticated():
-            return {'fladid': True,
-                    'getsequence':sequence,
-                    'getcomplement':complement(sequence),
-                    'getfladid':'{}XDUMMY'.format(cls.context)}
+        #2015/11/17 Commented out to allow generic testing
+        #Other solution would be automated generation of FLADkeys also for testing
+        #if user and not user.is_authenticated():
+        #    return {'fladid': True,
+        #            'getsequence':sequence,
+        #            'getcomplement':complement(sequence),
+        #            'getfladid':'{}XDUMMY'.format(cls.context)}
         if locus: locus = Locus.objects.get_or_create(name=locus.upper())[0]
         #Last check to see if complement is not in database
         assert not cls.objects.filter(sequence=complement(sequence),
@@ -230,7 +232,7 @@ class Allele(models.Model):
             allele.fladid = alleleChoices[allelePosition]
             allele.save()
         #In case already added, just add user
-        if user: allele.users.add(user)
+        if user and user.is_authenticated(): allele.users.add(user)
         return allele
         
         

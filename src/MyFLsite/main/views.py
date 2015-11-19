@@ -26,6 +26,7 @@ def register(request):
                           ['itfbt@ugent.be'],
                           fail_silently=True)
             #Set FLAD test configuration for all new users
+            from myflq.models import FLADconfig
             fc=FLADconfig(user=new_user,FLAD="forensic.ugent.be/flax",
                           FLADname="testname",FLADkey="testkey")
             fc.save()

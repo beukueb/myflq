@@ -58,7 +58,7 @@ c.login(username='test', password='test')
 response = c.post('/myflq/setup/', {'dbname': 'testdb','submitaction':'createdb'})
 optionValue = [i for i in response.content.decode().split('\n')
                        if 'option' in i and '>testdb<' in i][0].split('"')[1]
-with open('../loci/myflqpaper_loci.csv','rb') as fp:
+with open('../loci/myflsite2_loci.csv','rb') as fp:
     response = c.post('/myflq/setup/', {'dbname': optionValue,'submitaction':'addlocifile','fileName': fp})
 with open('../alleles/myflqpaper_alleles.csv','rb') as fp:
     c.post('/myflq/setup/', {'dbname': optionValue,'submitaction':'addallelesfile','alleleFile': fp})

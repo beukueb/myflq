@@ -10,7 +10,7 @@ We developed our forensic MPS data analysis framework MyFLq into an open-source,
 
 ### Use requirements
 
-The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fast[a/q] datafile, whereupon the datafile's profile is extracted. To download the loci.csv and alleles.csv files, right-click the 'RAW' button and choose 'save as...'. These files can be opened using a regular text editor such as 'Textpad' (Windows) or 'gedit' (Linux).
+The tool expects a loci csv-file (similar to [loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflsite2_loci.csv)), a validated-allele csv-file for all the included loci  (similar to [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) and a fast[a/q] datafile, whereupon the datafile's profile is extracted. To download the loci.csv and alleles.csv files, right-click the 'RAW' button and choose 'save as...'. These files can be opened using a regular text editor such as 'Textpad' (Windows) or 'gedit' (Linux).
 
 The datafile can be a single-individual-source or multiple-individual-source sample. Profile results depend on both csv files. Loci.csv will determine the number of loci that will be analyzed; alleles.csv will determine the region of interest [ROI] of those loci.
 
@@ -139,12 +139,12 @@ To use the application, you need to register.  This will enable the system to ke
 - Fill in your user name and password in the upper right corner and click the login button.
 
 ###Workflow
-After a succesfull login, you end up on the MyFLq workflow page displaying condensed instructions on how to proceed with the setup, analysis and results.  Detailed instructions can be here.
+After a succesfull login, you end up on the MyFLq workflow page displaying condensed instructions on how to proceed with the setup, analysis and results.  Detailed instructions can be found here.
 
 ####Setup loci and alleles
 - __Setup__: Create a new configuration for your analysis by supplying a name and optionally a description.
-- __Loci__: Browse to select a loci file (CSV format).
-- __Adding alleles__: Browse to select an allele file (CSV format), click the '__Upload__' button.
+- __Loci__: Browse to select a loci file (CSV in MyFLsite version 2 format).
+- __Adding alleles__: Browse to select an allele file (CSV format), click the '__Upload__' button. An allele file is not necessary for first time analyses. For first time analyses it is best to skip this test, as you can test this way the validity of the loci file.
 - __Create configuration__: Click the '__Create__' button to store your configuration. It should then be displayed in the list with configurations with the option to delete it and links to the loci and allele file chosen for this configuration.
 
 ####Analysis
@@ -160,7 +160,7 @@ Click the '__Submit__' button to add your analysis to the queue.
     - __Profile__: Report of the analysis.  See 'Review results' under the 'Workflow on BaseSpace MyFLq' section for a detailed description.
 
 ###Test files
-A sample loci ([loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflqpaper_loci.csv)) and alleles ( [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) data file are available in the git repository.  You will need to supply your own Fastq sequence file to perform an analysis, or download it from the [BaseSpace project page](https://basespace.illumina.com/s/0xvp6KW9GCfi) after registering.
+A sample loci ([loci.csv](https://github.com/beukueb/myflq/blob/master/src/loci/myflsite2_loci.csv)) and alleles ( [alleles.csv](https://github.com/beukueb/myflq/blob/master/src/alleles/myflqpaper_alleles.csv)) data file are available in the git repository.  You will need to supply your own Fastq sequence file to perform an analysis, or download it from the [BaseSpace project page](https://basespace.illumina.com/s/0xvp6KW9GCfi) after registering.
 
 ##More information
 - [MyFLq framework paper](http://dx.doi.org/10.1016/j.fsigen.2013.10.012)

@@ -23,7 +23,7 @@ class MyflqTestCase(TestCase):
         self.assertEqual(response.status_code, 200, msg='Not able to create settings database')
 
         #Populate database and commit
-        with open('../loci/myflqpaper_loci.csv','rb') as fp:
+        with open('../loci/myflsite2_loci.csv','rb') as fp:
             self.c.post('/myflq/setup/', {'dbname': optionValue,'submitaction':'addlocifile','fileName': fp})
 
         with open('../alleles/myflqpaper_alleles.csv','rb') as fp:
