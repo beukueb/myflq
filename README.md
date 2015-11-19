@@ -144,7 +144,7 @@ After a succesfull login, you end up on the MyFLq workflow page displaying conde
 ####Setup loci and alleles
 - __Setup__: Create a new configuration for your analysis by supplying a name and optionally a description.
 - __Loci__: Browse to select a loci file (CSV in MyFLsite version 2 format).
-- __Adding alleles__: Browse to select an allele file (CSV format), click the '__Upload__' button. An allele file is not necessary for first time analyses. For first time analyses it is best to skip this test, as you can test this way the validity of the loci file.
+- __Adding alleles__: Browse to select an allele file (CSV format), click the '__Upload__' button. An allele file is not necessary for first time analyses. For first time analyses it is best to skip this step, as you can test this way the validity of the loci file.
 - __Create configuration__: Click the '__Create__' button to store your configuration. It should then be displayed in the list with configurations with the option to delete it and links to the loci and allele file chosen for this configuration.
 
 ####Analysis
