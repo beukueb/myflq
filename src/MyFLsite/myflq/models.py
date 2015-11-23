@@ -73,7 +73,7 @@ class Locus(models.Model):
     """
     configuration = models.ForeignKey(UserResources)
     name = models.CharField(max_length=200)
-    locusType = models.IntegerField(null=True,blank=True,max_length=1,verbose_name='type')
+    locusType = models.IntegerField(null=True,blank=True,verbose_name='type')
     forwardPrimer = models.CharField(max_length=200)
     reversePrimer = models.CharField(max_length=200)
     #For backwards compatibility following fields are all null=True,blank=True as they were not in previous versions
@@ -117,7 +117,11 @@ class Analysis(models.Model):
         '''Long flanks could overlap within small unknown alleles, or their
         stutters. This option filters them, but reports on their abundance.'''
     )
-    #kMerAssign = 
+    kMerAssign = models.IntegerField(default=0,help_text=
+                '''Reads can be assigned to loci by looking up the presence
+                of primer kmers in the read. This allows for processing of
+                reads with errors in the primers. Default value: 0 == not using it.
+                When using, recommended values are 5,6,...''')
     primerBuffer = models.IntegerField(default=0,help_text=
                 '''The ends of the primers are not used for assigning the reads
                 to loci. Choosing a higher primerBuffer therefore means the
