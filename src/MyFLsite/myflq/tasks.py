@@ -22,6 +22,8 @@ def myflqTaskRequest(analysisID):
                'analysis', '--sampleName', analysis.originalFilename,
                '--negativeReadsFilter' if analysis.negativeReadsFilter else 'REMOVE',
                '--primerBuffer', str(analysis.primerBuffer),
+               '--kMerAssign' if analysis.kMerAssign else 'REMOVE',
+               str(analysis.kMerAssign) if analysis.kMerAssign else 'REMOVE',
                '--flankOut' if analysis.flankOut else 'REMOVE',
                '--stutterBuffer', str(analysis.stutterBuffer),
                '--useCompress' if analysis.useCompress else 'REMOVE',
