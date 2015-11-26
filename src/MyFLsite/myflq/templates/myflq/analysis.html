@@ -59,7 +59,6 @@ function changeAim() {
         <p style="display:none;">
 	  {{ analysisform.flankOut }}
 	  {{ analysisform.negativeReadsFilter }}
-	  {{ analysisform.clusterInfo }}
 	</p>
 
         <div style="float:left;">
@@ -77,6 +76,9 @@ function changeAim() {
             <tr><td><label class="helponhover" for="{{ analysisform.randomSubset.id_for_label }}">{{ analysisform.randomSubset.label }}</label>
  <span class="helptext">{{ analysisform.randomSubset.help_text }}</span></td>
             <td>{{ analysisform.randomSubset }}</td></tr>            
+            <tr><td><label class="helponhover" for="{{ analysisform.clusterInfo.id_for_label }}">{{ analysisform.clusterInfo.label }}</label>
+ <span class="helptext">{{ analysisform.clusterInfo.help_text }}</span></td>
+            <td>{{ analysisform.randomSubset }}</td></tr>
             </table>
         </div>
         
