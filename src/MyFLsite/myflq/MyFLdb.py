@@ -262,9 +262,6 @@ if __name__ == '__main__':
                 'MySQL password for '+args.user+': ')
         except EOFError: args.password = input(
                 'MySQL password for '+args.user+': ')
-    if args.install:
-        #TODO Remove when all use cases are discovered
-        raise NotImplementedError('See version before 2014/12/17')
     else:
         #Check if user and password match
         #=> if user is authorised to make or change MyFLq databases

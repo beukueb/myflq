@@ -14,8 +14,6 @@ mysql -uroot -proot <<EOF
 GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EOF
-#yes '' | python3 /myflq/MyFLdb.py --install root
-python3 /myflq/MyFLdb.py --install admin -p 'passall'
 
 #Start wrapper py
 python3 /myflq/basespace/myflq_wrapper.py $@ #passes any arguments that come from run container

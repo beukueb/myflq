@@ -11,11 +11,11 @@
 #Setup MySQL for MyFLq
 sleep 10 #mysqld needs some time to start up (maybe less than 5 seconds is also ok)
 ##MyFLdb
+/usr/bin/mysqladmin -u root password 'root'
 mysql -uroot -proot <<EOF                                                                                                         
 GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY 'passall' WITH GRANT OPTION; 
 FLUSH PRIVILEGES;
 EOF
-python3 /myflq/MyFLdb.py --install admin -p 'passall'
 
 ##MyFLsite
 mysql -uroot -proot <<EOF
@@ -27,7 +27,7 @@ cd /myflq/MyFLsite
 
 #Configuring databases and superuser with expect
 expect <<EOF
-spawn python3 manage.py syncdb
+spawn python3 manage.py migrate
 
 set timeout 60
 expect "(yes/no):" { send "yes\r" }
