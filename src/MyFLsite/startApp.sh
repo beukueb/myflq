@@ -25,12 +25,14 @@ mysql -uroot -proot <<EOF
 EOF
 cd /myflq/MyFLsite
 
-#Configuring databases and superuser with expect
+#Configuring Django database
+python3 manage.py migrate
+
+#Create Django  superuser with expect
 expect <<EOF
-spawn python3 manage.py migrate
+spawn python3 manage.py createsuperuser
 
 set timeout 60
-expect "(yes/no):" { send "yes\r" }
 expect "Username" { send "admin\r" }
 expect "Email" { send "admin@localhost\r" }
 expect "Password" { send "myfl1234admin\r" }
@@ -41,6 +43,7 @@ EOF
 #Taskmanager celery started with supervisord
 #python3 myflq/simple_tasks.py & #deprecated
 
+#TODO test script has issues from line 12 onwards
 #If 'test' argument passed, set up test user and analysis
 if [ "$1" == "test" ]; then
     python3 <<EOF
@@ -55,14 +58,13 @@ from django.test import Client
 User.objects.create_user(username='test', password='test')
 c = Client()
 c.login(username='test', password='test')
-response = c.post('/myflq/setup/', {'dbname': 'testdb','submitaction':'createdb'})
+with open('../loci/myflsite2_loci.csv','rb') as fpl, open('../alleles/myflqpaper_alleles.csv','rb') as fpa:
+    response = c.post('/myflq/setup/', {'dbname': 'testdb',
+                                        'submitaction':'addallelesfile',
+                                        'lociFile': fpl,'alleleFile': fpa})
+#Retrieve config number
 optionValue = [i for i in response.content.decode().split('\n')
                        if 'option' in i and '>testdb<' in i][0].split('"')[1]
-with open('../loci/myflsite2_loci.csv','rb') as fp:
-    response = c.post('/myflq/setup/', {'dbname': optionValue,'submitaction':'addlocifile','fileName': fp})
-with open('../alleles/myflqpaper_alleles.csv','rb') as fp:
-    c.post('/myflq/setup/', {'dbname': optionValue,'submitaction':'addallelesfile','alleleFile': fp})
-c.post('/myflq/setup/', {'dbname': optionValue,'submitaction':'commitdb'})
 with gzip.open('../testing/test_subsample_9947A.fastq.gz','rb') as fp:
     c.post('/myflq/analysis/', {'dbname': optionValue,
                                 'fastq': fp,

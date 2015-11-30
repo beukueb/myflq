@@ -3,16 +3,15 @@
 # VERSION 1.0
 # Execute with: docker build myflq.build
 
-FROM ubuntu:14.04
+FROM ubuntu:15.10
 MAINTAINER Christophe Van Neste, christophe.vanneste@ugent.be
 
 #Prepare
 RUN apt-get update
 
 #Set up database
-RUN echo 'mysql-server mysql-server/root_password password root' | debconf-set-selections && \
-    echo 'mysql-server mysql-server/root_password_again password root' | debconf-set-selections && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server
+RUN mysql_install_db
 #RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf #Will make it listen on any port to make it available outside of the container
 EXPOSE 3306
 
@@ -21,25 +20,16 @@ RUN apt-get -y install expect
 RUN apt-get -y install python3 python3-setuptools
 RUN apt-get install -y git libmysqlclient-dev python3-dev
 RUN apt-get install -y ipython3 python3-numpy
-RUN easy_install3 pymysql
-#Matplotlib dependencies => this section of the buildfile can break easily
-RUN apt-get install -y g++ libfreetype6-dev libpng-dev
-RUN easy_install3 python-dateutil six
-RUN easy_install3 -U distribute
 RUN apt-get install -y python3-matplotlib
-#RUN apt-get build-dep -y python-matplotlib
-#RUN easy_install3 -m matplotlib
-RUN easy_install3 matplotlib
+RUN easy_install3 pip
+RUN apt-get install -y g++ libfreetype6-dev libpng-dev
+RUN pip install distribute
 
 #Saxon => XSLT output
 RUN apt-get install -y openjdk-7-jre-headless
 RUN apt-get install -y libsaxonb-java
-#Previously needed the following workaround to get java running
-#after that section you could not use apt-get install any more due to dependencies issues from dpkg strategy
-#RUN mkdir /tmp/saxon && cd /tmp/saxon && apt-get download openjdk-7-jre-headless openjdk-7-jre && dpkg --force-all -i /tmp/saxon/* && rm /tmp/saxon/* && rmdir /tmp/saxon
 
 #MyFLsite dependencies
-RUN easy_install3 django celery Pillow
 RUN apt-get install -y rabbitmq-server
 RUN cd /tmp && git clone https://github.com/clelland/MySQL-for-Python-3.git && \
     cd MySQL-for-Python-3/ && \
@@ -61,6 +51,10 @@ ADD src/ /myflq
 
 #One file example
 #ADD ./MyFLq.py /myflq/
+
+#Pip dependencies
+RUN grep -v '#notindocker' /myflq/MyFLsite/requirements.txt > /myflq/MyFLsite/dockerments.txt
+RUN pip install -r /myflq/MyFLsite/dockerments.txt 
 
 #Programs
 ##Main entry for basebase
