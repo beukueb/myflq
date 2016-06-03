@@ -16,7 +16,7 @@ The datafile can be a single-individual-source or multiple-individual-source sam
 
 ## Options for running MyFLq
 ### Active sites
-[forensic.UGent.be](https://forensic.ugent.be)  
+[holmes.UGent.be](http://holmes.ugent.be:8088)  
 [BaseSpace](https://basespace.illumina.com/apps/174174/MyFLq)
 
 
@@ -126,8 +126,8 @@ Suggested steps:
 Click [here](https://basespace.illumina.com/s/0xvp6KW9GCfi) to get access to a project with forensic samples that can be used to try out MyFLq.
   
 
-##Workflow for forensic.UGent or a local MyFLq installation
-Go to [forensic.UGent.be](https://forensic.ugent.be) or start the app as described in the [Options for running MyFLq](https://github.com/beukueb/myflq#options-for-running-myflq) section.
+##Workflow for holmes.UGent.be or a local MyFLq installation
+Go to [holmes.UGent.be](http://holmes.ugent.be:8088) or start the app as described in the [Options for running MyFLq](https://github.com/beukueb/myflq#options-for-running-myflq) section.
 
 ###Register to create a user account
 To use the application, you need to register.  This will enable the system to keep track of your analyses.
